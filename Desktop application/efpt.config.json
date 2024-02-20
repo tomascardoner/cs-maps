@@ -1,0 +1,70 @@
+﻿{
+   "CodeGenerationMode": 4,
+   "ContextClassName": "CSMapsContext",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "ModelNamespace": null,
+   "OutputContextPath": null,
+   "OutputPath": "Models",
+   "PreserveCasingWithRegex": true,
+   "ProjectRootNamespace": "CSMaps",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 2,
+   "SelectedToBeGenerated": 0,
+   "T4TemplatePath": null,
+   "Tables": [
+      {
+         "Name": "[dbo].[Entidad]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Establecimiento]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Grupo]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[GrupoPunto]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Partido]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Punto]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PuntoDato]",
+         "ObjectType": 0
+      }
+   ],
+   "UiHint": "notebook-tomas.CSMaps.dbo",
+   "UncountableWords": null,
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": false,
+   "UseDateOnlyTimeOnly": true,
+   "UseDbContextSplitting": false,
+   "UseDecimalDataAnnotationForSprocResult": true,
+   "UseFluentApiOnly": true,
+   "UseHandleBars": false,
+   "UseHierarchyId": false,
+   "UseInflector": true,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UsePrefixNavigationNaming": false,
+   "UseSchemaFolders": false,
+   "UseSchemaNamespaces": false,
+   "UseSpatial": false,
+   "UseT4": false
+}

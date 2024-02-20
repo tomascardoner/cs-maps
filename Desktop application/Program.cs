@@ -2,6 +2,8 @@ namespace CSMaps
 {
     internal static class Program
     {
+        internal const string ApplicationTitle = "CS-Maps";
+
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
@@ -11,7 +13,7 @@ namespace CSMaps
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new FormImportar());
+            Application.Run(new FormImport());
         }
     }
 }
