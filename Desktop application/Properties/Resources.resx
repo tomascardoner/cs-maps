@@ -120,6 +120,9 @@
   <data name="StringDatabaseError" xml:space="preserve">
     <value>Error al acceder a la base de datos.</value>
   </data>
+  <data name="StringDatabasePasswordUnencryptionError" xml:space="preserve">
+    <value>No se pudo desencriptar la contraseña de la conexión a la base de datos.\n\n{0}</value>
+  </data>
   <data name="StringDatabaseSaveError" xml:space="preserve">
     <value>Error al guardar los cambios en la base de datos.</value>
   </data>

@@ -21,14 +21,21 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EfCore.SchemaCompare" Version="8.0.0" />
+    <PackageReference Include="EfCore.SchemaCompare" Version="8.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.2" />
     <PackageReference Include="SharpKml.Core" Version="6.0.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="CardonerSistemas.Framework.Base">
       <HintPath>..\..\..\CS-Framework.Net\CardonerSistemas.Framework.Base\bin\Debug\net8.0-windows\CardonerSistemas.Framework.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="CardonerSistemas.Framework.Cryptography">
+      <HintPath>..\..\..\CS-Framework.Net\CardonerSistemas.Framework.Cryptography\bin\Debug\net8.0-windows\CardonerSistemas.Framework.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="CardonerSistemas.Framework.Database">
+      <HintPath>..\..\..\CS-Framework.Net\CardonerSistemas.Framework.Database\bin\Debug\net8.0-windows\CardonerSistemas.Framework.Database.dll</HintPath>
     </Reference>
   </ItemGroup>
 
@@ -45,6 +52,15 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Config\Database.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Config\General.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

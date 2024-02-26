@@ -70,6 +70,15 @@ namespace CSMaps.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No se pudo desencriptar la contraseña de la conexión a la base de datos.\n\n{0}.
+        /// </summary>
+        internal static string StringDatabasePasswordUnencryptionError {
+            get {
+                return ResourceManager.GetString("StringDatabasePasswordUnencryptionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error al guardar los cambios en la base de datos..
         /// </summary>
         internal static string StringDatabaseSaveError {
