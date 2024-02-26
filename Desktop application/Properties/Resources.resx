@@ -132,11 +132,23 @@
   <data name="StringImportFileSuccesful" xml:space="preserve">
     <value>Se han importado {0} puntos.</value>
   </data>
+  <data name="StringImportUnknownFileInvalidContent" xml:space="preserve">
+    <value>El contenido del archivo no es el esperado.</value>
+  </data>
+  <data name="StringImportUnknownFileReadError" xml:space="preserve">
+    <value>Error al leer el archivo para detectar el formato.</value>
+  </data>
   <data name="StringKmlFileInvalidContent" xml:space="preserve">
     <value>El contenido del archivo .kml no tiene el formato esperado.</value>
   </data>
   <data name="StringKmlFileInvalidContentPlacemark" xml:space="preserve">
     <value>El contenido del archivo .kml no tiene el formato esperado en las etiquetas 'Placemark'.</value>
+  </data>
+  <data name="StringKmlFileOpenDialogFilter" xml:space="preserve">
+    <value>Archivos de Google Earth (*.kmz, *.kml)|*.kmz;*.kml|Todos los archivos (*.*)|*.*</value>
+  </data>
+  <data name="StringKmlFileOpenDialogTitle" xml:space="preserve">
+    <value>Seleccione el archivo de Google Earth</value>
   </data>
   <data name="StringKmlFileReadError" xml:space="preserve">
     <value>Error al leer el archivo .kml</value>

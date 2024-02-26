@@ -71,6 +71,7 @@
             ButtonGoogleEarthFile.TabIndex = 3;
             ButtonGoogleEarthFile.Text = "...";
             ButtonGoogleEarthFile.UseVisualStyleBackColor = true;
+            ButtonGoogleEarthFile.Click += this.ButtonGoogleEarthFile_Click;
             // 
             // ButtonStart
             // 

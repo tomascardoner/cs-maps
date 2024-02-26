@@ -106,6 +106,24 @@ namespace CSMaps.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to El contenido del archivo no es el esperado..
+        /// </summary>
+        internal static string StringImportUnknownFileInvalidContent {
+            get {
+                return ResourceManager.GetString("StringImportUnknownFileInvalidContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error al leer el archivo para detectar el formato..
+        /// </summary>
+        internal static string StringImportUnknownFileReadError {
+            get {
+                return ResourceManager.GetString("StringImportUnknownFileReadError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to El contenido del archivo .kml no tiene el formato esperado..
         /// </summary>
         internal static string StringKmlFileInvalidContent {
@@ -120,6 +138,24 @@ namespace CSMaps.Properties {
         internal static string StringKmlFileInvalidContentPlacemark {
             get {
                 return ResourceManager.GetString("StringKmlFileInvalidContentPlacemark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Archivos de Google Earth (*.kmz, *.kml)|*.kmz;*.kml|Todos los archivos (*.*)|*.*.
+        /// </summary>
+        internal static string StringKmlFileOpenDialogFilter {
+            get {
+                return ResourceManager.GetString("StringKmlFileOpenDialogFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Seleccione el archivo de Google Earth.
+        /// </summary>
+        internal static string StringKmlFileOpenDialogTitle {
+            get {
+                return ResourceManager.GetString("StringKmlFileOpenDialogTitle", resourceCulture);
             }
         }
         
