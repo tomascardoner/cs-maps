@@ -1,12 +1,10 @@
-﻿using CardonerSistemas.Framework.Base;
-using CardonerSistemas.Framework.Base.Configuration;
-
-namespace CSMaps
+﻿namespace CSMaps
 {
     static class Configuration
     {
         private const string ConfigSubFolder = "Config";
 
+        private const string AppearanceFileName = "Appearance.json";
         private const string DatabaseFileName = "Database.json";
         private const string GeneralFileName = "General.json";
 
@@ -16,16 +14,20 @@ namespace CSMaps
 
             ConfigFolder = Path.Combine(Application.StartupPath, ConfigSubFolder);
 
-            if (!Json.LoadFile(ConfigFolder, DatabaseFileName, ref Program.databaseConfig, true))
+            if (!CardonerSistemas.Framework.Base.Configuration.Json.LoadFile(ConfigFolder, AppearanceFileName, ref Program.AppearanceConfig, true))
             {
                 return false;
             }
-            if (!Json.LoadFile(ConfigFolder, GeneralFileName, ref Program.generalConfig, true))
+            if (!CardonerSistemas.Framework.Base.Configuration.Json.LoadFile(ConfigFolder, DatabaseFileName, ref Program.DatabaseConfig, true))
+            {
+                return false;
+            }
+            if (!CardonerSistemas.Framework.Base.Configuration.Json.LoadFile(ConfigFolder, GeneralFileName, ref Program.GeneralConfig, true))
             {
                 return false;
             }
 
-            Program.generalConfig.ReportsPath = FileSystem.ProcessPath(Program.generalConfig.ReportsPath);
+            Program.GeneralConfig.ReportsPath = CardonerSistemas.Framework.Base.FileSystem.ProcessPath(Program.GeneralConfig.ReportsPath);
 
             return true;
         }
@@ -35,7 +37,7 @@ namespace CSMaps
 
             ConfigFolder = Path.Combine(Application.StartupPath, ConfigSubFolder);
 
-            return Json.SaveFile(ConfigFolder, DatabaseFileName, ref Program.databaseConfig, true);
+            return CardonerSistemas.Framework.Base.Configuration.Json.SaveFile(ConfigFolder, DatabaseFileName, ref Program.DatabaseConfig, true);
         }
     }
 }

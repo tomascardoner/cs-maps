@@ -6,6 +6,8 @@ namespace CSMaps
 {
     public partial class FormImport : Form
     {
+        private readonly System.ComponentModel.ComponentResourceManager resources = new(typeof(FormImport));
+
         public FormImport()
         {
             InitializeComponent();
@@ -18,8 +20,8 @@ namespace CSMaps
             using OpenFileDialog ofdGoogleEarthFile = new()
             {
                 RestoreDirectory = true,
-                Title = Properties.Resources.StringKmlFileOpenDialogTitle,
-                Filter = Properties.Resources.StringKmlFileOpenDialogFilter,
+                Title = resources.GetString("StringKmlFileOpenDialogTitle"),
+                Filter = resources.GetString("StringKmlFileOpenDialogFilter"),
                 CheckPathExists = true,
                 CheckFileExists = true,
                 Multiselect = false
@@ -50,12 +52,12 @@ namespace CSMaps
         {
             if (TextBoxGoogleEarthFile.Text.Trim() == string.Empty)
             {
-                MessageBox.Show(Properties.Resources.StringImportFileNotSpecified, Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(resources.GetString("StringImportFileNotSpecified"), Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
             if (!Path.Exists(TextBoxGoogleEarthFile.Text.Trim()))
             {
-                MessageBox.Show(Properties.Resources.StringFileNotFound, Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(resources.GetString("StringFileNotFound"), Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
@@ -102,12 +104,12 @@ namespace CSMaps
                 }
                 else
                 {
-                    MessageBox.Show(Properties.Resources.StringImportUnknownFileInvalidContent, Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(resources.GetString("StringImportUnknownFileInvalidContent"), Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                Error.ProcessException(ex, Properties.Resources.StringImportUnknownFileReadError);
+                Error.ProcessException(ex, resources.GetString("StringImportUnknownFileReadError"));
             }
         }
 
@@ -125,7 +127,7 @@ namespace CSMaps
             catch (Exception ex)
             {
                 this.Cursor = Cursors.Default;
-                Error.ProcessException(ex, Properties.Resources.StringKmlFileReadError);
+                Error.ProcessException(ex, resources.GetString("StringKmlFileReadError"));
             }
         }
 
@@ -143,7 +145,7 @@ namespace CSMaps
             catch (Exception ex)
             {
                 this.Cursor = Cursors.Default;
-                Error.ProcessException(ex, Properties.Resources.StringKmlFileReadError);
+                Error.ProcessException(ex, resources.GetString("StringKmlFileReadError"));
             }
         }
 
@@ -156,7 +158,7 @@ namespace CSMaps
             if (rootElement == null)
             {
                 this.Cursor = Cursors.Default;
-                MessageBox.Show(Properties.Resources.StringKmlFileInvalidContent, Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(resources.GetString("StringKmlFileInvalidContent"), Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -178,7 +180,7 @@ namespace CSMaps
             catch (Exception ex)
             {
                 this.Cursor = Cursors.Default;
-                Error.ProcessException(ex, Properties.Resources.StringDatabaseError);
+                Error.ProcessException(ex, resources.GetString("StringDatabaseError"));
                 return;
             }
 
@@ -206,7 +208,7 @@ namespace CSMaps
             catch (Exception ex)
             {
                 this.Cursor = Cursors.Default;
-                Error.ProcessException(ex, Properties.Resources.StringKmlFileInvalidContentPlacemark);
+                Error.ProcessException(ex, resources.GetString("StringKmlFileInvalidContentPlacemark"));
                 return;
             }
 
@@ -217,14 +219,14 @@ namespace CSMaps
             catch (Exception ex)
             {
                 this.Cursor = Cursors.Default;
-                Error.ProcessException(ex, Properties.Resources.StringDatabaseSaveError);
+                Error.ProcessException(ex, resources.GetString("StringDatabaseSaveError"));
                 return;
             }
 
             this.Cursor = Cursors.Default;
             if (idPuntoNuevo - idPuntoUltimo > 0)
             {
-                MessageBox.Show(string.Format(Properties.Resources.StringImportFileSuccesful, idPuntoNuevo - idPuntoUltimo), Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(string.Format(resources.GetString("StringImportFileSuccesful"), idPuntoNuevo - idPuntoUltimo), Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

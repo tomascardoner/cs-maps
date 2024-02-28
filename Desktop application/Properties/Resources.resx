@@ -117,43 +117,80 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="ImageCancel16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Actions\ImageCancel16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ImageCancel32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Actions\ImageCancel32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ImageClose16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Actions\ImageClose16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ImageClose32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Actions\ImageClose32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ImageEntidad32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Misc\ImageEntidad32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ImageEstablecimiento32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Misc\ImageEstablecimiento32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ImageImport32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Misc\ImageImport32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ImageItemAdd32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Item\ImageItemAdd32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ImageItemCopy32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Item\ImageItemCopy32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ImageItemDelete32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Item\ImageItemDelete32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ImageItemEdit32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Item\ImageItemEdit32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ImageItemSelect32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Item\ImageItemSelect32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ImageItemView32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Item\ImageItemView32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ImageOk16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Actions\ImageOk16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ImageOk32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Actions\ImageOk32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ImagePunto32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Misc\ImagePunto32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ImageTablas32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Misc\ImageTablas32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ImageWindowCloseAll" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Misc\ImageWindowCloseAll.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="StringDatabaseError" xml:space="preserve">
     <value>Error al acceder a la base de datos.</value>
+  </data>
+  <data name="StringDatabaseItemsCountMany" xml:space="preserve">
+    <value>Se muestran {1} {0}.</value>
+  </data>
+  <data name="StringDatabaseItemsCountNone" xml:space="preserve">
+    <value>No hay {0} para mostrar.</value>
+  </data>
+  <data name="StringDatabaseItemsCountOne" xml:space="preserve">
+    <value>Se muestra 1 {0}.</value>
   </data>
   <data name="StringDatabasePasswordUnencryptionError" xml:space="preserve">
     <value>No se pudo desencriptar la contraseña de la conexión a la base de datos.\n\n{0}</value>
   </data>
+  <data name="StringDatabaseReadError" xml:space="preserve">
+    <value>Error al leer los datos desde la base.</value>
+  </data>
   <data name="StringDatabaseSaveError" xml:space="preserve">
     <value>Error al guardar los cambios en la base de datos.</value>
-  </data>
-  <data name="StringFileNotFound" xml:space="preserve">
-    <value>El archivo especificado no existe.</value>
-  </data>
-  <data name="StringImportFileNotSpecified" xml:space="preserve">
-    <value>Debe especificar el archivo que desea importar.</value>
-  </data>
-  <data name="StringImportFileSuccesful" xml:space="preserve">
-    <value>Se han importado {0} puntos.</value>
-  </data>
-  <data name="StringImportUnknownFileInvalidContent" xml:space="preserve">
-    <value>El contenido del archivo no es el esperado.</value>
-  </data>
-  <data name="StringImportUnknownFileReadError" xml:space="preserve">
-    <value>Error al leer el archivo para detectar el formato.</value>
-  </data>
-  <data name="StringKmlFileInvalidContent" xml:space="preserve">
-    <value>El contenido del archivo .kml no tiene el formato esperado.</value>
-  </data>
-  <data name="StringKmlFileInvalidContentPlacemark" xml:space="preserve">
-    <value>El contenido del archivo .kml no tiene el formato esperado en las etiquetas 'Placemark'.</value>
-  </data>
-  <data name="StringKmlFileOpenDialogFilter" xml:space="preserve">
-    <value>Archivos de Google Earth (*.kmz, *.kml)|*.kmz;*.kml|Todos los archivos (*.*)|*.*</value>
-  </data>
-  <data name="StringKmlFileOpenDialogTitle" xml:space="preserve">
-    <value>Seleccione el archivo de Google Earth</value>
-  </data>
-  <data name="StringKmlFileReadError" xml:space="preserve">
-    <value>Error al leer el archivo .kml</value>
   </data>
 </root>

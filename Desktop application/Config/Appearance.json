@@ -1,0 +1,18 @@
+{
+  "EnableVisualStyles": true,
+  "MinimumSplashScreenDisplaySeconds": 5,
+  "MdiFormMargin": 4,
+  "ShowLastLoggedInUser": true,
+  "UseCustomDialogForErrorMessage": true,
+  "FontName": "Microsoft Sans Serif",
+  "FontSize": 8.25,
+  "FontBold": false,
+  "GridRowBackColorValue": "Window",
+  "GridRowForeColorValue": "ControlText",
+  "GridRowSelectionBackColorValue": "Highlight",
+  "GridRowSelectionForeColorValue": "HighlightText",
+  "GridAlternateRowBackColorValue": "GradientActiveCaption",
+  "GridAlternateRowForeColorValue": "ControlText",
+  "GridAlternateRowSelectionBackColorValue": "Highlight",
+  "GridAlternateRowSelectionForeColorValue": "HighlightText"
+}

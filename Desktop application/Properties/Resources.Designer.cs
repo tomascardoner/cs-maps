@@ -61,11 +61,218 @@ namespace CSMaps.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ImageCancel16 {
+            get {
+                object obj = ResourceManager.GetObject("ImageCancel16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ImageCancel32 {
+            get {
+                object obj = ResourceManager.GetObject("ImageCancel32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ImageClose16 {
+            get {
+                object obj = ResourceManager.GetObject("ImageClose16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ImageClose32 {
+            get {
+                object obj = ResourceManager.GetObject("ImageClose32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ImageEntidad32 {
+            get {
+                object obj = ResourceManager.GetObject("ImageEntidad32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ImageEstablecimiento32 {
+            get {
+                object obj = ResourceManager.GetObject("ImageEstablecimiento32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ImageImport32 {
+            get {
+                object obj = ResourceManager.GetObject("ImageImport32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ImageItemAdd32 {
+            get {
+                object obj = ResourceManager.GetObject("ImageItemAdd32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ImageItemCopy32 {
+            get {
+                object obj = ResourceManager.GetObject("ImageItemCopy32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ImageItemDelete32 {
+            get {
+                object obj = ResourceManager.GetObject("ImageItemDelete32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ImageItemEdit32 {
+            get {
+                object obj = ResourceManager.GetObject("ImageItemEdit32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ImageItemSelect32 {
+            get {
+                object obj = ResourceManager.GetObject("ImageItemSelect32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ImageItemView32 {
+            get {
+                object obj = ResourceManager.GetObject("ImageItemView32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ImageOk16 {
+            get {
+                object obj = ResourceManager.GetObject("ImageOk16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ImageOk32 {
+            get {
+                object obj = ResourceManager.GetObject("ImageOk32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ImagePunto32 {
+            get {
+                object obj = ResourceManager.GetObject("ImagePunto32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ImageTablas32 {
+            get {
+                object obj = ResourceManager.GetObject("ImageTablas32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ImageWindowCloseAll {
+            get {
+                object obj = ResourceManager.GetObject("ImageWindowCloseAll", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error al acceder a la base de datos..
         /// </summary>
         internal static string StringDatabaseError {
             get {
                 return ResourceManager.GetString("StringDatabaseError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Se muestran {1} {0}..
+        /// </summary>
+        internal static string StringDatabaseItemsCountMany {
+            get {
+                return ResourceManager.GetString("StringDatabaseItemsCountMany", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No hay {0} para mostrar..
+        /// </summary>
+        internal static string StringDatabaseItemsCountNone {
+            get {
+                return ResourceManager.GetString("StringDatabaseItemsCountNone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Se muestra 1 {0}..
+        /// </summary>
+        internal static string StringDatabaseItemsCountOne {
+            get {
+                return ResourceManager.GetString("StringDatabaseItemsCountOne", resourceCulture);
             }
         }
         
@@ -79,101 +286,20 @@ namespace CSMaps.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error al leer los datos desde la base..
+        /// </summary>
+        internal static string StringDatabaseReadError {
+            get {
+                return ResourceManager.GetString("StringDatabaseReadError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error al guardar los cambios en la base de datos..
         /// </summary>
         internal static string StringDatabaseSaveError {
             get {
                 return ResourceManager.GetString("StringDatabaseSaveError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to El archivo especificado no existe..
-        /// </summary>
-        internal static string StringFileNotFound {
-            get {
-                return ResourceManager.GetString("StringFileNotFound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Debe especificar el archivo que desea importar..
-        /// </summary>
-        internal static string StringImportFileNotSpecified {
-            get {
-                return ResourceManager.GetString("StringImportFileNotSpecified", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Se han importado {0} puntos..
-        /// </summary>
-        internal static string StringImportFileSuccesful {
-            get {
-                return ResourceManager.GetString("StringImportFileSuccesful", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to El contenido del archivo no es el esperado..
-        /// </summary>
-        internal static string StringImportUnknownFileInvalidContent {
-            get {
-                return ResourceManager.GetString("StringImportUnknownFileInvalidContent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error al leer el archivo para detectar el formato..
-        /// </summary>
-        internal static string StringImportUnknownFileReadError {
-            get {
-                return ResourceManager.GetString("StringImportUnknownFileReadError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to El contenido del archivo .kml no tiene el formato esperado..
-        /// </summary>
-        internal static string StringKmlFileInvalidContent {
-            get {
-                return ResourceManager.GetString("StringKmlFileInvalidContent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to El contenido del archivo .kml no tiene el formato esperado en las etiquetas &apos;Placemark&apos;..
-        /// </summary>
-        internal static string StringKmlFileInvalidContentPlacemark {
-            get {
-                return ResourceManager.GetString("StringKmlFileInvalidContentPlacemark", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Archivos de Google Earth (*.kmz, *.kml)|*.kmz;*.kml|Todos los archivos (*.*)|*.*.
-        /// </summary>
-        internal static string StringKmlFileOpenDialogFilter {
-            get {
-                return ResourceManager.GetString("StringKmlFileOpenDialogFilter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Seleccione el archivo de Google Earth.
-        /// </summary>
-        internal static string StringKmlFileOpenDialogTitle {
-            get {
-                return ResourceManager.GetString("StringKmlFileOpenDialogTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error al leer el archivo .kml.
-        /// </summary>
-        internal static string StringKmlFileReadError {
-            get {
-                return ResourceManager.GetString("StringKmlFileReadError", resourceCulture);
             }
         }
     }

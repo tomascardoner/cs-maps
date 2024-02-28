@@ -1,13 +1,12 @@
-using CSMaps.Models;
-
 namespace CSMaps
 {
     internal static class Program
     {
         internal const string ApplicationTitle = "CS-Maps";
 
-        internal static GeneralConfig generalConfig;
-        internal static CardonerSistemas.Framework.Database.Ado.SqlServer.DatabaseConfig databaseConfig;
+        internal static AppearanceConfig AppearanceConfig;
+        internal static GeneralConfig GeneralConfig;
+        internal static CardonerSistemas.Framework.Database.Ado.SqlServer.DatabaseConfig DatabaseConfig;
 
         /// <summary>
         ///  The main entry point for the application.
@@ -27,7 +26,7 @@ namespace CSMaps
 
             // Obtengo el connection string para las conexiones de ADO .NET
             CardonerSistemas.Framework.Database.Ado.SqlServer database = new();
-            if (!database.SetProperties(databaseConfig.Datasource, databaseConfig.Database, databaseConfig.UserId, databaseConfig.Password, databaseConfig.ConnectTimeout, databaseConfig.ConnectRetryCount, databaseConfig.ConnectRetryInterval))
+            if (!database.SetProperties(DatabaseConfig.Datasource, DatabaseConfig.Database, DatabaseConfig.UserId, DatabaseConfig.Password, DatabaseConfig.ConnectTimeout, DatabaseConfig.ConnectRetryCount, DatabaseConfig.ConnectRetryInterval))
             {
                 return;
             }
@@ -37,9 +36,9 @@ namespace CSMaps
                 return;
             }
             database.CreateConnectionString();
-            CSMapsContext.ConnectionString = database.ConnectionString;
+            Models.CSMapsContext.ConnectionString = database.ConnectionString;
 
-            Application.Run(new FormImport());
+            Application.Run(new Main.FormMdi());
         }
     }
 }
