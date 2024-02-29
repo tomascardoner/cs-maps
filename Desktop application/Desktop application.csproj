@@ -7,9 +7,10 @@
     <Nullable>disable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <AssemblyName>CSMaps.exe</AssemblyName>
+    <AssemblyName>CSMaps</AssemblyName>
     <PlatformTarget>x64</PlatformTarget>
     <StartupObject>CSMaps.Program</StartupObject>
+    <ApplicationIcon>Resources\Application\IconApplication.ico</ApplicationIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -19,6 +20,10 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <IsPublishable>False</IsPublishable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Application\IconApplication.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="EfCore.SchemaCompare" Version="8.0.1" />

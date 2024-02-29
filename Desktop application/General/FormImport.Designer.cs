@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormImport));
             RadioButtonGoogleEarthFile = new RadioButton();
             LabelGoogleEarthFile = new Label();
             TextBoxGoogleEarthFile = new TextBox();
@@ -38,40 +37,57 @@
             // 
             // RadioButtonGoogleEarthFile
             // 
-            resources.ApplyResources(RadioButtonGoogleEarthFile, "RadioButtonGoogleEarthFile");
+            RadioButtonGoogleEarthFile.AutoSize = true;
             RadioButtonGoogleEarthFile.Checked = true;
+            RadioButtonGoogleEarthFile.Location = new Point(12, 12);
             RadioButtonGoogleEarthFile.Name = "RadioButtonGoogleEarthFile";
+            RadioButtonGoogleEarthFile.Size = new Size(225, 19);
+            RadioButtonGoogleEarthFile.TabIndex = 0;
             RadioButtonGoogleEarthFile.TabStop = true;
+            RadioButtonGoogleEarthFile.Text = "Puntos desde archivo de Google Earth";
             RadioButtonGoogleEarthFile.UseVisualStyleBackColor = true;
             // 
             // LabelGoogleEarthFile
             // 
-            resources.ApplyResources(LabelGoogleEarthFile, "LabelGoogleEarthFile");
+            LabelGoogleEarthFile.AutoSize = true;
+            LabelGoogleEarthFile.Location = new Point(38, 44);
             LabelGoogleEarthFile.Name = "LabelGoogleEarthFile";
+            LabelGoogleEarthFile.Size = new Size(51, 15);
+            LabelGoogleEarthFile.TabIndex = 1;
+            LabelGoogleEarthFile.Text = "Archivo:";
             // 
             // TextBoxGoogleEarthFile
             // 
-            resources.ApplyResources(TextBoxGoogleEarthFile, "TextBoxGoogleEarthFile");
+            TextBoxGoogleEarthFile.Location = new Point(95, 41);
             TextBoxGoogleEarthFile.Name = "TextBoxGoogleEarthFile";
+            TextBoxGoogleEarthFile.Size = new Size(657, 23);
+            TextBoxGoogleEarthFile.TabIndex = 2;
             // 
             // ButtonGoogleEarthFile
             // 
-            resources.ApplyResources(ButtonGoogleEarthFile, "ButtonGoogleEarthFile");
+            ButtonGoogleEarthFile.Location = new Point(758, 41);
             ButtonGoogleEarthFile.Name = "ButtonGoogleEarthFile";
+            ButtonGoogleEarthFile.Size = new Size(30, 23);
+            ButtonGoogleEarthFile.TabIndex = 3;
+            ButtonGoogleEarthFile.Text = "...";
             ButtonGoogleEarthFile.UseVisualStyleBackColor = true;
             ButtonGoogleEarthFile.Click += ButtonGoogleEarthFile_Click;
             // 
             // ButtonStart
             // 
-            resources.ApplyResources(ButtonStart, "ButtonStart");
+            ButtonStart.Location = new Point(695, 109);
             ButtonStart.Name = "ButtonStart";
+            ButtonStart.Size = new Size(93, 34);
+            ButtonStart.TabIndex = 4;
+            ButtonStart.Text = "Iniciar...";
             ButtonStart.UseVisualStyleBackColor = true;
             ButtonStart.Click += ButtonStart_Click;
             // 
             // FormImport
             // 
-            resources.ApplyResources(this, "$this");
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 155);
             Controls.Add(ButtonStart);
             Controls.Add(ButtonGoogleEarthFile);
             Controls.Add(TextBoxGoogleEarthFile);
@@ -81,6 +97,8 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "FormImport";
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Importar datos";
             FormClosed += FormImport_FormClosed;
             ResumeLayout(false);
             PerformLayout();

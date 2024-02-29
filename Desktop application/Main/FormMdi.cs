@@ -22,6 +22,7 @@ namespace CSMaps.Main
 
         private void SetAppearance()
         {
+            this.Icon = CardonerSistemas.Framework.Base.Graphics.GetIconFromBitmap(Properties.Resources.IconApplication.ToBitmap());
             this.Text = Program.ApplicationTitle;
         }
 

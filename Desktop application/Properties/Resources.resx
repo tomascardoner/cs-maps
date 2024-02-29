@@ -118,6 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="IconApplication" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Application\IconApplication.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="ImageCancel16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Actions\ImageCancel16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -138,6 +141,9 @@
   </data>
   <data name="ImageEstablecimiento32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Misc\ImageEstablecimiento32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ImageImport16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Misc\ImageImport16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ImageImport32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Misc\ImageImport32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -195,6 +201,36 @@
   </data>
   <data name="StringDatabaseSaveError" xml:space="preserve">
     <value>Error al guardar los cambios en la base de datos.</value>
+  </data>
+  <data name="StringFileNotFound" xml:space="preserve">
+    <value>El archivo especificado no existe.</value>
+  </data>
+  <data name="StringImportFileNotSpecified" xml:space="preserve">
+    <value>Debe especificar el archivo que desea importar.</value>
+  </data>
+  <data name="StringImportFileSuccesful" xml:space="preserve">
+    <value>Se han importado {0} puntos.</value>
+  </data>
+  <data name="StringImportUnknownFileInvalidContent" xml:space="preserve">
+    <value>El contenido del archivo no es el esperado.</value>
+  </data>
+  <data name="StringImportUnknownFileReadError" xml:space="preserve">
+    <value>Error al leer el archivo para detectar el formato.</value>
+  </data>
+  <data name="StringKmlFileInvalidContent" xml:space="preserve">
+    <value>El contenido del archivo .kml no tiene el formato esperado.</value>
+  </data>
+  <data name="StringKmlFileInvalidContentPlacemark" xml:space="preserve">
+    <value>El contenido del archivo .kml no tiene el formato esperado en las etiquetas 'Placemark'.</value>
+  </data>
+  <data name="StringKmlFileOpenDialogFilter" xml:space="preserve">
+    <value>Archivos de Google Earth (*.kmz, *.kml)|*.kmz;*.kml|Todos los archivos (*.*)|*.*</value>
+  </data>
+  <data name="StringKmlFileOpenDialogTitle" xml:space="preserve">
+    <value>Seleccione el archivo de Google Earth</value>
+  </data>
+  <data name="StringKmlFileReadError" xml:space="preserve">
+    <value>Error al leer el archivo .kml</value>
   </data>
   <data name="StringTextFilterTypeBegin" xml:space="preserve">
     <value>que comienzan con:</value>

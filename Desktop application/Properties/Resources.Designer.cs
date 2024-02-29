@@ -61,6 +61,16 @@ namespace CSMaps.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon IconApplication {
+            get {
+                object obj = ResourceManager.GetObject("IconApplication", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap ImageCancel16 {
@@ -126,6 +136,16 @@ namespace CSMaps.Properties {
         internal static System.Drawing.Bitmap ImageEstablecimiento32 {
             get {
                 object obj = ResourceManager.GetObject("ImageEstablecimiento32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ImageImport16 {
+            get {
+                object obj = ResourceManager.GetObject("ImageImport16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -310,6 +330,96 @@ namespace CSMaps.Properties {
         internal static string StringDatabaseSaveError {
             get {
                 return ResourceManager.GetString("StringDatabaseSaveError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El archivo especificado no existe..
+        /// </summary>
+        internal static string StringFileNotFound {
+            get {
+                return ResourceManager.GetString("StringFileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Debe especificar el archivo que desea importar..
+        /// </summary>
+        internal static string StringImportFileNotSpecified {
+            get {
+                return ResourceManager.GetString("StringImportFileNotSpecified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Se han importado {0} puntos..
+        /// </summary>
+        internal static string StringImportFileSuccesful {
+            get {
+                return ResourceManager.GetString("StringImportFileSuccesful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El contenido del archivo no es el esperado..
+        /// </summary>
+        internal static string StringImportUnknownFileInvalidContent {
+            get {
+                return ResourceManager.GetString("StringImportUnknownFileInvalidContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error al leer el archivo para detectar el formato..
+        /// </summary>
+        internal static string StringImportUnknownFileReadError {
+            get {
+                return ResourceManager.GetString("StringImportUnknownFileReadError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El contenido del archivo .kml no tiene el formato esperado..
+        /// </summary>
+        internal static string StringKmlFileInvalidContent {
+            get {
+                return ResourceManager.GetString("StringKmlFileInvalidContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El contenido del archivo .kml no tiene el formato esperado en las etiquetas &apos;Placemark&apos;..
+        /// </summary>
+        internal static string StringKmlFileInvalidContentPlacemark {
+            get {
+                return ResourceManager.GetString("StringKmlFileInvalidContentPlacemark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Archivos de Google Earth (*.kmz, *.kml)|*.kmz;*.kml|Todos los archivos (*.*)|*.*.
+        /// </summary>
+        internal static string StringKmlFileOpenDialogFilter {
+            get {
+                return ResourceManager.GetString("StringKmlFileOpenDialogFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Seleccione el archivo de Google Earth.
+        /// </summary>
+        internal static string StringKmlFileOpenDialogTitle {
+            get {
+                return ResourceManager.GetString("StringKmlFileOpenDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error al leer el archivo .kml.
+        /// </summary>
+        internal static string StringKmlFileReadError {
+            get {
+                return ResourceManager.GetString("StringKmlFileReadError", resourceCulture);
             }
         }
         
