@@ -33,6 +33,11 @@
             ToolStripButtonEdit = new ToolStripButton();
             ToolStripButtonDelete = new ToolStripButton();
             ToolStripLabelItemsCounter = new ToolStripLabel();
+            toolStripSeparator1 = new ToolStripSeparator();
+            ToolStripLabelFilter = new ToolStripLabel();
+            ToolStripComboBoxFilterType = new ToolStripComboBox();
+            ToolStripTextBoxFilter = new ToolStripTextBox();
+            ToolStripButtonFilterClear = new ToolStripButton();
             DataGridViewMain = new DataGridView();
             DataGridViewColumnNombre = new DataGridViewTextBoxColumn();
             DataGridViewColumnTelefonoMovil = new DataGridViewTextBoxColumn();
@@ -43,10 +48,10 @@
             // ToolStripMain
             // 
             ToolStripMain.GripStyle = ToolStripGripStyle.Hidden;
-            ToolStripMain.Items.AddRange(new ToolStripItem[] { ToolStripButtonAdd, ToolStripButtonEdit, ToolStripButtonDelete, ToolStripLabelItemsCounter });
+            ToolStripMain.Items.AddRange(new ToolStripItem[] { ToolStripButtonAdd, ToolStripButtonEdit, ToolStripButtonDelete, ToolStripLabelItemsCounter, toolStripSeparator1, ToolStripLabelFilter, ToolStripComboBoxFilterType, ToolStripTextBoxFilter, ToolStripButtonFilterClear });
             ToolStripMain.Location = new Point(0, 0);
             ToolStripMain.Name = "ToolStripMain";
-            ToolStripMain.Size = new Size(641, 39);
+            ToolStripMain.Size = new Size(730, 39);
             ToolStripMain.TabIndex = 0;
             // 
             // ToolStripButtonAdd
@@ -82,6 +87,43 @@
             ToolStripLabelItemsCounter.Name = "ToolStripLabelItemsCounter";
             ToolStripLabelItemsCounter.Size = new Size(0, 36);
             // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(6, 39);
+            // 
+            // ToolStripLabelFilter
+            // 
+            ToolStripLabelFilter.Name = "ToolStripLabelFilter";
+            ToolStripLabelFilter.Size = new Size(111, 36);
+            ToolStripLabelFilter.Text = "Filtrar por nombres:";
+            // 
+            // ToolStripComboBoxFilterType
+            // 
+            ToolStripComboBoxFilterType.DropDownStyle = ComboBoxStyle.DropDownList;
+            ToolStripComboBoxFilterType.Name = "ToolStripComboBoxFilterType";
+            ToolStripComboBoxFilterType.Size = new Size(121, 39);
+            ToolStripComboBoxFilterType.SelectedIndexChanged += ToolStripComboBoxFilterType_SelectedIndexChanged;
+            // 
+            // ToolStripTextBoxFilter
+            // 
+            ToolStripTextBoxFilter.MaxLength = 100;
+            ToolStripTextBoxFilter.Name = "ToolStripTextBoxFilter";
+            ToolStripTextBoxFilter.Size = new Size(150, 23);
+            ToolStripTextBoxFilter.Enter += ToolStripTextBoxSearch_Enter;
+            ToolStripTextBoxFilter.KeyPress += ToolStripTextBoxSearch_KeyPress;
+            // 
+            // ToolStripButtonFilterClear
+            // 
+            ToolStripButtonFilterClear.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            ToolStripButtonFilterClear.Image = Properties.Resources.ImageClose16;
+            ToolStripButtonFilterClear.ImageScaling = ToolStripItemImageScaling.None;
+            ToolStripButtonFilterClear.ImageTransparentColor = Color.Magenta;
+            ToolStripButtonFilterClear.Name = "ToolStripButtonFilterClear";
+            ToolStripButtonFilterClear.Size = new Size(23, 20);
+            ToolStripButtonFilterClear.ToolTipText = "Limpiar búsqueda";
+            ToolStripButtonFilterClear.Click += ToolStripButtonSearchClear_Click;
+            // 
             // DataGridViewMain
             // 
             DataGridViewMain.AllowUserToAddRows = false;
@@ -100,7 +142,7 @@
             DataGridViewMain.RowHeadersVisible = false;
             DataGridViewMain.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             DataGridViewMain.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            DataGridViewMain.Size = new Size(641, 294);
+            DataGridViewMain.Size = new Size(730, 294);
             DataGridViewMain.TabIndex = 1;
             DataGridViewMain.ColumnHeaderMouseClick += DataGridViewMain_ColumnHeaderMouseClick;
             DataGridViewMain.KeyPress += DataGridViewMain_KeyPress;
@@ -125,7 +167,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(641, 333);
+            ClientSize = new Size(730, 333);
             Controls.Add(DataGridViewMain);
             Controls.Add(ToolStripMain);
             FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -152,5 +194,10 @@
         private DataGridView DataGridViewMain;
         private DataGridViewTextBoxColumn DataGridViewColumnNombre;
         private DataGridViewTextBoxColumn DataGridViewColumnTelefonoMovil;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripLabel ToolStripLabelFilter;
+        private ToolStripTextBox ToolStripTextBoxFilter;
+        internal ToolStripButton ToolStripButtonFilterClear;
+        private ToolStripComboBox ToolStripComboBoxFilterType;
     }
 }

@@ -130,6 +130,9 @@
   <data name="ImageClose32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Actions\ImageClose32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ImageEntidad16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Misc\ImageEntidad16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="ImageEntidad32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Misc\ImageEntidad32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -192,5 +195,11 @@
   </data>
   <data name="StringDatabaseSaveError" xml:space="preserve">
     <value>Error al guardar los cambios en la base de datos.</value>
+  </data>
+  <data name="StringTextFilterTypeBegin" xml:space="preserve">
+    <value>que comienzan con:</value>
+  </data>
+  <data name="StringTextFilterTypeContains" xml:space="preserve">
+    <value>que contienen:</value>
   </data>
 </root>
