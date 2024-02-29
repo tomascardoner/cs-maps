@@ -8,6 +8,8 @@ namespace CSMaps
         internal static GeneralConfig GeneralConfig;
         internal static CardonerSistemas.Framework.Database.Ado.SqlServer.DatabaseConfig DatabaseConfig;
 
+        internal static Main.FormMdi formMdi;
+
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
@@ -38,7 +40,8 @@ namespace CSMaps
             database.CreateConnectionString();
             Models.CSMapsContext.ConnectionString = database.ConnectionString;
 
-            Application.Run(new Main.FormMdi());
+            formMdi = new();
+            Application.Run(formMdi);
         }
     }
 }

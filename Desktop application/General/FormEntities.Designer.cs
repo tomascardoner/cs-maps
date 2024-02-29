@@ -34,8 +34,8 @@
             ToolStripButtonDelete = new ToolStripButton();
             ToolStripLabelItemsCounter = new ToolStripLabel();
             DataGridViewMain = new DataGridView();
-            ColumnNombre = new DataGridViewTextBoxColumn();
-            ColumnTelefonoMovil = new DataGridViewTextBoxColumn();
+            DataGridViewColumnNombre = new DataGridViewTextBoxColumn();
+            DataGridViewColumnTelefonoMovil = new DataGridViewTextBoxColumn();
             ToolStripMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DataGridViewMain).BeginInit();
             SuspendLayout();
@@ -90,7 +90,7 @@
             DataGridViewMain.AllowUserToResizeRows = false;
             DataGridViewMain.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             DataGridViewMain.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            DataGridViewMain.Columns.AddRange(new DataGridViewColumn[] { ColumnNombre, ColumnTelefonoMovil });
+            DataGridViewMain.Columns.AddRange(new DataGridViewColumn[] { DataGridViewColumnNombre, DataGridViewColumnTelefonoMovil });
             DataGridViewMain.Dock = DockStyle.Fill;
             DataGridViewMain.EditMode = DataGridViewEditMode.EditProgrammatically;
             DataGridViewMain.Location = new Point(0, 39);
@@ -102,22 +102,24 @@
             DataGridViewMain.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             DataGridViewMain.Size = new Size(641, 294);
             DataGridViewMain.TabIndex = 1;
+            DataGridViewMain.ColumnHeaderMouseClick += DataGridViewMain_ColumnHeaderMouseClick;
+            DataGridViewMain.KeyPress += DataGridViewMain_KeyPress;
             // 
-            // ColumnNombre
+            // DataGridViewColumnNombre
             // 
-            ColumnNombre.DataPropertyName = "Nombre";
-            ColumnNombre.HeaderText = "Nombre";
-            ColumnNombre.Name = "ColumnNombre";
-            ColumnNombre.ReadOnly = true;
-            ColumnNombre.Width = 76;
+            DataGridViewColumnNombre.DataPropertyName = "Nombre";
+            DataGridViewColumnNombre.HeaderText = "Nombre";
+            DataGridViewColumnNombre.Name = "DataGridViewColumnNombre";
+            DataGridViewColumnNombre.ReadOnly = true;
+            DataGridViewColumnNombre.Width = 76;
             // 
-            // ColumnTelefonoMovil
+            // DataGridViewColumnTelefonoMovil
             // 
-            ColumnTelefonoMovil.DataPropertyName = "TelefonoMovil";
-            ColumnTelefonoMovil.HeaderText = "Teléfono móvil";
-            ColumnTelefonoMovil.Name = "ColumnTelefonoMovil";
-            ColumnTelefonoMovil.ReadOnly = true;
-            ColumnTelefonoMovil.Width = 110;
+            DataGridViewColumnTelefonoMovil.DataPropertyName = "TelefonoMovil";
+            DataGridViewColumnTelefonoMovil.HeaderText = "Teléfono móvil";
+            DataGridViewColumnTelefonoMovil.Name = "DataGridViewColumnTelefonoMovil";
+            DataGridViewColumnTelefonoMovil.ReadOnly = true;
+            DataGridViewColumnTelefonoMovil.Width = 110;
             // 
             // FormEntities
             // 
@@ -131,6 +133,8 @@
             MinimizeBox = false;
             Name = "FormEntities";
             Text = "Entidades";
+            FormClosed += FormEntities_FormClosed;
+            Load += FormEntities_Load;
             ToolStripMain.ResumeLayout(false);
             ToolStripMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)DataGridViewMain).EndInit();
@@ -146,7 +150,7 @@
         private ToolStripButton ToolStripButtonDelete;
         private ToolStripLabel ToolStripLabelItemsCounter;
         private DataGridView DataGridViewMain;
-        private DataGridViewTextBoxColumn ColumnNombre;
-        private DataGridViewTextBoxColumn ColumnTelefonoMovil;
+        private DataGridViewTextBoxColumn DataGridViewColumnNombre;
+        private DataGridViewTextBoxColumn DataGridViewColumnTelefonoMovil;
     }
 }

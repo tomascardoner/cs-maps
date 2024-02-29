@@ -37,12 +37,11 @@ namespace CSMaps.Main
         private void ToolStripButtonEntidades_Click(object sender, EventArgs e)
         {
             formEntities ??= new();
-            MostrarForm(formEntities);
+            ShowMdiForm(formEntities);
         }
         private void ToolStripButtonImport_Click(object sender, EventArgs e)
         {
-            formImport ??= new();
-            formImport.MdiParent = this;
+            formImport ??= new() { MdiParent = this };
             formImport.Show();
         }
 
@@ -50,7 +49,7 @@ namespace CSMaps.Main
 
         #region Extra stuff
 
-        private void MostrarForm(Form form)
+        private void ShowMdiForm(Form form)
         {
             Application.UseWaitCursor = true;
             this.Cursor = Cursors.WaitCursor;

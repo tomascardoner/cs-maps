@@ -81,6 +81,7 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "FormImport";
+            FormClosed += FormImport_FormClosed;
             ResumeLayout(false);
             PerformLayout();
         }

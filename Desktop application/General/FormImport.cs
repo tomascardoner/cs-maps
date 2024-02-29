@@ -6,12 +6,26 @@ namespace CSMaps
 {
     public partial class FormImport : Form
     {
+
+        #region Declarations
+
         private readonly System.ComponentModel.ComponentResourceManager resources = new(typeof(FormImport));
+
+        #endregion
+
+        #region Form stuff
 
         public FormImport()
         {
             InitializeComponent();
         }
+
+        private void FormImport_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Program.formMdi.formImport = null;
+        }
+
+        #endregion
 
         #region Controls events
 
