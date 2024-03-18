@@ -28,116 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewMain = new DataGridView();
+            DataGridViewColumnNombre = new DataGridViewTextBoxColumn();
+            DataGridViewColumnEntidad = new DataGridViewTextBoxColumn();
+            DataGridViewColumnTelefonoMovil = new DataGridViewTextBoxColumn();
+            FlowLayoutPanelToolbars = new FlowLayoutPanel();
             ToolStripMain = new ToolStrip();
             ToolStripButtonAdd = new ToolStripButton();
             ToolStripButtonView = new ToolStripButton();
             ToolStripButtonEdit = new ToolStripButton();
             ToolStripButtonDelete = new ToolStripButton();
             ToolStripLabelItemsCounter = new ToolStripLabel();
-            toolStripSeparator1 = new ToolStripSeparator();
+            ToolStripNamesFilter = new ToolStrip();
             ToolStripLabelFilter = new ToolStripLabel();
             ToolStripComboBoxFilterType = new ToolStripComboBox();
             ToolStripTextBoxFilter = new ToolStripTextBox();
             ToolStripButtonFilterClear = new ToolStripButton();
-            DataGridViewMain = new DataGridView();
-            DataGridViewColumnNombre = new DataGridViewTextBoxColumn();
-            DataGridViewColumnEntidad = new DataGridViewTextBoxColumn();
-            DataGridViewColumnTelefonoMovil = new DataGridViewTextBoxColumn();
-            ToolStripMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DataGridViewMain).BeginInit();
+            FlowLayoutPanelToolbars.SuspendLayout();
+            ToolStripMain.SuspendLayout();
+            ToolStripNamesFilter.SuspendLayout();
             SuspendLayout();
-            // 
-            // ToolStripMain
-            // 
-            ToolStripMain.GripStyle = ToolStripGripStyle.Hidden;
-            ToolStripMain.Items.AddRange(new ToolStripItem[] { ToolStripButtonAdd, ToolStripButtonView, ToolStripButtonEdit, ToolStripButtonDelete, ToolStripLabelItemsCounter, toolStripSeparator1, ToolStripLabelFilter, ToolStripComboBoxFilterType, ToolStripTextBoxFilter, ToolStripButtonFilterClear });
-            ToolStripMain.Location = new Point(0, 0);
-            ToolStripMain.Name = "ToolStripMain";
-            ToolStripMain.Size = new Size(730, 39);
-            ToolStripMain.TabIndex = 0;
-            // 
-            // ToolStripButtonAdd
-            // 
-            ToolStripButtonAdd.Image = Properties.Resources.ImageItemAdd32;
-            ToolStripButtonAdd.ImageScaling = ToolStripItemImageScaling.None;
-            ToolStripButtonAdd.ImageTransparentColor = Color.Magenta;
-            ToolStripButtonAdd.Name = "ToolStripButtonAdd";
-            ToolStripButtonAdd.Size = new Size(85, 36);
-            ToolStripButtonAdd.Text = "Agregar";
-            ToolStripButtonAdd.Click += ToolStripButtonAdd_Click;
-            // 
-            // ToolStripButtonView
-            // 
-            ToolStripButtonView.Image = Properties.Resources.ImageItemView32;
-            ToolStripButtonView.ImageScaling = ToolStripItemImageScaling.None;
-            ToolStripButtonView.ImageTransparentColor = Color.Magenta;
-            ToolStripButtonView.Name = "ToolStripButtonView";
-            ToolStripButtonView.Size = new Size(59, 36);
-            ToolStripButtonView.Text = "Ver";
-            ToolStripButtonView.Click += ToolStripButtonView_Click;
-            // 
-            // ToolStripButtonEdit
-            // 
-            ToolStripButtonEdit.Image = Properties.Resources.ImageItemEdit32;
-            ToolStripButtonEdit.ImageScaling = ToolStripItemImageScaling.None;
-            ToolStripButtonEdit.ImageTransparentColor = Color.Magenta;
-            ToolStripButtonEdit.Name = "ToolStripButtonEdit";
-            ToolStripButtonEdit.Size = new Size(73, 36);
-            ToolStripButtonEdit.Text = "Editar";
-            ToolStripButtonEdit.Click += ToolStripButtonEdit_Click;
-            // 
-            // ToolStripButtonDelete
-            // 
-            ToolStripButtonDelete.Image = Properties.Resources.ImageItemDelete32;
-            ToolStripButtonDelete.ImageScaling = ToolStripItemImageScaling.None;
-            ToolStripButtonDelete.ImageTransparentColor = Color.Magenta;
-            ToolStripButtonDelete.Name = "ToolStripButtonDelete";
-            ToolStripButtonDelete.Size = new Size(75, 36);
-            ToolStripButtonDelete.Text = "Borrar";
-            ToolStripButtonDelete.Click += ToolStripButtonDelete_Click;
-            // 
-            // ToolStripLabelItemsCounter
-            // 
-            ToolStripLabelItemsCounter.Alignment = ToolStripItemAlignment.Right;
-            ToolStripLabelItemsCounter.Name = "ToolStripLabelItemsCounter";
-            ToolStripLabelItemsCounter.Size = new Size(0, 36);
-            // 
-            // toolStripSeparator1
-            // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(6, 39);
-            // 
-            // ToolStripLabelFilter
-            // 
-            ToolStripLabelFilter.Name = "ToolStripLabelFilter";
-            ToolStripLabelFilter.Size = new Size(111, 36);
-            ToolStripLabelFilter.Text = "Filtrar por nombres:";
-            // 
-            // ToolStripComboBoxFilterType
-            // 
-            ToolStripComboBoxFilterType.DropDownStyle = ComboBoxStyle.DropDownList;
-            ToolStripComboBoxFilterType.Name = "ToolStripComboBoxFilterType";
-            ToolStripComboBoxFilterType.Size = new Size(121, 39);
-            ToolStripComboBoxFilterType.SelectedIndexChanged += ToolStripComboBoxFilterType_SelectedIndexChanged;
-            // 
-            // ToolStripTextBoxFilter
-            // 
-            ToolStripTextBoxFilter.MaxLength = 100;
-            ToolStripTextBoxFilter.Name = "ToolStripTextBoxFilter";
-            ToolStripTextBoxFilter.Size = new Size(150, 39);
-            ToolStripTextBoxFilter.Enter += ToolStripTextBoxSearch_Enter;
-            ToolStripTextBoxFilter.KeyPress += ToolStripTextBoxSearch_KeyPress;
-            // 
-            // ToolStripButtonFilterClear
-            // 
-            ToolStripButtonFilterClear.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            ToolStripButtonFilterClear.Image = Properties.Resources.ImageClose16;
-            ToolStripButtonFilterClear.ImageScaling = ToolStripItemImageScaling.None;
-            ToolStripButtonFilterClear.ImageTransparentColor = Color.Magenta;
-            ToolStripButtonFilterClear.Name = "ToolStripButtonFilterClear";
-            ToolStripButtonFilterClear.Size = new Size(23, 36);
-            ToolStripButtonFilterClear.ToolTipText = "Limpiar búsqueda";
-            ToolStripButtonFilterClear.Click += ToolStripButtonSearchClear_Click;
             // 
             // DataGridViewMain
             // 
@@ -187,13 +98,124 @@
             DataGridViewColumnTelefonoMovil.ReadOnly = true;
             DataGridViewColumnTelefonoMovil.Width = 110;
             // 
+            // FlowLayoutPanelToolbars
+            // 
+            FlowLayoutPanelToolbars.AutoSize = true;
+            FlowLayoutPanelToolbars.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            FlowLayoutPanelToolbars.Controls.Add(ToolStripMain);
+            FlowLayoutPanelToolbars.Controls.Add(ToolStripNamesFilter);
+            FlowLayoutPanelToolbars.Dock = DockStyle.Top;
+            FlowLayoutPanelToolbars.Location = new Point(0, 0);
+            FlowLayoutPanelToolbars.Margin = new Padding(4, 3, 4, 3);
+            FlowLayoutPanelToolbars.Name = "FlowLayoutPanelToolbars";
+            FlowLayoutPanelToolbars.Size = new Size(730, 39);
+            FlowLayoutPanelToolbars.TabIndex = 3;
+            // 
+            // ToolStripMain
+            // 
+            ToolStripMain.Dock = DockStyle.Fill;
+            ToolStripMain.GripStyle = ToolStripGripStyle.Hidden;
+            ToolStripMain.Items.AddRange(new ToolStripItem[] { ToolStripButtonAdd, ToolStripButtonView, ToolStripButtonEdit, ToolStripButtonDelete, ToolStripLabelItemsCounter });
+            ToolStripMain.Location = new Point(0, 0);
+            ToolStripMain.Name = "ToolStripMain";
+            ToolStripMain.Size = new Size(295, 39);
+            ToolStripMain.TabIndex = 0;
+            // 
+            // ToolStripButtonAdd
+            // 
+            ToolStripButtonAdd.Image = Properties.Resources.ImageItemAdd32;
+            ToolStripButtonAdd.ImageScaling = ToolStripItemImageScaling.None;
+            ToolStripButtonAdd.ImageTransparentColor = Color.Magenta;
+            ToolStripButtonAdd.Name = "ToolStripButtonAdd";
+            ToolStripButtonAdd.Size = new Size(85, 36);
+            ToolStripButtonAdd.Text = "Agregar";
+            ToolStripButtonAdd.Click += ToolStripButtonAdd_Click;
+            // 
+            // ToolStripButtonView
+            // 
+            ToolStripButtonView.Image = Properties.Resources.ImageItemView32;
+            ToolStripButtonView.ImageScaling = ToolStripItemImageScaling.None;
+            ToolStripButtonView.ImageTransparentColor = Color.Magenta;
+            ToolStripButtonView.Name = "ToolStripButtonView";
+            ToolStripButtonView.Size = new Size(59, 36);
+            ToolStripButtonView.Text = "Ver";
+            ToolStripButtonView.Click += ToolStripButtonView_Click;
+            // 
+            // ToolStripButtonEdit
+            // 
+            ToolStripButtonEdit.Image = Properties.Resources.ImageItemEdit32;
+            ToolStripButtonEdit.ImageScaling = ToolStripItemImageScaling.None;
+            ToolStripButtonEdit.ImageTransparentColor = Color.Magenta;
+            ToolStripButtonEdit.Name = "ToolStripButtonEdit";
+            ToolStripButtonEdit.Size = new Size(73, 36);
+            ToolStripButtonEdit.Text = "Editar";
+            ToolStripButtonEdit.Click += ToolStripButtonEdit_Click;
+            // 
+            // ToolStripButtonDelete
+            // 
+            ToolStripButtonDelete.Image = Properties.Resources.ImageItemDelete32;
+            ToolStripButtonDelete.ImageScaling = ToolStripItemImageScaling.None;
+            ToolStripButtonDelete.ImageTransparentColor = Color.Magenta;
+            ToolStripButtonDelete.Name = "ToolStripButtonDelete";
+            ToolStripButtonDelete.Size = new Size(75, 36);
+            ToolStripButtonDelete.Text = "Borrar";
+            ToolStripButtonDelete.Click += ToolStripButtonDelete_Click;
+            // 
+            // ToolStripLabelItemsCounter
+            // 
+            ToolStripLabelItemsCounter.Alignment = ToolStripItemAlignment.Right;
+            ToolStripLabelItemsCounter.Name = "ToolStripLabelItemsCounter";
+            ToolStripLabelItemsCounter.Size = new Size(0, 36);
+            // 
+            // ToolStripNamesFilter
+            // 
+            ToolStripNamesFilter.Dock = DockStyle.Fill;
+            ToolStripNamesFilter.GripStyle = ToolStripGripStyle.Hidden;
+            ToolStripNamesFilter.Items.AddRange(new ToolStripItem[] { ToolStripLabelFilter, ToolStripComboBoxFilterType, ToolStripTextBoxFilter, ToolStripButtonFilterClear });
+            ToolStripNamesFilter.Location = new Point(295, 0);
+            ToolStripNamesFilter.Name = "ToolStripNamesFilter";
+            ToolStripNamesFilter.Size = new Size(412, 39);
+            ToolStripNamesFilter.TabIndex = 1;
+            // 
+            // ToolStripLabelFilter
+            // 
+            ToolStripLabelFilter.Name = "ToolStripLabelFilter";
+            ToolStripLabelFilter.Size = new Size(111, 36);
+            ToolStripLabelFilter.Text = "Filtrar por nombres:";
+            // 
+            // ToolStripComboBoxFilterType
+            // 
+            ToolStripComboBoxFilterType.DropDownStyle = ComboBoxStyle.DropDownList;
+            ToolStripComboBoxFilterType.Name = "ToolStripComboBoxFilterType";
+            ToolStripComboBoxFilterType.Size = new Size(121, 39);
+            ToolStripComboBoxFilterType.SelectedIndexChanged += ToolStripComboBoxFilterType_SelectedIndexChanged;
+            // 
+            // ToolStripTextBoxFilter
+            // 
+            ToolStripTextBoxFilter.MaxLength = 100;
+            ToolStripTextBoxFilter.Name = "ToolStripTextBoxFilter";
+            ToolStripTextBoxFilter.Size = new Size(150, 39);
+            ToolStripTextBoxFilter.Enter += ToolStripTextBoxSearch_Enter;
+            ToolStripTextBoxFilter.KeyPress += ToolStripTextBoxSearch_KeyPress;
+            // 
+            // ToolStripButtonFilterClear
+            // 
+            ToolStripButtonFilterClear.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            ToolStripButtonFilterClear.Image = Properties.Resources.ImageClose16;
+            ToolStripButtonFilterClear.ImageScaling = ToolStripItemImageScaling.None;
+            ToolStripButtonFilterClear.ImageTransparentColor = Color.Magenta;
+            ToolStripButtonFilterClear.Name = "ToolStripButtonFilterClear";
+            ToolStripButtonFilterClear.Size = new Size(23, 36);
+            ToolStripButtonFilterClear.ToolTipText = "Limpiar búsqueda";
+            ToolStripButtonFilterClear.Click += ToolStripButtonSearchClear_Click;
+            // 
             // FormSettlements
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(730, 333);
             Controls.Add(DataGridViewMain);
-            Controls.Add(ToolStripMain);
+            Controls.Add(FlowLayoutPanelToolbars);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
@@ -201,29 +223,33 @@
             Text = "Establecimientos";
             FormClosed += This_FormClosed;
             Load += This_Load;
+            ((System.ComponentModel.ISupportInitialize)DataGridViewMain).EndInit();
+            FlowLayoutPanelToolbars.ResumeLayout(false);
+            FlowLayoutPanelToolbars.PerformLayout();
             ToolStripMain.ResumeLayout(false);
             ToolStripMain.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)DataGridViewMain).EndInit();
+            ToolStripNamesFilter.ResumeLayout(false);
+            ToolStripNamesFilter.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private ToolStrip ToolStripMain;
-        private ToolStripButton ToolStripButtonAdd;
-        private ToolStripButton ToolStripButtonEdit;
-        private ToolStripButton ToolStripButtonDelete;
-        private ToolStripLabel ToolStripLabelItemsCounter;
         private DataGridView DataGridViewMain;
-        private ToolStripSeparator toolStripSeparator1;
-        private ToolStripLabel ToolStripLabelFilter;
-        private ToolStripTextBox ToolStripTextBoxFilter;
-        internal ToolStripButton ToolStripButtonFilterClear;
-        private ToolStripComboBox ToolStripComboBoxFilterType;
-        private ToolStripButton ToolStripButtonView;
         private DataGridViewTextBoxColumn DataGridViewColumnNombre;
         private DataGridViewTextBoxColumn DataGridViewColumnEntidad;
         private DataGridViewTextBoxColumn DataGridViewColumnTelefonoMovil;
+        private FlowLayoutPanel FlowLayoutPanelToolbars;
+        private ToolStrip ToolStripMain;
+        private ToolStripButton ToolStripButtonAdd;
+        private ToolStripButton ToolStripButtonView;
+        private ToolStripButton ToolStripButtonEdit;
+        private ToolStripButton ToolStripButtonDelete;
+        private ToolStripLabel ToolStripLabelItemsCounter;
+        private ToolStrip ToolStripNamesFilter;
+        private ToolStripLabel ToolStripLabelFilter;
+        private ToolStripComboBox ToolStripComboBoxFilterType;
+        private ToolStripTextBox ToolStripTextBoxFilter;
+        internal ToolStripButton ToolStripButtonFilterClear;
     }
 }

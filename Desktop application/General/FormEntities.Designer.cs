@@ -34,25 +34,29 @@
             ToolStripButtonEdit = new ToolStripButton();
             ToolStripButtonDelete = new ToolStripButton();
             ToolStripLabelItemsCounter = new ToolStripLabel();
-            toolStripSeparator1 = new ToolStripSeparator();
+            DataGridViewMain = new DataGridView();
+            DataGridViewColumnNombre = new DataGridViewTextBoxColumn();
+            DataGridViewColumnTelefonoMovil = new DataGridViewTextBoxColumn();
+            FlowLayoutPanelToolbars = new FlowLayoutPanel();
+            ToolStripNamesFilter = new ToolStrip();
             ToolStripLabelFilter = new ToolStripLabel();
             ToolStripComboBoxFilterType = new ToolStripComboBox();
             ToolStripTextBoxFilter = new ToolStripTextBox();
             ToolStripButtonFilterClear = new ToolStripButton();
-            DataGridViewMain = new DataGridView();
-            DataGridViewColumnNombre = new DataGridViewTextBoxColumn();
-            DataGridViewColumnTelefonoMovil = new DataGridViewTextBoxColumn();
             ToolStripMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DataGridViewMain).BeginInit();
+            FlowLayoutPanelToolbars.SuspendLayout();
+            ToolStripNamesFilter.SuspendLayout();
             SuspendLayout();
             // 
             // ToolStripMain
             // 
+            ToolStripMain.Dock = DockStyle.Fill;
             ToolStripMain.GripStyle = ToolStripGripStyle.Hidden;
-            ToolStripMain.Items.AddRange(new ToolStripItem[] { ToolStripButtonAdd, ToolStripButtonView, ToolStripButtonEdit, ToolStripButtonDelete, ToolStripLabelItemsCounter, toolStripSeparator1, ToolStripLabelFilter, ToolStripComboBoxFilterType, ToolStripTextBoxFilter, ToolStripButtonFilterClear });
+            ToolStripMain.Items.AddRange(new ToolStripItem[] { ToolStripButtonAdd, ToolStripButtonView, ToolStripButtonEdit, ToolStripButtonDelete, ToolStripLabelItemsCounter });
             ToolStripMain.Location = new Point(0, 0);
             ToolStripMain.Name = "ToolStripMain";
-            ToolStripMain.Size = new Size(730, 39);
+            ToolStripMain.Size = new Size(295, 39);
             ToolStripMain.TabIndex = 0;
             // 
             // ToolStripButtonAdd
@@ -101,10 +105,68 @@
             ToolStripLabelItemsCounter.Name = "ToolStripLabelItemsCounter";
             ToolStripLabelItemsCounter.Size = new Size(0, 36);
             // 
-            // toolStripSeparator1
+            // DataGridViewMain
             // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(6, 39);
+            DataGridViewMain.AllowUserToAddRows = false;
+            DataGridViewMain.AllowUserToDeleteRows = false;
+            DataGridViewMain.AllowUserToResizeColumns = false;
+            DataGridViewMain.AllowUserToResizeRows = false;
+            DataGridViewMain.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            DataGridViewMain.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            DataGridViewMain.Columns.AddRange(new DataGridViewColumn[] { DataGridViewColumnNombre, DataGridViewColumnTelefonoMovil });
+            DataGridViewMain.Dock = DockStyle.Fill;
+            DataGridViewMain.EditMode = DataGridViewEditMode.EditProgrammatically;
+            DataGridViewMain.Location = new Point(0, 39);
+            DataGridViewMain.MultiSelect = false;
+            DataGridViewMain.Name = "DataGridViewMain";
+            DataGridViewMain.ReadOnly = true;
+            DataGridViewMain.RowHeadersVisible = false;
+            DataGridViewMain.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            DataGridViewMain.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            DataGridViewMain.Size = new Size(910, 294);
+            DataGridViewMain.TabIndex = 1;
+            DataGridViewMain.ColumnHeaderMouseClick += DataGridViewMain_ColumnHeaderMouseClick;
+            DataGridViewMain.DoubleClick += ToolStripButtonView_Click;
+            DataGridViewMain.KeyPress += DataGridViewMain_KeyPress;
+            // 
+            // DataGridViewColumnNombre
+            // 
+            DataGridViewColumnNombre.DataPropertyName = "Nombre";
+            DataGridViewColumnNombre.HeaderText = "Nombre";
+            DataGridViewColumnNombre.Name = "DataGridViewColumnNombre";
+            DataGridViewColumnNombre.ReadOnly = true;
+            DataGridViewColumnNombre.Width = 76;
+            // 
+            // DataGridViewColumnTelefonoMovil
+            // 
+            DataGridViewColumnTelefonoMovil.DataPropertyName = "TelefonoMovil";
+            DataGridViewColumnTelefonoMovil.HeaderText = "Teléfono móvil";
+            DataGridViewColumnTelefonoMovil.Name = "DataGridViewColumnTelefonoMovil";
+            DataGridViewColumnTelefonoMovil.ReadOnly = true;
+            DataGridViewColumnTelefonoMovil.Width = 110;
+            // 
+            // FlowLayoutPanelToolbars
+            // 
+            FlowLayoutPanelToolbars.AutoSize = true;
+            FlowLayoutPanelToolbars.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            FlowLayoutPanelToolbars.Controls.Add(ToolStripMain);
+            FlowLayoutPanelToolbars.Controls.Add(ToolStripNamesFilter);
+            FlowLayoutPanelToolbars.Dock = DockStyle.Top;
+            FlowLayoutPanelToolbars.Location = new Point(0, 0);
+            FlowLayoutPanelToolbars.Margin = new Padding(4, 3, 4, 3);
+            FlowLayoutPanelToolbars.Name = "FlowLayoutPanelToolbars";
+            FlowLayoutPanelToolbars.Size = new Size(910, 39);
+            FlowLayoutPanelToolbars.TabIndex = 2;
+            // 
+            // ToolStripNamesFilter
+            // 
+            ToolStripNamesFilter.Dock = DockStyle.Fill;
+            ToolStripNamesFilter.GripStyle = ToolStripGripStyle.Hidden;
+            ToolStripNamesFilter.Items.AddRange(new ToolStripItem[] { ToolStripLabelFilter, ToolStripComboBoxFilterType, ToolStripTextBoxFilter, ToolStripButtonFilterClear });
+            ToolStripNamesFilter.Location = new Point(295, 0);
+            ToolStripNamesFilter.Name = "ToolStripNamesFilter";
+            ToolStripNamesFilter.Size = new Size(412, 39);
+            ToolStripNamesFilter.TabIndex = 1;
             // 
             // ToolStripLabelFilter
             // 
@@ -138,53 +200,13 @@
             ToolStripButtonFilterClear.ToolTipText = "Limpiar búsqueda";
             ToolStripButtonFilterClear.Click += ToolStripButtonSearchClear_Click;
             // 
-            // DataGridViewMain
-            // 
-            DataGridViewMain.AllowUserToAddRows = false;
-            DataGridViewMain.AllowUserToDeleteRows = false;
-            DataGridViewMain.AllowUserToResizeColumns = false;
-            DataGridViewMain.AllowUserToResizeRows = false;
-            DataGridViewMain.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            DataGridViewMain.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            DataGridViewMain.Columns.AddRange(new DataGridViewColumn[] { DataGridViewColumnNombre, DataGridViewColumnTelefonoMovil });
-            DataGridViewMain.Dock = DockStyle.Fill;
-            DataGridViewMain.EditMode = DataGridViewEditMode.EditProgrammatically;
-            DataGridViewMain.Location = new Point(0, 39);
-            DataGridViewMain.MultiSelect = false;
-            DataGridViewMain.Name = "DataGridViewMain";
-            DataGridViewMain.ReadOnly = true;
-            DataGridViewMain.RowHeadersVisible = false;
-            DataGridViewMain.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            DataGridViewMain.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            DataGridViewMain.Size = new Size(730, 294);
-            DataGridViewMain.TabIndex = 1;
-            DataGridViewMain.ColumnHeaderMouseClick += DataGridViewMain_ColumnHeaderMouseClick;
-            DataGridViewMain.DoubleClick += ToolStripButtonView_Click;
-            DataGridViewMain.KeyPress += DataGridViewMain_KeyPress;
-            // 
-            // DataGridViewColumnNombre
-            // 
-            DataGridViewColumnNombre.DataPropertyName = "Nombre";
-            DataGridViewColumnNombre.HeaderText = "Nombre";
-            DataGridViewColumnNombre.Name = "DataGridViewColumnNombre";
-            DataGridViewColumnNombre.ReadOnly = true;
-            DataGridViewColumnNombre.Width = 76;
-            // 
-            // DataGridViewColumnTelefonoMovil
-            // 
-            DataGridViewColumnTelefonoMovil.DataPropertyName = "TelefonoMovil";
-            DataGridViewColumnTelefonoMovil.HeaderText = "Teléfono móvil";
-            DataGridViewColumnTelefonoMovil.Name = "DataGridViewColumnTelefonoMovil";
-            DataGridViewColumnTelefonoMovil.ReadOnly = true;
-            DataGridViewColumnTelefonoMovil.Width = 110;
-            // 
             // FormEntities
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(730, 333);
+            ClientSize = new Size(910, 333);
             Controls.Add(DataGridViewMain);
-            Controls.Add(ToolStripMain);
+            Controls.Add(FlowLayoutPanelToolbars);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
@@ -195,6 +217,10 @@
             ToolStripMain.ResumeLayout(false);
             ToolStripMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)DataGridViewMain).EndInit();
+            FlowLayoutPanelToolbars.ResumeLayout(false);
+            FlowLayoutPanelToolbars.PerformLayout();
+            ToolStripNamesFilter.ResumeLayout(false);
+            ToolStripNamesFilter.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -209,11 +235,12 @@
         private DataGridView DataGridViewMain;
         private DataGridViewTextBoxColumn DataGridViewColumnNombre;
         private DataGridViewTextBoxColumn DataGridViewColumnTelefonoMovil;
-        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripButton ToolStripButtonView;
+        private FlowLayoutPanel FlowLayoutPanelToolbars;
+        private ToolStrip ToolStripNamesFilter;
         private ToolStripLabel ToolStripLabelFilter;
+        private ToolStripComboBox ToolStripComboBoxFilterType;
         private ToolStripTextBox ToolStripTextBoxFilter;
         internal ToolStripButton ToolStripButtonFilterClear;
-        private ToolStripComboBox ToolStripComboBoxFilterType;
-        private ToolStripButton ToolStripButtonView;
     }
 }
