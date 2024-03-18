@@ -13,6 +13,8 @@ public partial class Establecimiento
 
     public short? IdEntidad { get; set; }
 
+    public string TelefonoMovil { get; set; }
+
     public DateTime UltimaActualizacion { get; set; }
 
     public virtual Entidad IdEntidadNavigation { get; set; }

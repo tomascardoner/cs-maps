@@ -113,16 +113,6 @@ namespace CSMaps.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ImageEntidad16 {
-            get {
-                object obj = ResourceManager.GetObject("ImageEntidad16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap ImageEntidad32 {
             get {
                 object obj = ResourceManager.GetObject("ImageEntidad32", resourceCulture);
@@ -601,6 +591,33 @@ namespace CSMaps.Properties {
         internal static string StringImportUnknownFileReadError {
             get {
                 return ResourceManager.GetString("StringImportUnknownFileReadError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ».
+        /// </summary>
+        internal static string StringItemEndChar {
+            get {
+                return ResourceManager.GetString("StringItemEndChar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No especifica.
+        /// </summary>
+        internal static string StringItemNotSpecified {
+            get {
+                return ResourceManager.GetString("StringItemNotSpecified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to «.
+        /// </summary>
+        internal static string StringItemStartChar {
+            get {
+                return ResourceManager.GetString("StringItemStartChar", resourceCulture);
             }
         }
         

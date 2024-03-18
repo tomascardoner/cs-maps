@@ -9,6 +9,7 @@ namespace CSMaps.Main
         #region Declarations
 
         internal FormEntities formEntities;
+        internal FormSettlements formSettlements;
         internal FormImport formImport;
 
         #endregion
@@ -35,11 +36,18 @@ namespace CSMaps.Main
 
         #region Toolbar commands
 
-        private void ToolStripButtonEntidades_Click(object sender, EventArgs e)
+        private void ToolStripButtonEntities_Click(object sender, EventArgs e)
         {
             formEntities ??= new();
             ShowMdiForm(formEntities);
         }
+
+        private void ToolStripButtonSettlements_Click(object sender, EventArgs e)
+        {
+            formSettlements ??= new();
+            ShowMdiForm(formSettlements);
+        }
+
         private void ToolStripButtonImport_Click(object sender, EventArgs e)
         {
             formImport ??= new() { MdiParent = this };

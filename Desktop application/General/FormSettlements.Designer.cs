@@ -1,6 +1,6 @@
 ﻿namespace CSMaps.General
 {
-    partial class FormEntities
+    partial class FormSettlements
     {
         /// <summary>
         /// Required designer variable.
@@ -41,6 +41,7 @@
             ToolStripButtonFilterClear = new ToolStripButton();
             DataGridViewMain = new DataGridView();
             DataGridViewColumnNombre = new DataGridViewTextBoxColumn();
+            DataGridViewColumnEntidad = new DataGridViewTextBoxColumn();
             DataGridViewColumnTelefonoMovil = new DataGridViewTextBoxColumn();
             ToolStripMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DataGridViewMain).BeginInit();
@@ -146,7 +147,7 @@
             DataGridViewMain.AllowUserToResizeRows = false;
             DataGridViewMain.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             DataGridViewMain.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            DataGridViewMain.Columns.AddRange(new DataGridViewColumn[] { DataGridViewColumnNombre, DataGridViewColumnTelefonoMovil });
+            DataGridViewMain.Columns.AddRange(new DataGridViewColumn[] { DataGridViewColumnNombre, DataGridViewColumnEntidad, DataGridViewColumnTelefonoMovil });
             DataGridViewMain.Dock = DockStyle.Fill;
             DataGridViewMain.EditMode = DataGridViewEditMode.EditProgrammatically;
             DataGridViewMain.Location = new Point(0, 39);
@@ -170,6 +171,14 @@
             DataGridViewColumnNombre.ReadOnly = true;
             DataGridViewColumnNombre.Width = 76;
             // 
+            // DataGridViewColumnEntidad
+            // 
+            DataGridViewColumnEntidad.DataPropertyName = "EntidadNombre";
+            DataGridViewColumnEntidad.HeaderText = "Entidad";
+            DataGridViewColumnEntidad.Name = "DataGridViewColumnEntidad";
+            DataGridViewColumnEntidad.ReadOnly = true;
+            DataGridViewColumnEntidad.Width = 72;
+            // 
             // DataGridViewColumnTelefonoMovil
             // 
             DataGridViewColumnTelefonoMovil.DataPropertyName = "TelefonoMovil";
@@ -178,7 +187,7 @@
             DataGridViewColumnTelefonoMovil.ReadOnly = true;
             DataGridViewColumnTelefonoMovil.Width = 110;
             // 
-            // FormEntities
+            // FormSettlements
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -188,8 +197,8 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "FormEntities";
-            Text = "Entidades";
+            Name = "FormSettlements";
+            Text = "Establecimientos";
             FormClosed += This_FormClosed;
             Load += This_Load;
             ToolStripMain.ResumeLayout(false);
@@ -207,13 +216,14 @@
         private ToolStripButton ToolStripButtonDelete;
         private ToolStripLabel ToolStripLabelItemsCounter;
         private DataGridView DataGridViewMain;
-        private DataGridViewTextBoxColumn DataGridViewColumnNombre;
-        private DataGridViewTextBoxColumn DataGridViewColumnTelefonoMovil;
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripLabel ToolStripLabelFilter;
         private ToolStripTextBox ToolStripTextBoxFilter;
         internal ToolStripButton ToolStripButtonFilterClear;
         private ToolStripComboBox ToolStripComboBoxFilterType;
         private ToolStripButton ToolStripButtonView;
+        private DataGridViewTextBoxColumn DataGridViewColumnNombre;
+        private DataGridViewTextBoxColumn DataGridViewColumnEntidad;
+        private DataGridViewTextBoxColumn DataGridViewColumnTelefonoMovil;
     }
 }

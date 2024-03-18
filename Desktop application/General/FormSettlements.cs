@@ -2,28 +2,37 @@
 
 namespace CSMaps.General
 {
-    public partial class FormEntities : Form
+    public partial class FormSettlements : Form
     {
 
         #region Declarations
 
-        private const string entityNameSingle = "entidad";
-        private const string entityNamePlural = "entidades";
-        private const bool entityIsFemale = true;
+        private const string entityNameSingle = "establecimiento";
+        private const string entityNamePlural = "establecimientos";
+        private const bool entityIsFemale = false;
 
-        private List<Models.Entidad> entitiesAll;
-        private List<Models.Entidad> entitiesFiltered;
+        private List<DataGridViewRowData> entitiesAll;
+        private List<DataGridViewRowData> entitiesFiltered;
 
         private DataGridViewColumn sortedColumn;
         private SortOrder sortOrder;
 
         private bool skipFilterApply = true;
 
+        public class DataGridViewRowData
+        { 
+            public short IdEstablecimiento { get; set; }
+            public string Nombre { get; set; }
+            public short? IdEntidad { get; set; }
+            public string EntidadNombre { get; set; }
+            public string TelefonoMovil { get; set; }
+        }
+
         #endregion
 
         #region Form stuff
 
-        public FormEntities()
+        public FormSettlements()
         {
             InitializeComponent();
             InitializeForm();
@@ -46,7 +55,7 @@ namespace CSMaps.General
 
         private void SetAppearance()
         {
-            this.Icon = CardonerSistemas.Framework.Base.Graphics.GetIconFromBitmap(Properties.Resources.ImageEntidad32);
+            this.Icon = CardonerSistemas.Framework.Base.Graphics.GetIconFromBitmap(Properties.Resources.ImageEstablecimiento32);
             Forms.SetFont(this, Program.AppearanceConfig.Font);
             Common.Appearance.SetControlsDataGridViews(this.Controls, false);
         }
@@ -60,20 +69,23 @@ namespace CSMaps.General
         {
             entitiesAll = null;
             entitiesFiltered = null;
-            Program.formMdi.formEntities = null;
+            Program.formMdi.formSettlements = null;
         }
 
         #endregion
 
         #region User interface data
 
-        internal void ReadData(short idEntidad = 0, bool restoreCurrentPosition = false)
+        internal void ReadData(short idEstablecimiento = 0, bool restoreCurrentPosition = false)
         {
             this.Cursor = Cursors.WaitCursor;
             try
             {
                 using Models.CSMapsContext context = new();
-                entitiesAll = [.. context.Entidads];
+                entitiesAll = [.. from es in context.Establecimientos
+                                  join en in context.Entidads on es.IdEntidad equals en.IdEntidad into entidadesGrupo
+                                  from eg in entidadesGrupo.DefaultIfEmpty()
+                                  select new DataGridViewRowData { IdEstablecimiento = es.IdEstablecimiento, Nombre = es.Nombre, IdEntidad = es.IdEntidad, EntidadNombre = (eg == null ? string.Empty : eg.Nombre), TelefonoMovil = es.TelefonoMovil }];
             }
             catch (Exception ex)
             {
@@ -89,22 +101,22 @@ namespace CSMaps.General
             {
                 if (DataGridViewMain.CurrentRow == null)
                 {
-                    idEntidad = 0;
+                    idEstablecimiento = 0;
                 }
                 else
                 {
-                    idEntidad = ((Models.Entidad)DataGridViewMain.CurrentRow.DataBoundItem).IdEntidad;
+                    idEstablecimiento = ((DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem).IdEstablecimiento;
                 }
             }
 
             FilterData();
 
             // Restore position
-            if (idEntidad != 0)
+            if (idEstablecimiento != 0)
             {
                 foreach (DataGridViewRow row in DataGridViewMain.Rows)
                 {
-                    if (((Models.Entidad)row.DataBoundItem).IdEntidad == idEntidad)
+                    if (((DataGridViewRowData)row.DataBoundItem).IdEstablecimiento == idEstablecimiento)
                     {
                         DataGridViewMain.CurrentCell = row.Cells[0];
                         break;
@@ -150,6 +162,17 @@ namespace CSMaps.General
                 else
                 {
                     entitiesFiltered = [.. entitiesFiltered.OrderByDescending(e => e.Nombre)];
+                }
+            }
+            else if (sortedColumn == DataGridViewColumnEntidad)
+            {
+                if (sortOrder == SortOrder.Ascending)
+                {
+                    entitiesFiltered = [.. entitiesFiltered.OrderBy(e => e.EntidadNombre).ThenBy(e => e.Nombre)];
+                }
+                else
+                {
+                    entitiesFiltered = [.. entitiesFiltered.OrderByDescending(e => e.EntidadNombre).ThenByDescending(e => e.Nombre)];
                 }
             }
             else if (sortedColumn == DataGridViewColumnTelefonoMovil)
@@ -199,7 +222,7 @@ namespace CSMaps.General
 
         private void DataGridViewMain_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (Common.DataGridViews.ColumnHeaderMouseClick(DataGridViewMain, e, ref sortedColumn, ref sortOrder, [DataGridViewColumnNombre, DataGridViewColumnTelefonoMovil]))
+            if (Common.DataGridViews.ColumnHeaderMouseClick(DataGridViewMain, e, ref sortedColumn, ref sortOrder, [DataGridViewColumnNombre, DataGridViewColumnEntidad, DataGridViewColumnTelefonoMovil]))
             {
                 OrderData();
             }
@@ -221,8 +244,8 @@ namespace CSMaps.General
         {
             if (Common.DataGridViews.AddVerify(this, DataGridViewMain))
             {
-                FormEntity formEntity = new(true, 0);
-                formEntity.ShowDialog(this);
+                FormSettlement formSettlement = new(true, 0);
+                formSettlement.ShowDialog(this);
                 Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
             }
         }
@@ -231,8 +254,8 @@ namespace CSMaps.General
         {
             if (Common.DataGridViews.ViewVerify(this, DataGridViewMain, entityNameSingle, entityIsFemale))
             {
-                FormEntity formEntity = new(false, ((Models.Entidad)DataGridViewMain.CurrentRow.DataBoundItem).IdEntidad);
-                formEntity.ShowDialog(this);
+                FormSettlement formSettlement = new(false, ((DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem).IdEstablecimiento);
+                formSettlement.ShowDialog(this);
                 Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
             }
         }
@@ -241,8 +264,8 @@ namespace CSMaps.General
         {
             if (Common.DataGridViews.EditVerify(this, DataGridViewMain, entityNameSingle, entityIsFemale))
             {
-                FormEntity formEntity = new(true, ((Models.Entidad)DataGridViewMain.CurrentRow.DataBoundItem).IdEntidad);
-                formEntity.ShowDialog(this);
+                FormSettlement formSettlement = new(true, ((DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem).IdEstablecimiento);
+                formSettlement.ShowDialog(this);
                 Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
             }
         }
@@ -254,8 +277,8 @@ namespace CSMaps.General
                 return;
             }
 
-            Models.Entidad rowData = (Models.Entidad)DataGridViewMain.CurrentRow.DataBoundItem;
-            string entidadDatos = $"Nombre: {rowData.Nombre}\nTeléfono móvil: {rowData.TelefonoMovil}";
+            DataGridViewRowData rowData = (DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem;
+            string entidadDatos = $"Nombre: {rowData.Nombre}\nEntidad: {rowData.EntidadNombre}\nTeléfono móvil: {rowData.TelefonoMovil}";
             if (!Common.DataGridViews.DeleteConfirm(entityNameSingle, entityIsFemale, entidadDatos))
             {
                 return;
@@ -265,9 +288,9 @@ namespace CSMaps.General
             try
             {
                 using Models.CSMapsContext context = new();
-                Models.Entidad entidad = context.Entidads.Find(rowData.IdEntidad);
-                context.Entidads.Attach(entidad);
-                context.Entidads.Remove(entidad);
+                Models.Establecimiento establecimiento = context.Establecimientos.Find(rowData.IdEstablecimiento);
+                context.Establecimientos.Attach(establecimiento);
+                context.Establecimientos.Remove(establecimiento);
                 context.SaveChanges();
             }
             catch (System.Data.Entity.Infrastructure.DbUpdateException dbUEx)
