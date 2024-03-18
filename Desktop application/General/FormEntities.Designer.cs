@@ -33,7 +33,6 @@
             ToolStripButtonView = new ToolStripButton();
             ToolStripButtonEdit = new ToolStripButton();
             ToolStripButtonDelete = new ToolStripButton();
-            ToolStripLabelItemsCounter = new ToolStripLabel();
             DataGridViewMain = new DataGridView();
             DataGridViewColumnNombre = new DataGridViewTextBoxColumn();
             DataGridViewColumnTelefonoMovil = new DataGridViewTextBoxColumn();
@@ -43,17 +42,20 @@
             ToolStripComboBoxFilterType = new ToolStripComboBox();
             ToolStripTextBoxFilter = new ToolStripTextBox();
             ToolStripButtonFilterClear = new ToolStripButton();
+            ToolStripItemsCounter = new ToolStrip();
+            ToolStripLabelItemsCounter = new ToolStripLabel();
             ToolStripMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DataGridViewMain).BeginInit();
             FlowLayoutPanelToolbars.SuspendLayout();
             ToolStripNamesFilter.SuspendLayout();
+            ToolStripItemsCounter.SuspendLayout();
             SuspendLayout();
             // 
             // ToolStripMain
             // 
             ToolStripMain.Dock = DockStyle.Fill;
             ToolStripMain.GripStyle = ToolStripGripStyle.Hidden;
-            ToolStripMain.Items.AddRange(new ToolStripItem[] { ToolStripButtonAdd, ToolStripButtonView, ToolStripButtonEdit, ToolStripButtonDelete, ToolStripLabelItemsCounter });
+            ToolStripMain.Items.AddRange(new ToolStripItem[] { ToolStripButtonAdd, ToolStripButtonView, ToolStripButtonEdit, ToolStripButtonDelete });
             ToolStripMain.Location = new Point(0, 0);
             ToolStripMain.Name = "ToolStripMain";
             ToolStripMain.Size = new Size(295, 39);
@@ -98,12 +100,6 @@
             ToolStripButtonDelete.Size = new Size(75, 36);
             ToolStripButtonDelete.Text = "Borrar";
             ToolStripButtonDelete.Click += ToolStripButtonDelete_Click;
-            // 
-            // ToolStripLabelItemsCounter
-            // 
-            ToolStripLabelItemsCounter.Alignment = ToolStripItemAlignment.Right;
-            ToolStripLabelItemsCounter.Name = "ToolStripLabelItemsCounter";
-            ToolStripLabelItemsCounter.Size = new Size(0, 36);
             // 
             // DataGridViewMain
             // 
@@ -151,6 +147,7 @@
             FlowLayoutPanelToolbars.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             FlowLayoutPanelToolbars.Controls.Add(ToolStripMain);
             FlowLayoutPanelToolbars.Controls.Add(ToolStripNamesFilter);
+            FlowLayoutPanelToolbars.Controls.Add(ToolStripItemsCounter);
             FlowLayoutPanelToolbars.Dock = DockStyle.Top;
             FlowLayoutPanelToolbars.Location = new Point(0, 0);
             FlowLayoutPanelToolbars.Margin = new Padding(4, 3, 4, 3);
@@ -200,6 +197,23 @@
             ToolStripButtonFilterClear.ToolTipText = "Limpiar búsqueda";
             ToolStripButtonFilterClear.Click += ToolStripButtonSearchClear_Click;
             // 
+            // ToolStripItemsCounter
+            // 
+            ToolStripItemsCounter.BackColor = Color.FromArgb(255, 224, 192);
+            ToolStripItemsCounter.Dock = DockStyle.Fill;
+            ToolStripItemsCounter.GripStyle = ToolStripGripStyle.Hidden;
+            ToolStripItemsCounter.Items.AddRange(new ToolStripItem[] { ToolStripLabelItemsCounter });
+            ToolStripItemsCounter.Location = new Point(707, 0);
+            ToolStripItemsCounter.Name = "ToolStripItemsCounter";
+            ToolStripItemsCounter.Size = new Size(34, 39);
+            ToolStripItemsCounter.TabIndex = 2;
+            // 
+            // ToolStripLabelItemsCounter
+            // 
+            ToolStripLabelItemsCounter.Alignment = ToolStripItemAlignment.Right;
+            ToolStripLabelItemsCounter.Name = "ToolStripLabelItemsCounter";
+            ToolStripLabelItemsCounter.Size = new Size(0, 36);
+            // 
             // FormEntities
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -221,6 +235,8 @@
             FlowLayoutPanelToolbars.PerformLayout();
             ToolStripNamesFilter.ResumeLayout(false);
             ToolStripNamesFilter.PerformLayout();
+            ToolStripItemsCounter.ResumeLayout(false);
+            ToolStripItemsCounter.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -231,7 +247,6 @@
         private ToolStripButton ToolStripButtonAdd;
         private ToolStripButton ToolStripButtonEdit;
         private ToolStripButton ToolStripButtonDelete;
-        private ToolStripLabel ToolStripLabelItemsCounter;
         private DataGridView DataGridViewMain;
         private DataGridViewTextBoxColumn DataGridViewColumnNombre;
         private DataGridViewTextBoxColumn DataGridViewColumnTelefonoMovil;
@@ -242,5 +257,7 @@
         private ToolStripComboBox ToolStripComboBoxFilterType;
         private ToolStripTextBox ToolStripTextBoxFilter;
         internal ToolStripButton ToolStripButtonFilterClear;
+        private ToolStrip ToolStripItemsCounter;
+        private ToolStripLabel ToolStripLabelItemsCounter;
     }
 }

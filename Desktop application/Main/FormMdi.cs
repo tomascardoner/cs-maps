@@ -1,5 +1,4 @@
 ﻿using CardonerSistemas.Framework.Base;
-using CSMaps.General;
 
 namespace CSMaps.Main
 {
@@ -8,8 +7,8 @@ namespace CSMaps.Main
 
         #region Declarations
 
-        internal FormEntities formEntities;
-        internal FormSettlements formSettlements;
+        internal General.FormEntities formEntities;
+        internal General.FormSettlements formSettlements;
         internal FormImport formImport;
 
         #endregion
@@ -23,13 +22,52 @@ namespace CSMaps.Main
 
         private void SetAppearance()
         {
-            this.Icon = CardonerSistemas.Framework.Base.Graphics.GetIconFromBitmap(Properties.Resources.IconApplication.ToBitmap());
+            this.Cursor = Cursors.AppStarting;
+            this.Icon = Properties.Resources.IconApplication;
             this.Text = Program.ApplicationTitle;
+            ToolStripMenuItemHelpAbout.Text = "&Acerca de " + Program.ApplicationTitle + "...";
         }
 
-        private void FormMdi_Load(object sender, EventArgs e)
+        private void This_Load(object sender, EventArgs e)
         {
             SetAppearance();
+        }
+
+        private void This_Closing(object sender, FormClosingEventArgs e)
+        {
+            if (!(e.CloseReason == CloseReason.ApplicationExitCall || e.CloseReason == CloseReason.TaskManagerClosing || e.CloseReason == CloseReason.WindowsShutDown))
+            {
+                if (MessageBox.Show("¿Desea salir de la aplicación?", Program.ApplicationTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.No)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+            }
+            Program.TerminateApplication();
+        }
+
+        #endregion
+
+        #region Menu commands
+
+        private void ToolStripMenuItemFileExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void ToolStripMenuItemWindowCloseAll_Click(object sender, EventArgs e)
+        {
+            foreach (Form childForm in MdiChildren)
+            {
+                childForm.Close();
+            }
+        }
+
+        private void ToolStripMenuItemHelpAbout_Click(object sender, EventArgs e)
+        {
+            //FormAboutBox formAboutBox = new();
+            //formAboutBox.ShowDialog(this);
+            //formAboutBox.Dispose();
         }
 
         #endregion

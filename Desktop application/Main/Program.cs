@@ -1,3 +1,5 @@
+using static CardonerSistemas.Framework.Database.Ado.SqlServer;
+
 namespace CSMaps
 {
     internal static class Program
@@ -44,6 +46,20 @@ namespace CSMaps
 
             formMdi = new();
             Application.Run(formMdi);
+        }
+
+        static public void TerminateApplication()
+        {
+            if (formMdi != null)
+            {
+                CardonerSistemas.Framework.Base.Forms.MdiChildCloseAll(formMdi);
+                CardonerSistemas.Framework.Base.Forms.CloseAll("FormMdi");
+            }
+
+            // Config
+            AppearanceConfig = null;
+            DatabaseConfig = null;
+            GeneralConfig = null;
         }
     }
 }

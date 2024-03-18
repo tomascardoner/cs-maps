@@ -173,12 +173,16 @@ namespace CSMaps.Common
 
         internal static string GetItemsCountText(string entityName, string entitiesName, int itemsCount)
         {
-            return itemsCount switch
+            const int spaces = 5;
+
+            string itemsCountText = itemsCount switch
             {
                 0 => string.Format(Properties.Resources.StringDatabaseItemsCountNone, entityName),
                 1 => string.Format(Properties.Resources.StringDatabaseItemsCountOne, entityName),
                 _ => string.Format(Properties.Resources.StringDatabaseItemsCountMany, entitiesName, itemsCount.ToString("N0")),
             };
+
+            return new string(' ', spaces) + itemsCountText + new string(' ', spaces);
         }
 
         #endregion
