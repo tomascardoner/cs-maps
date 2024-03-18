@@ -4,11 +4,13 @@ namespace CSMaps
     {
         internal const string ApplicationTitle = "CS-Maps";
 
+#pragma warning disable S2223 // Non-constant static fields should not be visible
         internal static AppearanceConfig AppearanceConfig;
         internal static GeneralConfig GeneralConfig;
         internal static CardonerSistemas.Framework.Database.Ado.SqlServer.DatabaseConfig DatabaseConfig;
 
         internal static Main.FormMdi formMdi;
+#pragma warning restore S2223 // Non-constant static fields should not be visible
 
         /// <summary>
         ///  The main entry point for the application.

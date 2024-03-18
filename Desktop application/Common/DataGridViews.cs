@@ -5,6 +5,79 @@ namespace CSMaps.Common
     internal static class DataGridViews
     {
 
+        #region Common
+
+        internal static void CommonActionFinalize(Form form, DataGridView dataGridView)
+        {
+            form.Cursor = Cursors.Default;
+            dataGridView.Enabled = true;
+        }
+
+        #endregion
+
+        #region View
+
+        internal static bool ViewVerify(Form form, DataGridView dataGridView, string entityNameSingle, bool entityIsFemale)
+        {
+            if (dataGridView.CurrentRow == null)
+            {
+                MessageBox.Show(string.Format(entityIsFemale ? Properties.Resources.StringActionNoneFemale : Properties.Resources.StringActionNoneMale, entityNameSingle, Properties.Resources.StringActionView), Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+            form.Cursor = Cursors.WaitCursor;
+            dataGridView.Enabled = false;
+            return true;
+        }
+
+        #endregion
+
+        #region Add
+
+        internal static bool AddVerify(Form form, DataGridView dataGridView)
+        {
+            form.Cursor = Cursors.WaitCursor;
+            dataGridView.Enabled = false;
+            return true;
+        }
+
+        #endregion
+
+        #region Edit
+
+        internal static bool EditVerify(Form form, DataGridView dataGridView, string entityNameSingle, bool entityIsFemale)
+        {
+            if (dataGridView.CurrentRow == null)
+            {
+                MessageBox.Show(string.Format(entityIsFemale ? Properties.Resources.StringActionNoneFemale : Properties.Resources.StringActionNoneMale, entityNameSingle, Properties.Resources.StringActionEdit), Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+            form.Cursor = Cursors.WaitCursor;
+            dataGridView.Enabled = false;
+            return true;
+        }
+
+        #endregion
+
+        #region Delete
+
+        internal static bool DeleteVerify(DataGridView dataGridView, string entityNameSingle, bool entityIsFemale)
+        {
+            if (dataGridView.CurrentRow == null)
+            {
+                MessageBox.Show(string.Format(entityIsFemale ? Properties.Resources.StringActionNoneFemale : Properties.Resources.StringActionNoneMale, entityNameSingle, Properties.Resources.StringActionDelete), Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+            return true;
+        }
+
+        internal static bool DeleteConfirm(string entityNameSingle, bool entityIsFemale, string entityData)
+        {
+            string mensaje = string.Format(entityIsFemale ? Properties.Resources.StringActionDeleteConfirmationFemale : Properties.Resources.StringActionDeleteConfirmationMale, entityNameSingle, entityData);
+            return MessageBox.Show(mensaje, Program.ApplicationTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes;
+        }
+
+        #endregion
+
         #region Sort by column
 
         internal static bool ColumnHeaderMouseClick(DataGridView dataGridView, DataGridViewCellMouseEventArgs e, ref DataGridViewColumn sortedColumn, ref SortOrder sortOrder, DataGridViewColumn[] sorteableColumns)

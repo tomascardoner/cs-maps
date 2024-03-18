@@ -271,6 +271,95 @@ namespace CSMaps.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to agregar.
+        /// </summary>
+        internal static string StringActionAdd {
+            get {
+                return ResourceManager.GetString("StringActionAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to borrar.
+        /// </summary>
+        internal static string StringActionDelete {
+            get {
+                return ResourceManager.GetString("StringActionDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Se borrará la {0} seleccionada.
+        ///
+        ///{1}
+        ///
+        ///¿Confirma el borrado definitivo?.
+        /// </summary>
+        internal static string StringActionDeleteConfirmationFemale {
+            get {
+                return ResourceManager.GetString("StringActionDeleteConfirmationFemale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Se borrará el {0} seleccionado.
+        ///
+        ///{1}
+        ///
+        ///¿Confirma el borrado definitivo?.
+        /// </summary>
+        internal static string StringActionDeleteConfirmationMale {
+            get {
+                return ResourceManager.GetString("StringActionDeleteConfirmationMale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to editar.
+        /// </summary>
+        internal static string StringActionEdit {
+            get {
+                return ResourceManager.GetString("StringActionEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No hay ninguna {0} para {1}..
+        /// </summary>
+        internal static string StringActionNoneFemale {
+            get {
+                return ResourceManager.GetString("StringActionNoneFemale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No hay ningún {0} para {1}..
+        /// </summary>
+        internal static string StringActionNoneMale {
+            get {
+                return ResourceManager.GetString("StringActionNoneMale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to seleccionar.
+        /// </summary>
+        internal static string StringActionSelect {
+            get {
+                return ResourceManager.GetString("StringActionSelect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ver.
+        /// </summary>
+        internal static string StringActionView {
+            get {
+                return ResourceManager.GetString("StringActionView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error al acceder a la base de datos..
         /// </summary>
         internal static string StringDatabaseError {
@@ -330,6 +419,143 @@ namespace CSMaps.Properties {
         internal static string StringDatabaseSaveError {
             get {
                 return ResourceManager.GetString("StringDatabaseSaveError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ha realizado cambios en los datos y seleccionó cancelar, los cambios se perderán.
+        ///
+        ///¿Confirma la pérdida de los cambios?.
+        /// </summary>
+        internal static string StringEntityCancelChanges {
+            get {
+                return ResourceManager.GetString("StringEntityCancelChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Debe especificar la {1} de la {0}..
+        /// </summary>
+        internal static string StringEntityDataVerificationFemaleFieldRequiredFemale {
+            get {
+                return ResourceManager.GetString("StringEntityDataVerificationFemaleFieldRequiredFemale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Debe especificar la {1} de el {0}..
+        /// </summary>
+        internal static string StringEntityDataVerificationFemaleFieldRequiredMale {
+            get {
+                return ResourceManager.GetString("StringEntityDataVerificationFemaleFieldRequiredMale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Debe especificar el {1} de la {0}..
+        /// </summary>
+        internal static string StringEntityDataVerificationMaleFieldRequiredFemale {
+            get {
+                return ResourceManager.GetString("StringEntityDataVerificationMaleFieldRequiredFemale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Debe especificar el {1} de el {0}..
+        /// </summary>
+        internal static string StringEntityDataVerificationMaleFieldRequiredMale {
+            get {
+                return ResourceManager.GetString("StringEntityDataVerificationMaleFieldRequiredMale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No se puede {1} la {0} porque ya existe una con el mismo id..
+        /// </summary>
+        internal static string StringEntityDuplicatedPrimaryKeyErrorFemale {
+            get {
+                return ResourceManager.GetString("StringEntityDuplicatedPrimaryKeyErrorFemale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No se puede {1} el {0} porque ya existe uno con el mismo id..
+        /// </summary>
+        internal static string StringEntityDuplicatedPrimaryKeyErrorMale {
+            get {
+                return ResourceManager.GetString("StringEntityDuplicatedPrimaryKeyErrorMale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No se puede {1} la {0} porque ya existe una con datos iguales..
+        /// </summary>
+        internal static string StringEntityDuplicatedUniqueKeyErrorFemale {
+            get {
+                return ResourceManager.GetString("StringEntityDuplicatedUniqueKeyErrorFemale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No se puede {1} el {0} porque ya existe uno con datos iguales..
+        /// </summary>
+        internal static string StringEntityDuplicatedUniqueKeyErrorMale {
+            get {
+                return ResourceManager.GetString("StringEntityDuplicatedUniqueKeyErrorMale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error al obtener la valores iniciales para la nueva {0}..
+        /// </summary>
+        internal static string StringEntityNewValuesErrorFemale {
+            get {
+                return ResourceManager.GetString("StringEntityNewValuesErrorFemale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error al obtener la valores iniciales para el nuevo {0}..
+        /// </summary>
+        internal static string StringEntityNewValuesErrorMale {
+            get {
+                return ResourceManager.GetString("StringEntityNewValuesErrorMale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No se puede {1} la {0} porque tiene datos relacionados..
+        /// </summary>
+        internal static string StringEntityRelatedDataErrorFemale {
+            get {
+                return ResourceManager.GetString("StringEntityRelatedDataErrorFemale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No se puede {1} el {0} porque tiene datos relacionados..
+        /// </summary>
+        internal static string StringEntityRelatedDataErrorMale {
+            get {
+                return ResourceManager.GetString("StringEntityRelatedDataErrorMale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error al actualizar los cambios de la {0} en la base de datos..
+        /// </summary>
+        internal static string StringEntitySaveChangesErrorFemale {
+            get {
+                return ResourceManager.GetString("StringEntitySaveChangesErrorFemale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error al actualizar los cambios de el {0} en la base de datos..
+        /// </summary>
+        internal static string StringEntitySaveChangesErrorMale {
+            get {
+                return ResourceManager.GetString("StringEntitySaveChangesErrorMale", resourceCulture);
             }
         }
         
@@ -420,6 +646,15 @@ namespace CSMaps.Properties {
         internal static string StringKmlFileReadError {
             get {
                 return ResourceManager.GetString("StringKmlFileReadError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Se deben especificar al menos {0} letras para buscar..
+        /// </summary>
+        internal static string StringTextFilterMinimumLenght {
+            get {
+                return ResourceManager.GetString("StringTextFilterMinimumLenght", resourceCulture);
             }
         }
         

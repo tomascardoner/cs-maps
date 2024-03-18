@@ -7,6 +7,9 @@ namespace CSMaps.General
 
         #region Declarations
 
+        private const string entityNameSingle = "entidad";
+        private const bool entityIsFemale = true;
+
         private List<Models.Entidad> entitiesAll;
         private List<Models.Entidad> entitiesFiltered;
 
@@ -30,7 +33,7 @@ namespace CSMaps.General
             SetAppearance();
 
             ToolStripComboBoxFilterType.Items.AddRange([Properties.Resources.StringTextFilterTypeBegin, Properties.Resources.StringTextFilterTypeContains]);
-            ToolStripComboBoxFilterType.SelectedIndex = 0;
+            ToolStripComboBoxFilterType.SelectedIndex = 1;
 
             // Set the initial sorted column of the grid
             sortedColumn = DataGridViewColumnNombre;
@@ -63,7 +66,7 @@ namespace CSMaps.General
 
         #region User interface data
 
-        private void ReadData()
+        internal void ReadData(short idEntidad = 0, bool restoreCurrentPosition = false)
         {
             this.Cursor = Cursors.WaitCursor;
             try
@@ -80,7 +83,33 @@ namespace CSMaps.General
                 this.Cursor = Cursors.Default;
             }
 
+            // Save position
+            if (restoreCurrentPosition)
+            {
+                if (DataGridViewMain.CurrentRow == null)
+                {
+                    idEntidad = 0;
+                }
+                else
+                {
+                    idEntidad = ((Models.Entidad)DataGridViewMain.CurrentRow.DataBoundItem).IdEntidad;
+                }
+            }
+
             FilterData();
+
+            // Restore position
+            if (idEntidad != 0)
+            {
+                foreach (DataGridViewRow row in DataGridViewMain.Rows)
+                {
+                    if (((Models.Entidad)row.DataBoundItem).IdEntidad == idEntidad)
+                    {
+                        DataGridViewMain.CurrentCell = row.Cells[0];
+                        break;
+                    }
+                }
+            }
         }
 
         private void FilterData()
@@ -101,7 +130,7 @@ namespace CSMaps.General
                     0 => [.. entitiesAll.Where(e => e.Nombre.ToLower().ReplaceDiacritics().StartsWith(ToolStripTextBoxFilter.Text.ToLower().ReplaceDiacritics()))],
                     1 => [.. entitiesAll.Where(e => e.Nombre.ToLower().ReplaceDiacritics().Contains(ToolStripTextBoxFilter.Text.ToLower().ReplaceDiacritics()))],
                     _ => throw new NotImplementedException(),
-                };                
+                };
             }
 
             ToolStripLabelItemsCounter.Text = Common.DataGridViews.GetItemsCountText("Entidad", "Entidades", entitiesFiltered.Count);
@@ -154,7 +183,7 @@ namespace CSMaps.General
 
         private void ToolStripTextBoxSearch_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (char)Keys.Return)
+            if (Common.Forms.Filter_KeyPress(e, ToolStripTextBoxFilter.TextBox))
             {
                 FilterData();
                 e.Handled = true;
@@ -181,6 +210,76 @@ namespace CSMaps.General
             {
                 Common.DataGridViews.SearchByKeyPress(e, DataGridViewMain, DataGridViewColumnNombre);
             }
+        }
+
+        #endregion
+
+        #region Main toolbar
+
+        private void ToolStripButtonAdd_Click(object sender, EventArgs e)
+        {
+            if (Common.DataGridViews.AddVerify(this, DataGridViewMain))
+            {
+                FormEntity formEntity = new(true, 0);
+                formEntity.ShowDialog(this);
+                Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
+            }
+        }
+
+        private void ToolStripButtonView_Click(object sender, EventArgs e)
+        {
+            if (Common.DataGridViews.ViewVerify(this, DataGridViewMain, entityNameSingle, entityIsFemale))
+            {
+                FormEntity formEntity = new(false, ((Models.Entidad)DataGridViewMain.CurrentRow.DataBoundItem).IdEntidad);
+                formEntity.ShowDialog(this);
+                Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
+            }
+        }
+
+        private void ToolStripButtonEdit_Click(object sender, EventArgs e)
+        {
+            if (Common.DataGridViews.EditVerify(this, DataGridViewMain, entityNameSingle, entityIsFemale))
+            {
+                FormEntity formEntity = new(true, ((Models.Entidad)DataGridViewMain.CurrentRow.DataBoundItem).IdEntidad);
+                formEntity.ShowDialog(this);
+                Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
+            }
+        }
+
+        private void ToolStripButtonDelete_Click(object sender, EventArgs e)
+        {
+            if (!Common.DataGridViews.DeleteVerify(DataGridViewMain, entityNameSingle, entityIsFemale))
+            {
+                return;
+            }
+
+            Models.Entidad rowData = (Models.Entidad)DataGridViewMain.CurrentRow.DataBoundItem;
+            string entidadDatos = $"Nombre: {rowData.Nombre}\nTeléfono móvil: {rowData.TelefonoMovil}";
+            if (!Common.DataGridViews.DeleteConfirm(entityNameSingle, entityIsFemale, entidadDatos))
+            {
+                return;
+            }
+
+            this.Cursor = Cursors.WaitCursor;
+            try
+            {
+                using Models.CSMapsContext context = new();
+                Models.Entidad entidad = context.Entidads.Find(((Models.Entidad)DataGridViewMain.CurrentRow.DataBoundItem).IdEntidad);
+                context.Entidads.Attach(entidad);
+                context.Entidads.Remove(entidad);
+                context.SaveChanges();
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException dbUEx)
+            {
+                Common.DBErrors.DbUpdateException(dbUEx, entityNameSingle, entityIsFemale, Properties.Resources.StringActionDelete);
+            }
+            catch (Exception ex)
+            {
+                Common.DBErrors.OtherUpdateException(ex, entityNameSingle, entityIsFemale, Properties.Resources.StringActionDelete);
+            }
+
+            ReadData();
+            this.Cursor = Cursors.Default;
         }
 
         #endregion
