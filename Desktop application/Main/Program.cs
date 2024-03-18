@@ -24,6 +24,8 @@ namespace CSMaps
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
 
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(Constants.SyncfusionLicenseKey);
+
             // Cargo los archivos de configuración de la aplicación
             if (!Configuration.LoadFiles())
             {

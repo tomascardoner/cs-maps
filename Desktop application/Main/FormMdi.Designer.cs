@@ -112,6 +112,7 @@
             ToolStripButtonPoints.Name = "ToolStripButtonPoints";
             ToolStripButtonPoints.Size = new Size(130, 36);
             ToolStripButtonPoints.Text = "Puntos";
+            ToolStripButtonPoints.Click += ToolStripButtonPoints_Click;
             // 
             // ToolStripButtonImport
             // 

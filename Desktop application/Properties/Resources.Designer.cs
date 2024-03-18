@@ -433,7 +433,7 @@ namespace CSMaps.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Debe especificar la {1} de el {0}..
+        ///   Looks up a localized string similar to Debe especificar la {1} del {0}..
         /// </summary>
         internal static string StringEntityDataVerificationFemaleFieldRequiredMale {
             get {
@@ -451,7 +451,7 @@ namespace CSMaps.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Debe especificar el {1} de el {0}..
+        ///   Looks up a localized string similar to Debe especificar el {1} del {0}..
         /// </summary>
         internal static string StringEntityDataVerificationMaleFieldRequiredMale {
             get {
@@ -595,6 +595,24 @@ namespace CSMaps.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Todas.
+        /// </summary>
+        internal static string StringItemAllFemale {
+            get {
+                return ResourceManager.GetString("StringItemAllFemale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Todos.
+        /// </summary>
+        internal static string StringItemAllMale {
+            get {
+                return ResourceManager.GetString("StringItemAllMale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ».
         /// </summary>
         internal static string StringItemEndChar {
@@ -667,6 +685,15 @@ namespace CSMaps.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string StringNo {
+            get {
+                return ResourceManager.GetString("StringNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Se deben especificar al menos {0} letras para buscar..
         /// </summary>
         internal static string StringTextFilterMinimumLenght {
@@ -690,6 +717,15 @@ namespace CSMaps.Properties {
         internal static string StringTextFilterTypeContains {
             get {
                 return ResourceManager.GetString("StringTextFilterTypeContains", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sí.
+        /// </summary>
+        internal static string StringYes {
+            get {
+                return ResourceManager.GetString("StringYes", resourceCulture);
             }
         }
     }

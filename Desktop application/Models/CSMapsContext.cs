@@ -114,7 +114,7 @@ public partial class CSMapsContext : DbContext
 
             entity.ToTable("Partido");
 
-            entity.HasIndex(e => e.Nombre, "IX_Partido").IsUnique();
+            entity.HasIndex(e => e.Nombre, "UI_Partido_Nombre").IsUnique();
 
             entity.Property(e => e.Nombre)
                 .IsRequired()
@@ -152,7 +152,7 @@ public partial class CSMapsContext : DbContext
 
             entity.ToTable("PuntoDato");
 
-            entity.HasIndex(e => e.ChapaNumero, "UI_PuntoDato")
+            entity.HasIndex(e => e.ChapaNumero, "UI_PuntoDato_ChapaNumero")
                 .IsUnique()
                 .HasFilter("([ChapaNumero] IS NOT NULL)");
 

@@ -9,6 +9,7 @@ namespace CSMaps.Main
 
         internal General.FormEntities formEntities;
         internal General.FormSettlements formSettlements;
+        internal General.FormPoints formPoints;
         internal FormImport formImport;
 
         #endregion
@@ -22,7 +23,6 @@ namespace CSMaps.Main
 
         private void SetAppearance()
         {
-            this.Cursor = Cursors.AppStarting;
             this.Icon = Properties.Resources.IconApplication;
             this.Text = Program.ApplicationTitle;
             ToolStripMenuItemHelpAbout.Text = "&Acerca de " + Program.ApplicationTitle + "...";
@@ -37,11 +37,13 @@ namespace CSMaps.Main
         {
             if (!(e.CloseReason == CloseReason.ApplicationExitCall || e.CloseReason == CloseReason.TaskManagerClosing || e.CloseReason == CloseReason.WindowsShutDown))
             {
+#pragma warning disable S1066 // If statement merge
                 if (MessageBox.Show("¿Desea salir de la aplicación?", Program.ApplicationTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.No)
                 {
                     e.Cancel = true;
                     return;
                 }
+#pragma warning restore S1066 // If statement merge
             }
             Program.TerminateApplication();
         }
@@ -84,6 +86,12 @@ namespace CSMaps.Main
         {
             formSettlements ??= new();
             ShowMdiForm(formSettlements);
+        }
+
+        private void ToolStripButtonPoints_Click(object sender, EventArgs e)
+        {
+            formPoints ??= new();
+            ShowMdiForm(formPoints);
         }
 
         private void ToolStripButtonImport_Click(object sender, EventArgs e)

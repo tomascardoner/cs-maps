@@ -33,8 +33,8 @@ namespace CSMaps.General
         {
             SetAppearance();
 
-            ToolStripComboBoxFilterType.Items.AddRange([Properties.Resources.StringTextFilterTypeBegin, Properties.Resources.StringTextFilterTypeContains]);
-            ToolStripComboBoxFilterType.SelectedIndex = 1;
+            ToolStripComboBoxNameFilterType.Items.AddRange([Properties.Resources.StringTextFilterTypeBegin, Properties.Resources.StringTextFilterTypeContains]);
+            ToolStripComboBoxNameFilterType.SelectedIndex = 1;
 
             // Set the initial sorted column of the grid
             sortedColumn = DataGridViewColumnNombre;
@@ -77,11 +77,9 @@ namespace CSMaps.General
             }
             catch (Exception ex)
             {
-                Error.ProcessException(ex, Properties.Resources.StringDatabaseReadError);
-            }
-            finally
-            {
                 this.Cursor = Cursors.Default;
+                Error.ProcessException(ex, Properties.Resources.StringDatabaseReadError);
+                return;
             }
 
             // Save position
@@ -120,16 +118,16 @@ namespace CSMaps.General
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(ToolStripTextBoxFilter.Text))
+            if (string.IsNullOrWhiteSpace(ToolStripTextBoxNameFilter.Text))
             {
                 entitiesFiltered = entitiesAll;
             }
             else
             {
-                entitiesFiltered = ToolStripComboBoxFilterType.SelectedIndex switch
+                entitiesFiltered = ToolStripComboBoxNameFilterType.SelectedIndex switch
                 {
-                    0 => [.. entitiesAll.Where(e => e.Nombre.ToLower().ReplaceDiacritics().StartsWith(ToolStripTextBoxFilter.Text.ToLower().ReplaceDiacritics()))],
-                    1 => [.. entitiesAll.Where(e => e.Nombre.ToLower().ReplaceDiacritics().Contains(ToolStripTextBoxFilter.Text.ToLower().ReplaceDiacritics()))],
+                    0 => [.. entitiesAll.Where(e => e.Nombre.ToLower().ReplaceDiacritics().StartsWith(ToolStripTextBoxNameFilter.Text.ToLower().ReplaceDiacritics()))],
+                    1 => [.. entitiesAll.Where(e => e.Nombre.ToLower().ReplaceDiacritics().Contains(ToolStripTextBoxNameFilter.Text.ToLower().ReplaceDiacritics()))],
                     _ => throw new NotImplementedException(),
                 };
             }
@@ -166,6 +164,7 @@ namespace CSMaps.General
             DataGridViewMain.AutoGenerateColumns = false;
             DataGridViewMain.DataSource = entitiesFiltered;
             sortedColumn.HeaderCell.SortGlyphDirection = sortOrder;
+            this.Cursor = Cursors.Default;
         }
 
         #endregion
@@ -179,12 +178,12 @@ namespace CSMaps.General
 
         private void ToolStripTextBoxSearch_Enter(object sender, EventArgs e)
         {
-            ToolStripTextBoxFilter.Select();
+            ToolStripTextBoxNameFilter.Select();
         }
 
         private void ToolStripTextBoxSearch_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (Common.Forms.Filter_KeyPress(e, ToolStripTextBoxFilter.TextBox))
+            if (Common.Forms.Filter_KeyPress(e, ToolStripTextBoxNameFilter.TextBox))
             {
                 FilterData();
                 e.Handled = true;
@@ -193,7 +192,7 @@ namespace CSMaps.General
 
         private void ToolStripButtonSearchClear_Click(object sender, EventArgs e)
         {
-            ToolStripTextBoxFilter.Clear();
+            ToolStripTextBoxNameFilter.Clear();
             FilterData();
         }
 

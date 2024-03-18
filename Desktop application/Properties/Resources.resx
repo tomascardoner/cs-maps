@@ -243,13 +243,13 @@
     <value>Debe especificar la {1} de la {0}.</value>
   </data>
   <data name="StringEntityDataVerificationFemaleFieldRequiredMale" xml:space="preserve">
-    <value>Debe especificar la {1} de el {0}.</value>
+    <value>Debe especificar la {1} del {0}.</value>
   </data>
   <data name="StringEntityDataVerificationMaleFieldRequiredFemale" xml:space="preserve">
     <value>Debe especificar el {1} de la {0}.</value>
   </data>
   <data name="StringEntityDataVerificationMaleFieldRequiredMale" xml:space="preserve">
-    <value>Debe especificar el {1} de el {0}.</value>
+    <value>Debe especificar el {1} del {0}.</value>
   </data>
   <data name="StringEntityDuplicatedPrimaryKeyErrorFemale" xml:space="preserve">
     <value>No se puede {1} la {0} porque ya existe una con el mismo id.</value>
@@ -296,6 +296,12 @@
   <data name="StringImportUnknownFileReadError" xml:space="preserve">
     <value>Error al leer el archivo para detectar el formato.</value>
   </data>
+  <data name="StringItemAllFemale" xml:space="preserve">
+    <value>Todas</value>
+  </data>
+  <data name="StringItemAllMale" xml:space="preserve">
+    <value>Todos</value>
+  </data>
   <data name="StringItemEndChar" xml:space="preserve">
     <value>»</value>
   </data>
@@ -320,6 +326,9 @@
   <data name="StringKmlFileReadError" xml:space="preserve">
     <value>Error al leer el archivo .kml</value>
   </data>
+  <data name="StringNo" xml:space="preserve">
+    <value>No</value>
+  </data>
   <data name="StringTextFilterMinimumLenght" xml:space="preserve">
     <value>Se deben especificar al menos {0} letras para buscar.</value>
   </data>
@@ -328,5 +337,8 @@
   </data>
   <data name="StringTextFilterTypeContains" xml:space="preserve">
     <value>que contienen:</value>
+  </data>
+  <data name="StringYes" xml:space="preserve">
+    <value>Sí</value>
   </data>
 </root>

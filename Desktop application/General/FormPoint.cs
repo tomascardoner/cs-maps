@@ -3,12 +3,12 @@ using CardonerSistemas.Framework.Controls;
 
 namespace CSMaps.General
 {
-    public partial class FormSettlement : Form
+    public partial class FormPoint : Form
     {
 
         #region Declarations
 
-        private const string entityNameSingular = "establecimiento";
+        private const string entityNameSingular = "punto";
         private const bool entityIsFemale = false;
 
         private readonly bool isLoading;
@@ -16,29 +16,29 @@ namespace CSMaps.General
         private bool isEditMode;
 
         private Models.CSMapsContext context = new();
-        private Models.Establecimiento establecimiento;
+        private Models.Punto punto;
 
         #endregion
 
         #region Form stuff
 
-        public FormSettlement(bool editMode, short idEstablecimiento)
+        public FormPoint(bool editMode, int idPunto)
         {
             InitializeComponent();
 
             isLoading = true;
-            isNew = (idEstablecimiento == 0);
+            isNew = (idPunto == 0);
             isEditMode = editMode;
 
             if (isNew)
             {
-                establecimiento = new();
+                punto = new();
                 InitializeNewObjectData();
-                context.Establecimientos.Add(establecimiento);
+                context.Puntos.Add(punto);
             }
             else
             {
-                establecimiento = context.Establecimientos.Find(idEstablecimiento);
+                punto = context.Puntos.Find(idPunto);
             }
 
             InitializeFormAndControls();
@@ -51,7 +51,6 @@ namespace CSMaps.General
         private void InitializeFormAndControls()
         {
             SetAppearance();
-            Common.Lists.GetEntidades(ComboBoxEntidad, context, true);
         }
 
         private void SetAppearance()
@@ -73,15 +72,16 @@ namespace CSMaps.General
             ToolStripButtonClose.Visible = !isEditMode;
 
             TextBoxNombre.ReadOnly = !isEditMode;
-            ComboBoxEntidad.Enabled = isEditMode;
-            TextBoxTelefonoMovil.ReadOnly = !isEditMode;
+            DoubleTextBoxLatitud.ReadOnly = !isEditMode;
+            DoubleTextBoxLongitud.ReadOnly = !isEditMode;
+            DoubleTextBoxAltitud.ReadOnly = !isEditMode;
         }
 
         private void This_FormClosed(object sender, FormClosedEventArgs e)
         {
             context.Dispose();
             context = null;
-            establecimiento = null;
+            punto = null;
             this.Dispose();
         }
 
@@ -91,25 +91,27 @@ namespace CSMaps.General
 
         private void SetDataToUserInterface()
         {
-            Values.ToTextBox(TextBoxIdEstablecimiento, establecimiento.IdEstablecimiento);
-            Values.ToTextBox(TextBoxNombre, establecimiento.Nombre);
-            Values.ToComboBox(ComboBoxEntidad, establecimiento.IdEntidad);
-            Values.ToTextBox(TextBoxTelefonoMovil, establecimiento.TelefonoMovil);
-            Values.ToTextBoxAsShortDateTime(TextBoxUltimaActualizacion, establecimiento.UltimaActualizacion);
+            Values.ToTextBox(TextBoxIdPunto, punto.IdPunto);
+            Values.ToTextBox(TextBoxNombre, punto.Nombre);
+            CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDoubleTextBox(DoubleTextBoxLatitud, punto.Latitud);
+            CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDoubleTextBox(DoubleTextBoxLongitud, punto.Longitud);
+            CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDoubleTextBox(DoubleTextBoxAltitud, punto.Altitud);
+            Values.ToTextBoxAsShortDateTime(TextBoxUltimaActualizacion, punto.UltimaActualizacion);
         }
 
         private void SetDataToEntityObject()
         {
-            establecimiento.Nombre = Values.TextBoxToString(TextBoxNombre);
-            establecimiento.IdEntidad = Values.ComboBoxToShort(ComboBoxEntidad);
-            establecimiento.TelefonoMovil = Values.TextBoxToString(TextBoxTelefonoMovil);
+            punto.Nombre = Values.TextBoxToString(TextBoxNombre);
+            punto.Latitud = CardonerSistemas.Framework.Controls.Syncfusion.Values.DoubleTextBoxToDecimal(DoubleTextBoxLatitud).Value;
+            punto.Longitud = CardonerSistemas.Framework.Controls.Syncfusion.Values.DoubleTextBoxToDecimal(DoubleTextBoxLongitud).Value;
+            punto.Altitud = CardonerSistemas.Framework.Controls.Syncfusion.Values.DoubleTextBoxToDecimal(DoubleTextBoxAltitud).Value;
         }
 
         #endregion
 
         #region Controls events
 
-        private void FormEntity_KeyPress(object sender, KeyPressEventArgs e)
+        private void FormPoint_KeyPress(object sender, KeyPressEventArgs e)
         {
             Common.Forms.This_KeyPress(e, isEditMode, ActiveControl, ToolStripButtonClose, ToolStripButtonSave, ToolStripButtonCancel, null);
         }
@@ -140,11 +142,11 @@ namespace CSMaps.General
             if (context.ChangeTracker.HasChanges())
             {
                 this.Cursor = Cursors.WaitCursor;
-                establecimiento.UltimaActualizacion = System.DateTime.Now;
+                punto.UltimaActualizacion = System.DateTime.Now;
                 try
                 {
                     context.SaveChanges();
-                    Program.formMdi.formSettlements?.ReadData(establecimiento.IdEstablecimiento);
+                    Program.formMdi.formPoints?.ReadData(punto.IdPunto);
                 }
                 catch (System.Data.Entity.Infrastructure.DbUpdateException dbUEx)
                 {
@@ -188,7 +190,7 @@ namespace CSMaps.General
 
         private void InitializeNewObjectData()
         {
-            establecimiento.UltimaActualizacion = System.DateTime.Now;
+            punto.UltimaActualizacion = System.DateTime.Now;
         }
 
         private bool CompleteNewObjectData()
@@ -201,13 +203,13 @@ namespace CSMaps.General
             try
             {
                 using Models.CSMapsContext newIdContext = new();
-                if (context.Establecimientos.Any())
+                if (context.Puntos.Any())
                 {
-                    establecimiento.IdEstablecimiento = (short)(newIdContext.Establecimientos.Max(e => e.IdEstablecimiento) + 1);
+                    punto.IdPunto = (short)(newIdContext.Puntos.Max(e => e.IdPunto) + 1);
                 }
                 else
                 {
-                    establecimiento.IdEstablecimiento = 1;
+                    punto.IdPunto = 1;
                 }
                 return true;
             }
@@ -229,9 +231,14 @@ namespace CSMaps.General
                 MessageBox.Show(string.Format(entityIsFemale ? Properties.Resources.StringEntityDataVerificationMaleFieldRequiredFemale : Properties.Resources.StringEntityDataVerificationMaleFieldRequiredMale, entityNameSingular, "nombre"), Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
-            if (ComboBoxEntidad.SelectedIndex == -1)
+            if (DoubleTextBoxLatitud.DoubleValue == 0)
             {
-                MessageBox.Show(string.Format(entityIsFemale ? Properties.Resources.StringEntityDataVerificationFemaleFieldRequiredFemale : Properties.Resources.StringEntityDataVerificationFemaleFieldRequiredMale, entityNameSingular, "Entidad"), Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(string.Format(entityIsFemale ? Properties.Resources.StringEntityDataVerificationMaleFieldRequiredFemale : Properties.Resources.StringEntityDataVerificationFemaleFieldRequiredMale, entityNameSingular, "latitud"), Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+            if (DoubleTextBoxLongitud.DoubleValue == 0)
+            {
+                MessageBox.Show(string.Format(entityIsFemale ? Properties.Resources.StringEntityDataVerificationMaleFieldRequiredFemale : Properties.Resources.StringEntityDataVerificationFemaleFieldRequiredMale, entityNameSingular, "longitud"), Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
             return true;

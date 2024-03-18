@@ -2,13 +2,13 @@
 
 namespace CSMaps.General
 {
-    public partial class FormSettlements : Form
+    public partial class FormPoints : Form
     {
 
         #region Declarations
 
-        private const string entityNameSingle = "establecimiento";
-        private const string entityNamePlural = "establecimientos";
+        private const string entityNameSingle = "punto";
+        private const string entityNamePlural = "puntos";
         private const bool entityIsFemale = false;
 
         private List<DataGridViewRowData> entitiesAll;
@@ -20,19 +20,21 @@ namespace CSMaps.General
         private bool skipFilterApply = true;
 
         public class DataGridViewRowData
-        { 
-            public short IdEstablecimiento { get; set; }
+        {
+            public int IdPunto { get; set; }
             public string Nombre { get; set; }
-            public short? IdEntidad { get; set; }
-            public string EntidadNombre { get; set; }
-            public string TelefonoMovil { get; set; }
+            public decimal Latitud { get; set; }
+            public decimal Longitud { get; set; }
+            public bool ExisteDato { get; set; }
+            public string EstablecimientoNombre { get; set; }
+            public int? ChapaNumero { get; set; }
         }
 
         #endregion
 
         #region Form stuff
 
-        public FormSettlements()
+        public FormPoints()
         {
             InitializeComponent();
             InitializeForm();
@@ -44,6 +46,7 @@ namespace CSMaps.General
 
             ToolStripComboBoxNameFilterType.Items.AddRange([Properties.Resources.StringTextFilterTypeBegin, Properties.Resources.StringTextFilterTypeContains]);
             ToolStripComboBoxNameFilterType.SelectedIndex = 1;
+            Common.Lists.GetAllYesNo(ToolStripComboBoxDataExistFilter.ComboBox, 0);
 
             // Set the initial sorted column of the grid
             sortedColumn = DataGridViewColumnNombre;
@@ -55,7 +58,7 @@ namespace CSMaps.General
 
         private void SetAppearance()
         {
-            this.Icon = CardonerSistemas.Framework.Base.Graphics.GetIconFromBitmap(Properties.Resources.ImageEstablecimiento32);
+            this.Icon = CardonerSistemas.Framework.Base.Graphics.GetIconFromBitmap(Properties.Resources.ImagePunto32);
             Forms.SetFont(this, Program.AppearanceConfig.Font);
             Common.Appearance.SetControlsDataGridViews(this.Controls, false);
         }
@@ -69,23 +72,27 @@ namespace CSMaps.General
         {
             entitiesAll = null;
             entitiesFiltered = null;
-            Program.formMdi.formSettlements = null;
+            Program.formMdi.formPoints = null;
         }
 
         #endregion
 
         #region User interface data
 
-        internal void ReadData(short idEstablecimiento = 0, bool restoreCurrentPosition = false)
+        internal void ReadData(int idPunto = 0, bool restoreCurrentPosition = false)
         {
             this.Cursor = Cursors.WaitCursor;
             try
             {
                 using Models.CSMapsContext context = new();
-                entitiesAll = [.. from es in context.Establecimientos
-                                  join en in context.Entidads on es.IdEntidad equals en.IdEntidad into entidadesGrupo
-                                  from eg in entidadesGrupo.DefaultIfEmpty()
-                                  select new DataGridViewRowData { IdEstablecimiento = es.IdEstablecimiento, Nombre = es.Nombre, IdEntidad = es.IdEntidad, EntidadNombre = (eg == null ? string.Empty : eg.Nombre), TelefonoMovil = es.TelefonoMovil }];
+#pragma warning disable IDE0031 // Use null propagation
+                entitiesAll = [.. from p in context.Puntos
+                                  join pd in context.PuntoDatos on p.IdPunto equals pd.IdPunto into puntoDatosGrupo
+                                  from pdg in puntoDatosGrupo.DefaultIfEmpty()
+                                  join e in context.Establecimientos on pdg.IdEstablecimiento equals e.IdEstablecimiento into establecimientosGrupo
+                                  from eg in establecimientosGrupo.DefaultIfEmpty()
+                                  select new DataGridViewRowData { IdPunto = p.IdPunto, Nombre = p.Nombre, Latitud = p.Latitud, Longitud = p.Longitud, ExisteDato =  eg != null, EstablecimientoNombre = (eg == null ? string.Empty : eg.Nombre), ChapaNumero = (pdg == null ? null : pdg.ChapaNumero) }];
+#pragma warning restore IDE0031 // Use null propagation
             }
             catch (Exception ex)
             {
@@ -99,22 +106,22 @@ namespace CSMaps.General
             {
                 if (DataGridViewMain.CurrentRow == null)
                 {
-                    idEstablecimiento = 0;
+                    idPunto = 0;
                 }
                 else
                 {
-                    idEstablecimiento = ((DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem).IdEstablecimiento;
+                    idPunto = ((DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto;
                 }
             }
 
             FilterData();
 
             // Restore position
-            if (idEstablecimiento != 0)
+            if (idPunto != 0)
             {
                 foreach (DataGridViewRow row in DataGridViewMain.Rows)
                 {
-                    if (((DataGridViewRowData)row.DataBoundItem).IdEstablecimiento == idEstablecimiento)
+                    if (((DataGridViewRowData)row.DataBoundItem).IdPunto == idPunto)
                     {
                         DataGridViewMain.CurrentCell = row.Cells[0];
                         break;
@@ -130,6 +137,8 @@ namespace CSMaps.General
                 return;
             }
 
+            this.Cursor = Cursors.WaitCursor;
+
             if (string.IsNullOrWhiteSpace(ToolStripTextBoxNameFilter.Text))
             {
                 entitiesFiltered = entitiesAll;
@@ -138,10 +147,22 @@ namespace CSMaps.General
             {
                 entitiesFiltered = ToolStripComboBoxNameFilterType.SelectedIndex switch
                 {
-                    0 => [.. entitiesAll.Where(e => e.Nombre.ToLower().ReplaceDiacritics().StartsWith(ToolStripTextBoxNameFilter.Text.ToLower().ReplaceDiacritics()))],
-                    1 => [.. entitiesAll.Where(e => e.Nombre.ToLower().ReplaceDiacritics().Contains(ToolStripTextBoxNameFilter.Text.ToLower().ReplaceDiacritics()))],
+                    0 => [.. entitiesAll.Where(p => p.Nombre.ToLower().ReplaceDiacritics().StartsWith(ToolStripTextBoxNameFilter.Text.ToLower().ReplaceDiacritics()))],
+                    1 => [.. entitiesAll.Where(p => p.Nombre.ToLower().ReplaceDiacritics().Contains(ToolStripTextBoxNameFilter.Text.ToLower().ReplaceDiacritics()))],
                     _ => throw new NotImplementedException(),
                 };
+            }
+
+            switch (ToolStripComboBoxDataExistFilter.SelectedIndex)
+            {
+                case 1:
+                    entitiesFiltered = [.. entitiesFiltered.Where(p => p.ExisteDato)];
+                    break;
+                case 2:
+                    entitiesFiltered = [.. entitiesFiltered.Where(p => !p.ExisteDato)];
+                    break;
+                default:
+                    break;
             }
 
             ToolStripLabelItemsCounter.Text = Common.DataGridViews.GetItemsCountText(entityNameSingle, entityNamePlural, entitiesFiltered.Count);
@@ -162,26 +183,15 @@ namespace CSMaps.General
                     entitiesFiltered = [.. entitiesFiltered.OrderByDescending(e => e.Nombre)];
                 }
             }
-            else if (sortedColumn == DataGridViewColumnEntidad)
+            else if (sortedColumn == DataGridViewColumnEstablecimiento)
             {
                 if (sortOrder == SortOrder.Ascending)
                 {
-                    entitiesFiltered = [.. entitiesFiltered.OrderBy(e => e.EntidadNombre).ThenBy(e => e.Nombre)];
+                    entitiesFiltered = [.. entitiesFiltered.OrderBy(e => e.Nombre).ThenBy(e => e.EstablecimientoNombre)];
                 }
                 else
                 {
-                    entitiesFiltered = [.. entitiesFiltered.OrderByDescending(e => e.EntidadNombre).ThenByDescending(e => e.Nombre)];
-                }
-            }
-            else if (sortedColumn == DataGridViewColumnTelefonoMovil)
-            {
-                if (sortOrder == SortOrder.Ascending)
-                {
-                    entitiesFiltered = [.. entitiesFiltered.OrderBy(e => e.TelefonoMovil)];
-                }
-                else
-                {
-                    entitiesFiltered = [.. entitiesFiltered.OrderByDescending(e => e.TelefonoMovil)];
+                    entitiesFiltered = [.. entitiesFiltered.OrderByDescending(e => e.Nombre).ThenByDescending(e => e.EstablecimientoNombre)];
                 }
             }
             DataGridViewMain.AutoGenerateColumns = false;
@@ -219,9 +229,14 @@ namespace CSMaps.General
             FilterData();
         }
 
+        private void ToolStripComboBoxDataExistFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FilterData();
+        }
+
         private void DataGridViewMain_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (Common.DataGridViews.ColumnHeaderMouseClick(DataGridViewMain, e, ref sortedColumn, ref sortOrder, [DataGridViewColumnNombre, DataGridViewColumnEntidad, DataGridViewColumnTelefonoMovil]))
+            if (Common.DataGridViews.ColumnHeaderMouseClick(DataGridViewMain, e, ref sortedColumn, ref sortOrder, [DataGridViewColumnNombre, DataGridViewColumnEstablecimiento]))
             {
                 OrderData();
             }
@@ -239,12 +254,21 @@ namespace CSMaps.General
 
         #region Main toolbar
 
+        private void ToolStripButtonShowButtons_Click(object sender, EventArgs e)
+        {
+            ToolStripButtonShowButtons.Checked = !ToolStripButtonShowButtons.Checked;
+            ToolStripButtonAdd.Visible = ToolStripButtonShowButtons.Checked;
+            ToolStripButtonView.Visible = ToolStripButtonShowButtons.Checked;
+            ToolStripButtonEdit.Visible = ToolStripButtonShowButtons.Checked;
+            ToolStripButtonDelete.Visible = ToolStripButtonShowButtons.Checked;
+        }
+
         private void ToolStripButtonAdd_Click(object sender, EventArgs e)
         {
             if (Common.DataGridViews.AddVerify(this, DataGridViewMain))
             {
-                FormSettlement formSettlement = new(true, 0);
-                formSettlement.ShowDialog(this);
+                FormPoint FormPoint = new(true, 0);
+                FormPoint.ShowDialog(this);
                 Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
             }
         }
@@ -253,8 +277,8 @@ namespace CSMaps.General
         {
             if (Common.DataGridViews.ViewVerify(this, DataGridViewMain, entityNameSingle, entityIsFemale))
             {
-                FormSettlement formSettlement = new(false, ((DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem).IdEstablecimiento);
-                formSettlement.ShowDialog(this);
+                FormPoint FormPoint = new(false, ((DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto);
+                FormPoint.ShowDialog(this);
                 Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
             }
         }
@@ -263,8 +287,8 @@ namespace CSMaps.General
         {
             if (Common.DataGridViews.EditVerify(this, DataGridViewMain, entityNameSingle, entityIsFemale))
             {
-                FormSettlement formSettlement = new(true, ((DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem).IdEstablecimiento);
-                formSettlement.ShowDialog(this);
+                FormPoint FormPoint = new(true, ((DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto);
+                FormPoint.ShowDialog(this);
                 Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
             }
         }
@@ -277,7 +301,7 @@ namespace CSMaps.General
             }
 
             DataGridViewRowData rowData = (DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem;
-            string entidadDatos = $"Nombre: {rowData.Nombre}\nEntidad: {rowData.EntidadNombre}\nTeléfono móvil: {rowData.TelefonoMovil}";
+            string entidadDatos = $"Nombre: {rowData.Nombre}\nLatitud: {rowData.Latitud}\nLogitud: {rowData.Longitud}";
             if (!Common.DataGridViews.DeleteConfirm(entityNameSingle, entityIsFemale, entidadDatos))
             {
                 return;
@@ -287,9 +311,9 @@ namespace CSMaps.General
             try
             {
                 using Models.CSMapsContext context = new();
-                Models.Establecimiento establecimiento = context.Establecimientos.Find(rowData.IdEstablecimiento);
-                context.Establecimientos.Attach(establecimiento);
-                context.Establecimientos.Remove(establecimiento);
+                Models.Punto punto = context.Puntos.Find(rowData.IdPunto);
+                context.Puntos.Attach(punto);
+                context.Puntos.Remove(punto);
                 context.SaveChanges();
             }
             catch (System.Data.Entity.Infrastructure.DbUpdateException dbUEx)
@@ -303,6 +327,16 @@ namespace CSMaps.General
 
             ReadData();
             this.Cursor = Cursors.Default;
+        }
+
+        private void ToolStripButtonDataComplete_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ToolStripButtonDataDelete_Click(object sender, EventArgs e)
+        {
+
         }
 
         #endregion

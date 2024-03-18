@@ -31,6 +31,7 @@
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.3" />
     <PackageReference Include="SharpKml.Core" Version="6.0.0" />
+    <PackageReference Include="Syncfusion.Shared.Base" Version="25.1.35" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
   </ItemGroup>
 
@@ -40,6 +41,9 @@
     </Reference>
     <Reference Include="CardonerSistemas.Framework.Controls">
       <HintPath>..\..\..\CS-Framework.Net\CardonerSistemas.Framework.Controls\bin\Debug\net8.0-windows\CardonerSistemas.Framework.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="CardonerSistemas.Framework.Controls.Syncfusion">
+      <HintPath>..\..\..\CS-Framework.Net\CardonerSistemas.Framework.Controls.Syncfusion\bin\Debug\net8.0-windows\CardonerSistemas.Framework.Controls.Syncfusion.dll</HintPath>
     </Reference>
     <Reference Include="CardonerSistemas.Framework.Cryptography">
       <HintPath>..\..\..\CS-Framework.Net\CardonerSistemas.Framework.Cryptography\bin\Debug\net8.0-windows\CardonerSistemas.Framework.Cryptography.dll</HintPath>
