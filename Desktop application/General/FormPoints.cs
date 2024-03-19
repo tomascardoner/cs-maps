@@ -267,8 +267,8 @@ namespace CSMaps.General
         {
             if (Common.DataGridViews.AddVerify(this, DataGridViewMain))
             {
-                FormPoint FormPoint = new(true, 0);
-                FormPoint.ShowDialog(this);
+                FormPoint formPoint = new(true, 0);
+                formPoint.ShowDialog(this);
                 Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
             }
         }
@@ -277,8 +277,8 @@ namespace CSMaps.General
         {
             if (Common.DataGridViews.ViewVerify(this, DataGridViewMain, entityNameSingle, entityIsFemale))
             {
-                FormPoint FormPoint = new(false, ((DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto);
-                FormPoint.ShowDialog(this);
+                FormPoint formPoint = new(false, ((DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto);
+                formPoint.ShowDialog(this);
                 Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
             }
         }
@@ -287,8 +287,8 @@ namespace CSMaps.General
         {
             if (Common.DataGridViews.EditVerify(this, DataGridViewMain, entityNameSingle, entityIsFemale))
             {
-                FormPoint FormPoint = new(true, ((DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto);
-                FormPoint.ShowDialog(this);
+                FormPoint formPoint = new(true, ((DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto);
+                formPoint.ShowDialog(this);
                 Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
             }
         }
@@ -301,7 +301,7 @@ namespace CSMaps.General
             }
 
             DataGridViewRowData rowData = (DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem;
-            string entidadDatos = $"Nombre: {rowData.Nombre}\nLatitud: {rowData.Latitud}\nLogitud: {rowData.Longitud}";
+            string entidadDatos = $"Nombre: {rowData.Nombre}\nLatitud: {rowData.Latitud}\nLongitud: {rowData.Longitud}";
             if (!Common.DataGridViews.DeleteConfirm(entityNameSingle, entityIsFemale, entidadDatos))
             {
                 return;
@@ -329,14 +329,68 @@ namespace CSMaps.General
             this.Cursor = Cursors.Default;
         }
 
-        private void ToolStripButtonDataComplete_Click(object sender, EventArgs e)
+        private void ToolStripButtonDataView_Click(object sender, EventArgs e)
         {
+            if (Common.DataGridViews.ViewVerify(this, DataGridViewMain, entityNameSingle, entityIsFemale))
+            {
+                FormPointData formPointData = new(false, ((DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto);
+                formPointData.ShowDialog(this);
+                Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
+            }
+        }
 
+        private void ToolStripButtonDataEdit_Click(object sender, EventArgs e)
+        {
+            if (Common.DataGridViews.EditVerify(this, DataGridViewMain, entityNameSingle, entityIsFemale))
+            {
+                FormPointData formPointData = new(true, ((DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto);
+                formPointData.ShowDialog(this);
+                Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
+            }
         }
 
         private void ToolStripButtonDataDelete_Click(object sender, EventArgs e)
         {
+            const string entityName = "dato del punto";
 
+            if (!Common.DataGridViews.DeleteVerify(DataGridViewMain, entityNameSingle, entityIsFemale))
+            {
+                return;
+            }
+
+            DataGridViewRowData rowData = (DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem;
+            if (!rowData.ExisteDato)
+            {
+                MessageBox.Show("El punto seleccionado no tiene datos asociados.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            string entidadDatos = $"Nombre: {rowData.Nombre}\nLatitud: {rowData.Latitud}\nLogitud: {rowData.Longitud}\n\nEstablecimiento: {rowData.EstablecimientoNombre}\nNº de chapa: {rowData.ChapaNumero}";
+            if (!Common.DataGridViews.DeleteConfirm(entityName, false, entidadDatos))
+            {
+                return;
+            }
+
+            this.Cursor = Cursors.WaitCursor;
+            try
+            {
+                using Models.CSMapsContext context = new();
+                Models.PuntoDato puntoDato = context.PuntoDatos.Find(rowData.IdPunto);
+                context.PuntoDatos.Attach(puntoDato);
+                context.PuntoDatos.Remove(puntoDato);
+                context.SaveChanges();
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException dbUEx)
+            {
+                Common.DBErrors.DbUpdateException(dbUEx, entityName, entityIsFemale, Properties.Resources.StringActionDelete);
+            }
+            catch (Exception ex)
+            {
+                Common.DBErrors.OtherUpdateException(ex, entityName, entityIsFemale, Properties.Resources.StringActionDelete);
+            }
+
+            ReadData(rowData.IdPunto);
+            this.Cursor = Cursors.Default;
         }
 
         #endregion

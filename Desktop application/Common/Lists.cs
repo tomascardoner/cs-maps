@@ -30,5 +30,25 @@
 
             comboBox.DataSource = entidades;
         }
+
+        static internal void GetEstablecimientos(ComboBox comboBox, Models.CSMapsContext context, bool showNotSpecified)
+        {
+            comboBox.ValueMember = "IdEstablecimiento";
+            comboBox.DisplayMember = "Nombre";
+
+            List<Models.Establecimiento> establecimientos = [.. context.Establecimientos.OrderBy(e => e.Nombre)];
+
+            if (showNotSpecified)
+            {
+                Models.Establecimiento noEspecifica = new()
+                {
+                    IdEstablecimiento = CardonerSistemas.Framework.Base.Constants.ShortFieldValueNotSpecified,
+                    Nombre = Properties.Resources.StringItemStartChar + Properties.Resources.StringItemNotSpecified + Properties.Resources.StringItemEndChar
+                };
+                establecimientos.Insert(0, noEspecifica);
+            }
+
+            comboBox.DataSource = establecimientos;
+        }
     }
 }

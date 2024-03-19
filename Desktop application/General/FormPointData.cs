@@ -3,12 +3,12 @@ using CardonerSistemas.Framework.Controls;
 
 namespace CSMaps.General
 {
-    public partial class FormSettlement : Form
+    public partial class FormPointData : Form
     {
 
         #region Declarations
 
-        private const string entityNameSingular = "establecimiento";
+        private const string entityNameSingular = "punto";
         private const bool entityIsFemale = false;
 
         private readonly bool isLoading;
@@ -16,29 +16,33 @@ namespace CSMaps.General
         private bool isEditMode;
 
         private Models.CSMapsContext context = new();
-        private Models.Establecimiento establecimiento;
+        private Models.Punto punto;
+        private Models.PuntoDato puntoDato;
 
         #endregion
 
         #region Form stuff
 
-        public FormSettlement(bool editMode, short idEstablecimiento)
+        public FormPointData(bool editMode, int idPunto)
         {
             InitializeComponent();
 
             isLoading = true;
-            isNew = (idEstablecimiento == 0);
+            isNew = (idPunto == 0);
             isEditMode = editMode;
 
+            punto = context.Puntos.Find(idPunto);
+            puntoDato = context.PuntoDatos.Find(idPunto);
+            isNew = puntoDato == null;
             if (isNew)
             {
-                establecimiento = new();
+                puntoDato = new() { IdPunto = idPunto };
                 InitializeNewObjectData();
-                context.Establecimientos.Add(establecimiento);
+                context.PuntoDatos.Add(puntoDato);
             }
             else
             {
-                establecimiento = context.Establecimientos.Find(idEstablecimiento);
+                puntoDato = punto.PuntoDato;
             }
 
             InitializeFormAndControls();
@@ -51,7 +55,7 @@ namespace CSMaps.General
         private void InitializeFormAndControls()
         {
             SetAppearance();
-            Common.Lists.GetEntidades(ComboBoxEntidad, context, true);
+            Common.Lists.GetEstablecimientos(ComboBoxEstablecimiento, context, true);
         }
 
         private void SetAppearance()
@@ -72,16 +76,15 @@ namespace CSMaps.General
             ToolStripButtonEdit.Visible = !isEditMode;
             ToolStripButtonClose.Visible = !isEditMode;
 
-            TextBoxNombre.ReadOnly = !isEditMode;
-            ComboBoxEntidad.Enabled = isEditMode;
-            TextBoxTelefonoMovil.ReadOnly = !isEditMode;
+            ComboBoxEstablecimiento.Enabled = isEditMode;
+            IntegerTextBoxChapaNumero.ReadOnly = !isEditMode;
         }
 
         private void This_FormClosed(object sender, FormClosedEventArgs e)
         {
             context.Dispose();
             context = null;
-            establecimiento = null;
+            punto = null;
             this.Dispose();
         }
 
@@ -91,25 +94,27 @@ namespace CSMaps.General
 
         private void SetDataToUserInterface()
         {
-            Values.ToTextBox(TextBoxIdEstablecimiento, establecimiento.IdEstablecimiento);
-            Values.ToTextBox(TextBoxNombre, establecimiento.Nombre);
-            Values.ToComboBox(ComboBoxEntidad, establecimiento.IdEntidad);
-            Values.ToTextBox(TextBoxTelefonoMovil, establecimiento.TelefonoMovil);
-            Values.ToTextBoxAsShortDateTime(TextBoxUltimaActualizacion, establecimiento.UltimaActualizacion);
+            Values.ToTextBox(TextBoxIdPunto, punto.IdPunto);
+            Values.ToTextBox(TextBoxNombre, punto.Nombre);
+            CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDoubleTextBox(DoubleTextBoxLatitud, punto.Latitud);
+            CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDoubleTextBox(DoubleTextBoxLongitud, punto.Longitud);
+
+            Values.ToComboBox(ComboBoxEstablecimiento, puntoDato.IdEstablecimiento);
+            CardonerSistemas.Framework.Controls.Syncfusion.Values.ToIntegerTextBox(IntegerTextBoxChapaNumero, puntoDato.ChapaNumero);
+            Values.ToTextBoxAsShortDateTime(TextBoxUltimaActualizacion, puntoDato.UltimaActualizacion);
         }
 
         private void SetDataToEntityObject()
         {
-            establecimiento.Nombre = Values.TextBoxToString(TextBoxNombre);
-            establecimiento.IdEntidad = Values.ComboBoxToShort(ComboBoxEntidad);
-            establecimiento.TelefonoMovil = Values.TextBoxToString(TextBoxTelefonoMovil);
+            puntoDato.IdEstablecimiento = Values.ComboBoxToShort(ComboBoxEstablecimiento);
+            puntoDato.ChapaNumero = CardonerSistemas.Framework.Controls.Syncfusion.Values.IntegerTextBoxToInt(IntegerTextBoxChapaNumero);
         }
 
         #endregion
 
         #region Controls events
 
-        private void FormEntity_KeyPress(object sender, KeyPressEventArgs e)
+        private void FormPoint_KeyPress(object sender, KeyPressEventArgs e)
         {
             Common.Forms.This_KeyPress(e, isEditMode, ActiveControl, ToolStripButtonClose, ToolStripButtonSave, ToolStripButtonCancel, null);
         }
@@ -130,21 +135,16 @@ namespace CSMaps.General
                 return;
             }
 
-            if (!CompleteNewObjectData())
-            {
-                return;
-            }
-
             SetDataToEntityObject();
 
             if (context.ChangeTracker.HasChanges())
             {
                 this.Cursor = Cursors.WaitCursor;
-                establecimiento.UltimaActualizacion = System.DateTime.Now;
+                punto.UltimaActualizacion = System.DateTime.Now;
                 try
                 {
                     context.SaveChanges();
-                    Program.formMdi.formSettlements?.ReadData(establecimiento.IdEstablecimiento);
+                    Program.formMdi.formPoints?.ReadData(punto.IdPunto);
                 }
                 catch (System.Data.Entity.Infrastructure.DbUpdateException dbUEx)
                 {
@@ -188,34 +188,7 @@ namespace CSMaps.General
 
         private void InitializeNewObjectData()
         {
-            establecimiento.UltimaActualizacion = System.DateTime.Now;
-        }
-
-        private bool CompleteNewObjectData()
-        {
-            if (!isNew)
-            {
-                return true;
-            }
-
-            try
-            {
-                using Models.CSMapsContext newIdContext = new();
-                if (context.Establecimientos.Any())
-                {
-                    establecimiento.IdEstablecimiento = (short)(newIdContext.Establecimientos.Max(e => e.IdEstablecimiento) + 1);
-                }
-                else
-                {
-                    establecimiento.IdEstablecimiento = 1;
-                }
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Error.ProcessException(ex, string.Format(Properties.Resources.StringEntityNewValuesErrorFemale, entityNameSingular));
-                return false;
-            }
+            puntoDato.UltimaActualizacion = System.DateTime.Now;
         }
 
         #endregion
@@ -224,14 +197,16 @@ namespace CSMaps.General
 
         private bool VerifyData()
         {
-            if (string.IsNullOrWhiteSpace(TextBoxNombre.Text))
+            const int ChapaNumeroMinimo = 30001;
+
+            if (ComboBoxEstablecimiento.SelectedIndex == -1)
             {
-                MessageBox.Show(string.Format(entityIsFemale ? Properties.Resources.StringEntityDataVerificationMaleFieldRequiredFemale : Properties.Resources.StringEntityDataVerificationMaleFieldRequiredMale, entityNameSingular, "nombre"), Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(string.Format(entityIsFemale ? Properties.Resources.StringEntityDataVerificationMaleFieldRequiredFemale : Properties.Resources.StringEntityDataVerificationMaleFieldRequiredMale, entityNameSingular, "establecimiento"), Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
-            if (ComboBoxEntidad.SelectedIndex == -1)
+            if (IntegerTextBoxChapaNumero.IntegerValue < ChapaNumeroMinimo)
             {
-                MessageBox.Show(string.Format(entityIsFemale ? Properties.Resources.StringEntityDataVerificationFemaleFieldRequiredFemale : Properties.Resources.StringEntityDataVerificationFemaleFieldRequiredMale, entityNameSingular, "entidad"), Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"El nº de chapa debe ser mayor o igual a {ChapaNumeroMinimo}", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
             return true;

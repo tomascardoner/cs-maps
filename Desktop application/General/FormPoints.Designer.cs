@@ -35,7 +35,8 @@
             ToolStripButtonView = new ToolStripButton();
             ToolStripButtonEdit = new ToolStripButton();
             ToolStripButtonDelete = new ToolStripButton();
-            ToolStripButtonDataComplete = new ToolStripButton();
+            ToolStripButtonDataView = new ToolStripButton();
+            ToolStripButtonDataEdit = new ToolStripButton();
             ToolStripButtonDataDelete = new ToolStripButton();
             DataGridViewMain = new DataGridView();
             DataGridViewColumnNombre = new DataGridViewTextBoxColumn();
@@ -66,10 +67,10 @@
             // 
             ToolStripMain.Dock = DockStyle.Fill;
             ToolStripMain.GripStyle = ToolStripGripStyle.Hidden;
-            ToolStripMain.Items.AddRange(new ToolStripItem[] { ToolStripButtonShowButtons, ToolStripButtonAdd, ToolStripButtonView, ToolStripButtonEdit, ToolStripButtonDelete, ToolStripButtonDataComplete, ToolStripButtonDataDelete });
+            ToolStripMain.Items.AddRange(new ToolStripItem[] { ToolStripButtonShowButtons, ToolStripButtonAdd, ToolStripButtonView, ToolStripButtonEdit, ToolStripButtonDelete, ToolStripButtonDataView, ToolStripButtonDataEdit, ToolStripButtonDataDelete });
             ToolStripMain.Location = new Point(0, 0);
             ToolStripMain.Name = "ToolStripMain";
-            ToolStripMain.Size = new Size(347, 39);
+            ToolStripMain.Size = new Size(404, 39);
             ToolStripMain.TabIndex = 0;
             // 
             // ToolStripButtonShowButtons
@@ -126,15 +127,25 @@
             ToolStripButtonDelete.Visible = false;
             ToolStripButtonDelete.Click += ToolStripButtonDelete_Click;
             // 
-            // ToolStripButtonDataComplete
+            // ToolStripButtonDataView
             // 
-            ToolStripButtonDataComplete.Image = Properties.Resources.ImageItemEdit32;
-            ToolStripButtonDataComplete.ImageScaling = ToolStripItemImageScaling.None;
-            ToolStripButtonDataComplete.ImageTransparentColor = Color.Magenta;
-            ToolStripButtonDataComplete.Name = "ToolStripButtonDataComplete";
-            ToolStripButtonDataComplete.Size = new Size(131, 36);
-            ToolStripButtonDataComplete.Text = "Completar datos";
-            ToolStripButtonDataComplete.Click += ToolStripButtonDataComplete_Click;
+            ToolStripButtonDataView.Image = Properties.Resources.ImageItemView32;
+            ToolStripButtonDataView.ImageScaling = ToolStripItemImageScaling.None;
+            ToolStripButtonDataView.ImageTransparentColor = Color.Magenta;
+            ToolStripButtonDataView.Name = "ToolStripButtonDataView";
+            ToolStripButtonDataView.Size = new Size(91, 36);
+            ToolStripButtonDataView.Text = "Ver datos";
+            ToolStripButtonDataView.Click += ToolStripButtonDataView_Click;
+            // 
+            // ToolStripButtonDataEdit
+            // 
+            ToolStripButtonDataEdit.Image = Properties.Resources.ImageItemEdit32;
+            ToolStripButtonDataEdit.ImageScaling = ToolStripItemImageScaling.None;
+            ToolStripButtonDataEdit.ImageTransparentColor = Color.Magenta;
+            ToolStripButtonDataEdit.Name = "ToolStripButtonDataEdit";
+            ToolStripButtonDataEdit.Size = new Size(105, 36);
+            ToolStripButtonDataEdit.Text = "Editar datos";
+            ToolStripButtonDataEdit.Click += ToolStripButtonDataEdit_Click;
             // 
             // ToolStripButtonDataDelete
             // 
@@ -142,8 +153,8 @@
             ToolStripButtonDataDelete.ImageScaling = ToolStripItemImageScaling.None;
             ToolStripButtonDataDelete.ImageTransparentColor = Color.Magenta;
             ToolStripButtonDataDelete.Name = "ToolStripButtonDataDelete";
-            ToolStripButtonDataDelete.Size = new Size(115, 36);
-            ToolStripButtonDataDelete.Text = "Limpiar datos";
+            ToolStripButtonDataDelete.Size = new Size(107, 36);
+            ToolStripButtonDataDelete.Text = "Borrar datos";
             ToolStripButtonDataDelete.Click += ToolStripButtonDataDelete_Click;
             // 
             // DataGridViewMain
@@ -167,7 +178,7 @@
             DataGridViewMain.Size = new Size(910, 269);
             DataGridViewMain.TabIndex = 1;
             DataGridViewMain.ColumnHeaderMouseClick += DataGridViewMain_ColumnHeaderMouseClick;
-            DataGridViewMain.DoubleClick += ToolStripButtonView_Click;
+            DataGridViewMain.DoubleClick += ToolStripButtonDataView_Click;
             DataGridViewMain.KeyPress += DataGridViewMain_KeyPress;
             // 
             // DataGridViewColumnNombre
@@ -230,7 +241,7 @@
             ToolStripNameFilter.Dock = DockStyle.Fill;
             ToolStripNameFilter.GripStyle = ToolStripGripStyle.Hidden;
             ToolStripNameFilter.Items.AddRange(new ToolStripItem[] { ToolStripLabelNameFilter, ToolStripComboBoxNameFilterType, ToolStripTextBoxNameFilter, ToolStripButtonNameFilterClear });
-            ToolStripNameFilter.Location = new Point(347, 0);
+            ToolStripNameFilter.Location = new Point(404, 0);
             ToolStripNameFilter.Name = "ToolStripNameFilter";
             ToolStripNameFilter.Size = new Size(412, 39);
             ToolStripNameFilter.TabIndex = 1;
@@ -238,21 +249,21 @@
             // ToolStripLabelNameFilter
             // 
             ToolStripLabelNameFilter.Name = "ToolStripLabelNameFilter";
-            ToolStripLabelNameFilter.Size = new Size(111, 36);
+            ToolStripLabelNameFilter.Size = new Size(111, 22);
             ToolStripLabelNameFilter.Text = "Filtrar por nombres:";
             // 
             // ToolStripComboBoxNameFilterType
             // 
             ToolStripComboBoxNameFilterType.DropDownStyle = ComboBoxStyle.DropDownList;
             ToolStripComboBoxNameFilterType.Name = "ToolStripComboBoxNameFilterType";
-            ToolStripComboBoxNameFilterType.Size = new Size(121, 39);
+            ToolStripComboBoxNameFilterType.Size = new Size(121, 25);
             ToolStripComboBoxNameFilterType.SelectedIndexChanged += ToolStripComboBoxFilterType_SelectedIndexChanged;
             // 
             // ToolStripTextBoxNameFilter
             // 
             ToolStripTextBoxNameFilter.MaxLength = 100;
             ToolStripTextBoxNameFilter.Name = "ToolStripTextBoxNameFilter";
-            ToolStripTextBoxNameFilter.Size = new Size(150, 39);
+            ToolStripTextBoxNameFilter.Size = new Size(150, 25);
             ToolStripTextBoxNameFilter.Enter += ToolStripTextBoxSearch_Enter;
             ToolStripTextBoxNameFilter.KeyPress += ToolStripTextBoxSearch_KeyPress;
             // 
@@ -263,7 +274,7 @@
             ToolStripButtonNameFilterClear.ImageScaling = ToolStripItemImageScaling.None;
             ToolStripButtonNameFilterClear.ImageTransparentColor = Color.Magenta;
             ToolStripButtonNameFilterClear.Name = "ToolStripButtonNameFilterClear";
-            ToolStripButtonNameFilterClear.Size = new Size(23, 36);
+            ToolStripButtonNameFilterClear.Size = new Size(23, 22);
             ToolStripButtonNameFilterClear.ToolTipText = "Limpiar búsqueda";
             ToolStripButtonNameFilterClear.Click += ToolStripButtonSearchClear_Click;
             // 
@@ -360,8 +371,9 @@
         private ToolStrip ToolStripDataExistFilter;
         private ToolStripLabel ToolStripLabelDataExistFilter;
         private ToolStripComboBox ToolStripComboBoxDataExistFilter;
-        private ToolStripButton ToolStripButtonDataComplete;
+        private ToolStripButton ToolStripButtonDataEdit;
         private ToolStripButton ToolStripButtonDataDelete;
         private ToolStripButton ToolStripButtonShowButtons;
+        private ToolStripButton ToolStripButtonDataView;
     }
 }

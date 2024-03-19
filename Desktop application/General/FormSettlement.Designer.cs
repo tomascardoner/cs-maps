@@ -177,6 +177,7 @@
             // 
             // ComboBoxEntidad
             // 
+            ComboBoxEntidad.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             ComboBoxEntidad.DropDownStyle = ComboBoxStyle.DropDownList;
             ComboBoxEntidad.FormattingEnabled = true;
             ComboBoxEntidad.Location = new Point(135, 125);
@@ -186,6 +187,7 @@
             // 
             // LabelEntidad
             // 
+            LabelEntidad.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             LabelEntidad.AutoSize = true;
             LabelEntidad.Location = new Point(12, 128);
             LabelEntidad.Name = "LabelEntidad";
