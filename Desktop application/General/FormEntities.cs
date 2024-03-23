@@ -73,7 +73,7 @@ namespace CSMaps.General
             try
             {
                 using Models.CSMapsContext context = new();
-                entitiesAll = [.. context.Entidads];
+                entitiesAll = [.. context.Entidades];
             }
             catch (Exception ex)
             {
@@ -264,9 +264,9 @@ namespace CSMaps.General
             try
             {
                 using Models.CSMapsContext context = new();
-                Models.Entidad entidad = context.Entidads.Find(rowData.IdEntidad);
-                context.Entidads.Attach(entidad);
-                context.Entidads.Remove(entidad);
+                Models.Entidad entidad = context.Entidades.Find(rowData.IdEntidad);
+                context.Entidades.Attach(entidad);
+                context.Entidades.Remove(entidad);
                 context.SaveChanges();
             }
             catch (System.Data.Entity.Infrastructure.DbUpdateException dbUEx)

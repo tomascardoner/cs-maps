@@ -9,6 +9,8 @@ public partial class Entidad
 {
     public short IdEntidad { get; set; }
 
+    public string NombreTemp { get; set; }
+
     public string Nombre { get; set; }
 
     public string TelefonoMovil { get; set; }

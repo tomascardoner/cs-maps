@@ -24,6 +24,10 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[EventoTipo]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[Grupo]",
          "ObjectType": 0
       },
@@ -42,6 +46,14 @@
       {
          "Name": "[dbo].[PuntoDato]",
          "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PuntoEvento]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ObtenerPuntosDatosYEventos]",
+         "ObjectType": 1
       }
    ],
    "UiHint": "notebook-tomas.CSMaps.dbo",

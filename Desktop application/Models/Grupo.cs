@@ -11,6 +11,10 @@ public partial class Grupo
 
     public string Nombre { get; set; }
 
+    public string GoogleMapsStyleId { get; set; }
+
+    public byte[] GoogleMapsIcon { get; set; }
+
     public bool Activo { get; set; }
 
     public DateTime UltimaActualizacion { get; set; }

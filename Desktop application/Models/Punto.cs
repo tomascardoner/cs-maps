@@ -22,4 +22,6 @@ public partial class Punto
     public virtual ICollection<GrupoPunto> GrupoPuntos { get; set; } = new List<GrupoPunto>();
 
     public virtual PuntoDato PuntoDato { get; set; }
+
+    public virtual ICollection<PuntoEvento> PuntoEventos { get; set; } = new List<PuntoEvento>();
 }

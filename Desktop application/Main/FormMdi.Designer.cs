@@ -35,6 +35,7 @@
             ToolStripButtonEntities = new ToolStripButton();
             ToolStripButtonSettlements = new ToolStripButton();
             ToolStripButtonPoints = new ToolStripButton();
+            ToolStripButtonPuntosDatosYEventos = new ToolStripButton();
             ToolStripButtonImport = new ToolStripButton();
             MenuStripMain = new MenuStrip();
             ToolStripMenuItemFile = new ToolStripMenuItem();
@@ -52,10 +53,10 @@
             // 
             ToolStripMain.Dock = DockStyle.Left;
             ToolStripMain.GripStyle = ToolStripGripStyle.Hidden;
-            ToolStripMain.Items.AddRange(new ToolStripItem[] { ToolStripDropDownButtonTables, ToolStripButtonEntities, ToolStripButtonSettlements, ToolStripButtonPoints, ToolStripButtonImport });
+            ToolStripMain.Items.AddRange(new ToolStripItem[] { ToolStripDropDownButtonTables, ToolStripButtonEntities, ToolStripButtonSettlements, ToolStripButtonPoints, ToolStripButtonPuntosDatosYEventos, ToolStripButtonImport });
             ToolStripMain.Location = new Point(0, 24);
             ToolStripMain.Name = "ToolStripMain";
-            ToolStripMain.Size = new Size(133, 291);
+            ToolStripMain.Size = new Size(169, 376);
             ToolStripMain.TabIndex = 1;
             // 
             // ToolStripDropDownButtonTables
@@ -66,7 +67,7 @@
             ToolStripDropDownButtonTables.ImageScaling = ToolStripItemImageScaling.None;
             ToolStripDropDownButtonTables.ImageTransparentColor = Color.Magenta;
             ToolStripDropDownButtonTables.Name = "ToolStripDropDownButtonTables";
-            ToolStripDropDownButtonTables.Size = new Size(130, 36);
+            ToolStripDropDownButtonTables.Size = new Size(166, 36);
             ToolStripDropDownButtonTables.Text = "Tablas";
             // 
             // ToolStripMenuItemTablesPointsGroups
@@ -88,7 +89,7 @@
             ToolStripButtonEntities.ImageScaling = ToolStripItemImageScaling.None;
             ToolStripButtonEntities.ImageTransparentColor = Color.Magenta;
             ToolStripButtonEntities.Name = "ToolStripButtonEntities";
-            ToolStripButtonEntities.Size = new Size(130, 36);
+            ToolStripButtonEntities.Size = new Size(166, 36);
             ToolStripButtonEntities.Text = "Entidades";
             ToolStripButtonEntities.Click += ToolStripButtonEntities_Click;
             // 
@@ -99,7 +100,7 @@
             ToolStripButtonSettlements.ImageScaling = ToolStripItemImageScaling.None;
             ToolStripButtonSettlements.ImageTransparentColor = Color.Magenta;
             ToolStripButtonSettlements.Name = "ToolStripButtonSettlements";
-            ToolStripButtonSettlements.Size = new Size(130, 36);
+            ToolStripButtonSettlements.Size = new Size(166, 36);
             ToolStripButtonSettlements.Text = "Establecimientos";
             ToolStripButtonSettlements.Click += ToolStripButtonSettlements_Click;
             // 
@@ -110,9 +111,19 @@
             ToolStripButtonPoints.ImageScaling = ToolStripItemImageScaling.None;
             ToolStripButtonPoints.ImageTransparentColor = Color.Magenta;
             ToolStripButtonPoints.Name = "ToolStripButtonPoints";
-            ToolStripButtonPoints.Size = new Size(130, 36);
+            ToolStripButtonPoints.Size = new Size(166, 36);
             ToolStripButtonPoints.Text = "Puntos";
             ToolStripButtonPoints.Click += ToolStripButtonPoints_Click;
+            // 
+            // ToolStripButtonPuntosDatosYEventos
+            // 
+            ToolStripButtonPuntosDatosYEventos.Image = Properties.Resources.ImagePunto32;
+            ToolStripButtonPuntosDatosYEventos.ImageScaling = ToolStripItemImageScaling.None;
+            ToolStripButtonPuntosDatosYEventos.ImageTransparentColor = Color.Magenta;
+            ToolStripButtonPuntosDatosYEventos.Name = "ToolStripButtonPuntosDatosYEventos";
+            ToolStripButtonPuntosDatosYEventos.Size = new Size(166, 36);
+            ToolStripButtonPuntosDatosYEventos.Text = "Puntos: datos y eventos";
+            ToolStripButtonPuntosDatosYEventos.Click += ToolStripButtonPuntosDatosYEventos_Click;
             // 
             // ToolStripButtonImport
             // 
@@ -121,7 +132,7 @@
             ToolStripButtonImport.ImageScaling = ToolStripItemImageScaling.None;
             ToolStripButtonImport.ImageTransparentColor = Color.Magenta;
             ToolStripButtonImport.Name = "ToolStripButtonImport";
-            ToolStripButtonImport.Size = new Size(130, 36);
+            ToolStripButtonImport.Size = new Size(166, 36);
             ToolStripButtonImport.Text = "Importar";
             ToolStripButtonImport.Click += ToolStripButtonImport_Click;
             // 
@@ -184,7 +195,7 @@
             // FormMdi
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(737, 315);
+            ClientSize = new Size(737, 400);
             Controls.Add(ToolStripMain);
             Controls.Add(MenuStripMain);
             IsMdiContainer = true;
@@ -222,6 +233,7 @@
         private ToolStripSeparator ToolStripSeparatorWindowList;
         private ToolStripMenuItem ToolStripMenuItemHelp;
         private ToolStripMenuItem ToolStripMenuItemHelpAbout;
+        private ToolStripButton ToolStripButtonPuntosDatosYEventos;
     }
 }
 

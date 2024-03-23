@@ -10,7 +10,8 @@ namespace CSMaps.Main
         internal General.FormEntities formEntities;
         internal General.FormSettlements formSettlements;
         internal General.FormPoints formPoints;
-        internal FormImport formImport;
+        internal General.FormPointsDataAndEvents formPointsDataAndEvents;
+        internal General.FormImport formImport;
 
         #endregion
 
@@ -92,6 +93,12 @@ namespace CSMaps.Main
         {
             formPoints ??= new();
             ShowMdiForm(formPoints);
+        }
+
+        private void ToolStripButtonPuntosDatosYEventos_Click(object sender, EventArgs e)
+        {
+            formPointsDataAndEvents ??= new();
+            ShowMdiForm(formPointsDataAndEvents);
         }
 
         private void ToolStripButtonImport_Click(object sender, EventArgs e)

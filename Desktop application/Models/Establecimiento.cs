@@ -9,6 +9,8 @@ public partial class Establecimiento
 {
     public short IdEstablecimiento { get; set; }
 
+    public string NombreTemp { get; set; }
+
     public string Nombre { get; set; }
 
     public short? IdEntidad { get; set; }

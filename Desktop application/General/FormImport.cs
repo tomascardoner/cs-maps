@@ -2,7 +2,7 @@ using CardonerSistemas.Framework.Base;
 using SharpKml.Dom;
 using SharpKml.Engine;
 
-namespace CSMaps
+namespace CSMaps.General
 {
     public partial class FormImport : Form
     {

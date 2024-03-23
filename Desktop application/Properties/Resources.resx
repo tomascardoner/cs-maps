@@ -302,6 +302,18 @@
   <data name="StringItemAllMale" xml:space="preserve">
     <value>Todos</value>
   </data>
+  <data name="StringItemCompleteFemale" xml:space="preserve">
+    <value>Completa</value>
+  </data>
+  <data name="StringItemCompleteMale" xml:space="preserve">
+    <value>Completo</value>
+  </data>
+  <data name="StringItemEmptyFemale" xml:space="preserve">
+    <value>Vacía</value>
+  </data>
+  <data name="StringItemEmptyMale" xml:space="preserve">
+    <value>Vacío</value>
+  </data>
   <data name="StringItemEndChar" xml:space="preserve">
     <value>»</value>
   </data>

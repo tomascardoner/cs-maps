@@ -5,11 +5,15 @@ using System.Collections.Generic;
 
 namespace CSMaps.Models;
 
-public partial class Partido
+public partial class EventoTipo
 {
-    public byte IdPartido { get; set; }
+    public byte IdEventoTipo { get; set; }
 
     public string Nombre { get; set; }
 
+    public bool Activo { get; set; }
+
     public DateTime UltimaActualizacion { get; set; }
+
+    public virtual ICollection<PuntoEvento> PuntoEventos { get; set; } = new List<PuntoEvento>();
 }

@@ -16,7 +16,7 @@
             comboBox.ValueMember = "IdEntidad";
             comboBox.DisplayMember = "Nombre";
 
-            List<Models.Entidad> entidades = [.. context.Entidads.OrderBy(e => e.Nombre)];
+            List<Models.Entidad> entidades = [.. context.Entidades.OrderBy(e => e.Nombre)];
 
             if (showNotSpecified)
             {
@@ -50,5 +50,46 @@
 
             comboBox.DataSource = establecimientos;
         }
+
+        static internal void GetEventosTipos(ComboBox comboBox, Models.CSMapsContext context, bool showAll, bool showEmpty, bool showComplete)
+        {
+            comboBox.ValueMember = "IdEventoTipo";
+            comboBox.DisplayMember = "Nombre";
+
+            List<Models.EventoTipo> eventos = [.. context.EventoTipos.OrderBy(e => e.Nombre)];
+
+            if (showEmpty)
+            {
+                Models.EventoTipo vacio = new()
+                {
+                    IdEventoTipo = CardonerSistemas.Framework.Base.Constants.ByteFieldValueNotSpecified,
+                    Nombre = Properties.Resources.StringItemStartChar + Properties.Resources.StringItemEmptyMale + Properties.Resources.StringItemEndChar
+                };
+                eventos.Insert(0, vacio);
+            }
+
+            if (showComplete)
+            {
+                Models.EventoTipo completo = new()
+                {
+                    IdEventoTipo = CardonerSistemas.Framework.Base.Constants.ByteFieldValueOther,
+                    Nombre = Properties.Resources.StringItemStartChar + Properties.Resources.StringItemCompleteMale + Properties.Resources.StringItemEndChar
+                };
+                eventos.Insert(0, completo);
+            }
+
+            if (showAll)
+            {
+                Models.EventoTipo todos = new()
+                {
+                    IdEventoTipo = CardonerSistemas.Framework.Base.Constants.ByteFieldValueAll,
+                    Nombre = Properties.Resources.StringItemStartChar + Properties.Resources.StringItemAllMale + Properties.Resources.StringItemEndChar
+                };
+                eventos.Insert(0, todos);
+            }
+
+            comboBox.DataSource = eventos;
+        }
+
     }
 }

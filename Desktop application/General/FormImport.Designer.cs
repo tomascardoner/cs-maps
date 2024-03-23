@@ -1,4 +1,4 @@
-﻿namespace CSMaps
+﻿namespace CSMaps.General
 {
     partial class FormImport
     {

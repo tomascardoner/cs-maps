@@ -613,6 +613,42 @@ namespace CSMaps.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Completa.
+        /// </summary>
+        internal static string StringItemCompleteFemale {
+            get {
+                return ResourceManager.GetString("StringItemCompleteFemale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Completo.
+        /// </summary>
+        internal static string StringItemCompleteMale {
+            get {
+                return ResourceManager.GetString("StringItemCompleteMale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vacía.
+        /// </summary>
+        internal static string StringItemEmptyFemale {
+            get {
+                return ResourceManager.GetString("StringItemEmptyFemale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vacío.
+        /// </summary>
+        internal static string StringItemEmptyMale {
+            get {
+                return ResourceManager.GetString("StringItemEmptyMale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ».
         /// </summary>
         internal static string StringItemEndChar {

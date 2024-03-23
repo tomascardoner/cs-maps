@@ -1,6 +1,6 @@
 ﻿namespace CSMaps.General
 {
-    partial class FormPoints
+    partial class FormPointsDataAndEvents
     {
         /// <summary>
         /// Required designer variable.
@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             ToolStripMain = new ToolStrip();
             ToolStripButtonAdd = new ToolStripButton();
             ToolStripButtonView = new ToolStripButton();
@@ -40,16 +41,23 @@
             ToolStripComboBoxNameFilterType = new ToolStripComboBox();
             ToolStripTextBoxNameFilter = new ToolStripTextBox();
             ToolStripButtonNameFilterClear = new ToolStripButton();
+            ToolStripLastEventTypeFilter = new ToolStrip();
+            ToolStripLabelLastEventTypeFilter = new ToolStripLabel();
+            ToolStripComboBoxLastEventTypeFilter = new ToolStripComboBox();
             ToolStripItemsCounter = new ToolStrip();
             ToolStripLabelItemsCounter = new ToolStripLabel();
             DataGridViewColumnNombre = new DataGridViewTextBoxColumn();
             DataGridViewColumnLatitud = new DataGridViewTextBoxColumn();
             DataGridViewColumnLongitud = new DataGridViewTextBoxColumn();
-            DataGridViewColumnAltitud = new DataGridViewTextBoxColumn();
+            DataGridViewColumnEstablecimiento = new DataGridViewTextBoxColumn();
+            DataGridViewColumnChapaNumero = new DataGridViewTextBoxColumn();
+            DataGridViewColumnUltimoEvento = new DataGridViewTextBoxColumn();
+            DataGridViewColumnFechaHora = new DataGridViewTextBoxColumn();
             ToolStripMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DataGridViewMain).BeginInit();
             FlowLayoutPanelToolbars.SuspendLayout();
             ToolStripNameFilter.SuspendLayout();
+            ToolStripLastEventTypeFilter.SuspendLayout();
             ToolStripItemsCounter.SuspendLayout();
             SuspendLayout();
             // 
@@ -111,20 +119,20 @@
             DataGridViewMain.AllowUserToResizeRows = false;
             DataGridViewMain.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             DataGridViewMain.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            DataGridViewMain.Columns.AddRange(new DataGridViewColumn[] { DataGridViewColumnNombre, DataGridViewColumnLatitud, DataGridViewColumnLongitud, DataGridViewColumnAltitud });
+            DataGridViewMain.Columns.AddRange(new DataGridViewColumn[] { DataGridViewColumnNombre, DataGridViewColumnLatitud, DataGridViewColumnLongitud, DataGridViewColumnEstablecimiento, DataGridViewColumnChapaNumero, DataGridViewColumnUltimoEvento, DataGridViewColumnFechaHora });
             DataGridViewMain.Dock = DockStyle.Fill;
             DataGridViewMain.EditMode = DataGridViewEditMode.EditProgrammatically;
-            DataGridViewMain.Location = new Point(0, 39);
+            DataGridViewMain.Location = new Point(0, 64);
             DataGridViewMain.MultiSelect = false;
             DataGridViewMain.Name = "DataGridViewMain";
             DataGridViewMain.ReadOnly = true;
             DataGridViewMain.RowHeadersVisible = false;
             DataGridViewMain.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             DataGridViewMain.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            DataGridViewMain.Size = new Size(910, 294);
+            DataGridViewMain.Size = new Size(910, 269);
             DataGridViewMain.TabIndex = 1;
             DataGridViewMain.ColumnHeaderMouseClick += DataGridViewMain_ColumnHeaderMouseClick;
-            DataGridViewMain.DoubleClick += ToolStripButtonView_Click;
+            DataGridViewMain.DoubleClick += ToolStripButtonDataView_Click;
             DataGridViewMain.KeyPress += DataGridViewMain_KeyPress;
             // 
             // FlowLayoutPanelToolbars
@@ -133,12 +141,13 @@
             FlowLayoutPanelToolbars.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             FlowLayoutPanelToolbars.Controls.Add(ToolStripMain);
             FlowLayoutPanelToolbars.Controls.Add(ToolStripNameFilter);
+            FlowLayoutPanelToolbars.Controls.Add(ToolStripLastEventTypeFilter);
             FlowLayoutPanelToolbars.Controls.Add(ToolStripItemsCounter);
             FlowLayoutPanelToolbars.Dock = DockStyle.Top;
             FlowLayoutPanelToolbars.Location = new Point(0, 0);
             FlowLayoutPanelToolbars.Margin = new Padding(4, 3, 4, 3);
             FlowLayoutPanelToolbars.Name = "FlowLayoutPanelToolbars";
-            FlowLayoutPanelToolbars.Size = new Size(910, 39);
+            FlowLayoutPanelToolbars.Size = new Size(910, 64);
             FlowLayoutPanelToolbars.TabIndex = 2;
             // 
             // ToolStripNameFilter
@@ -183,26 +192,49 @@
             ToolStripButtonNameFilterClear.ToolTipText = "Limpiar búsqueda";
             ToolStripButtonNameFilterClear.Click += ToolStripButtonSearchClear_Click;
             // 
+            // ToolStripLastEventTypeFilter
+            // 
+            ToolStripLastEventTypeFilter.Dock = DockStyle.Fill;
+            ToolStripLastEventTypeFilter.GripStyle = ToolStripGripStyle.Hidden;
+            ToolStripLastEventTypeFilter.Items.AddRange(new ToolStripItem[] { ToolStripLabelLastEventTypeFilter, ToolStripComboBoxLastEventTypeFilter });
+            ToolStripLastEventTypeFilter.Location = new Point(0, 39);
+            ToolStripLastEventTypeFilter.Name = "ToolStripLastEventTypeFilter";
+            ToolStripLastEventTypeFilter.Size = new Size(343, 25);
+            ToolStripLastEventTypeFilter.TabIndex = 3;
+            // 
+            // ToolStripLabelLastEventTypeFilter
+            // 
+            ToolStripLabelLastEventTypeFilter.Name = "ToolStripLabelLastEventTypeFilter";
+            ToolStripLabelLastEventTypeFilter.Size = new Size(138, 22);
+            ToolStripLabelLastEventTypeFilter.Text = "Filtrar por último evento:";
+            // 
+            // ToolStripComboBoxLastEventTypeFilter
+            // 
+            ToolStripComboBoxLastEventTypeFilter.DropDownStyle = ComboBoxStyle.DropDownList;
+            ToolStripComboBoxLastEventTypeFilter.Name = "ToolStripComboBoxLastEventTypeFilter";
+            ToolStripComboBoxLastEventTypeFilter.Size = new Size(200, 25);
+            ToolStripComboBoxLastEventTypeFilter.SelectedIndexChanged += ToolStripComboBoxDataExistFilter_SelectedIndexChanged;
+            // 
             // ToolStripItemsCounter
             // 
             ToolStripItemsCounter.BackColor = Color.FromArgb(255, 224, 192);
             ToolStripItemsCounter.Dock = DockStyle.Fill;
             ToolStripItemsCounter.GripStyle = ToolStripGripStyle.Hidden;
             ToolStripItemsCounter.Items.AddRange(new ToolStripItem[] { ToolStripLabelItemsCounter });
-            ToolStripItemsCounter.Location = new Point(707, 0);
+            ToolStripItemsCounter.Location = new Point(343, 39);
             ToolStripItemsCounter.Name = "ToolStripItemsCounter";
-            ToolStripItemsCounter.Size = new Size(3, 39);
+            ToolStripItemsCounter.Size = new Size(3, 25);
             ToolStripItemsCounter.TabIndex = 2;
             // 
             // ToolStripLabelItemsCounter
             // 
             ToolStripLabelItemsCounter.Alignment = ToolStripItemAlignment.Right;
             ToolStripLabelItemsCounter.Name = "ToolStripLabelItemsCounter";
-            ToolStripLabelItemsCounter.Size = new Size(0, 36);
+            ToolStripLabelItemsCounter.Size = new Size(0, 22);
             // 
             // DataGridViewColumnNombre
             // 
-            DataGridViewColumnNombre.DataPropertyName = "Nombre";
+            DataGridViewColumnNombre.DataPropertyName = "PuntoNombre";
             DataGridViewColumnNombre.HeaderText = "Nombre";
             DataGridViewColumnNombre.Name = "DataGridViewColumnNombre";
             DataGridViewColumnNombre.ReadOnly = true;
@@ -224,15 +256,42 @@
             DataGridViewColumnLongitud.ReadOnly = true;
             DataGridViewColumnLongitud.Width = 80;
             // 
-            // DataGridViewColumnAltitud
+            // DataGridViewColumnEstablecimiento
             // 
-            DataGridViewColumnAltitud.DataPropertyName = "Altitud";
-            DataGridViewColumnAltitud.HeaderText = "Altitud";
-            DataGridViewColumnAltitud.Name = "DataGridViewColumnAltitud";
-            DataGridViewColumnAltitud.ReadOnly = true;
-            DataGridViewColumnAltitud.Width = 68;
+            DataGridViewColumnEstablecimiento.DataPropertyName = "EstablecimientoNombre";
+            DataGridViewColumnEstablecimiento.HeaderText = "Establecimiento";
+            DataGridViewColumnEstablecimiento.Name = "DataGridViewColumnEstablecimiento";
+            DataGridViewColumnEstablecimiento.ReadOnly = true;
+            DataGridViewColumnEstablecimiento.Width = 116;
             // 
-            // FormPoints
+            // DataGridViewColumnChapaNumero
+            // 
+            DataGridViewColumnChapaNumero.DataPropertyName = "ChapaNumero";
+            DataGridViewColumnChapaNumero.HeaderText = "Chapa nº";
+            DataGridViewColumnChapaNumero.Name = "DataGridViewColumnChapaNumero";
+            DataGridViewColumnChapaNumero.ReadOnly = true;
+            DataGridViewColumnChapaNumero.Width = 81;
+            // 
+            // DataGridViewColumnUltimoEvento
+            // 
+            DataGridViewColumnUltimoEvento.DataPropertyName = "EventoTipoNombre";
+            DataGridViewColumnUltimoEvento.HeaderText = "Último evento";
+            DataGridViewColumnUltimoEvento.Name = "DataGridViewColumnUltimoEvento";
+            DataGridViewColumnUltimoEvento.ReadOnly = true;
+            DataGridViewColumnUltimoEvento.Width = 107;
+            // 
+            // DataGridViewColumnFechaHora
+            // 
+            DataGridViewColumnFechaHora.DataPropertyName = "FechaHora";
+            dataGridViewCellStyle1.Format = "g";
+            dataGridViewCellStyle1.NullValue = null;
+            DataGridViewColumnFechaHora.DefaultCellStyle = dataGridViewCellStyle1;
+            DataGridViewColumnFechaHora.HeaderText = "Fecha y hora";
+            DataGridViewColumnFechaHora.Name = "DataGridViewColumnFechaHora";
+            DataGridViewColumnFechaHora.ReadOnly = true;
+            DataGridViewColumnFechaHora.Width = 99;
+            // 
+            // FormPointsDataAndEvents
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -242,8 +301,8 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "FormPoints";
-            Text = "Puntos";
+            Name = "FormPointsDataAndEvents";
+            Text = "Datos y eventos de los puntos";
             FormClosed += This_FormClosed;
             Load += This_Load;
             ToolStripMain.ResumeLayout(false);
@@ -253,6 +312,8 @@
             FlowLayoutPanelToolbars.PerformLayout();
             ToolStripNameFilter.ResumeLayout(false);
             ToolStripNameFilter.PerformLayout();
+            ToolStripLastEventTypeFilter.ResumeLayout(false);
+            ToolStripLastEventTypeFilter.PerformLayout();
             ToolStripItemsCounter.ResumeLayout(false);
             ToolStripItemsCounter.PerformLayout();
             ResumeLayout(false);
@@ -275,9 +336,15 @@
         internal ToolStripButton ToolStripButtonNameFilterClear;
         private ToolStrip ToolStripItemsCounter;
         private ToolStripLabel ToolStripLabelItemsCounter;
+        private ToolStrip ToolStripLastEventTypeFilter;
+        private ToolStripLabel ToolStripLabelLastEventTypeFilter;
+        private ToolStripComboBox ToolStripComboBoxLastEventTypeFilter;
         private DataGridViewTextBoxColumn DataGridViewColumnNombre;
         private DataGridViewTextBoxColumn DataGridViewColumnLatitud;
         private DataGridViewTextBoxColumn DataGridViewColumnLongitud;
-        private DataGridViewTextBoxColumn DataGridViewColumnAltitud;
+        private DataGridViewTextBoxColumn DataGridViewColumnEstablecimiento;
+        private DataGridViewTextBoxColumn DataGridViewColumnChapaNumero;
+        private DataGridViewTextBoxColumn DataGridViewColumnUltimoEvento;
+        private DataGridViewTextBoxColumn DataGridViewColumnFechaHora;
     }
 }
