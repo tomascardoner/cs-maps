@@ -1,12 +1,11 @@
 ﻿using CardonerSistemas.Framework.Database;
 using CardonerSistemas.Framework.Base;
-using System.Data.Entity.Infrastructure;
 
 namespace CSMaps.Common
 {
     internal static class DBErrors
     {
-        internal static void DbUpdateException(DbUpdateException ex, string entityNameSingle, bool entityIsFemale, string actionName)
+        internal static void DbUpdateException(Microsoft.EntityFrameworkCore.DbUpdateException ex, string entityNameSingle, bool entityIsFemale, string actionName)
         {
             string message;
             switch (EntityFramework.TryDecodeDbUpdateException(ex))

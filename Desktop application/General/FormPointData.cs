@@ -8,7 +8,7 @@ namespace CSMaps.General
 
         #region Declarations
 
-        private const string entityNameSingular = "punto";
+        private const string entityNameSingular = "dato del punto";
         private const bool entityIsFemale = false;
 
         private readonly bool isLoading;
@@ -17,7 +17,7 @@ namespace CSMaps.General
 
         private Models.CSMapsContext context = new();
         private Models.Punto punto;
-        private Models.PuntoDato puntoDato;
+        private readonly Models.PuntoDato puntoDato;
 
         #endregion
 
@@ -31,18 +31,17 @@ namespace CSMaps.General
             isNew = (idPunto == 0);
             isEditMode = editMode;
 
-            punto = context.Puntos.Find(idPunto);
-            puntoDato = context.PuntoDatos.Find(idPunto);
-            isNew = puntoDato == null;
             if (isNew)
             {
+                punto = new();
                 puntoDato = new() { IdPunto = idPunto };
                 InitializeNewObjectData();
                 context.PuntoDatos.Add(puntoDato);
             }
             else
             {
-                puntoDato = punto.PuntoDato;
+                punto = context.Puntos.Find(idPunto);
+                puntoDato = context.PuntoDatos.Find(idPunto);
             }
 
             InitializeFormAndControls();
@@ -76,6 +75,8 @@ namespace CSMaps.General
             ToolStripButtonEdit.Visible = !isEditMode;
             ToolStripButtonClose.Visible = !isEditMode;
 
+            ButtonBuscarPunto.Visible = isNew;
+
             ComboBoxEstablecimiento.Enabled = isEditMode;
             IntegerTextBoxChapaNumero.ReadOnly = !isEditMode;
         }
@@ -106,6 +107,7 @@ namespace CSMaps.General
 
         private void SetDataToEntityObject()
         {
+            puntoDato.IdPunto = punto.IdPunto;
             puntoDato.IdEstablecimiento = Values.ComboBoxToShort(ComboBoxEstablecimiento);
             puntoDato.ChapaNumero = CardonerSistemas.Framework.Controls.Syncfusion.Values.IntegerTextBoxToInt(IntegerTextBoxChapaNumero);
         }
@@ -117,6 +119,21 @@ namespace CSMaps.General
         private void FormPoint_KeyPress(object sender, KeyPressEventArgs e)
         {
             Common.Forms.This_KeyPress(e, isEditMode, ActiveControl, ToolStripButtonClose, ToolStripButtonSave, ToolStripButtonCancel, null);
+        }
+
+        private void ButtonBuscarPunto_Click(object sender, EventArgs e)
+        {
+            FormPointFind formPointFind = new();
+            if (formPointFind.ShowDialog(this) == DialogResult.OK)
+            {
+                punto = (Models.Punto)formPointFind.DataGridViewMain.CurrentRow.DataBoundItem;
+                Values.ToTextBox(TextBoxIdPunto, punto.IdPunto);
+                Values.ToTextBox(TextBoxNombre, punto.Nombre);
+                CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDoubleTextBox(DoubleTextBoxLatitud, punto.Latitud);
+                CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDoubleTextBox(DoubleTextBoxLongitud, punto.Longitud);
+                ComboBoxEstablecimiento.Focus();
+            }
+            formPointFind.Dispose();
         }
 
         private void TextBoxs_Enter(object sender, EventArgs e)
@@ -144,9 +161,9 @@ namespace CSMaps.General
                 try
                 {
                     context.SaveChanges();
-                    Program.formMdi.formPoints?.ReadData(punto.IdPunto);
+                    Program.formMdi.formPointsDataAndEvents?.ReadData(punto.IdPunto);
                 }
-                catch (System.Data.Entity.Infrastructure.DbUpdateException dbUEx)
+                catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
                 {
                     this.Cursor = Cursors.Default;
                     Common.DBErrors.DbUpdateException(dbUEx, entityNameSingular, entityIsFemale, isNew ? Properties.Resources.StringActionAdd : Properties.Resources.StringActionEdit);
@@ -199,14 +216,22 @@ namespace CSMaps.General
         {
             const int ChapaNumeroMinimo = 30001;
 
+            if (isNew && punto.IdPunto == 0)
+            {
+                MessageBox.Show("Debe especificar el punto.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ButtonBuscarPunto.Focus();
+                return false;
+            }
             if (ComboBoxEstablecimiento.SelectedIndex == -1)
             {
                 MessageBox.Show(string.Format(entityIsFemale ? Properties.Resources.StringEntityDataVerificationMaleFieldRequiredFemale : Properties.Resources.StringEntityDataVerificationMaleFieldRequiredMale, entityNameSingular, "establecimiento"), Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ComboBoxEstablecimiento.Focus();
                 return false;
             }
             if (IntegerTextBoxChapaNumero.IntegerValue < ChapaNumeroMinimo)
             {
                 MessageBox.Show($"El nº de chapa debe ser mayor o igual a {ChapaNumeroMinimo}", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                IntegerTextBoxChapaNumero.Focus();
                 return false;
             }
             return true;

@@ -292,7 +292,7 @@ namespace CSMaps.General
                 context.Establecimientos.Remove(establecimiento);
                 context.SaveChanges();
             }
-            catch (System.Data.Entity.Infrastructure.DbUpdateException dbUEx)
+            catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
             {
                 Common.DBErrors.DbUpdateException(dbUEx, entityNameSingle, entityIsFemale, Properties.Resources.StringActionDelete);
             }

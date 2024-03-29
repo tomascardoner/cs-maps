@@ -132,7 +132,7 @@
             DataGridViewMain.Size = new Size(910, 269);
             DataGridViewMain.TabIndex = 1;
             DataGridViewMain.ColumnHeaderMouseClick += DataGridViewMain_ColumnHeaderMouseClick;
-            DataGridViewMain.DoubleClick += ToolStripButtonDataView_Click;
+            DataGridViewMain.CellDoubleClick += ToolStripButtonView_Click;
             DataGridViewMain.KeyPress += DataGridViewMain_KeyPress;
             // 
             // FlowLayoutPanelToolbars

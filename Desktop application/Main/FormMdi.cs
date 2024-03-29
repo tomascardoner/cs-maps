@@ -68,9 +68,9 @@ namespace CSMaps.Main
 
         private void ToolStripMenuItemHelpAbout_Click(object sender, EventArgs e)
         {
-            //FormAboutBox formAboutBox = new();
-            //formAboutBox.ShowDialog(this);
-            //formAboutBox.Dispose();
+            FormAboutBox formAboutBox = new();
+            formAboutBox.ShowDialog(this);
+            formAboutBox.Dispose();
         }
 
         #endregion

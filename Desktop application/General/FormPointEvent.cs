@@ -17,7 +17,7 @@ namespace CSMaps.General
 
         private Models.CSMapsContext context = new();
         private Models.Punto punto;
-        private Models.PuntoDato puntoDato;
+        private readonly Models.PuntoDato puntoDato;
 
         #endregion
 
@@ -146,7 +146,7 @@ namespace CSMaps.General
                     context.SaveChanges();
                     Program.formMdi.formPointsDataAndEvents?.ReadData(punto.IdPunto);
                 }
-                catch (System.Data.Entity.Infrastructure.DbUpdateException dbUEx)
+                catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
                 {
                     this.Cursor = Cursors.Default;
                     Common.DBErrors.DbUpdateException(dbUEx, entityNameSingular, entityIsFemale, isNew ? Properties.Resources.StringActionAdd : Properties.Resources.StringActionEdit);

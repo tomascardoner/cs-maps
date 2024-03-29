@@ -148,7 +148,7 @@ namespace CSMaps.General
                     context.SaveChanges();
                     Program.formMdi.formPoints?.ReadData(punto.IdPunto);
                 }
-                catch (System.Data.Entity.Infrastructure.DbUpdateException dbUEx)
+                catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
                 {
                     this.Cursor = Cursors.Default;
                     Common.DBErrors.DbUpdateException(dbUEx, entityNameSingular, entityIsFemale, isNew ? Properties.Resources.StringActionAdd : Properties.Resources.StringActionEdit);

@@ -37,6 +37,7 @@
             TextBoxUltimaActualizacion = new TextBox();
             LabelUltimaActualizacion = new Label();
             GroupBoxPoint = new GroupBox();
+            ButtonBuscarPunto = new Button();
             LabelLongitud = new Label();
             DoubleTextBoxLongitud = new Syncfusion.Windows.Forms.Tools.DoubleTextBox();
             DoubleTextBoxLatitud = new Syncfusion.Windows.Forms.Tools.DoubleTextBox();
@@ -131,6 +132,7 @@
             // GroupBoxPoint
             // 
             GroupBoxPoint.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            GroupBoxPoint.Controls.Add(ButtonBuscarPunto);
             GroupBoxPoint.Controls.Add(LabelLongitud);
             GroupBoxPoint.Controls.Add(DoubleTextBoxLongitud);
             GroupBoxPoint.Controls.Add(DoubleTextBoxLatitud);
@@ -144,6 +146,16 @@
             GroupBoxPoint.Size = new Size(493, 142);
             GroupBoxPoint.TabIndex = 1;
             GroupBoxPoint.TabStop = false;
+            // 
+            // ButtonBuscarPunto
+            // 
+            ButtonBuscarPunto.Location = new Point(162, 20);
+            ButtonBuscarPunto.Name = "ButtonBuscarPunto";
+            ButtonBuscarPunto.Size = new Size(133, 24);
+            ButtonBuscarPunto.TabIndex = 8;
+            ButtonBuscarPunto.Text = "Buscar...";
+            ButtonBuscarPunto.UseVisualStyleBackColor = true;
+            ButtonBuscarPunto.Click += ButtonBuscarPunto_Click;
             // 
             // LabelLongitud
             // 
@@ -336,5 +348,6 @@
         private ComboBox ComboBoxEstablecimiento;
         private Label LabelChapaNumero;
         private Syncfusion.Windows.Forms.Tools.IntegerTextBox IntegerTextBoxChapaNumero;
+        private Button ButtonBuscarPunto;
     }
 }

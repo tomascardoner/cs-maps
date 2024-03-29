@@ -93,6 +93,16 @@ namespace CSMaps.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ImageCardonerSistemas {
+            get {
+                object obj = ResourceManager.GetObject("ImageCardonerSistemas", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ImageClose16 {
             get {
                 object obj = ResourceManager.GetObject("ImageClose16", resourceCulture);
@@ -236,6 +246,26 @@ namespace CSMaps.Properties {
         internal static System.Drawing.Bitmap ImagePunto32 {
             get {
                 object obj = ResourceManager.GetObject("ImagePunto32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ImageSearch16 {
+            get {
+                object obj = ResourceManager.GetObject("ImageSearch16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ImageSearch32 {
+            get {
+                object obj = ResourceManager.GetObject("ImageSearch32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

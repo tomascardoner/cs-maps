@@ -260,7 +260,7 @@ namespace CSMaps.General
                 context.Puntos.Remove(punto);
                 context.SaveChanges();
             }
-            catch (System.Data.Entity.Infrastructure.DbUpdateException dbUEx)
+            catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
             {
                 Common.DBErrors.DbUpdateException(dbUEx, entityNameSingle, entityIsFemale, Properties.Resources.StringActionDelete);
             }

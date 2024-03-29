@@ -238,8 +238,8 @@ namespace CSMaps.General
         {
             if (Common.DataGridViews.AddVerify(this, DataGridViewMain))
             {
-                FormPoint formPoint = new(true, 0);
-                formPoint.ShowDialog(this);
+                FormPointData formPointData = new(true, 0);
+                formPointData.ShowDialog(this);
                 Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
             }
         }
@@ -248,8 +248,8 @@ namespace CSMaps.General
         {
             if (Common.DataGridViews.ViewVerify(this, DataGridViewMain, entityNameSingle, entityIsFemale))
             {
-                FormPoint formPoint = new(false, ((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto);
-                formPoint.ShowDialog(this);
+                FormPointData formPointData = new(false, ((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto);
+                formPointData.ShowDialog(this);
                 Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
             }
         }
@@ -258,8 +258,8 @@ namespace CSMaps.General
         {
             if (Common.DataGridViews.EditVerify(this, DataGridViewMain, entityNameSingle, entityIsFemale))
             {
-                FormPoint formPoint = new(true, ((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto);
-                formPoint.ShowDialog(this);
+                FormPointData formPointData = new(true, ((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto);
+                formPointData.ShowDialog(this);
                 Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
             }
         }
@@ -272,72 +272,8 @@ namespace CSMaps.General
             }
 
             Models.ObtenerPuntosDatosYEventosResult rowData = (Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem;
-            string entidadDatos = $"Nombre: {rowData.PuntoNombre}\nLatitud: {rowData.Latitud}\nLongitud: {rowData.Longitud}";
+            string entidadDatos = $"Nombre: {rowData.PuntoNombre}\nLatitud: {rowData.Latitud}\nLongitud: {rowData.Longitud}\nEstablecimiento: {rowData.EstablecimientoNombre}\nNº de chapa:: {rowData.ChapaNumero}";
             if (!Common.DataGridViews.DeleteConfirm(entityNameSingle, entityIsFemale, entidadDatos))
-            {
-                return;
-            }
-
-            this.Cursor = Cursors.WaitCursor;
-            try
-            {
-                using Models.CSMapsContext context = new();
-                Models.Punto punto = context.Puntos.Find(rowData.IdPunto);
-                context.Puntos.Attach(punto);
-                context.Puntos.Remove(punto);
-                context.SaveChanges();
-            }
-            catch (System.Data.Entity.Infrastructure.DbUpdateException dbUEx)
-            {
-                Common.DBErrors.DbUpdateException(dbUEx, entityNameSingle, entityIsFemale, Properties.Resources.StringActionDelete);
-            }
-            catch (Exception ex)
-            {
-                Common.DBErrors.OtherUpdateException(ex, entityNameSingle, entityIsFemale, Properties.Resources.StringActionDelete);
-            }
-
-            _ = ReadData();
-            this.Cursor = Cursors.Default;
-        }
-
-        private void ToolStripButtonDataView_Click(object sender, EventArgs e)
-        {
-            if (Common.DataGridViews.ViewVerify(this, DataGridViewMain, entityNameSingle, entityIsFemale))
-            {
-                FormPointEvent formPointEvent = new(false, ((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto);
-                formPointEvent.ShowDialog(this);
-                Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
-            }
-        }
-
-        private void ToolStripButtonDataEdit_Click(object sender, EventArgs e)
-        {
-            if (Common.DataGridViews.EditVerify(this, DataGridViewMain, entityNameSingle, entityIsFemale))
-            {
-                FormPointEvent formPointEvent = new(true, ((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto);
-                formPointEvent.ShowDialog(this);
-                Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
-            }
-        }
-
-        private void ToolStripButtonDataDelete_Click(object sender, EventArgs e)
-        {
-            const string entityName = "dato del punto";
-
-            if (!Common.DataGridViews.DeleteVerify(DataGridViewMain, entityNameSingle, entityIsFemale))
-            {
-                return;
-            }
-
-            Models.ObtenerPuntosDatosYEventosResult rowData = (Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem;
-            if (!rowData.FechaHora.HasValue)
-            {
-                MessageBox.Show("El punto seleccionado no tiene datos asociados.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            string entidadDatos = $"Nombre: {rowData.PuntoNombre}\nLatitud: {rowData.Latitud}\nLogitud: {rowData.Longitud}\n\nEstablecimiento: {rowData.EstablecimientoNombre}\nNº de chapa: {rowData.ChapaNumero}";
-            if (!Common.DataGridViews.DeleteConfirm(entityName, false, entidadDatos))
             {
                 return;
             }
@@ -351,16 +287,16 @@ namespace CSMaps.General
                 context.PuntoDatos.Remove(puntoDato);
                 context.SaveChanges();
             }
-            catch (System.Data.Entity.Infrastructure.DbUpdateException dbUEx)
+            catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
             {
-                Common.DBErrors.DbUpdateException(dbUEx, entityName, entityIsFemale, Properties.Resources.StringActionDelete);
+                Common.DBErrors.DbUpdateException(dbUEx, entityNameSingle, entityIsFemale, Properties.Resources.StringActionDelete);
             }
             catch (Exception ex)
             {
-                Common.DBErrors.OtherUpdateException(ex, entityName, entityIsFemale, Properties.Resources.StringActionDelete);
+                Common.DBErrors.OtherUpdateException(ex, entityNameSingle, entityIsFemale, Properties.Resources.StringActionDelete);
             }
 
-            _ = ReadData(rowData.IdPunto);
+            _ = ReadData();
             this.Cursor = Cursors.Default;
         }
 

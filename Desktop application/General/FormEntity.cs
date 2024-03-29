@@ -142,7 +142,7 @@ namespace CSMaps.General
                     context.SaveChanges();
                     Program.formMdi.formEntities?.ReadData(entidad.IdEntidad);
                 }
-                catch (System.Data.Entity.Infrastructure.DbUpdateException dbUEx)
+                catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
                 {
                     this.Cursor = Cursors.Default;
                     Common.DBErrors.DbUpdateException(dbUEx, entityNameSingular, entityIsFemale, isNew ? Properties.Resources.StringActionAdd : Properties.Resources.StringActionEdit);

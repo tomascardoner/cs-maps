@@ -146,7 +146,7 @@ namespace CSMaps.General
                     context.SaveChanges();
                     Program.formMdi.formSettlements?.ReadData(establecimiento.IdEstablecimiento);
                 }
-                catch (System.Data.Entity.Infrastructure.DbUpdateException dbUEx)
+                catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
                 {
                     this.Cursor = Cursors.Default;
                     Common.DBErrors.DbUpdateException(dbUEx, entityNameSingular, entityIsFemale, isNew ? Properties.Resources.StringActionAdd : Properties.Resources.StringActionEdit);
