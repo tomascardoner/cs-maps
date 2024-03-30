@@ -52,8 +52,8 @@
     <Reference Include="CardonerSistemas.Framework.Cryptography">
       <HintPath>..\..\..\CS-Framework.Net\CardonerSistemas.Framework.Cryptography\bin\Debug\net8.0-windows\CardonerSistemas.Framework.Cryptography.dll</HintPath>
     </Reference>
-    <Reference Include="CardonerSistemas.Framework.Database">
-      <HintPath>..\..\..\CS-Framework.Net\CardonerSistemas.Framework.Database\bin\Debug\net8.0-windows\CardonerSistemas.Framework.Database.dll</HintPath>
+    <Reference Include="CardonerSistemas.Framework.Database.EFCore">
+      <HintPath>..\..\..\CS-Framework.Net\CardonerSistemas.Framework.Database.EFCore\bin\Debug\net8.0-windows\CardonerSistemas.Framework.Database.EFCore.dll</HintPath>
     </Reference>
   </ItemGroup>
 

@@ -79,6 +79,7 @@ namespace CSMaps.General
 
             ComboBoxEstablecimiento.Enabled = isEditMode;
             IntegerTextBoxChapaNumero.ReadOnly = !isEditMode;
+            ButtonChapaNumeroObtenerDesdeNombre.Visible = isEditMode;
         }
 
         private void This_FormClosed(object sender, FormClosedEventArgs e)
@@ -131,6 +132,7 @@ namespace CSMaps.General
                 Values.ToTextBox(TextBoxNombre, punto.Nombre);
                 CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDoubleTextBox(DoubleTextBoxLatitud, punto.Latitud);
                 CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDoubleTextBox(DoubleTextBoxLongitud, punto.Longitud);
+                ButtonChapaNumeroObtenerDesdeNombre.PerformClick();
                 ComboBoxEstablecimiento.Focus();
             }
             formPointFind.Dispose();
@@ -139,6 +141,15 @@ namespace CSMaps.General
         private void TextBoxs_Enter(object sender, EventArgs e)
         {
             ((TextBox)sender).SelectAll();
+        }
+
+        private void ButtonChapaNumeroObtenerDesdeNombre_Click(object sender, EventArgs e)
+        {
+            if (punto.IdPunto != 0 && punto.Nombre.IsDigitsOnly() && int.TryParse(punto.Nombre, out int result))
+            {
+                IntegerTextBoxChapaNumero.IntegerValue = result;
+            }
+            IntegerTextBoxChapaNumero.Focus();
         }
 
         #endregion

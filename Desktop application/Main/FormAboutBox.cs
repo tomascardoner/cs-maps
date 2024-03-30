@@ -22,17 +22,17 @@ namespace CSMaps
             // Propiedades
             ListViewItem newItem;
 
-            newItem = new() { Text = "DB - DataSource" };
-            newItem.SubItems.Add(Program.DatabaseConfig.Datasource);
-            listviewPropiedades.Items.Add(newItem);
+            newItem = new() { Text = "DB - Server" };
+            newItem.SubItems.Add(Program.DatabaseConfig.Server);
+            ListViewData.Items.Add(newItem);
 
             newItem = new() { Text = "DB - Database" };
             newItem.SubItems.Add(Program.DatabaseConfig.Database);
-            listviewPropiedades.Items.Add(newItem);
+            ListViewData.Items.Add(newItem);
 
-            newItem = new() { Text = "Reports Path" };
+            newItem = new() { Text = "Reports path" };
             newItem.SubItems.Add(Program.GeneralConfig.ReportsPath);
-            listviewPropiedades.Items.Add(newItem);
+            ListViewData.Items.Add(newItem);
         }
 
         private void ButtonOk_Click(object sender, EventArgs e)

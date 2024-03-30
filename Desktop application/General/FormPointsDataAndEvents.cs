@@ -7,8 +7,8 @@ namespace CSMaps.General
 
         #region Declarations
 
-        private const string entityNameSingle = "punto";
-        private const string entityNamePlural = "puntos";
+        private const string entityNameSingle = "dato del punto";
+        private const string entityNamePlural = "datos de los puntos";
         private const bool entityIsFemale = false;
 
         private List<Models.ObtenerPuntosDatosYEventosResult> entitiesAll;
@@ -167,11 +167,33 @@ namespace CSMaps.General
             {
                 if (sortOrder == SortOrder.Ascending)
                 {
-                    entitiesFiltered = [.. entitiesFiltered.OrderBy(e => e.PuntoNombre).ThenBy(e => e.EstablecimientoNombre)];
+                    entitiesFiltered = [.. entitiesFiltered.OrderBy(e => e.EstablecimientoNombre).ThenBy(e => e.PuntoNombre)];
                 }
                 else
                 {
-                    entitiesFiltered = [.. entitiesFiltered.OrderByDescending(e => e.PuntoNombre).ThenByDescending(e => e.EstablecimientoNombre)];
+                    entitiesFiltered = [.. entitiesFiltered.OrderByDescending(e => e.EstablecimientoNombre).ThenByDescending(e => e.PuntoNombre)];
+                }
+            }
+            else if (sortedColumn == DataGridViewColumnChapaNumero)
+            {
+                if (sortOrder == SortOrder.Ascending)
+                {
+                    entitiesFiltered = [.. entitiesFiltered.OrderBy(e => e.ChapaNumero)];
+                }
+                else
+                {
+                    entitiesFiltered = [.. entitiesFiltered.OrderByDescending(e => e.ChapaNumero)];
+                }
+            }
+            else if (sortedColumn == DataGridViewColumnFechaHora)
+            {
+                if (sortOrder == SortOrder.Ascending)
+                {
+                    entitiesFiltered = [.. entitiesFiltered.OrderBy(e => e.FechaHora).ThenBy(e => e.PuntoNombre)];
+                }
+                else
+                {
+                    entitiesFiltered = [.. entitiesFiltered.OrderByDescending(e => e.FechaHora).ThenByDescending(e => e.PuntoNombre)];
                 }
             }
             DataGridViewMain.AutoGenerateColumns = false;
@@ -216,7 +238,7 @@ namespace CSMaps.General
 
         private void DataGridViewMain_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (Common.DataGridViews.ColumnHeaderMouseClick(DataGridViewMain, e, ref sortedColumn, ref sortOrder, [DataGridViewColumnNombre, DataGridViewColumnEstablecimiento]))
+            if (Common.DataGridViews.ColumnHeaderMouseClick(DataGridViewMain, e, ref sortedColumn, ref sortOrder, [DataGridViewColumnNombre, DataGridViewColumnEstablecimiento, DataGridViewColumnChapaNumero, DataGridViewColumnFechaHora]))
             {
                 OrderData();
             }

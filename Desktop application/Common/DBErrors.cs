@@ -1,4 +1,4 @@
-﻿using CardonerSistemas.Framework.Database;
+﻿using CardonerSistemas.Framework.Database.EFCore;
 using CardonerSistemas.Framework.Base;
 
 namespace CSMaps.Common
@@ -8,15 +8,15 @@ namespace CSMaps.Common
         internal static void DbUpdateException(Microsoft.EntityFrameworkCore.DbUpdateException ex, string entityNameSingle, bool entityIsFemale, string actionName)
         {
             string message;
-            switch (EntityFramework.TryDecodeDbUpdateException(ex))
+            switch (Errors.TryDecodeDbUpdateException(ex))
             {
-                case EntityFramework.Errors.RelatedEntity:
+                case Errors.ErrorTypes.RelatedEntity:
                     message = string.Format(entityIsFemale ? Properties.Resources.StringEntityRelatedDataErrorFemale : Properties.Resources.StringEntityRelatedDataErrorMale, entityNameSingle, actionName);
                     break;
-                case EntityFramework.Errors.DuplicatedEntity:
+                case Errors.ErrorTypes.DuplicatedEntity:
                     message = string.Format(entityIsFemale ? Properties.Resources.StringEntityDuplicatedUniqueKeyErrorFemale : Properties.Resources.StringEntityDuplicatedUniqueKeyErrorMale, entityNameSingle, actionName);
                     break;
-                case EntityFramework.Errors.PrimaryKeyViolation:
+                case Errors.ErrorTypes.PrimaryKeyViolation:
                     message = string.Format(entityIsFemale ? Properties.Resources.StringEntityDuplicatedPrimaryKeyErrorFemale : Properties.Resources.StringEntityDuplicatedPrimaryKeyErrorMale, entityNameSingle, actionName);
                     break;
                 default:

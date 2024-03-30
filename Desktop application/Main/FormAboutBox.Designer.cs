@@ -178,15 +178,13 @@
 
         #endregion
 
-        internal System.Windows.Forms.PictureBox PictureBoxCompanyLogo;
-        internal System.Windows.Forms.Label LabelLicense;
-        internal System.Windows.Forms.PictureBox PictureBoxIcon;
-        internal System.Windows.Forms.Label LabelApplicationTitle;
-        internal System.Windows.Forms.Label LabelVersion;
-        internal System.Windows.Forms.Label LabelCopyright;
-        internal System.Windows.Forms.ListView listviewPropiedades;
-        internal System.Windows.Forms.ColumnHeader columnValor;
-        internal System.Windows.Forms.Button ButtonOk;
+        internal PictureBox PictureBoxCompanyLogo;
+        internal Label LabelLicense;
+        internal PictureBox PictureBoxIcon;
+        internal Label LabelApplicationTitle;
+        internal Label LabelVersion;
+        internal Label LabelCopyright;
+        internal Button ButtonOk;
         private ColumnHeader ColumnName;
         private ColumnHeader ColumnValue;
         private ListView ListViewData;

@@ -1,9 +1,10 @@
 {
-  "Datasource": "localhost",
+  "Server": "localhost",
   "Database": "CSMaps",
+  "TrustedConnection": false,
   "UserId": "sa",
   "Password": "FRg8W3sm/Ib7/XsZeUbLFWwJ2+br/rmL2tt+D+q5e07YzMvYOlQV4CvsQmRG2SPKI1M=",
-  "Provider": "System.Data.SqlClient",
+  "TrustServerCertificate": true,
   "ConnectTimeout": 15,
   "ConnectRetryCount": 1,
   "ConnectRetryInterval": 10

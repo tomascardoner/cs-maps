@@ -50,6 +50,7 @@
             ComboBoxEstablecimiento = new ComboBox();
             LabelChapaNumero = new Label();
             IntegerTextBoxChapaNumero = new Syncfusion.Windows.Forms.Tools.IntegerTextBox();
+            ButtonChapaNumeroObtenerDesdeNombre = new Button();
             ToolStripMain.SuspendLayout();
             GroupBoxPoint.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DoubleTextBoxLongitud).BeginInit();
@@ -149,7 +150,7 @@
             // 
             // ButtonBuscarPunto
             // 
-            ButtonBuscarPunto.Location = new Point(162, 20);
+            ButtonBuscarPunto.Location = new Point(162, 21);
             ButtonBuscarPunto.Name = "ButtonBuscarPunto";
             ButtonBuscarPunto.Size = new Size(133, 24);
             ButtonBuscarPunto.TabIndex = 8;
@@ -293,11 +294,22 @@
             IntegerTextBoxChapaNumero.Text = "1";
             IntegerTextBoxChapaNumero.TextAlign = HorizontalAlignment.Right;
             // 
+            // ButtonChapaNumeroObtenerDesdeNombre
+            // 
+            ButtonChapaNumeroObtenerDesdeNombre.Location = new Point(197, 227);
+            ButtonChapaNumeroObtenerDesdeNombre.Name = "ButtonChapaNumeroObtenerDesdeNombre";
+            ButtonChapaNumeroObtenerDesdeNombre.Size = new Size(179, 24);
+            ButtonChapaNumeroObtenerDesdeNombre.TabIndex = 8;
+            ButtonChapaNumeroObtenerDesdeNombre.Text = "<<< Obtener desde nombre";
+            ButtonChapaNumeroObtenerDesdeNombre.UseVisualStyleBackColor = true;
+            ButtonChapaNumeroObtenerDesdeNombre.Click += ButtonChapaNumeroObtenerDesdeNombre_Click;
+            // 
             // FormPointData
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(517, 294);
+            Controls.Add(ButtonChapaNumeroObtenerDesdeNombre);
             Controls.Add(IntegerTextBoxChapaNumero);
             Controls.Add(LabelChapaNumero);
             Controls.Add(LabelEstablecimiento);
@@ -349,5 +361,6 @@
         private Label LabelChapaNumero;
         private Syncfusion.Windows.Forms.Tools.IntegerTextBox IntegerTextBoxChapaNumero;
         private Button ButtonBuscarPunto;
+        private Button ButtonChapaNumeroObtenerDesdeNombre;
     }
 }

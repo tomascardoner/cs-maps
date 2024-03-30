@@ -1,5 +1,3 @@
-using static CardonerSistemas.Framework.Database.Ado.SqlServer;
-
 namespace CSMaps
 {
     internal static class Program
@@ -9,7 +7,7 @@ namespace CSMaps
 #pragma warning disable S2223 // Non-constant static fields should not be visible
         internal static AppearanceConfig AppearanceConfig;
         internal static GeneralConfig GeneralConfig;
-        internal static CardonerSistemas.Framework.Database.Ado.SqlServer.DatabaseConfig DatabaseConfig;
+        internal static CardonerSistemas.Framework.Database.EFCore.ConnectionProperties DatabaseConfig;
 
         internal static Main.FormMdi formMdi;
 #pragma warning restore S2223 // Non-constant static fields should not be visible
@@ -32,19 +30,14 @@ namespace CSMaps
                 return;
             }
 
-            // Obtengo el connection string para las conexiones de ADO .NET
-            CardonerSistemas.Framework.Database.Ado.SqlServer database = new();
-            if (!database.SetProperties(DatabaseConfig.Datasource, DatabaseConfig.Database, DatabaseConfig.UserId, DatabaseConfig.Password, DatabaseConfig.ConnectTimeout, DatabaseConfig.ConnectRetryCount, DatabaseConfig.ConnectRetryInterval))
-            {
-                return;
-            }
-            if (!database.PasswordUnencrypt(Constants.PublicEncryptionPassword, out string resultMessage))
+            // Obtengo el connection string para la conexión a la base de datos
+            CardonerSistemas.Framework.Database.EFCore.ConnectionStringBuilder connectionStringBuilder = new(DatabaseConfig);
+            if (!connectionStringBuilder.PasswordUnencrypt(Constants.PublicEncryptionPassword, out string resultMessage))
             {
                 MessageBox.Show(string.Format(Properties.Resources.StringDatabasePasswordUnencryptionError, resultMessage), Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            database.CreateConnectionString();
-            Models.CSMapsContext.ConnectionString = database.ConnectionString;
+            Models.CSMapsContext.ConnectionString = connectionStringBuilder.GetConnectionString();
 
             formMdi = new();
             Application.Run(formMdi);
