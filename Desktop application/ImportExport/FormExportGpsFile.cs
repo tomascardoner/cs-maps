@@ -91,11 +91,20 @@ namespace CSMaps.General
             }
         }
 
+        private void ButtonFileFindGps_Click(object sender, EventArgs e)
+        {
+            FindGpsLocation();
+        }
+
         private void ButtonStart_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(TextBoxFile.Text))
             {
                 MessageBox.Show(Properties.Resources.StringExportFileNotSpecified, Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            if (Path.Exists(TextBoxFile.Text.Trim()) && MessageBox.Show("El archivo de destino ya existe y será reemplazado por el nuevo.\n\n¿Desea continuar?", Program.ApplicationTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
+            {
                 return;
             }
 
@@ -104,7 +113,98 @@ namespace CSMaps.General
 
         #endregion
 
-        #region Export functions
+        #region Misc functions
+
+        private void FindGpsLocation()
+        {
+            List<string> drivesBestCandidates = [];
+            List<string> drivesOtherCandidates = [];
+
+            this.Cursor = Cursors.WaitCursor;
+            string gpsFilePath = string.Empty;
+
+            // Gets list of possible drives
+            if (!GetPossibleGpsDrives(ref drivesBestCandidates, ref drivesOtherCandidates))
+            {
+                this.Cursor = Cursors.Default;
+                return;
+            }
+
+            // Try directories in best candidates drives
+            foreach (var _ in from string drive in drivesBestCandidates
+                              where FindGpsDirectory(drive, ref gpsFilePath)
+                              select new { })
+            {
+                this.Cursor = Cursors.Default;
+                TextBoxFile.Text = gpsFilePath;
+#pragma warning disable S1751	//Refactor the containing loop to do more than one iteration.
+                return;
+#pragma warning restore S1751    //Refactor the containing loop to do more than one iteration.                                                                
+            }
+
+            // Try directories in other candidates drives
+            foreach (var _ in from string drive in drivesOtherCandidates
+                              where FindGpsDirectory(drive, ref gpsFilePath)
+                              select new { })
+            {
+                this.Cursor = Cursors.Default;
+                TextBoxFile.Text = gpsFilePath;
+#pragma warning disable S1751	//Refactor the containing loop to do more than one iteration.
+                return;
+#pragma warning restore S1751    //Refactor the containing loop to do more than one iteration.                                                                
+            }
+
+            this.Cursor = Cursors.Default;
+            MessageBox.Show("No se encontró la unidad de almacenamiento correspondiente al GPS.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        }
+
+        private bool GetPossibleGpsDrives(ref List<string> bestCandidates, ref List<string> otherCandidates)
+        {
+            const string GpsExpectedFileSystem = "FAT32";
+            string[] GpsVolumeNameExpectedContains = ["Garm"];
+
+            try
+            {
+                foreach (DriveInfo driveInfo in DriveInfo.GetDrives())
+                {
+                    if (driveInfo.DriveType == DriveType.Removable && driveInfo.IsReady && driveInfo.DriveFormat == GpsExpectedFileSystem)
+                    {
+
+                        if (Array.Exists(GpsVolumeNameExpectedContains, vn => driveInfo.VolumeLabel.ToLowerInvariant().Contains(vn.ToLowerInvariant())))
+                        {
+                            bestCandidates.Add(driveInfo.RootDirectory.ToString());
+                        }
+                        else
+                        {
+                            otherCandidates.Add(driveInfo.RootDirectory.ToString());
+                        }
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                this.Cursor = Cursors.Default;
+                Error.ProcessException(ex, "Error al obtener la información de las unidades de la computadora.");
+                return false;
+            }
+        }
+
+        private static bool FindGpsDirectory(string rootDirectory, ref string gpsFilePath)
+        {
+            string[] GpsDirectoriesExpected = ["Garmin\\GPX", "GPX"];
+            foreach (string directoryName in from string directoryName in GpsDirectoriesExpected
+                                          where Path.Exists(Path.Combine(rootDirectory, directoryName))
+                                          select directoryName)
+            {
+                gpsFilePath = Path.Combine(rootDirectory, directoryName, DefaultFileName);
+#pragma warning disable S1751 //Refactor the containing loop to do more than one iteration.                                                                
+                return true;
+#pragma warning restore S1751 //Refactor the containing loop to do more than one iteration.                                                                
+            }
+
+            return false;
+        }
 
         private void ExportGpxFile(string filePath)
         {
@@ -156,7 +256,7 @@ namespace CSMaps.General
             try
             {
                 Geo.Gps.Serialization.Gpx11Serializer serializer = new();
-                using FileStream fileStream = new(filePath, FileMode.CreateNew);
+                using FileStream fileStream = new(filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None);
                 serializer.Serialize(gpsData, fileStream);
             }
             catch (Exception ex)

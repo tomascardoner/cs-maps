@@ -35,6 +35,7 @@
             ButtonFile = new Button();
             TextBoxFile = new TextBox();
             LabelFile = new Label();
+            ButtonFileFindGps = new Button();
             GroupBoxIncludedPoints.SuspendLayout();
             SuspendLayout();
             // 
@@ -45,7 +46,7 @@
             GroupBoxIncludedPoints.Location = new Point(12, 12);
             GroupBoxIncludedPoints.Name = "GroupBoxIncludedPoints";
             GroupBoxIncludedPoints.Size = new Size(318, 77);
-            GroupBoxIncludedPoints.TabIndex = 4;
+            GroupBoxIncludedPoints.TabIndex = 0;
             GroupBoxIncludedPoints.TabStop = false;
             GroupBoxIncludedPoints.Text = "Puntos a incluir:";
             // 
@@ -76,17 +77,17 @@
             ButtonStart.Location = new Point(672, 166);
             ButtonStart.Name = "ButtonStart";
             ButtonStart.Size = new Size(93, 34);
-            ButtonStart.TabIndex = 8;
+            ButtonStart.TabIndex = 5;
             ButtonStart.Text = "Iniciar...";
             ButtonStart.UseVisualStyleBackColor = true;
             ButtonStart.Click += ButtonStart_Click;
             // 
             // ButtonFile
             // 
-            ButtonFile.Location = new Point(735, 109);
+            ButtonFile.Location = new Point(635, 109);
             ButtonFile.Name = "ButtonFile";
             ButtonFile.Size = new Size(30, 23);
-            ButtonFile.TabIndex = 7;
+            ButtonFile.TabIndex = 3;
             ButtonFile.Text = "...";
             ButtonFile.UseVisualStyleBackColor = true;
             ButtonFile.Click += ButtonFile_Click;
@@ -95,8 +96,8 @@
             // 
             TextBoxFile.Location = new Point(130, 110);
             TextBoxFile.Name = "TextBoxFile";
-            TextBoxFile.Size = new Size(599, 23);
-            TextBoxFile.TabIndex = 6;
+            TextBoxFile.Size = new Size(499, 23);
+            TextBoxFile.TabIndex = 2;
             TextBoxFile.Enter += TextBoxFile_Enter;
             // 
             // LabelFile
@@ -105,14 +106,25 @@
             LabelFile.Location = new Point(15, 114);
             LabelFile.Name = "LabelFile";
             LabelFile.Size = new Size(109, 15);
-            LabelFile.TabIndex = 5;
+            LabelFile.TabIndex = 1;
             LabelFile.Text = "Archivo de destino:";
+            // 
+            // ButtonFileFindGps
+            // 
+            ButtonFileFindGps.Location = new Point(671, 109);
+            ButtonFileFindGps.Name = "ButtonFileFindGps";
+            ButtonFileFindGps.Size = new Size(91, 23);
+            ButtonFileFindGps.TabIndex = 4;
+            ButtonFileFindGps.Text = "Buscar GPS";
+            ButtonFileFindGps.UseVisualStyleBackColor = true;
+            ButtonFileFindGps.Click += ButtonFileFindGps_Click;
             // 
             // FormExportGpsFile
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(774, 214);
+            Controls.Add(ButtonFileFindGps);
             Controls.Add(ButtonStart);
             Controls.Add(ButtonFile);
             Controls.Add(TextBoxFile);
@@ -140,5 +152,6 @@
         private Button ButtonFile;
         private TextBox TextBoxFile;
         private Label LabelFile;
+        private Button ButtonFileFindGps;
     }
 }

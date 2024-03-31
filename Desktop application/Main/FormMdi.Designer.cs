@@ -30,7 +30,6 @@
         {
             ToolStripMain = new ToolStrip();
             ToolStripDropDownButtonTables = new ToolStripDropDownButton();
-            ToolStripMenuItemTablesPoints = new ToolStripMenuItem();
             ToolStripMenuItemTablesPointsGroups = new ToolStripMenuItem();
             ToolStripMenuItemTablesEventsTypes = new ToolStripMenuItem();
             ToolStripSeparatorTablesUsers = new ToolStripSeparator();
@@ -39,6 +38,7 @@
             ToolStripMenuItemTablesUsers = new ToolStripMenuItem();
             ToolStripButtonEntities = new ToolStripButton();
             ToolStripButtonSettlements = new ToolStripButton();
+            ToolStripButtonPuntos = new ToolStripButton();
             ToolStripButtonPuntosDatosYEventos = new ToolStripButton();
             ToolStripDropDownButtonImport = new ToolStripDropDownButton();
             ToolStripMenuItemImportGoogleEarthFile = new ToolStripMenuItem();
@@ -64,7 +64,7 @@
             // 
             ToolStripMain.Dock = DockStyle.Left;
             ToolStripMain.GripStyle = ToolStripGripStyle.Hidden;
-            ToolStripMain.Items.AddRange(new ToolStripItem[] { ToolStripDropDownButtonTables, ToolStripButtonEntities, ToolStripButtonSettlements, ToolStripButtonPuntosDatosYEventos, ToolStripDropDownButtonImport, ToolStripLabelUser, ToolStripDropDownButtonExport });
+            ToolStripMain.Items.AddRange(new ToolStripItem[] { ToolStripDropDownButtonTables, ToolStripButtonEntities, ToolStripButtonSettlements, ToolStripButtonPuntos, ToolStripButtonPuntosDatosYEventos, ToolStripDropDownButtonImport, ToolStripLabelUser, ToolStripDropDownButtonExport });
             ToolStripMain.Location = new Point(0, 24);
             ToolStripMain.Name = "ToolStripMain";
             ToolStripMain.Size = new Size(169, 376);
@@ -72,7 +72,7 @@
             // 
             // ToolStripDropDownButtonTables
             // 
-            ToolStripDropDownButtonTables.DropDownItems.AddRange(new ToolStripItem[] { ToolStripMenuItemTablesPoints, ToolStripMenuItemTablesPointsGroups, ToolStripMenuItemTablesEventsTypes, ToolStripSeparatorTablesUsers, ToolStripMenuItemTablesUsersGroups, ToolStripMenuItemTablesUsersGroupsPermissions, ToolStripMenuItemTablesUsers });
+            ToolStripDropDownButtonTables.DropDownItems.AddRange(new ToolStripItem[] { ToolStripMenuItemTablesPointsGroups, ToolStripMenuItemTablesEventsTypes, ToolStripSeparatorTablesUsers, ToolStripMenuItemTablesUsersGroups, ToolStripMenuItemTablesUsersGroupsPermissions, ToolStripMenuItemTablesUsers });
             ToolStripDropDownButtonTables.Image = Properties.Resources.ImageTablas32;
             ToolStripDropDownButtonTables.ImageAlign = ContentAlignment.MiddleLeft;
             ToolStripDropDownButtonTables.ImageScaling = ToolStripItemImageScaling.None;
@@ -81,13 +81,6 @@
             ToolStripDropDownButtonTables.Size = new Size(166, 36);
             ToolStripDropDownButtonTables.Text = "Tablas";
             ToolStripDropDownButtonTables.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // ToolStripMenuItemTablesPoints
-            // 
-            ToolStripMenuItemTablesPoints.Name = "ToolStripMenuItemTablesPoints";
-            ToolStripMenuItemTablesPoints.Size = new Size(241, 22);
-            ToolStripMenuItemTablesPoints.Text = "Puntos";
-            ToolStripMenuItemTablesPoints.Click += ToolStripMenuItemTablesPoints_Click;
             // 
             // ToolStripMenuItemTablesPointsGroups
             // 
@@ -153,9 +146,22 @@
             ToolStripButtonSettlements.TextAlign = ContentAlignment.MiddleLeft;
             ToolStripButtonSettlements.Click += ToolStripButtonSettlements_Click;
             // 
+            // ToolStripButtonPuntos
+            // 
+            ToolStripButtonPuntos.Image = Properties.Resources.ImagePunto32;
+            ToolStripButtonPuntos.ImageAlign = ContentAlignment.MiddleLeft;
+            ToolStripButtonPuntos.ImageScaling = ToolStripItemImageScaling.None;
+            ToolStripButtonPuntos.ImageTransparentColor = Color.Magenta;
+            ToolStripButtonPuntos.Name = "ToolStripButtonPuntos";
+            ToolStripButtonPuntos.Size = new Size(166, 36);
+            ToolStripButtonPuntos.Text = "Puntos";
+            ToolStripButtonPuntos.TextAlign = ContentAlignment.MiddleLeft;
+            ToolStripButtonPuntos.Click += ToolStripButtonPuntos_Click;
+            // 
             // ToolStripButtonPuntosDatosYEventos
             // 
             ToolStripButtonPuntosDatosYEventos.Image = Properties.Resources.ImagePunto32;
+            ToolStripButtonPuntosDatosYEventos.ImageAlign = ContentAlignment.MiddleLeft;
             ToolStripButtonPuntosDatosYEventos.ImageScaling = ToolStripItemImageScaling.None;
             ToolStripButtonPuntosDatosYEventos.ImageTransparentColor = Color.Magenta;
             ToolStripButtonPuntosDatosYEventos.Name = "ToolStripButtonPuntosDatosYEventos";
@@ -186,6 +192,7 @@
             // ToolStripLabelUser
             // 
             ToolStripLabelUser.Alignment = ToolStripItemAlignment.Right;
+            ToolStripLabelUser.ImageAlign = ContentAlignment.MiddleLeft;
             ToolStripLabelUser.Name = "ToolStripLabelUser";
             ToolStripLabelUser.Size = new Size(166, 0);
             ToolStripLabelUser.TextAlign = ContentAlignment.MiddleLeft;
@@ -329,7 +336,6 @@
         private ToolStripMenuItem ToolStripMenuItemFileChangeUserPassword;
         private ToolStripSeparator ToolStripMenuItemFileSeparatorExit;
         private ToolStripMenuItem ToolStripMenuItemFileExit;
-        private ToolStripMenuItem ToolStripMenuItemTablesPoints;
         private ToolStripSeparator ToolStripSeparatorTablesUsers;
         private ToolStripMenuItem ToolStripMenuItemTablesUsersGroups;
         private ToolStripMenuItem ToolStripMenuItemTablesUsersGroupsPermissions;
@@ -338,6 +344,7 @@
         private ToolStripMenuItem ToolStripMenuItemExportGarminFile;
         private ToolStripDropDownButton ToolStripDropDownButtonImport;
         private ToolStripMenuItem ToolStripMenuItemImportGoogleEarthFile;
+        private ToolStripButton ToolStripButtonPuntos;
     }
 }
 

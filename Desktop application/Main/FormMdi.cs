@@ -94,15 +94,6 @@ namespace CSMaps.Main
 
         #region Toolbar commands
 
-        private void ToolStripMenuItemTablesPoints_Click(object sender, EventArgs e)
-        {
-            if (Users.Permissions.Verify(Users.Permissions.Actions.PointView))
-            {
-                FormPoints ??= new();
-                ShowMdiForm(FormPoints);
-            }
-        }
-
         private void ToolStripMenuItemTablesPointsGroups_Click(object sender, EventArgs e)
         {
             //throw new NotSupportedException();
@@ -155,6 +146,15 @@ namespace CSMaps.Main
             {
                 FormSettlements ??= new();
                 ShowMdiForm(FormSettlements);
+            }
+        }
+
+        private void ToolStripButtonPuntos_Click(object sender, EventArgs e)
+        {
+            if (Users.Permissions.Verify(Users.Permissions.Actions.PointView))
+            {
+                FormPoints ??= new();
+                ShowMdiForm(FormPoints);
             }
         }
 
