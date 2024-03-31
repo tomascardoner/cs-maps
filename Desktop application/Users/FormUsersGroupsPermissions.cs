@@ -66,7 +66,7 @@ namespace CSMaps.Users
 
         private void TreeviewPermisos_BeforeCheck(object sender, TreeViewCancelEventArgs e)
         {
-            if ((e.Action == TreeViewAction.ByMouse | e.Action == TreeViewAction.ByKeyboard) & !PermitidoEstablecer)
+            if ((e.Action == TreeViewAction.ByMouse || e.Action == TreeViewAction.ByKeyboard) && !PermitidoEstablecer)
             {
                 e.Cancel = true;
             }
@@ -75,7 +75,7 @@ namespace CSMaps.Users
 
         private void TreeviewPermisos_AfterCheck(object sender, TreeViewEventArgs e)
         {
-            if (e.Action != TreeViewAction.ByMouse & e.Action != TreeViewAction.ByKeyboard)
+            if (e.Action != TreeViewAction.ByMouse && e.Action != TreeViewAction.ByKeyboard)
             {
                 return;
             }
@@ -93,7 +93,7 @@ namespace CSMaps.Users
                         new Models.UsuarioGrupoPermiso()
                         {
                             IdUsuarioGrupo = (byte)ComboBoxUsuarioGrupo.SelectedValue,
-                            IdPermiso = short.Parse(e.Node.Name.Substring(Permissions.PermissionPrefix.Length)),
+                            IdPermiso = short.Parse(e.Node.Name[Permissions.PermissionPrefix.Length..]),
                             IdUsuarioCreacion = Program.Usuario.IdUsuario
                         }
                     );
@@ -109,7 +109,7 @@ namespace CSMaps.Users
                 // Quitar permiso
                 try
                 {
-                    Models.UsuarioGrupoPermiso permiso = context.UsuarioGrupoPermisos.Find((byte)ComboBoxUsuarioGrupo.SelectedValue, short.Parse(e.Node.Name.Substring(Permissions.PermissionPrefix.Length)));
+                    Models.UsuarioGrupoPermiso permiso = context.UsuarioGrupoPermisos.Find((byte)ComboBoxUsuarioGrupo.SelectedValue, short.Parse(e.Node.Name[Permissions.PermissionPrefix.Length..]));
                     if (permiso != null)
                     {
                         context.UsuarioGrupoPermisos.Remove(permiso);

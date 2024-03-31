@@ -190,6 +190,9 @@
   <data name="ImageSearch32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Misc\ImageSearch32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ImageSplash" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Application\ImageSplash.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="ImageTablas32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Misc\ImageTablas32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -299,6 +302,9 @@
   <data name="StringEntitySaveChangesErrorMale" xml:space="preserve">
     <value>Error al actualizar los cambios de el {0} en la base de datos.</value>
   </data>
+  <data name="StringExportFileNotSpecified" xml:space="preserve">
+    <value>Debe especificar el archivo de destino al que desea exportar.</value>
+  </data>
   <data name="StringFileNotFound" xml:space="preserve">
     <value>El archivo especificado no existe.</value>
   </data>
@@ -307,6 +313,12 @@
   </data>
   <data name="StringGenderMale" xml:space="preserve">
     <value>Masculino</value>
+  </data>
+  <data name="StringGpsFileSaveDialogFilter" xml:space="preserve">
+    <value>Archivos de intercambio de GPS (*.gpx)|*.gpx|Todos los archivos (*.*)|*.*</value>
+  </data>
+  <data name="StringGpsFileSaveDialogTitle" xml:space="preserve">
+    <value>Especifique el archivo de GPS</value>
   </data>
   <data name="StringImportFileNotSpecified" xml:space="preserve">
     <value>Debe especificar el archivo que desea importar.</value>

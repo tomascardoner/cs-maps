@@ -28,57 +28,55 @@
         /// </summary>
         private void InitializeComponent()
         {
-            ToolStripMain = new System.Windows.Forms.ToolStrip();
-            ButtonCancelar = new System.Windows.Forms.ToolStripButton();
-            ButtonAceptar = new System.Windows.Forms.ToolStripButton();
-            TextBoxPassword = new System.Windows.Forms.TextBox();
-            TextBoxNombre = new System.Windows.Forms.TextBox();
-            LabelPassword = new System.Windows.Forms.Label();
-            LabelNombre = new System.Windows.Forms.Label();
-            PictureBoxMain = new System.Windows.Forms.PictureBox();
+            ToolStripMain = new ToolStrip();
+            ButtonCancelar = new ToolStripButton();
+            ButtonAceptar = new ToolStripButton();
+            TextBoxPassword = new TextBox();
+            TextBoxNombre = new TextBox();
+            LabelPassword = new Label();
+            LabelNombre = new Label();
+            PictureBoxMain = new PictureBox();
             ToolStripMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PictureBoxMain).BeginInit();
             SuspendLayout();
             // 
             // ToolStripMain
             // 
-            ToolStripMain.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            ToolStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { ButtonCancelar, ButtonAceptar });
-            ToolStripMain.Location = new System.Drawing.Point(0, 0);
+            ToolStripMain.GripStyle = ToolStripGripStyle.Hidden;
+            ToolStripMain.Items.AddRange(new ToolStripItem[] { ButtonCancelar, ButtonAceptar });
+            ToolStripMain.Location = new Point(0, 0);
             ToolStripMain.Name = "ToolStripMain";
-            ToolStripMain.Size = new System.Drawing.Size(379, 54);
+            ToolStripMain.Size = new Size(379, 39);
             ToolStripMain.TabIndex = 4;
             // 
             // ButtonCancelar
             // 
-            ButtonCancelar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            ButtonCancelar.Alignment = ToolStripItemAlignment.Right;
             ButtonCancelar.Image = Properties.Resources.ImageCancel32;
-            ButtonCancelar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            ButtonCancelar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            ButtonCancelar.ImageScaling = ToolStripItemImageScaling.None;
+            ButtonCancelar.ImageTransparentColor = Color.Magenta;
             ButtonCancelar.Name = "ButtonCancelar";
-            ButtonCancelar.Size = new System.Drawing.Size(57, 51);
+            ButtonCancelar.Size = new Size(89, 36);
             ButtonCancelar.Text = "Cancelar";
-            ButtonCancelar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             ButtonCancelar.Click += Cancelar_Click;
             // 
             // ButtonAceptar
             // 
-            ButtonAceptar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            ButtonAceptar.Alignment = ToolStripItemAlignment.Right;
             ButtonAceptar.Image = Properties.Resources.ImageOk32;
-            ButtonAceptar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            ButtonAceptar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            ButtonAceptar.ImageScaling = ToolStripItemImageScaling.None;
+            ButtonAceptar.ImageTransparentColor = Color.Magenta;
             ButtonAceptar.Name = "ButtonAceptar";
-            ButtonAceptar.Size = new System.Drawing.Size(52, 51);
+            ButtonAceptar.Size = new Size(84, 36);
             ButtonAceptar.Text = "Aceptar";
-            ButtonAceptar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             ButtonAceptar.Click += Aceptar_Click;
             // 
             // TextBoxPassword
             // 
-            TextBoxPassword.Location = new System.Drawing.Point(178, 115);
-            TextBoxPassword.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            TextBoxPassword.Location = new Point(182, 90);
+            TextBoxPassword.Margin = new Padding(4, 3, 4, 3);
             TextBoxPassword.Name = "TextBoxPassword";
-            TextBoxPassword.Size = new System.Drawing.Size(184, 23);
+            TextBoxPassword.Size = new Size(184, 23);
             TextBoxPassword.TabIndex = 3;
             TextBoxPassword.UseSystemPasswordChar = true;
             TextBoxPassword.Enter += TextBoxs_Enter;
@@ -86,11 +84,11 @@
             // 
             // TextBoxNombre
             // 
-            TextBoxNombre.Location = new System.Drawing.Point(178, 77);
-            TextBoxNombre.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            TextBoxNombre.Location = new Point(182, 52);
+            TextBoxNombre.Margin = new Padding(4, 3, 4, 3);
             TextBoxNombre.MaxLength = 30;
             TextBoxNombre.Name = "TextBoxNombre";
-            TextBoxNombre.Size = new System.Drawing.Size(184, 23);
+            TextBoxNombre.Size = new Size(184, 23);
             TextBoxNombre.TabIndex = 1;
             TextBoxNombre.Enter += TextBoxs_Enter;
             TextBoxNombre.Leave += TextBoxs_Leave;
@@ -98,38 +96,39 @@
             // LabelPassword
             // 
             LabelPassword.AutoSize = true;
-            LabelPassword.Location = new System.Drawing.Point(92, 119);
-            LabelPassword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LabelPassword.Location = new Point(96, 94);
+            LabelPassword.Margin = new Padding(4, 0, 4, 0);
             LabelPassword.Name = "LabelPassword";
-            LabelPassword.Size = new System.Drawing.Size(70, 15);
+            LabelPassword.Size = new Size(70, 15);
             LabelPassword.TabIndex = 2;
             LabelPassword.Text = "Contraseña:";
             // 
             // LabelNombre
             // 
             LabelNombre.AutoSize = true;
-            LabelNombre.Location = new System.Drawing.Point(92, 81);
-            LabelNombre.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LabelNombre.Location = new Point(96, 56);
+            LabelNombre.Margin = new Padding(4, 0, 4, 0);
             LabelNombre.Name = "LabelNombre";
-            LabelNombre.Size = new System.Drawing.Size(50, 15);
+            LabelNombre.Size = new Size(50, 15);
             LabelNombre.TabIndex = 0;
             LabelNombre.Text = "Usuario:";
             // 
             // PictureBoxMain
             // 
             PictureBoxMain.Image = Properties.Resources.ImageLogin48;
-            PictureBoxMain.Location = new System.Drawing.Point(14, 78);
-            PictureBoxMain.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            PictureBoxMain.Location = new Point(18, 53);
+            PictureBoxMain.Margin = new Padding(4, 3, 4, 3);
             PictureBoxMain.Name = "PictureBoxMain";
-            PictureBoxMain.Size = new System.Drawing.Size(48, 48);
-            PictureBoxMain.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            PictureBoxMain.Size = new Size(48, 48);
+            PictureBoxMain.SizeMode = PictureBoxSizeMode.AutoSize;
             PictureBoxMain.TabIndex = 6;
             PictureBoxMain.TabStop = false;
             // 
-            // FormUsuarioInicioSesion
+            // FormUserLogin
             // 
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            ClientSize = new System.Drawing.Size(379, 153);
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(379, 127);
             ControlBox = false;
             Controls.Add(ToolStripMain);
             Controls.Add(TextBoxPassword);
@@ -137,15 +136,15 @@
             Controls.Add(LabelPassword);
             Controls.Add(LabelNombre);
             Controls.Add(PictureBoxMain);
-            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             KeyPreview = true;
-            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Margin = new Padding(4, 3, 4, 3);
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "FormUsuarioInicioSesion";
+            Name = "FormUserLogin";
             ShowInTaskbar = false;
-            SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            SizeGripStyle = SizeGripStyle.Hide;
+            StartPosition = FormStartPosition.CenterParent;
             Text = "Inicio de sesión";
             FormClosed += This_FormClosed;
             KeyPress += This_KeyPress;

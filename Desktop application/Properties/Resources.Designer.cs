@@ -303,6 +303,16 @@ namespace CSMaps.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ImageSplash {
+            get {
+                object obj = ResourceManager.GetObject("ImageSplash", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ImageTablas32 {
             get {
                 object obj = ResourceManager.GetObject("ImageTablas32", resourceCulture);
@@ -610,6 +620,15 @@ namespace CSMaps.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Debe especificar el archivo de destino al que desea exportar..
+        /// </summary>
+        internal static string StringExportFileNotSpecified {
+            get {
+                return ResourceManager.GetString("StringExportFileNotSpecified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to El archivo especificado no existe..
         /// </summary>
         internal static string StringFileNotFound {
@@ -633,6 +652,24 @@ namespace CSMaps.Properties {
         internal static string StringGenderMale {
             get {
                 return ResourceManager.GetString("StringGenderMale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Archivos de intercambio de GPS (*.gpx)|*.gpx|Todos los archivos (*.*)|*.*.
+        /// </summary>
+        internal static string StringGpsFileSaveDialogFilter {
+            get {
+                return ResourceManager.GetString("StringGpsFileSaveDialogFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Especifique el archivo de GPS.
+        /// </summary>
+        internal static string StringGpsFileSaveDialogTitle {
+            get {
+                return ResourceManager.GetString("StringGpsFileSaveDialogTitle", resourceCulture);
             }
         }
         

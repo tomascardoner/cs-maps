@@ -68,9 +68,6 @@ public partial class CSMapsContext : DbContext
                 .IsRequired()
                 .HasMaxLength(100)
                 .IsUnicode(false);
-            entity.Property(e => e.NombreTemp)
-                .HasMaxLength(100)
-                .IsUnicode(false);
             entity.Property(e => e.TelefonoMovil)
                 .HasMaxLength(20)
                 .IsUnicode(false);

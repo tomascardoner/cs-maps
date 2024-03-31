@@ -4,12 +4,12 @@ using SharpKml.Engine;
 
 namespace CSMaps.General
 {
-    public partial class FormImport : Form
+    public partial class FormImportGoogleEarthFile : Form
     {
 
         #region Form stuff
 
-        public FormImport()
+        public FormImportGoogleEarthFile()
         {
             InitializeComponent();
             SetAppearance();
@@ -21,18 +21,23 @@ namespace CSMaps.General
             Forms.SetFont(this, Program.AppearanceConfig.Font);
         }
 
-        private void FormImport_FormClosed(object sender, FormClosedEventArgs e)
+        private void This_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Program.FormMdi.FormImport = null;
+            Program.FormMdi.FormImportGoogleEarthFile = null;
         }
 
         #endregion
 
         #region Controls events
 
-        private void ButtonGoogleEarthFile_Click(object sender, EventArgs e)
+        private void TextBoxFile_Enter(object sender, EventArgs e)
         {
-            using OpenFileDialog ofdGoogleEarthFile = new()
+            TextBoxFile.SelectAll();
+        }
+
+        private void ButtonFile_Click(object sender, EventArgs e)
+        {
+            using OpenFileDialog openFileDialog = new()
             {
                 RestoreDirectory = true,
                 Title = Properties.Resources.StringKmlFileOpenDialogTitle,
@@ -41,42 +46,43 @@ namespace CSMaps.General
                 CheckFileExists = true,
                 Multiselect = false
             };
-            if (string.IsNullOrWhiteSpace(TextBoxGoogleEarthFile.Text))
+            if (string.IsNullOrWhiteSpace(TextBoxFile.Text))
             {
-                ofdGoogleEarthFile.InitialDirectory = Application.StartupPath;
+                openFileDialog.InitialDirectory = Application.StartupPath;
             }
             else
             {
-                string pathWithoutFileName = FileSystem.GetPathWithoutFileName(TextBoxGoogleEarthFile.Text);
+                string pathWithoutFileName = FileSystem.GetPathWithoutFileName(TextBoxFile.Text);
                 if (!string.IsNullOrWhiteSpace(pathWithoutFileName) && Path.Exists(pathWithoutFileName))
                 {
-                    ofdGoogleEarthFile.InitialDirectory = pathWithoutFileName;
+                    openFileDialog.InitialDirectory = pathWithoutFileName;
                 }
                 else
                 {
-                    ofdGoogleEarthFile.InitialDirectory = Application.StartupPath;
+                    openFileDialog.InitialDirectory = Application.StartupPath;
                 }
             }
-            if (ofdGoogleEarthFile.ShowDialog(this) == DialogResult.OK)
+            if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
-                TextBoxGoogleEarthFile.Text = ofdGoogleEarthFile.FileName;
+                TextBoxFile.Text = openFileDialog.FileName;
+                ButtonStart.Focus();
             }
         }
 
         private void ButtonStart_Click(object sender, EventArgs e)
         {
-            if (TextBoxGoogleEarthFile.Text.Trim() == string.Empty)
+            if (string.IsNullOrWhiteSpace(TextBoxFile.Text))
             {
                 MessageBox.Show(Properties.Resources.StringImportFileNotSpecified, Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-            if (!Path.Exists(TextBoxGoogleEarthFile.Text.Trim()))
+            if (!Path.Exists(TextBoxFile.Text.Trim()))
             {
                 MessageBox.Show(Properties.Resources.StringFileNotFound, Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
-            ImportFile(TextBoxGoogleEarthFile.Text.Trim());
+            ImportFile(TextBoxFile.Text.Trim());
         }
 
         #endregion

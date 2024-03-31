@@ -153,7 +153,7 @@
             ToolStripActiveFilter.Items.AddRange(new ToolStripItem[] { ToolStripLabelActiveFilter, ToolStripComboBoxActiveFilter });
             ToolStripActiveFilter.Location = new Point(629, 0);
             ToolStripActiveFilter.Name = "ToolStripActiveFilter";
-            ToolStripActiveFilter.Size = new Size(188, 39);
+            ToolStripActiveFilter.Size = new Size(221, 39);
             ToolStripActiveFilter.TabIndex = 13;
             // 
             // ToolStripLabelActiveFilter
@@ -175,7 +175,7 @@
             ToolStripItemsCounter.Dock = DockStyle.Fill;
             ToolStripItemsCounter.GripStyle = ToolStripGripStyle.Hidden;
             ToolStripItemsCounter.Items.AddRange(new ToolStripItem[] { ToolStripLabelItemsCounter });
-            ToolStripItemsCounter.Location = new Point(817, 0);
+            ToolStripItemsCounter.Location = new Point(850, 0);
             ToolStripItemsCounter.Name = "ToolStripItemsCounter";
             ToolStripItemsCounter.Size = new Size(3, 39);
             ToolStripItemsCounter.TabIndex = 17;

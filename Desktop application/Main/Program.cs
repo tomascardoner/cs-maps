@@ -41,11 +41,20 @@ namespace CSMaps
                 return;
             }
 
+            // Muestro el SplashScreen y cambio el puntero del mouse para indicar que la aplicación está iniciando.
+            using FormSplash formSplash = new();
+            formSplash.Show();
+            formSplash.Cursor = Cursors.AppStarting;
+            formSplash.labelStatus.Text = "Obteniendo parámetros de conexión a base de datos...";
+            Application.DoEvents();
+
             // Obtengo el connection string para la conexión a la base de datos
             CardonerSistemas.Framework.Database.EFCore.ConnectionStringBuilder connectionStringBuilder = new(DatabaseConfig);
             if (!connectionStringBuilder.PasswordUnencrypt(Constants.PublicEncryptionPassword, out string resultMessage))
             {
                 MessageBox.Show(string.Format(Properties.Resources.StringDatabasePasswordUnencryptionError, resultMessage), Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                formSplash.Close();
+                TerminateApplication();
                 return;
             }
             Models.CSMapsContext.ConnectionString = connectionStringBuilder.GetConnectionString();
@@ -53,7 +62,7 @@ namespace CSMaps
             // Load parameters
             if (!Parameters.LoadFromDatabase())
             {
-                //formSplash.Close();
+                formSplash.Close();
                 TerminateApplication();
                 return;
             }
@@ -62,7 +71,7 @@ namespace CSMaps
             if (Parameters.GetText(Parameters.ParametersId.ApplicationDatabaseGuid) != Constants.ApplicationDatabaseGuid)
             {
                 MessageBox.Show("La base de datos especificada en la configuración del sistema no pertenece a esta aplicación.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                //formSplash.Close();
+                formSplash.Close();
                 TerminateApplication();
                 return;
             }
@@ -71,7 +80,7 @@ namespace CSMaps
             if (!CardonerSistemas.Framework.Cryptography.StringCipher.Decrypt(Parameters.GetText(Parameters.ParametersId.LicensedCompany), Constants.ApplicationLicensePassword, out LicensedCompany))
             {
                 MessageBox.Show("La información de la licencia es incorrecta.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                //formSplash.Close();
+                formSplash.Close();
                 TerminateApplication();
                 return;
             }
@@ -83,8 +92,8 @@ namespace CSMaps
             FormMdi = new() { Enabled = false };
             FormMdi.Show();
 
-            //formSplash.labelStatus.Text = Properties.Resources.StringSplashStatusAllDone;
-            //formSplash.Focus();
+            formSplash.labelStatus.Text = "Todo listo.";
+            formSplash.Focus();
             Application.DoEvents();
 
             // Espero el tiempo mínimo para mostrar el Splash Screen y después lo cierro
@@ -95,7 +104,7 @@ namespace CSMaps
                     Application.DoEvents();
                 }
             }
-            //formSplash.Close();
+            formSplash.Close();
 
             if (CardonerSistemas.Framework.Base.Instance.IsRunningUnderIde())
             {

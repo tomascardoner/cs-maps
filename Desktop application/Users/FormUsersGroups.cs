@@ -39,11 +39,11 @@ namespace CSMaps.Users
 
             skipFilterData = true;
 
-            Common.Lists.GetAllYesNo(ComboBoxActivo.ComboBox, 1);
+            Common.Lists.GetAllYesNo(ToolStripComboBoxActiveFilter.ComboBox, 1);
 
             skipFilterData = false;
 
-            ordenColumna = ColumnNombre;
+            ordenColumna = DataGridViewColumnNombre;
             ordenTipo = SortOrder.Ascending;
 
             RefreshData();
@@ -106,7 +106,7 @@ namespace CSMaps.Users
                 {
                     if (((Models.UsuarioGrupo)row.DataBoundItem).IdUsuarioGrupo == positionIdUsuario)
                     {
-                        DataGridViewMain.CurrentCell = row.Cells[ColumnNombre.Name];
+                        DataGridViewMain.CurrentCell = row.Cells[DataGridViewColumnNombre.Name];
                         break;
                     }
                 }
@@ -124,7 +124,7 @@ namespace CSMaps.Users
                     listaFiltradaYOrdenada = listaBase;
 
                     // Filtro por Activo
-                    switch (ComboBoxActivo.SelectedIndex)
+                    switch (ToolStripComboBoxActiveFilter.SelectedIndex)
                     {
                         case 0:     // Todos
                             break;
@@ -138,7 +138,7 @@ namespace CSMaps.Users
                             break;
                     }
 
-                    StatusLabelMain.Text = Common.DataGridViews.GetItemsCountText(entidadNombreSingular, entidadNombrePlural, listaFiltradaYOrdenada.Count);
+                    ToolStripLabelItemsCounter.Text = Common.DataGridViews.GetItemsCountText(entidadNombreSingular, entidadNombrePlural, listaFiltradaYOrdenada.Count);
 
                 }
                 catch (Exception ex)
@@ -156,7 +156,7 @@ namespace CSMaps.Users
 
         private void OrderData()
         {
-            if (ordenColumna.Name == ColumnNombre.Name)
+            if (ordenColumna.Name == DataGridViewColumnNombre.Name)
             {
                 if (ordenTipo == SortOrder.Ascending)
                 {
@@ -186,7 +186,7 @@ namespace CSMaps.Users
 
         private void Grid_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (Common.DataGridViews.ColumnHeaderMouseClick(DataGridViewMain, e, ref ordenColumna, ref ordenTipo, [ColumnNombre]))
+            if (Common.DataGridViews.ColumnHeaderMouseClick(DataGridViewMain, e, ref ordenColumna, ref ordenTipo, [DataGridViewColumnNombre]))
             {
                 OrderData();
             }

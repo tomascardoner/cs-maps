@@ -171,7 +171,9 @@ namespace CSMaps.Users
             }
 
             // Están todos los datos bien así que los guardo
+#pragma warning disable S2696 // Make the enclosing instance method 'static' or remove this set on the 'static' field.
             Program.Usuario = usuario;
+#pragma warning restore S2696 // Make the enclosing instance method 'static' or remove this set on the 'static' field.
             Properties.Settings.Default.LastLoggedInUser = usuario.Nombre;
             Properties.Settings.Default.Save();
             usuario = null;

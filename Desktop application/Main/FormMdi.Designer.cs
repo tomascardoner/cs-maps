@@ -40,9 +40,11 @@
             ToolStripButtonEntities = new ToolStripButton();
             ToolStripButtonSettlements = new ToolStripButton();
             ToolStripButtonPuntosDatosYEventos = new ToolStripButton();
-            ToolStripButtonImport = new ToolStripButton();
+            ToolStripDropDownButtonImport = new ToolStripDropDownButton();
+            ToolStripMenuItemImportGoogleEarthFile = new ToolStripMenuItem();
             ToolStripLabelUser = new ToolStripLabel();
-            ToolStripButtonExport = new ToolStripButton();
+            ToolStripDropDownButtonExport = new ToolStripDropDownButton();
+            ToolStripMenuItemExportGarminFile = new ToolStripMenuItem();
             MenuStripMain = new MenuStrip();
             ToolStripMenuItemFile = new ToolStripMenuItem();
             ToolStripMenuItemFileCloseUserSession = new ToolStripMenuItem();
@@ -62,7 +64,7 @@
             // 
             ToolStripMain.Dock = DockStyle.Left;
             ToolStripMain.GripStyle = ToolStripGripStyle.Hidden;
-            ToolStripMain.Items.AddRange(new ToolStripItem[] { ToolStripDropDownButtonTables, ToolStripButtonEntities, ToolStripButtonSettlements, ToolStripButtonPuntosDatosYEventos, ToolStripButtonImport, ToolStripLabelUser, ToolStripButtonExport });
+            ToolStripMain.Items.AddRange(new ToolStripItem[] { ToolStripDropDownButtonTables, ToolStripButtonEntities, ToolStripButtonSettlements, ToolStripButtonPuntosDatosYEventos, ToolStripDropDownButtonImport, ToolStripLabelUser, ToolStripDropDownButtonExport });
             ToolStripMain.Location = new Point(0, 24);
             ToolStripMain.Name = "ToolStripMain";
             ToolStripMain.Size = new Size(169, 376);
@@ -162,17 +164,24 @@
             ToolStripButtonPuntosDatosYEventos.TextAlign = ContentAlignment.MiddleLeft;
             ToolStripButtonPuntosDatosYEventos.Click += ToolStripButtonPuntosDatosYEventos_Click;
             // 
-            // ToolStripButtonImport
+            // ToolStripDropDownButtonImport
             // 
-            ToolStripButtonImport.Image = Properties.Resources.ImageImport32;
-            ToolStripButtonImport.ImageAlign = ContentAlignment.MiddleLeft;
-            ToolStripButtonImport.ImageScaling = ToolStripItemImageScaling.None;
-            ToolStripButtonImport.ImageTransparentColor = Color.Magenta;
-            ToolStripButtonImport.Name = "ToolStripButtonImport";
-            ToolStripButtonImport.Size = new Size(166, 36);
-            ToolStripButtonImport.Text = "Importar";
-            ToolStripButtonImport.TextAlign = ContentAlignment.MiddleLeft;
-            ToolStripButtonImport.Click += ToolStripButtonImport_Click;
+            ToolStripDropDownButtonImport.DropDownItems.AddRange(new ToolStripItem[] { ToolStripMenuItemImportGoogleEarthFile });
+            ToolStripDropDownButtonImport.Image = Properties.Resources.ImageImport32;
+            ToolStripDropDownButtonImport.ImageAlign = ContentAlignment.MiddleLeft;
+            ToolStripDropDownButtonImport.ImageScaling = ToolStripItemImageScaling.None;
+            ToolStripDropDownButtonImport.ImageTransparentColor = Color.Magenta;
+            ToolStripDropDownButtonImport.Name = "ToolStripDropDownButtonImport";
+            ToolStripDropDownButtonImport.Size = new Size(166, 36);
+            ToolStripDropDownButtonImport.Text = "Importar";
+            ToolStripDropDownButtonImport.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // ToolStripMenuItemImportGoogleEarthFile
+            // 
+            ToolStripMenuItemImportGoogleEarthFile.Name = "ToolStripMenuItemImportGoogleEarthFile";
+            ToolStripMenuItemImportGoogleEarthFile.Size = new Size(202, 22);
+            ToolStripMenuItemImportGoogleEarthFile.Text = "Archivo de Google Earth";
+            ToolStripMenuItemImportGoogleEarthFile.Click += ToolStripMenuItemImportGoogleEarthFile_Click;
             // 
             // ToolStripLabelUser
             // 
@@ -181,16 +190,24 @@
             ToolStripLabelUser.Size = new Size(166, 0);
             ToolStripLabelUser.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // ToolStripButtonExport
+            // ToolStripDropDownButtonExport
             // 
-            ToolStripButtonExport.Image = Properties.Resources.ImageExport32;
-            ToolStripButtonExport.ImageAlign = ContentAlignment.MiddleLeft;
-            ToolStripButtonExport.ImageScaling = ToolStripItemImageScaling.None;
-            ToolStripButtonExport.ImageTransparentColor = Color.Magenta;
-            ToolStripButtonExport.Name = "ToolStripButtonExport";
-            ToolStripButtonExport.Size = new Size(166, 36);
-            ToolStripButtonExport.Text = "Exportar";
-            ToolStripButtonExport.TextAlign = ContentAlignment.MiddleLeft;
+            ToolStripDropDownButtonExport.DropDownItems.AddRange(new ToolStripItem[] { ToolStripMenuItemExportGarminFile });
+            ToolStripDropDownButtonExport.Image = Properties.Resources.ImageExport32;
+            ToolStripDropDownButtonExport.ImageAlign = ContentAlignment.MiddleLeft;
+            ToolStripDropDownButtonExport.ImageScaling = ToolStripItemImageScaling.None;
+            ToolStripDropDownButtonExport.ImageTransparentColor = Color.Magenta;
+            ToolStripDropDownButtonExport.Name = "ToolStripDropDownButtonExport";
+            ToolStripDropDownButtonExport.Size = new Size(166, 36);
+            ToolStripDropDownButtonExport.Text = "Exportar";
+            ToolStripDropDownButtonExport.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // ToolStripMenuItemExportGarminFile
+            // 
+            ToolStripMenuItemExportGarminFile.Name = "ToolStripMenuItemExportGarminFile";
+            ToolStripMenuItemExportGarminFile.Size = new Size(197, 22);
+            ToolStripMenuItemExportGarminFile.Text = "Archivo de GPS Garmin";
+            ToolStripMenuItemExportGarminFile.Click += ToolStripMenuItemExportGarminFile_Click;
             // 
             // MenuStripMain
             // 
@@ -294,7 +311,6 @@
         #endregion
 
         private ToolStrip ToolStripMain;
-        private ToolStripButton ToolStripButtonImport;
         private ToolStripButton ToolStripButtonEntities;
         private ToolStripButton ToolStripButtonSettlements;
         private ToolStripDropDownButton ToolStripDropDownButtonTables;
@@ -318,7 +334,10 @@
         private ToolStripMenuItem ToolStripMenuItemTablesUsersGroups;
         private ToolStripMenuItem ToolStripMenuItemTablesUsersGroupsPermissions;
         private ToolStripMenuItem ToolStripMenuItemTablesUsers;
-        private ToolStripButton ToolStripButtonExport;
+        private ToolStripDropDownButton ToolStripDropDownButtonExport;
+        private ToolStripMenuItem ToolStripMenuItemExportGarminFile;
+        private ToolStripDropDownButton ToolStripDropDownButtonImport;
+        private ToolStripMenuItem ToolStripMenuItemImportGoogleEarthFile;
     }
 }
 

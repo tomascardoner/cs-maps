@@ -15,7 +15,8 @@ namespace CSMaps.Main
         internal General.FormEntities FormEntities;
         internal General.FormSettlements FormSettlements;
         internal General.FormPointsDataAndEvents FormPointsDataAndEvents;
-        internal General.FormImport FormImport;
+        internal General.FormImportGoogleEarthFile FormImportGoogleEarthFile;
+        internal General.FormExportGpsFile FormExportGarminFile;
 
         #endregion
 
@@ -104,12 +105,12 @@ namespace CSMaps.Main
 
         private void ToolStripMenuItemTablesPointsGroups_Click(object sender, EventArgs e)
         {
-            throw new NotSupportedException();
+            //throw new NotSupportedException();
         }
 
         private void ToolStripMenuItemTablesEventsTypes_Click(object sender, EventArgs e)
         {
-            throw new NotSupportedException();
+            //throw new NotSupportedException();
         }
 
         private void ToolStripMenuItemTablesUsersGroups_Click(object sender, EventArgs e)
@@ -166,21 +167,21 @@ namespace CSMaps.Main
             }
         }
 
-        private void ToolStripButtonImport_Click(object sender, EventArgs e)
+        private void ToolStripMenuItemImportGoogleEarthFile_Click(object sender, EventArgs e)
         {
             if (Users.Permissions.Verify(Users.Permissions.Actions.PointImport))
             {
-                FormImport ??= new() { MdiParent = this };
-                FormImport.Show();
+                FormImportGoogleEarthFile ??= new() { MdiParent = this };
+                FormImportGoogleEarthFile.Show();
             }
         }
 
-        private void ToolStripButtonExport_Click(object sender, EventArgs e)
+        private void ToolStripMenuItemExportGarminFile_Click(object sender, EventArgs e)
         {
             if (Users.Permissions.Verify(Users.Permissions.Actions.PointExport))
             {
-                //FormImport ??= new() { MdiParent = this };
-                //FormImport.Show();
+                FormExportGarminFile ??= new() { MdiParent = this };
+                FormExportGarminFile.Show();
             }
         }
 
