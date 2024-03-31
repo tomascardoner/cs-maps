@@ -5,6 +5,7 @@ namespace CSMaps
     internal static class Program
     {
         internal const string ApplicationTitle = "CS-Maps";
+        internal const string Copyright = "Copyright © 2024 Cardoner Sistemas";
 
 #pragma warning disable S2223 // Non-constant static fields should not be visible
         internal static AppearanceConfig AppearanceConfig;

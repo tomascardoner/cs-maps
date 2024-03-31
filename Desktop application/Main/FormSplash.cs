@@ -11,7 +11,7 @@
             labelAppTitle.Text = Program.ApplicationTitle;
             labelLicensedTo.Text = string.Empty;
             labelStatus.Text = "Iniciando...";
-            labelCopyright.Text = CardonerSistemas.Framework.Base.Application.Info.Copyright;
+            labelCopyright.Text = Program.Copyright;
         }
     }
 }

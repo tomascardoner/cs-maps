@@ -12,6 +12,12 @@
     <StartupObject>CSMaps.Program</StartupObject>
     <ApplicationIcon>Resources\Application\IconApplication.ico</ApplicationIcon>
     <NeutralLanguage>es-AR</NeutralLanguage>
+    <Title>CS-Maps</Title>
+    <Authors>Tomás A. Cardoner</Authors>
+    <Company>Cardoner Sistemas</Company>
+    <Product>CS-Maps</Product>
+    <Description>Sistema de gestión de puntos y datos de mapas.</Description>
+    <Copyright>© 2024 Cardoner Sistemas. All rights reserved.</Copyright>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
