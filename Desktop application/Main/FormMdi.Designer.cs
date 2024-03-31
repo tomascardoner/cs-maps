@@ -160,7 +160,7 @@
             // 
             // ToolStripButtonPuntosDatosYEventos
             // 
-            ToolStripButtonPuntosDatosYEventos.Image = Properties.Resources.ImagePunto32;
+            ToolStripButtonPuntosDatosYEventos.Image = Properties.Resources.ImagePuntoDato32;
             ToolStripButtonPuntosDatosYEventos.ImageAlign = ContentAlignment.MiddleLeft;
             ToolStripButtonPuntosDatosYEventos.ImageScaling = ToolStripItemImageScaling.None;
             ToolStripButtonPuntosDatosYEventos.ImageTransparentColor = Color.Magenta;

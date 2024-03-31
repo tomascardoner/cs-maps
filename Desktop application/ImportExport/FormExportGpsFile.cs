@@ -170,6 +170,7 @@ namespace CSMaps.General
                     if (driveInfo.DriveType == DriveType.Removable && driveInfo.IsReady && driveInfo.DriveFormat == GpsExpectedFileSystem)
                     {
 
+#pragma warning disable CA1862 // Use the 'StringComparison' method overloads to perform case-insensitive string comparisons
                         if (Array.Exists(GpsVolumeNameExpectedContains, vn => driveInfo.VolumeLabel.ToLowerInvariant().Contains(vn.ToLowerInvariant())))
                         {
                             bestCandidates.Add(driveInfo.RootDirectory.ToString());
@@ -178,6 +179,7 @@ namespace CSMaps.General
                         {
                             otherCandidates.Add(driveInfo.RootDirectory.ToString());
                         }
+#pragma warning restore CA1862 // Use the 'StringComparison' method overloads to perform case-insensitive string comparisons
                     }
                 }
                 return true;
@@ -243,7 +245,7 @@ namespace CSMaps.General
                 foreach (Models.Punto punto in puntos)
                 {
                     Geo.Geometries.Point point = new((double)punto.Latitud, (double)punto.Longitud, (double)punto.Altitud);
-                    gpsData.Waypoints.Add(new(point, punto.NombreExportar, punto.DescripcionExportar, punto.DescripcionExportar));
+                    gpsData.Waypoints.Add(new(point, punto.NombreExportar, punto.ComentarioExportar, punto.DescripcionExportar));
                 }
             }
             catch (Exception ex)

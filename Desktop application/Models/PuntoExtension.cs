@@ -3,7 +3,9 @@
     public partial class Punto
     {
         public string NombreExportar => PuntoDato == null ? Nombre : PuntoDato.ChapaNumero.ToString();
+#pragma warning disable CA1822 // Mark members as static
         public string ComentarioExportar => string.Empty;
+#pragma warning restore CA1822 // Mark members as static
         public string DescripcionExportar
         {
             get
