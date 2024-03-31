@@ -9,9 +9,9 @@
             LicensedCompany = 2,
             UsuarioNombreLongitudMinima = 3,
             UsuarioPasswordLongitudMinima = 4,
-    }
+        }
 
-    internal static bool LoadFromDatabase()
+        internal static bool LoadFromDatabase()
         {
             try
             {

@@ -78,7 +78,7 @@ namespace CSMaps.General
             try
             {
                 using Models.CSMapsContext context = new();
-                entitiesAll = [.. context.Puntos ];
+                entitiesAll = [.. context.Puntos];
             }
             catch (Exception ex)
             {

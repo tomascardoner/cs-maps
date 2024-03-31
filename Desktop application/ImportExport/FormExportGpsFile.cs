@@ -196,8 +196,8 @@ namespace CSMaps.General
         {
             string[] GpsDirectoriesExpected = ["Garmin\\GPX", "GPX"];
             foreach (string directoryName in from string directoryName in GpsDirectoriesExpected
-                                          where Path.Exists(Path.Combine(rootDirectory, directoryName))
-                                          select directoryName)
+                                             where Path.Exists(Path.Combine(rootDirectory, directoryName))
+                                             select directoryName)
             {
                 gpsFilePath = Path.Combine(rootDirectory, directoryName, DefaultFileName);
 #pragma warning disable S1751 //Refactor the containing loop to do more than one iteration.                                                                

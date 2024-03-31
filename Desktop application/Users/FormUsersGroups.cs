@@ -102,7 +102,7 @@ namespace CSMaps.Users
 
             if (positionIdUsuario != 0)
             {
-                foreach (DataGridViewRow row  in DataGridViewMain.Rows)
+                foreach (DataGridViewRow row in DataGridViewMain.Rows)
                 {
                     if (((Models.UsuarioGrupo)row.DataBoundItem).IdUsuarioGrupo == positionIdUsuario)
                     {

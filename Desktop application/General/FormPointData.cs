@@ -119,7 +119,8 @@ namespace CSMaps.General
             if (isNew && CheckBoxEventoAgregar.Checked)
             {
                 context.PuntoEventos.Add(
-                    new() {
+                    new()
+                    {
                         IdPunto = punto.IdPunto,
                         IdEvento = 1,
                         IdEventoTipo = (byte)ComboBoxEventoAgregar.SelectedValue,

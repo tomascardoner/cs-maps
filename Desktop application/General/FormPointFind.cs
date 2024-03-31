@@ -46,21 +46,21 @@ namespace CSMaps.General
 
             List<Models.Punto> puntosFiltrados;
 
-                if (ComboBoxTipoBusqueda.SelectedIndex == 0)
-                {
-                    puntosFiltrados = [.. puntos.Where(p => p.Nombre.ReplaceDiacritics().StartsWith(TextBoxNombre.Text.Trim().ReplaceDiacritics()))];
-                }
-                else
-                {
-                    puntosFiltrados = [.. puntos.Where(p => p.Nombre.ReplaceDiacritics().Contains(TextBoxNombre.Text.Trim().ReplaceDiacritics()))];
-                }
-                if (puntosFiltrados.Count == 0)
-                {
-                    MessageBox.Show("No se encontraron puntos que coincidan con la búsqueda.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
-                DataGridViewMain.AutoGenerateColumns = false;
-                DataGridViewMain.DataSource = puntosFiltrados;
+            if (ComboBoxTipoBusqueda.SelectedIndex == 0)
+            {
+                puntosFiltrados = [.. puntos.Where(p => p.Nombre.ReplaceDiacritics().StartsWith(TextBoxNombre.Text.Trim().ReplaceDiacritics()))];
+            }
+            else
+            {
+                puntosFiltrados = [.. puntos.Where(p => p.Nombre.ReplaceDiacritics().Contains(TextBoxNombre.Text.Trim().ReplaceDiacritics()))];
+            }
+            if (puntosFiltrados.Count == 0)
+            {
+                MessageBox.Show("No se encontraron puntos que coincidan con la búsqueda.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            DataGridViewMain.AutoGenerateColumns = false;
+            DataGridViewMain.DataSource = puntosFiltrados;
         }
 
         private void ToolStripButtonSelect_Click(object sender, EventArgs e)

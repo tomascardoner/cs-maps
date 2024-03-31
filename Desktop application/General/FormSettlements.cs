@@ -25,7 +25,7 @@ namespace CSMaps.General
         private bool skipFilterApply = true;
 
         public class DataGridViewRowData
-        { 
+        {
             public short IdEstablecimiento { get; set; }
             public string Nombre { get; set; }
             public short? IdEntidad { get; set; }

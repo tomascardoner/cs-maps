@@ -1,5 +1,5 @@
-﻿using CardonerSistemas.Framework.Database.EFCore;
-using CardonerSistemas.Framework.Base;
+﻿using CardonerSistemas.Framework.Base;
+using CardonerSistemas.Framework.Database.EFCore;
 
 namespace CSMaps.Common
 {

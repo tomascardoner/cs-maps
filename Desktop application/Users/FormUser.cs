@@ -284,7 +284,7 @@ namespace CSMaps.Users
 
         private bool VerifyData()
         {
-            TextBoxNombre.Text =  TextBoxNombre.Text.Trim().RemoveSpaces();
+            TextBoxNombre.Text = TextBoxNombre.Text.Trim().RemoveSpaces();
             if (string.IsNullOrWhiteSpace(TextBoxNombre.Text))
             {
                 TabControlMain.SelectedTab = TabPageGeneral;

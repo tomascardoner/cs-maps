@@ -46,7 +46,7 @@ namespace CSMaps.Users
 
             InitializeFormAndControls();
             SetDataToUserInterface();
-            
+
             isLoading = false;
 
             ChangeEditMode();
