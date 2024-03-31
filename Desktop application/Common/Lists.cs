@@ -1,4 +1,6 @@
-﻿namespace CSMaps.Common
+﻿using System.Data;
+
+namespace CSMaps.Common
 {
     internal static class Lists
     {
@@ -11,6 +13,48 @@
             }
         }
 
+        static internal void GetGenders(ComboBox comboBox, bool mostrarNoEspecifica)
+        {
+            const string IdFieldName = "IdGenero";
+            const string NombreFieldName = "Nombre";
+
+            DataTable dataTable = new("Generos");
+            DataRow dataRow;
+
+            comboBox.ValueMember = IdFieldName;
+            comboBox.DisplayMember = NombreFieldName;
+
+            dataTable.Columns.Add(IdFieldName, System.Type.GetType("System.String"));
+            dataTable.Columns.Add(NombreFieldName, System.Type.GetType("System.String"));
+
+            if (mostrarNoEspecifica)
+            {
+                dataRow = dataTable.NewRow();
+                dataRow[IdFieldName] = Constants.GenderUnknown;
+                dataRow[NombreFieldName] = Properties.Resources.StringItemStartChar + Properties.Resources.StringItemNotSpecified + Properties.Resources.StringItemEndChar;
+                dataTable.Rows.Add(dataRow);
+            }
+
+            dataRow = dataTable.NewRow();
+            dataRow[IdFieldName] = Constants.GenderMale;
+            dataRow[NombreFieldName] = Properties.Resources.StringGenderMale;
+            dataTable.Rows.Add(dataRow);
+
+            dataRow = dataTable.NewRow();
+            dataRow[IdFieldName] = Constants.GenderFemale;
+            dataRow[NombreFieldName] = Properties.Resources.StringGenderFemale;
+            dataTable.Rows.Add(dataRow);
+
+            comboBox.DataSource = dataTable;
+            if (mostrarNoEspecifica)
+            {
+                comboBox.SelectedIndex = 0;
+            }
+            else
+            {
+                comboBox.SelectedIndex = -1;
+            }
+        }
         static internal void GetEntidades(ComboBox comboBox, Models.CSMapsContext context, bool showNotSpecified)
         {
             comboBox.ValueMember = "IdEntidad";
@@ -89,6 +133,38 @@
             }
 
             comboBox.DataSource = eventos;
+        }
+
+        internal static void GetUsersGroups(ComboBox comboBox, Models.CSMapsContext context, bool showNotSpecified, bool showAll, bool showInactives = false, bool showAdministrators = true)
+        {
+            List<Models.UsuarioGrupo> usuarioGrupos;
+
+            comboBox.ValueMember = "IdUsuarioGrupo";
+            comboBox.DisplayMember = "Nombre";
+
+            usuarioGrupos = [.. context.UsuarioGrupos.Where(ug => (showInactives || ug.EsActivo) && (showAdministrators || ug.IdUsuarioGrupo != Constants.UserGroupAdministratorsId)).OrderBy(ug => ug.Nombre)];
+
+            if (showNotSpecified)
+            {
+                Models.UsuarioGrupo noEspecifica = new()
+                {
+                    IdUsuarioGrupo = CardonerSistemas.Framework.Base.Constants.ByteFieldValueNotSpecified,
+                    Nombre = Properties.Resources.StringItemStartChar + Properties.Resources.StringItemNotSpecified + Properties.Resources.StringItemEndChar
+                };
+                usuarioGrupos.Insert(0, noEspecifica);
+            }
+
+            if (showAll)
+            {
+                Models.UsuarioGrupo todos = new()
+                {
+                    IdUsuarioGrupo = CardonerSistemas.Framework.Base.Constants.ByteFieldValueAll,
+                    Nombre = Properties.Resources.StringItemStartChar + Properties.Resources.StringItemAllMale + Properties.Resources.StringItemEndChar
+                };
+                usuarioGrupos.Insert(0, todos);
+            }
+
+            comboBox.DataSource = usuarioGrupos;
         }
 
     }

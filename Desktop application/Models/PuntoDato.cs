@@ -13,9 +13,19 @@ public partial class PuntoDato
 
     public int? ChapaNumero { get; set; }
 
-    public DateTime UltimaActualizacion { get; set; }
+    public short IdUsuarioCreacion { get; set; }
+
+    public DateTime FechaHoraCreacion { get; set; }
+
+    public short IdUsuarioUltimaModificacion { get; set; }
+
+    public DateTime FechaHoraUltimaModificacion { get; set; }
 
     public virtual Establecimiento IdEstablecimientoNavigation { get; set; }
 
     public virtual Punto IdPuntoNavigation { get; set; }
+
+    public virtual Usuario IdUsuarioCreacionNavigation { get; set; }
+
+    public virtual Usuario IdUsuarioUltimaModificacionNavigation { get; set; }
 }

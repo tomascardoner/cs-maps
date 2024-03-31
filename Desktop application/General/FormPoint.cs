@@ -91,12 +91,12 @@ namespace CSMaps.General
 
         private void SetDataToUserInterface()
         {
-            Values.ToTextBox(TextBoxIdPunto, punto.IdPunto);
+            Values.ToTextBox(TextBoxIdPunto, punto.IdPunto, true, entityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
             Values.ToTextBox(TextBoxNombre, punto.Nombre);
             CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDoubleTextBox(DoubleTextBoxLatitud, punto.Latitud);
             CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDoubleTextBox(DoubleTextBoxLongitud, punto.Longitud);
             CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDoubleTextBox(DoubleTextBoxAltitud, punto.Altitud);
-            Values.ToTextBoxAsShortDateTime(TextBoxUltimaActualizacion, punto.UltimaActualizacion);
+            Values.ToTextBoxAsShortDateTime(TextBoxUltimaActualizacion, punto.FechaHoraUltimaModificacion);
         }
 
         private void SetDataToEntityObject()
@@ -111,7 +111,7 @@ namespace CSMaps.General
 
         #region Controls events
 
-        private void FormPoint_KeyPress(object sender, KeyPressEventArgs e)
+        private void This_KeyPress(object sender, KeyPressEventArgs e)
         {
             Common.Forms.This_KeyPress(e, isEditMode, ActiveControl, ToolStripButtonClose, ToolStripButtonSave, ToolStripButtonCancel, null);
         }
@@ -142,11 +142,11 @@ namespace CSMaps.General
             if (context.ChangeTracker.HasChanges())
             {
                 this.Cursor = Cursors.WaitCursor;
-                punto.UltimaActualizacion = System.DateTime.Now;
+                punto.FechaHoraUltimaModificacion = System.DateTime.Now;
                 try
                 {
                     context.SaveChanges();
-                    Program.formMdi.formPoints?.ReadData(punto.IdPunto);
+                    Program.FormMdi.FormPoints?.ReadData(punto.IdPunto);
                 }
                 catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
                 {
@@ -190,7 +190,10 @@ namespace CSMaps.General
 
         private void InitializeNewObjectData()
         {
-            punto.UltimaActualizacion = System.DateTime.Now;
+            punto.IdUsuarioCreacion = Program.Usuario.IdUsuario;
+            punto.FechaHoraCreacion = System.DateTime.Now;
+            punto.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
+            punto.FechaHoraUltimaModificacion = System.DateTime.Now;
         }
 
         private bool CompleteNewObjectData()
@@ -203,7 +206,7 @@ namespace CSMaps.General
             try
             {
                 using Models.CSMapsContext newIdContext = new();
-                if (context.Puntos.Any())
+                if (newIdContext.Puntos.Any())
                 {
                     punto.IdPunto = (short)(newIdContext.Puntos.Max(e => e.IdPunto) + 1);
                 }
@@ -215,7 +218,7 @@ namespace CSMaps.General
             }
             catch (Exception ex)
             {
-                Error.ProcessException(ex, string.Format(Properties.Resources.StringEntityNewValuesErrorFemale, entityNameSingular));
+                Error.ProcessException(ex, string.Format(entityIsFemale ? Properties.Resources.StringEntityNewValuesErrorFemale : Properties.Resources.StringEntityNewValuesErrorMale, entityNameSingular));
                 return false;
             }
         }
@@ -228,17 +231,20 @@ namespace CSMaps.General
         {
             if (string.IsNullOrWhiteSpace(TextBoxNombre.Text))
             {
-                MessageBox.Show(string.Format(entityIsFemale ? Properties.Resources.StringEntityDataVerificationMaleFieldRequiredFemale : Properties.Resources.StringEntityDataVerificationMaleFieldRequiredMale, entityNameSingular, "nombre"), Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Common.Forms.ShowRequiredFieldMessageBox(entityIsFemale, entityNameSingular, false, "nombre");
+                TextBoxNombre.Focus();
                 return false;
             }
             if (DoubleTextBoxLatitud.DoubleValue == 0)
             {
-                MessageBox.Show(string.Format(entityIsFemale ? Properties.Resources.StringEntityDataVerificationMaleFieldRequiredFemale : Properties.Resources.StringEntityDataVerificationFemaleFieldRequiredMale, entityNameSingular, "latitud"), Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Common.Forms.ShowRequiredFieldMessageBox(entityIsFemale, entityNameSingular, true, "latitud");
+                DoubleTextBoxLatitud.Focus();
                 return false;
             }
             if (DoubleTextBoxLongitud.DoubleValue == 0)
             {
-                MessageBox.Show(string.Format(entityIsFemale ? Properties.Resources.StringEntityDataVerificationMaleFieldRequiredFemale : Properties.Resources.StringEntityDataVerificationFemaleFieldRequiredMale, entityNameSingular, "longitud"), Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Common.Forms.ShowRequiredFieldMessageBox(entityIsFemale, entityNameSingular, true, "longitud");
+                DoubleTextBoxLongitud.Focus();
                 return false;
             }
             return true;

@@ -219,7 +219,7 @@
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "Establecimiento";
-            KeyPress += FormEntity_KeyPress;
+            KeyPress += This_KeyPress;
             ToolStripMain.ResumeLayout(false);
             ToolStripMain.PerformLayout();
             ResumeLayout(false);

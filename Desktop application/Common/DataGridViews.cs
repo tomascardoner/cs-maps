@@ -33,8 +33,12 @@ namespace CSMaps.Common
 
         #region Add
 
-        internal static bool AddVerify(Form form, DataGridView dataGridView)
+        internal static bool AddVerify(Form form, DataGridView dataGridView, Users.Permissions.Actions? permiso)
         {
+            if (permiso.HasValue && !Users.Permissions.Verify(permiso.Value))
+            {
+                return false;
+            }
             form.Cursor = Cursors.WaitCursor;
             dataGridView.Enabled = false;
             return true;
@@ -44,11 +48,15 @@ namespace CSMaps.Common
 
         #region Edit
 
-        internal static bool EditVerify(Form form, DataGridView dataGridView, string entityNameSingle, bool entityIsFemale)
+        internal static bool EditVerify(Form form, DataGridView dataGridView, Users.Permissions.Actions? permiso, string entityNameSingle, bool entityIsFemale)
         {
             if (dataGridView.CurrentRow == null)
             {
                 MessageBox.Show(string.Format(entityIsFemale ? Properties.Resources.StringActionNoneFemale : Properties.Resources.StringActionNoneMale, entityNameSingle, Properties.Resources.StringActionEdit), Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+            if (permiso.HasValue && !Users.Permissions.Verify(permiso.Value))
+            {
                 return false;
             }
             form.Cursor = Cursors.WaitCursor;
@@ -60,11 +68,15 @@ namespace CSMaps.Common
 
         #region Delete
 
-        internal static bool DeleteVerify(DataGridView dataGridView, string entityNameSingle, bool entityIsFemale)
+        internal static bool DeleteVerify(DataGridView dataGridView, Users.Permissions.Actions? permiso, string entityNameSingle, bool entityIsFemale)
         {
             if (dataGridView.CurrentRow == null)
             {
                 MessageBox.Show(string.Format(entityIsFemale ? Properties.Resources.StringActionNoneFemale : Properties.Resources.StringActionNoneMale, entityNameSingle, Properties.Resources.StringActionDelete), Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+            if (permiso.HasValue && !Users.Permissions.Verify(permiso.Value))
+            {
                 return false;
             }
             return true;
@@ -177,7 +189,7 @@ namespace CSMaps.Common
 
             string itemsCountText = itemsCount switch
             {
-                0 => string.Format(Properties.Resources.StringDatabaseItemsCountNone, entityName),
+                0 => string.Format(Properties.Resources.StringDatabaseItemsCountNone, entitiesName),
                 1 => string.Format(Properties.Resources.StringDatabaseItemsCountOne, entityName),
                 _ => string.Format(Properties.Resources.StringDatabaseItemsCountMany, entitiesName, itemsCount.ToString("N0")),
             };

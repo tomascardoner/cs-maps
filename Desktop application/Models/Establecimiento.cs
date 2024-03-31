@@ -9,17 +9,25 @@ public partial class Establecimiento
 {
     public short IdEstablecimiento { get; set; }
 
-    public string NombreTemp { get; set; }
-
     public string Nombre { get; set; }
 
     public short? IdEntidad { get; set; }
 
     public string TelefonoMovil { get; set; }
 
-    public DateTime UltimaActualizacion { get; set; }
+    public short IdUsuarioCreacion { get; set; }
+
+    public DateTime FechaHoraCreacion { get; set; }
+
+    public short IdUsuarioUltimaModificacion { get; set; }
+
+    public DateTime FechaHoraUltimaModificacion { get; set; }
 
     public virtual Entidad IdEntidadNavigation { get; set; }
+
+    public virtual Usuario IdUsuarioCreacionNavigation { get; set; }
+
+    public virtual Usuario IdUsuarioUltimaModificacionNavigation { get; set; }
 
     public virtual ICollection<PuntoDato> PuntoDatos { get; set; } = new List<PuntoDato>();
 }

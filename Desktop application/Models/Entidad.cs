@@ -15,7 +15,17 @@ public partial class Entidad
 
     public string TelefonoMovil { get; set; }
 
-    public DateTime UltimaActualizacion { get; set; }
+    public short IdUsuarioCreacion { get; set; }
+
+    public DateTime FechaHoraCreacion { get; set; }
+
+    public short IdUsuarioUltimaModificacion { get; set; }
+
+    public DateTime FechaHoraUltimaModificacion { get; set; }
 
     public virtual ICollection<Establecimiento> Establecimientos { get; set; } = new List<Establecimiento>();
+
+    public virtual Usuario IdUsuarioCreacionNavigation { get; set; }
+
+    public virtual Usuario IdUsuarioUltimaModificacionNavigation { get; set; }
 }

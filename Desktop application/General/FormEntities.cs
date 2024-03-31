@@ -1,4 +1,5 @@
 ﻿using CardonerSistemas.Framework.Base;
+using CSMaps.Users;
 
 namespace CSMaps.General
 {
@@ -13,6 +14,10 @@ namespace CSMaps.General
 
         private List<Models.Entidad> entitiesAll;
         private List<Models.Entidad> entitiesFiltered;
+
+        private readonly Permissions.Actions addPermission = Permissions.Actions.EntityAdd;
+        private readonly Permissions.Actions editPermission = Permissions.Actions.EntityEdit;
+        private readonly Permissions.Actions deletePermission = Permissions.Actions.EntityDelete;
 
         private DataGridViewColumn sortedColumn;
         private SortOrder sortOrder;
@@ -47,6 +52,7 @@ namespace CSMaps.General
         private void SetAppearance()
         {
             this.Icon = CardonerSistemas.Framework.Base.Graphics.GetIconFromBitmap(Properties.Resources.ImageEntidad32);
+            this.Text = entityNamePlural.FirstCharToUpperCase();
             Forms.SetFont(this, Program.AppearanceConfig.Font);
             Common.Appearance.SetControlsDataGridViews(this.Controls, false);
         }
@@ -60,7 +66,7 @@ namespace CSMaps.General
         {
             entitiesAll = null;
             entitiesFiltered = null;
-            Program.formMdi.formEntities = null;
+            Program.FormMdi.FormEntities = null;
         }
 
         #endregion
@@ -218,7 +224,7 @@ namespace CSMaps.General
 
         private void ToolStripButtonAdd_Click(object sender, EventArgs e)
         {
-            if (Common.DataGridViews.AddVerify(this, DataGridViewMain))
+            if (Common.DataGridViews.AddVerify(this, DataGridViewMain, addPermission))
             {
                 FormEntity formEntity = new(true, 0);
                 formEntity.ShowDialog(this);
@@ -238,7 +244,7 @@ namespace CSMaps.General
 
         private void ToolStripButtonEdit_Click(object sender, EventArgs e)
         {
-            if (Common.DataGridViews.EditVerify(this, DataGridViewMain, entityNameSingle, entityIsFemale))
+            if (Common.DataGridViews.EditVerify(this, DataGridViewMain, editPermission, entityNameSingle, entityIsFemale))
             {
                 FormEntity formEntity = new(true, ((Models.Entidad)DataGridViewMain.CurrentRow.DataBoundItem).IdEntidad);
                 formEntity.ShowDialog(this);
@@ -248,7 +254,7 @@ namespace CSMaps.General
 
         private void ToolStripButtonDelete_Click(object sender, EventArgs e)
         {
-            if (!Common.DataGridViews.DeleteVerify(DataGridViewMain, entityNameSingle, entityIsFemale))
+            if (!Common.DataGridViews.DeleteVerify(DataGridViewMain, deletePermission, entityNameSingle, entityIsFemale))
             {
                 return;
             }

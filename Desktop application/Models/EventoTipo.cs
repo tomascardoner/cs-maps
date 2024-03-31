@@ -11,9 +11,19 @@ public partial class EventoTipo
 
     public string Nombre { get; set; }
 
-    public bool Activo { get; set; }
+    public bool EsActivo { get; set; }
 
-    public DateTime UltimaActualizacion { get; set; }
+    public short IdUsuarioCreacion { get; set; }
+
+    public DateTime FechaHoraCreacion { get; set; }
+
+    public short IdUsuarioUltimaModificacion { get; set; }
+
+    public DateTime FechaHoraUltimaModificacion { get; set; }
+
+    public virtual Usuario IdUsuarioCreacionNavigation { get; set; }
+
+    public virtual Usuario IdUsuarioUltimaModificacionNavigation { get; set; }
 
     public virtual ICollection<PuntoEvento> PuntoEventos { get; set; } = new List<PuntoEvento>();
 }

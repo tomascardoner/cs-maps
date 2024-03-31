@@ -143,9 +143,19 @@ namespace CSMaps.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ImageImport16 {
+        internal static System.Drawing.Bitmap ImageExport32 {
             get {
-                object obj = ResourceManager.GetObject("ImageImport16", resourceCulture);
+                object obj = ResourceManager.GetObject("ImageExport32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ImageHombre16 {
+            get {
+                object obj = ResourceManager.GetObject("ImageHombre16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -216,6 +226,26 @@ namespace CSMaps.Properties {
         internal static System.Drawing.Bitmap ImageItemView32 {
             get {
                 object obj = ResourceManager.GetObject("ImageItemView32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ImageLogin48 {
+            get {
+                object obj = ResourceManager.GetObject("ImageLogin48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ImageMujer16 {
+            get {
+                object obj = ResourceManager.GetObject("ImageMujer16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -589,6 +619,24 @@ namespace CSMaps.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Femenino.
+        /// </summary>
+        internal static string StringGenderFemale {
+            get {
+                return ResourceManager.GetString("StringGenderFemale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Masculino.
+        /// </summary>
+        internal static string StringGenderMale {
+            get {
+                return ResourceManager.GetString("StringGenderMale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Debe especificar el archivo que desea importar..
         /// </summary>
         internal static string StringImportFileNotSpecified {
@@ -751,11 +799,38 @@ namespace CSMaps.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nueva.
+        /// </summary>
+        internal static string StringNewFemale {
+            get {
+                return ResourceManager.GetString("StringNewFemale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nuevo.
+        /// </summary>
+        internal static string StringNewMale {
+            get {
+                return ResourceManager.GetString("StringNewMale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
         internal static string StringNo {
             get {
                 return ResourceManager.GetString("StringNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No tiene autorización para realizar esta acción..
+        /// </summary>
+        internal static string StringNotPermission {
+            get {
+                return ResourceManager.GetString("StringNotPermission", resourceCulture);
             }
         }
         

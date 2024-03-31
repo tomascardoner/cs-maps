@@ -17,13 +17,13 @@ namespace CSMaps.General
 
         private void SetAppearance()
         {
-            this.Icon = CardonerSistemas.Framework.Base.Graphics.GetIconFromBitmap(Properties.Resources.ImageImport16);
+            this.Icon = CardonerSistemas.Framework.Base.Graphics.GetIconFromBitmap(Properties.Resources.ImageImport32);
             Forms.SetFont(this, Program.AppearanceConfig.Font);
         }
 
         private void FormImport_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Program.formMdi.formImport = null;
+            Program.FormMdi.FormImport = null;
         }
 
         #endregion
@@ -216,6 +216,10 @@ namespace CSMaps.General
                         punto.Latitud = (decimal)coordinates.Latitude;
                         punto.Longitud = (decimal)coordinates.Longitude;
                         punto.Altitud = (decimal)coordinates.Altitude;
+                        punto.IdUsuarioCreacion = Program.Usuario.IdUsuario;
+                        punto.FechaHoraCreacion = System.DateTime.Now;
+                        punto.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
+                        punto.FechaHoraUltimaModificacion = System.DateTime.Now;
                         context.Puntos.Add(punto);
                     }
                 }

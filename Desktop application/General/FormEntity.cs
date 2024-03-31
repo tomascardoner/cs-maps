@@ -1,5 +1,6 @@
 ﻿using CardonerSistemas.Framework.Base;
 using CardonerSistemas.Framework.Controls;
+using CSMaps.Users;
 
 namespace CSMaps.General
 {
@@ -89,10 +90,10 @@ namespace CSMaps.General
 
         private void SetDataToUserInterface()
         {
-            Values.ToTextBox(TextBoxIdEntidad, entidad.IdEntidad);
+            Values.ToTextBox(TextBoxIdEntidad, entidad.IdEntidad, true, entityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
             Values.ToTextBox(TextBoxNombre, entidad.Nombre);
             Values.ToTextBox(TextBoxTelefonoMovil, entidad.TelefonoMovil);
-            Values.ToTextBoxAsShortDateTime(TextBoxUltimaActualizacion, entidad.UltimaActualizacion);
+            Values.ToTextBoxAsShortDateTime(TextBoxUltimaModificacion, entidad.FechaHoraUltimaModificacion);
         }
 
         private void SetDataToEntityObject()
@@ -105,7 +106,7 @@ namespace CSMaps.General
 
         #region Controls events
 
-        private void FormEntity_KeyPress(object sender, KeyPressEventArgs e)
+        private void This_KeyPress(object sender, KeyPressEventArgs e)
         {
             Common.Forms.This_KeyPress(e, isEditMode, ActiveControl, ToolStripButtonClose, ToolStripButtonSave, ToolStripButtonCancel, null);
         }
@@ -136,11 +137,12 @@ namespace CSMaps.General
             if (context.ChangeTracker.HasChanges())
             {
                 this.Cursor = Cursors.WaitCursor;
-                entidad.UltimaActualizacion = System.DateTime.Now;
+                entidad.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
+                entidad.FechaHoraUltimaModificacion = System.DateTime.Now;
                 try
                 {
                     context.SaveChanges();
-                    Program.formMdi.formEntities?.ReadData(entidad.IdEntidad);
+                    Program.FormMdi.FormEntities?.ReadData(entidad.IdEntidad);
                 }
                 catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
                 {
@@ -169,8 +171,11 @@ namespace CSMaps.General
 
         private void ToolStripButtonEdit_Click(object sender, EventArgs e)
         {
-            isEditMode = true;
-            ChangeEditMode();
+            if (Permissions.Verify(Permissions.Actions.EntityEdit))
+            {
+                isEditMode = true;
+                ChangeEditMode();
+            }
         }
 
         private void ToolStripButtonClose_Click(object sender, EventArgs e)
@@ -184,7 +189,10 @@ namespace CSMaps.General
 
         private void InitializeNewObjectData()
         {
-            entidad.UltimaActualizacion = System.DateTime.Now;
+            entidad.IdUsuarioCreacion = Program.Usuario.IdUsuario;
+            entidad.FechaHoraCreacion = System.DateTime.Now;
+            entidad.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
+            entidad.FechaHoraUltimaModificacion = System.DateTime.Now;
         }
 
         private bool CompleteNewObjectData()
@@ -197,7 +205,7 @@ namespace CSMaps.General
             try
             {
                 using Models.CSMapsContext newIdContext = new();
-                if (context.Entidades.Any())
+                if (newIdContext.Entidades.Any())
                 {
                     entidad.IdEntidad = (short)(newIdContext.Entidades.Max(e => e.IdEntidad) + 1);
                 }
@@ -209,7 +217,7 @@ namespace CSMaps.General
             }
             catch (Exception ex)
             {
-                Error.ProcessException(ex, string.Format(Properties.Resources.StringEntityNewValuesErrorFemale, entityNameSingular));
+                Error.ProcessException(ex, string.Format(entityIsFemale ? Properties.Resources.StringEntityNewValuesErrorFemale : Properties.Resources.StringEntityNewValuesErrorMale, entityNameSingular));
                 return false;
             }
         }
@@ -222,7 +230,8 @@ namespace CSMaps.General
         {
             if (string.IsNullOrWhiteSpace(TextBoxNombre.Text))
             {
-                MessageBox.Show(string.Format(entityIsFemale ? Properties.Resources.StringEntityDataVerificationMaleFieldRequiredFemale : Properties.Resources.StringEntityDataVerificationMaleFieldRequiredMale, entityNameSingular, "nombre"), Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Common.Forms.ShowRequiredFieldMessageBox(entityIsFemale, entityNameSingular, false, "nombre");
+                TextBoxNombre.Focus();
                 return false;
             }
             return true;

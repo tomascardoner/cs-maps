@@ -39,8 +39,8 @@
             TextBoxNombre = new TextBox();
             TextBoxTelefonoMovil = new TextBox();
             LabelTelefonoMovil = new Label();
-            TextBoxUltimaActualizacion = new TextBox();
-            LabelUltimaActualizacion = new Label();
+            TextBoxUltimaModificacion = new TextBox();
+            LabelUltimaModificacion = new Label();
             ToolStripMain.SuspendLayout();
             SuspendLayout();
             // 
@@ -108,7 +108,7 @@
             // 
             // TextBoxIdEntidad
             // 
-            TextBoxIdEntidad.Location = new Point(135, 67);
+            TextBoxIdEntidad.Location = new Point(136, 67);
             TextBoxIdEntidad.Name = "TextBoxIdEntidad";
             TextBoxIdEntidad.ReadOnly = true;
             TextBoxIdEntidad.Size = new Size(61, 23);
@@ -129,16 +129,16 @@
             // TextBoxNombre
             // 
             TextBoxNombre.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            TextBoxNombre.Location = new Point(135, 96);
+            TextBoxNombre.Location = new Point(136, 96);
             TextBoxNombre.MaxLength = 100;
             TextBoxNombre.Name = "TextBoxNombre";
-            TextBoxNombre.Size = new Size(370, 23);
+            TextBoxNombre.Size = new Size(369, 23);
             TextBoxNombre.TabIndex = 4;
             TextBoxNombre.Enter += TextBoxs_Enter;
             // 
             // TextBoxTelefonoMovil
             // 
-            TextBoxTelefonoMovil.Location = new Point(135, 125);
+            TextBoxTelefonoMovil.Location = new Point(136, 125);
             TextBoxTelefonoMovil.MaxLength = 20;
             TextBoxTelefonoMovil.Name = "TextBoxTelefonoMovil";
             TextBoxTelefonoMovil.Size = new Size(149, 23);
@@ -154,32 +154,32 @@
             LabelTelefonoMovil.TabIndex = 5;
             LabelTelefonoMovil.Text = "Teléfono móvil:";
             // 
-            // TextBoxUltimaActualizacion
+            // TextBoxUltimaModificacion
             // 
-            TextBoxUltimaActualizacion.Location = new Point(135, 154);
-            TextBoxUltimaActualizacion.Name = "TextBoxUltimaActualizacion";
-            TextBoxUltimaActualizacion.ReadOnly = true;
-            TextBoxUltimaActualizacion.Size = new Size(149, 23);
-            TextBoxUltimaActualizacion.TabIndex = 8;
-            TextBoxUltimaActualizacion.TabStop = false;
-            TextBoxUltimaActualizacion.Enter += TextBoxs_Enter;
+            TextBoxUltimaModificacion.Location = new Point(136, 154);
+            TextBoxUltimaModificacion.Name = "TextBoxUltimaModificacion";
+            TextBoxUltimaModificacion.ReadOnly = true;
+            TextBoxUltimaModificacion.Size = new Size(149, 23);
+            TextBoxUltimaModificacion.TabIndex = 8;
+            TextBoxUltimaModificacion.TabStop = false;
+            TextBoxUltimaModificacion.Enter += TextBoxs_Enter;
             // 
-            // LabelUltimaActualizacion
+            // LabelUltimaModificacion
             // 
-            LabelUltimaActualizacion.AutoSize = true;
-            LabelUltimaActualizacion.Location = new Point(12, 157);
-            LabelUltimaActualizacion.Name = "LabelUltimaActualizacion";
-            LabelUltimaActualizacion.Size = new Size(117, 15);
-            LabelUltimaActualizacion.TabIndex = 7;
-            LabelUltimaActualizacion.Text = "Última actualización:";
+            LabelUltimaModificacion.AutoSize = true;
+            LabelUltimaModificacion.Location = new Point(12, 157);
+            LabelUltimaModificacion.Name = "LabelUltimaModificacion";
+            LabelUltimaModificacion.Size = new Size(118, 15);
+            LabelUltimaModificacion.TabIndex = 7;
+            LabelUltimaModificacion.Text = "Última modificación:";
             // 
             // FormEntity
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(517, 190);
-            Controls.Add(TextBoxUltimaActualizacion);
-            Controls.Add(LabelUltimaActualizacion);
+            Controls.Add(TextBoxUltimaModificacion);
+            Controls.Add(LabelUltimaModificacion);
             Controls.Add(TextBoxTelefonoMovil);
             Controls.Add(LabelTelefonoMovil);
             Controls.Add(TextBoxNombre);
@@ -195,7 +195,7 @@
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "Entidad";
-            KeyPress += FormEntity_KeyPress;
+            KeyPress += This_KeyPress;
             ToolStripMain.ResumeLayout(false);
             ToolStripMain.PerformLayout();
             ResumeLayout(false);
@@ -211,8 +211,8 @@
         private TextBox TextBoxNombre;
         private TextBox TextBoxTelefonoMovil;
         private Label LabelTelefonoMovil;
-        private TextBox TextBoxUltimaActualizacion;
-        private Label LabelUltimaActualizacion;
+        private TextBox TextBoxUltimaModificacion;
+        private Label LabelUltimaModificacion;
         internal ToolStripButton ToolStripButtonClose;
         internal ToolStripButton ToolStripButtonEdit;
         internal ToolStripButton ToolStripButtonCancel;

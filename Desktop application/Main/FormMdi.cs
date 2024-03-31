@@ -7,11 +7,15 @@ namespace CSMaps.Main
 
         #region Declarations
 
-        internal General.FormEntities formEntities;
-        internal General.FormSettlements formSettlements;
-        internal General.FormPoints formPoints;
-        internal General.FormPointsDataAndEvents formPointsDataAndEvents;
-        internal General.FormImport formImport;
+        internal General.FormPoints FormPoints;
+        internal Users.FormUsersGroups FormUsersGroups;
+        internal Users.FormUsersGroupsPermissions FormUsersGroupsPermissions;
+        internal Users.FormUsers FormUsers;
+
+        internal General.FormEntities FormEntities;
+        internal General.FormSettlements FormSettlements;
+        internal General.FormPointsDataAndEvents FormPointsDataAndEvents;
+        internal General.FormImport FormImport;
 
         #endregion
 
@@ -25,8 +29,8 @@ namespace CSMaps.Main
         private void SetAppearance()
         {
             this.Icon = Properties.Resources.IconApplication;
-            this.Text = Program.ApplicationTitle;
-            ToolStripMenuItemHelpAbout.Text = "&Acerca de " + Program.ApplicationTitle + "...";
+            this.Text = $"{Program.ApplicationTitle} - Licenciado a: {Program.LicensedCompany.ToUpper()}";
+            ToolStripMenuItemHelpAbout.Text = $"&Acerca de {Program.ApplicationTitle}...";
         }
 
         private void This_Load(object sender, EventArgs e)
@@ -58,6 +62,18 @@ namespace CSMaps.Main
             this.Close();
         }
 
+        private void ToolStripMenuItemFileCloseUserSession_Click(object sender, EventArgs e)
+        {
+            Users.Users.LogOut();
+        }
+
+        private void ToolStripMenuItemFileChangeUserPassword_Click(object sender, EventArgs e)
+        {
+            Users.FormUserChangePassword formUserChangePassword = new();
+            formUserChangePassword.ShowDialog(this);
+            formUserChangePassword.Dispose();
+        }
+
         private void ToolStripMenuItemWindowCloseAll_Click(object sender, EventArgs e)
         {
             foreach (Form childForm in MdiChildren)
@@ -77,34 +93,95 @@ namespace CSMaps.Main
 
         #region Toolbar commands
 
+        private void ToolStripMenuItemTablesPoints_Click(object sender, EventArgs e)
+        {
+            if (Users.Permissions.Verify(Users.Permissions.Actions.PointView))
+            {
+                FormPoints ??= new();
+                ShowMdiForm(FormPoints);
+            }
+        }
+
+        private void ToolStripMenuItemTablesPointsGroups_Click(object sender, EventArgs e)
+        {
+            throw new NotSupportedException();
+        }
+
+        private void ToolStripMenuItemTablesEventsTypes_Click(object sender, EventArgs e)
+        {
+            throw new NotSupportedException();
+        }
+
+        private void ToolStripMenuItemTablesUsersGroups_Click(object sender, EventArgs e)
+        {
+            if (Users.Permissions.Verify(Users.Permissions.Actions.UserGroupView))
+            {
+                FormUsersGroups ??= new();
+                ShowMdiForm(FormUsersGroups);
+            }
+        }
+
+        private void ToolStripMenuItemTablesUsersGroupsPermissions_Click(object sender, EventArgs e)
+        {
+            if (Users.Permissions.Verify(Users.Permissions.Actions.UserGroupPermissionView))
+            {
+                FormUsersGroupsPermissions ??= new();
+                ShowMdiForm(FormUsersGroupsPermissions);
+            }
+        }
+
+        private void ToolStripMenuItemTablesUsers_Click(object sender, EventArgs e)
+        {
+            if (Users.Permissions.Verify(Users.Permissions.Actions.UserView))
+            {
+                FormUsers ??= new();
+                ShowMdiForm(FormUsers);
+            }
+        }
+
         private void ToolStripButtonEntities_Click(object sender, EventArgs e)
         {
-            formEntities ??= new();
-            ShowMdiForm(formEntities);
+            if (Users.Permissions.Verify(Users.Permissions.Actions.EntityView))
+            {
+                FormEntities ??= new();
+                ShowMdiForm(FormEntities);
+            }
         }
 
         private void ToolStripButtonSettlements_Click(object sender, EventArgs e)
         {
-            formSettlements ??= new();
-            ShowMdiForm(formSettlements);
-        }
-
-        private void ToolStripButtonPoints_Click(object sender, EventArgs e)
-        {
-            formPoints ??= new();
-            ShowMdiForm(formPoints);
+            if (Users.Permissions.Verify(Users.Permissions.Actions.SettlementView))
+            {
+                FormSettlements ??= new();
+                ShowMdiForm(FormSettlements);
+            }
         }
 
         private void ToolStripButtonPuntosDatosYEventos_Click(object sender, EventArgs e)
         {
-            formPointsDataAndEvents ??= new();
-            ShowMdiForm(formPointsDataAndEvents);
+            if (Users.Permissions.Verify(Users.Permissions.Actions.PointDataView))
+            {
+                FormPointsDataAndEvents ??= new();
+                ShowMdiForm(FormPointsDataAndEvents);
+            }
         }
 
         private void ToolStripButtonImport_Click(object sender, EventArgs e)
         {
-            formImport ??= new() { MdiParent = this };
-            formImport.Show();
+            if (Users.Permissions.Verify(Users.Permissions.Actions.PointImport))
+            {
+                FormImport ??= new() { MdiParent = this };
+                FormImport.Show();
+            }
+        }
+
+        private void ToolStripButtonExport_Click(object sender, EventArgs e)
+        {
+            if (Users.Permissions.Verify(Users.Permissions.Actions.PointExport))
+            {
+                //FormImport ??= new() { MdiParent = this };
+                //FormImport.Show();
+            }
         }
 
         #endregion

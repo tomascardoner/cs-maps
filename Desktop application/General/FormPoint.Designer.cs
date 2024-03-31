@@ -260,7 +260,7 @@
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "Punto";
-            KeyPress += FormPoint_KeyPress;
+            KeyPress += This_KeyPress;
             ToolStripMain.ResumeLayout(false);
             ToolStripMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)DoubleTextBoxLatitud).EndInit();

@@ -30,15 +30,24 @@
         {
             ToolStripMain = new ToolStrip();
             ToolStripDropDownButtonTables = new ToolStripDropDownButton();
+            ToolStripMenuItemTablesPoints = new ToolStripMenuItem();
             ToolStripMenuItemTablesPointsGroups = new ToolStripMenuItem();
             ToolStripMenuItemTablesEventsTypes = new ToolStripMenuItem();
+            ToolStripSeparatorTablesUsers = new ToolStripSeparator();
+            ToolStripMenuItemTablesUsersGroups = new ToolStripMenuItem();
+            ToolStripMenuItemTablesUsersGroupsPermissions = new ToolStripMenuItem();
+            ToolStripMenuItemTablesUsers = new ToolStripMenuItem();
             ToolStripButtonEntities = new ToolStripButton();
             ToolStripButtonSettlements = new ToolStripButton();
-            ToolStripButtonPoints = new ToolStripButton();
             ToolStripButtonPuntosDatosYEventos = new ToolStripButton();
             ToolStripButtonImport = new ToolStripButton();
+            ToolStripLabelUser = new ToolStripLabel();
+            ToolStripButtonExport = new ToolStripButton();
             MenuStripMain = new MenuStrip();
             ToolStripMenuItemFile = new ToolStripMenuItem();
+            ToolStripMenuItemFileCloseUserSession = new ToolStripMenuItem();
+            ToolStripMenuItemFileChangeUserPassword = new ToolStripMenuItem();
+            ToolStripMenuItemFileSeparatorExit = new ToolStripSeparator();
             ToolStripMenuItemFileExit = new ToolStripMenuItem();
             ToolStripMenuItemWindow = new ToolStripMenuItem();
             ToolStripMenuItemWindowCloseAll = new ToolStripMenuItem();
@@ -53,7 +62,7 @@
             // 
             ToolStripMain.Dock = DockStyle.Left;
             ToolStripMain.GripStyle = ToolStripGripStyle.Hidden;
-            ToolStripMain.Items.AddRange(new ToolStripItem[] { ToolStripDropDownButtonTables, ToolStripButtonEntities, ToolStripButtonSettlements, ToolStripButtonPoints, ToolStripButtonPuntosDatosYEventos, ToolStripButtonImport });
+            ToolStripMain.Items.AddRange(new ToolStripItem[] { ToolStripDropDownButtonTables, ToolStripButtonEntities, ToolStripButtonSettlements, ToolStripButtonPuntosDatosYEventos, ToolStripButtonImport, ToolStripLabelUser, ToolStripButtonExport });
             ToolStripMain.Location = new Point(0, 24);
             ToolStripMain.Name = "ToolStripMain";
             ToolStripMain.Size = new Size(169, 376);
@@ -61,7 +70,7 @@
             // 
             // ToolStripDropDownButtonTables
             // 
-            ToolStripDropDownButtonTables.DropDownItems.AddRange(new ToolStripItem[] { ToolStripMenuItemTablesPointsGroups, ToolStripMenuItemTablesEventsTypes });
+            ToolStripDropDownButtonTables.DropDownItems.AddRange(new ToolStripItem[] { ToolStripMenuItemTablesPoints, ToolStripMenuItemTablesPointsGroups, ToolStripMenuItemTablesEventsTypes, ToolStripSeparatorTablesUsers, ToolStripMenuItemTablesUsersGroups, ToolStripMenuItemTablesUsersGroupsPermissions, ToolStripMenuItemTablesUsers });
             ToolStripDropDownButtonTables.Image = Properties.Resources.ImageTablas32;
             ToolStripDropDownButtonTables.ImageAlign = ContentAlignment.MiddleLeft;
             ToolStripDropDownButtonTables.ImageScaling = ToolStripItemImageScaling.None;
@@ -69,18 +78,54 @@
             ToolStripDropDownButtonTables.Name = "ToolStripDropDownButtonTables";
             ToolStripDropDownButtonTables.Size = new Size(166, 36);
             ToolStripDropDownButtonTables.Text = "Tablas";
+            ToolStripDropDownButtonTables.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // ToolStripMenuItemTablesPoints
+            // 
+            ToolStripMenuItemTablesPoints.Name = "ToolStripMenuItemTablesPoints";
+            ToolStripMenuItemTablesPoints.Size = new Size(241, 22);
+            ToolStripMenuItemTablesPoints.Text = "Puntos";
+            ToolStripMenuItemTablesPoints.Click += ToolStripMenuItemTablesPoints_Click;
             // 
             // ToolStripMenuItemTablesPointsGroups
             // 
             ToolStripMenuItemTablesPointsGroups.Name = "ToolStripMenuItemTablesPointsGroups";
-            ToolStripMenuItemTablesPointsGroups.Size = new Size(168, 22);
+            ToolStripMenuItemTablesPointsGroups.Size = new Size(241, 22);
             ToolStripMenuItemTablesPointsGroups.Text = "Grupos de puntos";
+            ToolStripMenuItemTablesPointsGroups.Click += ToolStripMenuItemTablesPointsGroups_Click;
             // 
             // ToolStripMenuItemTablesEventsTypes
             // 
             ToolStripMenuItemTablesEventsTypes.Name = "ToolStripMenuItemTablesEventsTypes";
-            ToolStripMenuItemTablesEventsTypes.Size = new Size(168, 22);
+            ToolStripMenuItemTablesEventsTypes.Size = new Size(241, 22);
             ToolStripMenuItemTablesEventsTypes.Text = "Tipos de eventos";
+            ToolStripMenuItemTablesEventsTypes.Click += ToolStripMenuItemTablesEventsTypes_Click;
+            // 
+            // ToolStripSeparatorTablesUsers
+            // 
+            ToolStripSeparatorTablesUsers.Name = "ToolStripSeparatorTablesUsers";
+            ToolStripSeparatorTablesUsers.Size = new Size(238, 6);
+            // 
+            // ToolStripMenuItemTablesUsersGroups
+            // 
+            ToolStripMenuItemTablesUsersGroups.Name = "ToolStripMenuItemTablesUsersGroups";
+            ToolStripMenuItemTablesUsersGroups.Size = new Size(241, 22);
+            ToolStripMenuItemTablesUsersGroups.Text = "Grupos de usuarios";
+            ToolStripMenuItemTablesUsersGroups.Click += ToolStripMenuItemTablesUsersGroups_Click;
+            // 
+            // ToolStripMenuItemTablesUsersGroupsPermissions
+            // 
+            ToolStripMenuItemTablesUsersGroupsPermissions.Name = "ToolStripMenuItemTablesUsersGroupsPermissions";
+            ToolStripMenuItemTablesUsersGroupsPermissions.Size = new Size(241, 22);
+            ToolStripMenuItemTablesUsersGroupsPermissions.Text = "Permisos de grupos de usuarios";
+            ToolStripMenuItemTablesUsersGroupsPermissions.Click += ToolStripMenuItemTablesUsersGroupsPermissions_Click;
+            // 
+            // ToolStripMenuItemTablesUsers
+            // 
+            ToolStripMenuItemTablesUsers.Name = "ToolStripMenuItemTablesUsers";
+            ToolStripMenuItemTablesUsers.Size = new Size(241, 22);
+            ToolStripMenuItemTablesUsers.Text = "Usuarios";
+            ToolStripMenuItemTablesUsers.Click += ToolStripMenuItemTablesUsers_Click;
             // 
             // ToolStripButtonEntities
             // 
@@ -91,6 +136,7 @@
             ToolStripButtonEntities.Name = "ToolStripButtonEntities";
             ToolStripButtonEntities.Size = new Size(166, 36);
             ToolStripButtonEntities.Text = "Entidades";
+            ToolStripButtonEntities.TextAlign = ContentAlignment.MiddleLeft;
             ToolStripButtonEntities.Click += ToolStripButtonEntities_Click;
             // 
             // ToolStripButtonSettlements
@@ -102,18 +148,8 @@
             ToolStripButtonSettlements.Name = "ToolStripButtonSettlements";
             ToolStripButtonSettlements.Size = new Size(166, 36);
             ToolStripButtonSettlements.Text = "Establecimientos";
+            ToolStripButtonSettlements.TextAlign = ContentAlignment.MiddleLeft;
             ToolStripButtonSettlements.Click += ToolStripButtonSettlements_Click;
-            // 
-            // ToolStripButtonPoints
-            // 
-            ToolStripButtonPoints.Image = Properties.Resources.ImagePunto32;
-            ToolStripButtonPoints.ImageAlign = ContentAlignment.MiddleLeft;
-            ToolStripButtonPoints.ImageScaling = ToolStripItemImageScaling.None;
-            ToolStripButtonPoints.ImageTransparentColor = Color.Magenta;
-            ToolStripButtonPoints.Name = "ToolStripButtonPoints";
-            ToolStripButtonPoints.Size = new Size(166, 36);
-            ToolStripButtonPoints.Text = "Puntos";
-            ToolStripButtonPoints.Click += ToolStripButtonPoints_Click;
             // 
             // ToolStripButtonPuntosDatosYEventos
             // 
@@ -123,6 +159,7 @@
             ToolStripButtonPuntosDatosYEventos.Name = "ToolStripButtonPuntosDatosYEventos";
             ToolStripButtonPuntosDatosYEventos.Size = new Size(166, 36);
             ToolStripButtonPuntosDatosYEventos.Text = "Puntos: datos y eventos";
+            ToolStripButtonPuntosDatosYEventos.TextAlign = ContentAlignment.MiddleLeft;
             ToolStripButtonPuntosDatosYEventos.Click += ToolStripButtonPuntosDatosYEventos_Click;
             // 
             // ToolStripButtonImport
@@ -134,7 +171,26 @@
             ToolStripButtonImport.Name = "ToolStripButtonImport";
             ToolStripButtonImport.Size = new Size(166, 36);
             ToolStripButtonImport.Text = "Importar";
+            ToolStripButtonImport.TextAlign = ContentAlignment.MiddleLeft;
             ToolStripButtonImport.Click += ToolStripButtonImport_Click;
+            // 
+            // ToolStripLabelUser
+            // 
+            ToolStripLabelUser.Alignment = ToolStripItemAlignment.Right;
+            ToolStripLabelUser.Name = "ToolStripLabelUser";
+            ToolStripLabelUser.Size = new Size(166, 0);
+            ToolStripLabelUser.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // ToolStripButtonExport
+            // 
+            ToolStripButtonExport.Image = Properties.Resources.ImageExport32;
+            ToolStripButtonExport.ImageAlign = ContentAlignment.MiddleLeft;
+            ToolStripButtonExport.ImageScaling = ToolStripItemImageScaling.None;
+            ToolStripButtonExport.ImageTransparentColor = Color.Magenta;
+            ToolStripButtonExport.Name = "ToolStripButtonExport";
+            ToolStripButtonExport.Size = new Size(166, 36);
+            ToolStripButtonExport.Text = "Exportar";
+            ToolStripButtonExport.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // MenuStripMain
             // 
@@ -147,17 +203,37 @@
             // 
             // ToolStripMenuItemFile
             // 
-            ToolStripMenuItemFile.DropDownItems.AddRange(new ToolStripItem[] { ToolStripMenuItemFileExit });
+            ToolStripMenuItemFile.DropDownItems.AddRange(new ToolStripItem[] { ToolStripMenuItemFileCloseUserSession, ToolStripMenuItemFileChangeUserPassword, ToolStripMenuItemFileSeparatorExit, ToolStripMenuItemFileExit });
+            ToolStripMenuItemFile.ImageTransparentColor = SystemColors.ActiveBorder;
             ToolStripMenuItemFile.Name = "ToolStripMenuItemFile";
             ToolStripMenuItemFile.Size = new Size(60, 20);
             ToolStripMenuItemFile.Text = "&Archivo";
             // 
+            // ToolStripMenuItemFileCloseUserSession
+            // 
+            ToolStripMenuItemFileCloseUserSession.Name = "ToolStripMenuItemFileCloseUserSession";
+            ToolStripMenuItemFileCloseUserSession.ShortcutKeys = Keys.Control | Keys.S;
+            ToolStripMenuItemFileCloseUserSession.Size = new Size(280, 22);
+            ToolStripMenuItemFileCloseUserSession.Text = "Cerrar sesión del usuario";
+            ToolStripMenuItemFileCloseUserSession.Click += ToolStripMenuItemFileCloseUserSession_Click;
+            // 
+            // ToolStripMenuItemFileChangeUserPassword
+            // 
+            ToolStripMenuItemFileChangeUserPassword.Name = "ToolStripMenuItemFileChangeUserPassword";
+            ToolStripMenuItemFileChangeUserPassword.Size = new Size(280, 22);
+            ToolStripMenuItemFileChangeUserPassword.Text = "Cambiar contraseña de inicio de sesión";
+            ToolStripMenuItemFileChangeUserPassword.Click += ToolStripMenuItemFileChangeUserPassword_Click;
+            // 
+            // ToolStripMenuItemFileSeparatorExit
+            // 
+            ToolStripMenuItemFileSeparatorExit.Name = "ToolStripMenuItemFileSeparatorExit";
+            ToolStripMenuItemFileSeparatorExit.Size = new Size(277, 6);
+            // 
             // ToolStripMenuItemFileExit
             // 
             ToolStripMenuItemFileExit.Name = "ToolStripMenuItemFileExit";
-            ToolStripMenuItemFileExit.Size = new Size(96, 22);
-            ToolStripMenuItemFileExit.Text = "Salir";
-            ToolStripMenuItemFileExit.Click += ToolStripMenuItemFileExit_Click;
+            ToolStripMenuItemFileExit.Size = new Size(280, 22);
+            ToolStripMenuItemFileExit.Text = "&Salir";
             // 
             // ToolStripMenuItemWindow
             // 
@@ -224,16 +300,25 @@
         private ToolStripDropDownButton ToolStripDropDownButtonTables;
         private ToolStripMenuItem ToolStripMenuItemTablesPointsGroups;
         private ToolStripMenuItem ToolStripMenuItemTablesEventsTypes;
-        private ToolStripButton ToolStripButtonPoints;
         private MenuStrip MenuStripMain;
-        private ToolStripMenuItem ToolStripMenuItemFile;
-        private ToolStripMenuItem ToolStripMenuItemFileExit;
         private ToolStripMenuItem ToolStripMenuItemWindow;
         private ToolStripMenuItem ToolStripMenuItemWindowCloseAll;
         private ToolStripSeparator ToolStripSeparatorWindowList;
         private ToolStripMenuItem ToolStripMenuItemHelp;
         private ToolStripMenuItem ToolStripMenuItemHelpAbout;
         private ToolStripButton ToolStripButtonPuntosDatosYEventos;
+        internal ToolStripLabel ToolStripLabelUser;
+        private ToolStripMenuItem ToolStripMenuItemFile;
+        private ToolStripMenuItem ToolStripMenuItemFileCloseUserSession;
+        private ToolStripMenuItem ToolStripMenuItemFileChangeUserPassword;
+        private ToolStripSeparator ToolStripMenuItemFileSeparatorExit;
+        private ToolStripMenuItem ToolStripMenuItemFileExit;
+        private ToolStripMenuItem ToolStripMenuItemTablesPoints;
+        private ToolStripSeparator ToolStripSeparatorTablesUsers;
+        private ToolStripMenuItem ToolStripMenuItemTablesUsersGroups;
+        private ToolStripMenuItem ToolStripMenuItemTablesUsersGroupsPermissions;
+        private ToolStripMenuItem ToolStripMenuItemTablesUsers;
+        private ToolStripButton ToolStripButtonExport;
     }
 }
 

@@ -302,7 +302,7 @@
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "Datos del punto";
-            KeyPress += FormPoint_KeyPress;
+            KeyPress += This_KeyPress;
             ToolStripMain.ResumeLayout(false);
             ToolStripMain.PerformLayout();
             GroupBoxPoint.ResumeLayout(false);

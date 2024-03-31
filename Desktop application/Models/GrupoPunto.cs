@@ -11,9 +11,13 @@ public partial class GrupoPunto
 
     public int IdPunto { get; set; }
 
-    public DateTime UltimaActualizacion { get; set; }
+    public short IdUsuarioCreacion { get; set; }
+
+    public DateTime FechaHoraCreacion { get; set; }
 
     public virtual Grupo IdGrupoNavigation { get; set; }
 
     public virtual Punto IdPuntoNavigation { get; set; }
+
+    public virtual Usuario IdUsuarioCreacionNavigation { get; set; }
 }

@@ -2,7 +2,6 @@
    "CodeGenerationMode": 4,
    "ContextClassName": "CSMapsContext",
    "ContextNamespace": null,
-   "DefaultDacpacSchema": null,
    "FilterSchemas": false,
    "IncludeConnectionString": false,
    "ModelNamespace": null,
@@ -36,7 +35,23 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[Partido]",
+         "Name": "[dbo].[Parametro]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ParametroTipo]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Permiso]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PermisoGrupo]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PermisoTipo]",
          "ObjectType": 0
       },
       {
@@ -52,11 +67,27 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[Usuario]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[UsuarioGrupo]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[UsuarioGrupoPermiso]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[UsuarioParametro]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[ObtenerPuntosDatosYEventos]",
          "ObjectType": 1
       }
    ],
-   "UiHint": "notebook-tomas.CSMaps.dbo",
+   "UiHint": null,
    "UncountableWords": null,
    "UseBoolPropertiesWithoutDefaultSql": false,
    "UseDatabaseNames": false,

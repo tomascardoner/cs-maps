@@ -142,8 +142,11 @@
   <data name="ImageEstablecimiento32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Misc\ImageEstablecimiento32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ImageImport16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Misc\ImageImport16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ImageExport32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Misc\ImageExport32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ImageHombre16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Users\ImageHombre16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ImageImport32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Misc\ImageImport32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -165,6 +168,12 @@
   </data>
   <data name="ImageItemView32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Item\ImageItemView32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ImageLogin48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Users\ImageLogin48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ImageMujer16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Users\ImageMujer16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ImageOk16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Actions\ImageOk16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -293,6 +302,12 @@
   <data name="StringFileNotFound" xml:space="preserve">
     <value>El archivo especificado no existe.</value>
   </data>
+  <data name="StringGenderFemale" xml:space="preserve">
+    <value>Femenino</value>
+  </data>
+  <data name="StringGenderMale" xml:space="preserve">
+    <value>Masculino</value>
+  </data>
   <data name="StringImportFileNotSpecified" xml:space="preserve">
     <value>Debe especificar el archivo que desea importar.</value>
   </data>
@@ -347,8 +362,17 @@
   <data name="StringKmlFileReadError" xml:space="preserve">
     <value>Error al leer el archivo .kml</value>
   </data>
+  <data name="StringNewFemale" xml:space="preserve">
+    <value>Nueva</value>
+  </data>
+  <data name="StringNewMale" xml:space="preserve">
+    <value>Nuevo</value>
+  </data>
   <data name="StringNo" xml:space="preserve">
     <value>No</value>
+  </data>
+  <data name="StringNotPermission" xml:space="preserve">
+    <value>No tiene autorización para realizar esta acción.</value>
   </data>
   <data name="StringTextFilterMinimumLenght" xml:space="preserve">
     <value>Se deben especificar al menos {0} letras para buscar.</value>

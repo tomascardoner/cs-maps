@@ -31,11 +31,6 @@ namespace CSMaps.Models
         {
             return Procedures;
         }
-
-        protected void OnModelCreatingGeneratedProcedures(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<ObtenerPuntosDatosYEventosResult>().HasNoKey().ToView(null);
-        }
     }
 
     public partial class CSMapsContextProcedures : ICSMapsContextProcedures

@@ -1,4 +1,5 @@
 ﻿using CardonerSistemas.Framework.Base;
+using CSMaps.Users;
 
 namespace CSMaps.General
 {
@@ -13,6 +14,10 @@ namespace CSMaps.General
 
         private List<Models.Punto> entitiesAll;
         private List<Models.Punto> entitiesFiltered;
+
+        private readonly Permissions.Actions addPermission = Permissions.Actions.PointAdd;
+        private readonly Permissions.Actions editPermission = Permissions.Actions.PointEdit;
+        private readonly Permissions.Actions deletePermission = Permissions.Actions.PointDelete;
 
         private DataGridViewColumn sortedColumn;
         private SortOrder sortOrder;
@@ -60,7 +65,7 @@ namespace CSMaps.General
         {
             entitiesAll = null;
             entitiesFiltered = null;
-            Program.formMdi.formPoints = null;
+            Program.FormMdi.FormPoints = null;
         }
 
         #endregion
@@ -209,7 +214,7 @@ namespace CSMaps.General
 
         private void ToolStripButtonAdd_Click(object sender, EventArgs e)
         {
-            if (Common.DataGridViews.AddVerify(this, DataGridViewMain))
+            if (Common.DataGridViews.AddVerify(this, DataGridViewMain, addPermission))
             {
                 FormPoint formPoint = new(true, 0);
                 formPoint.ShowDialog(this);
@@ -229,7 +234,7 @@ namespace CSMaps.General
 
         private void ToolStripButtonEdit_Click(object sender, EventArgs e)
         {
-            if (Common.DataGridViews.EditVerify(this, DataGridViewMain, entityNameSingle, entityIsFemale))
+            if (Common.DataGridViews.EditVerify(this, DataGridViewMain, editPermission, entityNameSingle, entityIsFemale))
             {
                 FormPoint formPoint = new(true, ((Models.Punto)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto);
                 formPoint.ShowDialog(this);
@@ -239,7 +244,7 @@ namespace CSMaps.General
 
         private void ToolStripButtonDelete_Click(object sender, EventArgs e)
         {
-            if (!Common.DataGridViews.DeleteVerify(DataGridViewMain, entityNameSingle, entityIsFemale))
+            if (!Common.DataGridViews.DeleteVerify(DataGridViewMain, deletePermission, entityNameSingle, entityIsFemale))
             {
                 return;
             }

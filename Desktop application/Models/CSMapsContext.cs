@@ -23,11 +23,29 @@ public partial class CSMapsContext : DbContext
 
     public virtual DbSet<GrupoPunto> GrupoPuntos { get; set; }
 
+    public virtual DbSet<Parametro> Parametros { get; set; }
+
+    public virtual DbSet<ParametroTipo> ParametroTipos { get; set; }
+
+    public virtual DbSet<Permiso> Permisos { get; set; }
+
+    public virtual DbSet<PermisoGrupo> PermisoGrupos { get; set; }
+
+    public virtual DbSet<PermisoTipo> PermisoTipos { get; set; }
+
     public virtual DbSet<Punto> Puntos { get; set; }
 
     public virtual DbSet<PuntoDato> PuntoDatos { get; set; }
 
     public virtual DbSet<PuntoEvento> PuntoEventos { get; set; }
+
+    public virtual DbSet<Usuario> Usuarios { get; set; }
+
+    public virtual DbSet<UsuarioGrupo> UsuarioGrupos { get; set; }
+
+    public virtual DbSet<UsuarioGrupoPermiso> UsuarioGrupoPermisos { get; set; }
+
+    public virtual DbSet<UsuarioParametro> UsuarioParametros { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -40,6 +58,12 @@ public partial class CSMapsContext : DbContext
             entity.HasIndex(e => e.Nombre, "UI_Entidad_Nombre").IsUnique();
 
             entity.Property(e => e.IdEntidad).ValueGeneratedNever();
+            entity.Property(e => e.FechaHoraCreacion)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("smalldatetime");
+            entity.Property(e => e.FechaHoraUltimaModificacion)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("smalldatetime");
             entity.Property(e => e.Nombre)
                 .IsRequired()
                 .HasMaxLength(100)
@@ -50,9 +74,16 @@ public partial class CSMapsContext : DbContext
             entity.Property(e => e.TelefonoMovil)
                 .HasMaxLength(20)
                 .IsUnicode(false);
-            entity.Property(e => e.UltimaActualizacion)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
+
+            entity.HasOne(d => d.IdUsuarioCreacionNavigation).WithMany(p => p.EntidadIdUsuarioCreacionNavigations)
+                .HasForeignKey(d => d.IdUsuarioCreacion)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Entidad_UsuarioCreacion");
+
+            entity.HasOne(d => d.IdUsuarioUltimaModificacionNavigation).WithMany(p => p.EntidadIdUsuarioUltimaModificacionNavigations)
+                .HasForeignKey(d => d.IdUsuarioUltimaModificacion)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Entidad_UsuarioUltimaModificacion");
         });
 
         modelBuilder.Entity<Establecimiento>(entity =>
@@ -62,23 +93,33 @@ public partial class CSMapsContext : DbContext
             entity.ToTable("Establecimiento");
 
             entity.Property(e => e.IdEstablecimiento).ValueGeneratedNever();
+            entity.Property(e => e.FechaHoraCreacion)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("smalldatetime");
+            entity.Property(e => e.FechaHoraUltimaModificacion)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("smalldatetime");
             entity.Property(e => e.Nombre)
                 .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false);
-            entity.Property(e => e.NombreTemp)
-                .HasMaxLength(100)
-                .IsUnicode(false);
             entity.Property(e => e.TelefonoMovil)
                 .HasMaxLength(20)
                 .IsUnicode(false);
-            entity.Property(e => e.UltimaActualizacion)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
 
             entity.HasOne(d => d.IdEntidadNavigation).WithMany(p => p.Establecimientos)
                 .HasForeignKey(d => d.IdEntidad)
                 .HasConstraintName("FK_Establecimiento_Entidad");
+
+            entity.HasOne(d => d.IdUsuarioCreacionNavigation).WithMany(p => p.EstablecimientoIdUsuarioCreacionNavigations)
+                .HasForeignKey(d => d.IdUsuarioCreacion)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Establecimiento_UsuarioCreacion");
+
+            entity.HasOne(d => d.IdUsuarioUltimaModificacionNavigation).WithMany(p => p.EstablecimientoIdUsuarioUltimaModificacionNavigations)
+                .HasForeignKey(d => d.IdUsuarioUltimaModificacion)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Establecimiento_UsuarioUltimaModificacion");
         });
 
         modelBuilder.Entity<EventoTipo>(entity =>
@@ -89,14 +130,27 @@ public partial class CSMapsContext : DbContext
 
             entity.HasIndex(e => e.Nombre, "UI_EventoTipo_Nombre").IsUnique();
 
-            entity.Property(e => e.Activo).HasDefaultValue(true);
+            entity.Property(e => e.EsActivo).HasDefaultValue(true);
+            entity.Property(e => e.FechaHoraCreacion)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("smalldatetime");
+            entity.Property(e => e.FechaHoraUltimaModificacion)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("smalldatetime");
             entity.Property(e => e.Nombre)
                 .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false);
-            entity.Property(e => e.UltimaActualizacion)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
+
+            entity.HasOne(d => d.IdUsuarioCreacionNavigation).WithMany(p => p.EventoTipoIdUsuarioCreacionNavigations)
+                .HasForeignKey(d => d.IdUsuarioCreacion)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_EventoTipo_UsuarioCreacion");
+
+            entity.HasOne(d => d.IdUsuarioUltimaModificacionNavigation).WithMany(p => p.EventoTipoIdUsuarioUltimaModificacionNavigations)
+                .HasForeignKey(d => d.IdUsuarioUltimaModificacion)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_EventoTipo_UsuarioUltimaModificacion");
         });
 
         modelBuilder.Entity<Grupo>(entity =>
@@ -108,7 +162,13 @@ public partial class CSMapsContext : DbContext
             entity.HasIndex(e => e.Nombre, "UI_Grupo_Nombre").IsUnique();
 
             entity.Property(e => e.IdGrupo).ValueGeneratedNever();
-            entity.Property(e => e.Activo).HasDefaultValue(true);
+            entity.Property(e => e.EsActivo).HasDefaultValue(true);
+            entity.Property(e => e.FechaHoraCreacion)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("smalldatetime");
+            entity.Property(e => e.FechaHoraUltimaModificacion)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("smalldatetime");
             entity.Property(e => e.GoogleMapsIcon).HasColumnType("image");
             entity.Property(e => e.GoogleMapsStyleId)
                 .HasMaxLength(50)
@@ -117,9 +177,16 @@ public partial class CSMapsContext : DbContext
                 .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false);
-            entity.Property(e => e.UltimaActualizacion)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
+
+            entity.HasOne(d => d.IdUsuarioCreacionNavigation).WithMany(p => p.GrupoIdUsuarioCreacionNavigations)
+                .HasForeignKey(d => d.IdUsuarioCreacion)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Grupo_UsuarioCreacion");
+
+            entity.HasOne(d => d.IdUsuarioUltimaModificacionNavigation).WithMany(p => p.GrupoIdUsuarioUltimaModificacionNavigations)
+                .HasForeignKey(d => d.IdUsuarioUltimaModificacion)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Grupo_UsuarioUltimaModificacion");
         });
 
         modelBuilder.Entity<GrupoPunto>(entity =>
@@ -128,9 +195,9 @@ public partial class CSMapsContext : DbContext
 
             entity.ToTable("GrupoPunto");
 
-            entity.Property(e => e.UltimaActualizacion)
+            entity.Property(e => e.FechaHoraCreacion)
                 .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
+                .HasColumnType("smalldatetime");
 
             entity.HasOne(d => d.IdGrupoNavigation).WithMany(p => p.GrupoPuntos)
                 .HasForeignKey(d => d.IdGrupo)
@@ -141,6 +208,98 @@ public partial class CSMapsContext : DbContext
                 .HasForeignKey(d => d.IdPunto)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_GrupoPunto_Punto");
+
+            entity.HasOne(d => d.IdUsuarioCreacionNavigation).WithMany(p => p.GrupoPuntos)
+                .HasForeignKey(d => d.IdUsuarioCreacion)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_GrupoPunto_UsuarioCreacion");
+        });
+
+        modelBuilder.Entity<Parametro>(entity =>
+        {
+            entity.HasKey(e => e.IdParametro);
+
+            entity.ToTable("Parametro");
+
+            entity.Property(e => e.IdParametro).ValueGeneratedNever();
+            entity.Property(e => e.Descripcion)
+                .IsRequired()
+                .HasMaxLength(200)
+                .IsUnicode(false);
+            entity.Property(e => e.FechaHora).HasColumnType("smalldatetime");
+            entity.Property(e => e.Imagen).HasColumnType("image");
+            entity.Property(e => e.Moneda).HasColumnType("money");
+            entity.Property(e => e.Notas).IsUnicode(false);
+            entity.Property(e => e.NumeroDecimal).HasColumnType("decimal(18, 9)");
+            entity.Property(e => e.Texto).IsUnicode(false);
+
+            entity.HasOne(d => d.IdParametroTipoNavigation).WithMany(p => p.Parametros)
+                .HasForeignKey(d => d.IdParametroTipo)
+                .HasConstraintName("FK_Parametro_ParametroTipo");
+        });
+
+        modelBuilder.Entity<ParametroTipo>(entity =>
+        {
+            entity.HasKey(e => e.IdParametroTipo);
+
+            entity.ToTable("ParametroTipo");
+
+            entity.HasIndex(e => e.Nombre, "UI_ParametroTipo_Nombre").IsUnique();
+
+            entity.Property(e => e.Descripcion)
+                .HasMaxLength(200)
+                .IsUnicode(false);
+            entity.Property(e => e.Nombre)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<Permiso>(entity =>
+        {
+            entity.HasKey(e => e.IdPermiso);
+
+            entity.ToTable("Permiso");
+
+            entity.HasIndex(e => new { e.IdPermisoGrupo, e.IdPermisoTipo }, "UI_Permiso_Grupo_Tipo").IsUnique();
+
+            entity.Property(e => e.IdPermiso).ValueGeneratedNever();
+
+            entity.HasOne(d => d.IdPermisoGrupoNavigation).WithMany(p => p.Permisos)
+                .HasForeignKey(d => d.IdPermisoGrupo)
+                .HasConstraintName("FK_Permiso_PermisoGrupo");
+
+            entity.HasOne(d => d.IdPermisoTipoNavigation).WithMany(p => p.Permisos)
+                .HasForeignKey(d => d.IdPermisoTipo)
+                .HasConstraintName("FK_Permiso_PermisoTipo");
+        });
+
+        modelBuilder.Entity<PermisoGrupo>(entity =>
+        {
+            entity.HasKey(e => e.IdPermisoGrupo);
+
+            entity.ToTable("PermisoGrupo");
+
+            entity.HasIndex(e => e.Nombre, "UI_PermisoGrupo_Nombre");
+
+            entity.Property(e => e.Nombre)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<PermisoTipo>(entity =>
+        {
+            entity.HasKey(e => e.IdPermisoTipo);
+
+            entity.ToTable("PermisoTipo");
+
+            entity.HasIndex(e => e.Nombre, "UI_PermisoTipo_Nombre");
+
+            entity.Property(e => e.Nombre)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false);
         });
 
         modelBuilder.Entity<Punto>(entity =>
@@ -153,15 +312,28 @@ public partial class CSMapsContext : DbContext
 
             entity.Property(e => e.IdPunto).ValueGeneratedNever();
             entity.Property(e => e.Altitud).HasColumnType("decimal(6, 2)");
+            entity.Property(e => e.FechaHoraCreacion)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("smalldatetime");
+            entity.Property(e => e.FechaHoraUltimaModificacion)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("smalldatetime");
             entity.Property(e => e.Latitud).HasColumnType("decimal(8, 6)");
             entity.Property(e => e.Longitud).HasColumnType("decimal(9, 6)");
             entity.Property(e => e.Nombre)
                 .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false);
-            entity.Property(e => e.UltimaActualizacion)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
+
+            entity.HasOne(d => d.IdUsuarioCreacionNavigation).WithMany(p => p.PuntoIdUsuarioCreacionNavigations)
+                .HasForeignKey(d => d.IdUsuarioCreacion)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Punto_UsuarioCreacion");
+
+            entity.HasOne(d => d.IdUsuarioUltimaModificacionNavigation).WithMany(p => p.PuntoIdUsuarioUltimaModificacionNavigations)
+                .HasForeignKey(d => d.IdUsuarioUltimaModificacion)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Punto_UsuarioUltimaModificacion");
         });
 
         modelBuilder.Entity<PuntoDato>(entity =>
@@ -175,9 +347,12 @@ public partial class CSMapsContext : DbContext
                 .HasFilter("([ChapaNumero] IS NOT NULL)");
 
             entity.Property(e => e.IdPunto).ValueGeneratedNever();
-            entity.Property(e => e.UltimaActualizacion)
+            entity.Property(e => e.FechaHoraCreacion)
                 .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
+                .HasColumnType("smalldatetime");
+            entity.Property(e => e.FechaHoraUltimaModificacion)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("smalldatetime");
 
             entity.HasOne(d => d.IdEstablecimientoNavigation).WithMany(p => p.PuntoDatos)
                 .HasForeignKey(d => d.IdEstablecimiento)
@@ -187,6 +362,16 @@ public partial class CSMapsContext : DbContext
                 .HasForeignKey<PuntoDato>(d => d.IdPunto)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_PuntoDato_Punto");
+
+            entity.HasOne(d => d.IdUsuarioCreacionNavigation).WithMany(p => p.PuntoDatoIdUsuarioCreacionNavigations)
+                .HasForeignKey(d => d.IdUsuarioCreacion)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_PuntoDato_UsuarioCreacion");
+
+            entity.HasOne(d => d.IdUsuarioUltimaModificacionNavigation).WithMany(p => p.PuntoDatoIdUsuarioUltimaModificacionNavigations)
+                .HasForeignKey(d => d.IdUsuarioUltimaModificacion)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_PuntoDato_UsuarioUltimaModificacion");
         });
 
         modelBuilder.Entity<PuntoEvento>(entity =>
@@ -196,9 +381,12 @@ public partial class CSMapsContext : DbContext
             entity.ToTable("PuntoEvento");
 
             entity.Property(e => e.FechaHora).HasColumnType("smalldatetime");
-            entity.Property(e => e.UltimaActualizacion)
+            entity.Property(e => e.FechaHoraCreacion)
                 .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
+                .HasColumnType("smalldatetime");
+            entity.Property(e => e.FechaHoraUltimaModificacion)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("smalldatetime");
 
             entity.HasOne(d => d.IdEventoTipoNavigation).WithMany(p => p.PuntoEventos)
                 .HasForeignKey(d => d.IdEventoTipo)
@@ -209,9 +397,143 @@ public partial class CSMapsContext : DbContext
                 .HasForeignKey(d => d.IdPunto)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_PuntoEvento_Punto");
+
+            entity.HasOne(d => d.IdUsuarioCreacionNavigation).WithMany(p => p.PuntoEventoIdUsuarioCreacionNavigations)
+                .HasForeignKey(d => d.IdUsuarioCreacion)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_PuntoEvento_UsuarioCreacion");
+
+            entity.HasOne(d => d.IdUsuarioUltimaModificacionNavigation).WithMany(p => p.PuntoEventoIdUsuarioUltimaModificacionNavigations)
+                .HasForeignKey(d => d.IdUsuarioUltimaModificacion)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_PuntoEvento_UsuarioUltimaModificacion");
         });
 
-        OnModelCreatingGeneratedProcedures(modelBuilder);
+        modelBuilder.Entity<Usuario>(entity =>
+        {
+            entity.HasKey(e => e.IdUsuario);
+
+            entity.ToTable("Usuario");
+
+            entity.HasIndex(e => e.Descripcion, "UI_Usuario_Descripcion").IsUnique();
+
+            entity.HasIndex(e => e.Nombre, "UI_Usuario_Nombre").IsUnique();
+
+            entity.Property(e => e.IdUsuario).ValueGeneratedNever();
+            entity.Property(e => e.Descripcion)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.FechaHoraCreacion).HasColumnType("smalldatetime");
+            entity.Property(e => e.FechaHoraUltimaModificacion).HasColumnType("smalldatetime");
+            entity.Property(e => e.Genero)
+                .IsRequired()
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .IsFixedLength();
+            entity.Property(e => e.Nombre)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Notas).IsUnicode(false);
+            entity.Property(e => e.Password)
+                .IsRequired()
+                .HasMaxLength(128)
+                .IsUnicode(false);
+
+            entity.HasOne(d => d.IdUsuarioCreacionNavigation).WithMany(p => p.InverseIdUsuarioCreacionNavigation)
+                .HasForeignKey(d => d.IdUsuarioCreacion)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Usuario_Usuario_Creacion");
+
+            entity.HasOne(d => d.IdUsuarioGrupoNavigation).WithMany(p => p.Usuarios)
+                .HasForeignKey(d => d.IdUsuarioGrupo)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Usuario_UsuarioGrupo");
+
+            entity.HasOne(d => d.IdUsuarioUltimaModificacionNavigation).WithMany(p => p.InverseIdUsuarioUltimaModificacionNavigation)
+                .HasForeignKey(d => d.IdUsuarioUltimaModificacion)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Usuario_Usuario_UltimaModificacion");
+        });
+
+        modelBuilder.Entity<UsuarioGrupo>(entity =>
+        {
+            entity.HasKey(e => e.IdUsuarioGrupo);
+
+            entity.ToTable("UsuarioGrupo");
+
+            entity.HasIndex(e => e.Nombre, "UI_UsuarioGrupo_Nombre").IsUnique();
+
+            entity.Property(e => e.FechaHoraCreacion).HasColumnType("smalldatetime");
+            entity.Property(e => e.FechaHoraUltimaModificacion).HasColumnType("smalldatetime");
+            entity.Property(e => e.Nombre)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Notas).IsUnicode(false);
+
+            entity.HasOne(d => d.IdUsuarioCreacionNavigation).WithMany(p => p.UsuarioGrupoIdUsuarioCreacionNavigations)
+                .HasForeignKey(d => d.IdUsuarioCreacion)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UsuarioGrupo_Usuario_Creacion");
+
+            entity.HasOne(d => d.IdUsuarioUltimaModificacionNavigation).WithMany(p => p.UsuarioGrupoIdUsuarioUltimaModificacionNavigations)
+                .HasForeignKey(d => d.IdUsuarioUltimaModificacion)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UsuarioGrupo_Usuario_UltimaModificacion");
+        });
+
+        modelBuilder.Entity<UsuarioGrupoPermiso>(entity =>
+        {
+            entity.HasKey(e => new { e.IdUsuarioGrupo, e.IdPermiso });
+
+            entity.ToTable("UsuarioGrupoPermiso");
+
+            entity.HasOne(d => d.IdPermisoNavigation).WithMany(p => p.UsuarioGrupoPermisos)
+                .HasForeignKey(d => d.IdPermiso)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UsuarioGrupoPermiso_Permiso");
+
+            entity.HasOne(d => d.IdUsuarioCreacionNavigation).WithMany(p => p.UsuarioGrupoPermisos)
+                .HasForeignKey(d => d.IdUsuarioCreacion)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UsuarioGrupoPermiso_Usuario");
+
+            entity.HasOne(d => d.IdUsuarioGrupoNavigation).WithMany(p => p.UsuarioGrupoPermisos)
+                .HasForeignKey(d => d.IdUsuarioGrupo)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UsuarioGrupoPermiso_UsuarioGrupo");
+        });
+
+        modelBuilder.Entity<UsuarioParametro>(entity =>
+        {
+            entity.HasKey(e => new { e.IdUsuario, e.IdParametro });
+
+            entity.ToTable("UsuarioParametro");
+
+            entity.Property(e => e.FechaHora).HasColumnType("smalldatetime");
+            entity.Property(e => e.Imagen).HasColumnType("image");
+            entity.Property(e => e.Moneda).HasColumnType("money");
+            entity.Property(e => e.Notas).IsUnicode(false);
+            entity.Property(e => e.NumeroDecimal).HasColumnType("decimal(18, 9)");
+            entity.Property(e => e.Texto).IsUnicode(false);
+
+            entity.HasOne(d => d.IdParametroNavigation).WithMany(p => p.UsuarioParametros)
+                .HasForeignKey(d => d.IdParametro)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UsuarioParametro_Parametro");
+
+            entity.HasOne(d => d.IdParametroTipoNavigation).WithMany(p => p.UsuarioParametros)
+                .HasForeignKey(d => d.IdParametroTipo)
+                .HasConstraintName("FK_UsuarioParametro_UsuarioParametro");
+
+            entity.HasOne(d => d.IdUsuarioNavigation).WithMany(p => p.UsuarioParametros)
+                .HasForeignKey(d => d.IdUsuario)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UsuarioParametro_Usuario");
+        });
+
         OnModelCreatingPartial(modelBuilder);
     }
 

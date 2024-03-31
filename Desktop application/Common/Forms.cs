@@ -1,6 +1,4 @@
-﻿using System.Windows.Forms;
-
-namespace CSMaps.Common
+﻿namespace CSMaps.Common
 {
     internal static class Forms
     {
@@ -76,6 +74,35 @@ namespace CSMaps.Common
             {
                 return true;
             }
+        }
+
+        internal static void ShowRequiredFieldMessageBox(bool entityIsFemale, string entityName, bool fieldIsFemale, string fieldName)
+        {
+            string message;
+
+            if (entityIsFemale)
+            {
+                if (!fieldIsFemale)
+                {
+                    message = Properties.Resources.StringEntityDataVerificationFemaleFieldRequiredFemale;
+                }
+                else
+                {
+                    message = Properties.Resources.StringEntityDataVerificationMaleFieldRequiredFemale;
+                }
+            }
+            else
+            {
+                if (!fieldIsFemale)
+                {
+                    message = Properties.Resources.StringEntityDataVerificationFemaleFieldRequiredMale;
+                }
+                else
+                {
+                    message = Properties.Resources.StringEntityDataVerificationMaleFieldRequiredMale;
+                }
+            }
+            MessageBox.Show(string.Format(message, entityName, fieldName), Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

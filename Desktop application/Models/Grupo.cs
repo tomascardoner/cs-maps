@@ -15,9 +15,19 @@ public partial class Grupo
 
     public byte[] GoogleMapsIcon { get; set; }
 
-    public bool Activo { get; set; }
+    public bool EsActivo { get; set; }
 
-    public DateTime UltimaActualizacion { get; set; }
+    public short IdUsuarioCreacion { get; set; }
+
+    public DateTime FechaHoraCreacion { get; set; }
+
+    public short IdUsuarioUltimaModificacion { get; set; }
+
+    public DateTime FechaHoraUltimaModificacion { get; set; }
 
     public virtual ICollection<GrupoPunto> GrupoPuntos { get; set; } = new List<GrupoPunto>();
+
+    public virtual Usuario IdUsuarioCreacionNavigation { get; set; }
+
+    public virtual Usuario IdUsuarioUltimaModificacionNavigation { get; set; }
 }

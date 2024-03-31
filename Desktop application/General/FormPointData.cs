@@ -1,5 +1,6 @@
 ﻿using CardonerSistemas.Framework.Base;
 using CardonerSistemas.Framework.Controls;
+using CSMaps.Models;
 
 namespace CSMaps.General
 {
@@ -96,14 +97,14 @@ namespace CSMaps.General
 
         private void SetDataToUserInterface()
         {
-            Values.ToTextBox(TextBoxIdPunto, punto.IdPunto);
+            Values.ToTextBox(TextBoxIdPunto, punto.IdPunto, true, entityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
             Values.ToTextBox(TextBoxNombre, punto.Nombre);
             CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDoubleTextBox(DoubleTextBoxLatitud, punto.Latitud);
             CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDoubleTextBox(DoubleTextBoxLongitud, punto.Longitud);
 
             Values.ToComboBox(ComboBoxEstablecimiento, puntoDato.IdEstablecimiento);
             CardonerSistemas.Framework.Controls.Syncfusion.Values.ToIntegerTextBox(IntegerTextBoxChapaNumero, puntoDato.ChapaNumero);
-            Values.ToTextBoxAsShortDateTime(TextBoxUltimaActualizacion, puntoDato.UltimaActualizacion);
+            Values.ToTextBoxAsShortDateTime(TextBoxUltimaActualizacion, puntoDato.FechaHoraUltimaModificacion);
         }
 
         private void SetDataToEntityObject()
@@ -117,7 +118,7 @@ namespace CSMaps.General
 
         #region Controls events
 
-        private void FormPoint_KeyPress(object sender, KeyPressEventArgs e)
+        private void This_KeyPress(object sender, KeyPressEventArgs e)
         {
             Common.Forms.This_KeyPress(e, isEditMode, ActiveControl, ToolStripButtonClose, ToolStripButtonSave, ToolStripButtonCancel, null);
         }
@@ -168,11 +169,11 @@ namespace CSMaps.General
             if (context.ChangeTracker.HasChanges())
             {
                 this.Cursor = Cursors.WaitCursor;
-                punto.UltimaActualizacion = System.DateTime.Now;
+                puntoDato.FechaHoraUltimaModificacion = System.DateTime.Now;
                 try
                 {
                     context.SaveChanges();
-                    Program.formMdi.formPointsDataAndEvents?.ReadData(punto.IdPunto);
+                    Program.FormMdi.FormPointsDataAndEvents?.ReadData(punto.IdPunto);
                 }
                 catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
                 {
@@ -216,7 +217,10 @@ namespace CSMaps.General
 
         private void InitializeNewObjectData()
         {
-            puntoDato.UltimaActualizacion = System.DateTime.Now;
+            puntoDato.IdUsuarioCreacion = Program.Usuario.IdUsuario;
+            puntoDato.FechaHoraCreacion = System.DateTime.Now;
+            puntoDato.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
+            puntoDato.FechaHoraUltimaModificacion = System.DateTime.Now;
         }
 
         #endregion
@@ -229,13 +233,13 @@ namespace CSMaps.General
 
             if (isNew && punto.IdPunto == 0)
             {
-                MessageBox.Show("Debe especificar el punto.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Common.Forms.ShowRequiredFieldMessageBox(entityIsFemale, entityNameSingular, false, "punto");
                 ButtonBuscarPunto.Focus();
                 return false;
             }
             if (ComboBoxEstablecimiento.SelectedIndex == -1)
             {
-                MessageBox.Show(string.Format(entityIsFemale ? Properties.Resources.StringEntityDataVerificationMaleFieldRequiredFemale : Properties.Resources.StringEntityDataVerificationMaleFieldRequiredMale, entityNameSingular, "establecimiento"), Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Common.Forms.ShowRequiredFieldMessageBox(entityIsFemale, entityNameSingular, false, "establecimiento");
                 ComboBoxEstablecimiento.Focus();
                 return false;
             }

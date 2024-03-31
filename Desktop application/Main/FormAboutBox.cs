@@ -16,8 +16,7 @@ namespace CSMaps
             LabelApplicationTitle.Text = Program.ApplicationTitle;
             LabelVersion.Text = $"Versión {CardonerSistemas.Framework.Base.Application.Info.Version} - ({File.GetLastWriteTime(Assembly.GetExecutingAssembly().Location):yyyyMMdd})";
             LabelCopyright.Text = CardonerSistemas.Framework.Base.Application.Info.Copyright;
-            //LabelLicensed.Text = Program.licensedCompany;
-            LabelLicense.Visible = false;
+            LabelLicense.Text = Program.LicensedCompany;
 
             // Propiedades
             ListViewItem newItem;
