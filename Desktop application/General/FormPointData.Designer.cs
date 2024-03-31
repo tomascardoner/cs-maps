@@ -34,9 +34,9 @@
             ToolStripButtonEdit = new ToolStripButton();
             ToolStripButtonCancel = new ToolStripButton();
             ToolStripButtonSave = new ToolStripButton();
-            TextBoxUltimaActualizacion = new TextBox();
-            LabelUltimaActualizacion = new Label();
-            GroupBoxPoint = new GroupBox();
+            TextBoxUltimaModificacion = new TextBox();
+            LabelUltimaModificacion = new Label();
+            GroupBoxPunto = new GroupBox();
             ButtonBuscarPunto = new Button();
             LabelLongitud = new Label();
             DoubleTextBoxLongitud = new Syncfusion.Windows.Forms.Tools.DoubleTextBox();
@@ -51,11 +51,15 @@
             LabelChapaNumero = new Label();
             IntegerTextBoxChapaNumero = new Syncfusion.Windows.Forms.Tools.IntegerTextBox();
             ButtonChapaNumeroObtenerDesdeNombre = new Button();
+            GroupBoxAgregarEvento = new GroupBox();
+            ComboBoxEventoAgregar = new ComboBox();
+            CheckBoxEventoAgregar = new CheckBox();
             ToolStripMain.SuspendLayout();
-            GroupBoxPoint.SuspendLayout();
+            GroupBoxPunto.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DoubleTextBoxLongitud).BeginInit();
             ((System.ComponentModel.ISupportInitialize)DoubleTextBoxLatitud).BeginInit();
             ((System.ComponentModel.ISupportInitialize)IntegerTextBoxChapaNumero).BeginInit();
+            GroupBoxAgregarEvento.SuspendLayout();
             SuspendLayout();
             // 
             // ToolStripMain
@@ -111,42 +115,42 @@
             ToolStripButtonSave.Text = "Guardar";
             ToolStripButtonSave.Click += ToolStripButtonSave_Click;
             // 
-            // TextBoxUltimaActualizacion
+            // TextBoxUltimaModificacion
             // 
-            TextBoxUltimaActualizacion.Location = new Point(135, 257);
-            TextBoxUltimaActualizacion.Name = "TextBoxUltimaActualizacion";
-            TextBoxUltimaActualizacion.ReadOnly = true;
-            TextBoxUltimaActualizacion.Size = new Size(149, 23);
-            TextBoxUltimaActualizacion.TabIndex = 7;
-            TextBoxUltimaActualizacion.TabStop = false;
-            TextBoxUltimaActualizacion.Enter += TextBoxs_Enter;
+            TextBoxUltimaModificacion.Location = new Point(135, 257);
+            TextBoxUltimaModificacion.Name = "TextBoxUltimaModificacion";
+            TextBoxUltimaModificacion.ReadOnly = true;
+            TextBoxUltimaModificacion.Size = new Size(149, 23);
+            TextBoxUltimaModificacion.TabIndex = 7;
+            TextBoxUltimaModificacion.TabStop = false;
+            TextBoxUltimaModificacion.Enter += TextBoxs_Enter;
             // 
-            // LabelUltimaActualizacion
+            // LabelUltimaModificacion
             // 
-            LabelUltimaActualizacion.AutoSize = true;
-            LabelUltimaActualizacion.Location = new Point(12, 260);
-            LabelUltimaActualizacion.Name = "LabelUltimaActualizacion";
-            LabelUltimaActualizacion.Size = new Size(117, 15);
-            LabelUltimaActualizacion.TabIndex = 6;
-            LabelUltimaActualizacion.Text = "Última actualización:";
+            LabelUltimaModificacion.AutoSize = true;
+            LabelUltimaModificacion.Location = new Point(12, 260);
+            LabelUltimaModificacion.Name = "LabelUltimaModificacion";
+            LabelUltimaModificacion.Size = new Size(118, 15);
+            LabelUltimaModificacion.TabIndex = 6;
+            LabelUltimaModificacion.Text = "Última modificación:";
             // 
-            // GroupBoxPoint
+            // GroupBoxPunto
             // 
-            GroupBoxPoint.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            GroupBoxPoint.Controls.Add(ButtonBuscarPunto);
-            GroupBoxPoint.Controls.Add(LabelLongitud);
-            GroupBoxPoint.Controls.Add(DoubleTextBoxLongitud);
-            GroupBoxPoint.Controls.Add(DoubleTextBoxLatitud);
-            GroupBoxPoint.Controls.Add(LabelLatitud);
-            GroupBoxPoint.Controls.Add(TextBoxNombre);
-            GroupBoxPoint.Controls.Add(LabelNombre);
-            GroupBoxPoint.Controls.Add(TextBoxIdPunto);
-            GroupBoxPoint.Controls.Add(LabelIdPunto);
-            GroupBoxPoint.Location = new Point(12, 42);
-            GroupBoxPoint.Name = "GroupBoxPoint";
-            GroupBoxPoint.Size = new Size(493, 142);
-            GroupBoxPoint.TabIndex = 1;
-            GroupBoxPoint.TabStop = false;
+            GroupBoxPunto.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            GroupBoxPunto.Controls.Add(ButtonBuscarPunto);
+            GroupBoxPunto.Controls.Add(LabelLongitud);
+            GroupBoxPunto.Controls.Add(DoubleTextBoxLongitud);
+            GroupBoxPunto.Controls.Add(DoubleTextBoxLatitud);
+            GroupBoxPunto.Controls.Add(LabelLatitud);
+            GroupBoxPunto.Controls.Add(TextBoxNombre);
+            GroupBoxPunto.Controls.Add(LabelNombre);
+            GroupBoxPunto.Controls.Add(TextBoxIdPunto);
+            GroupBoxPunto.Controls.Add(LabelIdPunto);
+            GroupBoxPunto.Location = new Point(12, 42);
+            GroupBoxPunto.Name = "GroupBoxPunto";
+            GroupBoxPunto.Size = new Size(493, 142);
+            GroupBoxPunto.TabIndex = 1;
+            GroupBoxPunto.TabStop = false;
             // 
             // ButtonBuscarPunto
             // 
@@ -304,19 +308,51 @@
             ButtonChapaNumeroObtenerDesdeNombre.UseVisualStyleBackColor = true;
             ButtonChapaNumeroObtenerDesdeNombre.Click += ButtonChapaNumeroObtenerDesdeNombre_Click;
             // 
+            // GroupBoxAgregarEvento
+            // 
+            GroupBoxAgregarEvento.Controls.Add(ComboBoxEventoAgregar);
+            GroupBoxAgregarEvento.Controls.Add(CheckBoxEventoAgregar);
+            GroupBoxAgregarEvento.Location = new Point(12, 287);
+            GroupBoxAgregarEvento.Name = "GroupBoxAgregarEvento";
+            GroupBoxAgregarEvento.Size = new Size(493, 56);
+            GroupBoxAgregarEvento.TabIndex = 9;
+            GroupBoxAgregarEvento.TabStop = false;
+            // 
+            // ComboBoxEventoAgregar
+            // 
+            ComboBoxEventoAgregar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            ComboBoxEventoAgregar.DropDownStyle = ComboBoxStyle.DropDownList;
+            ComboBoxEventoAgregar.FormattingEnabled = true;
+            ComboBoxEventoAgregar.Location = new Point(117, 20);
+            ComboBoxEventoAgregar.Name = "ComboBoxEventoAgregar";
+            ComboBoxEventoAgregar.Size = new Size(370, 23);
+            ComboBoxEventoAgregar.TabIndex = 4;
+            // 
+            // CheckBoxEventoAgregar
+            // 
+            CheckBoxEventoAgregar.AutoSize = true;
+            CheckBoxEventoAgregar.Location = new Point(6, 22);
+            CheckBoxEventoAgregar.Name = "CheckBoxEventoAgregar";
+            CheckBoxEventoAgregar.Size = new Size(110, 19);
+            CheckBoxEventoAgregar.TabIndex = 0;
+            CheckBoxEventoAgregar.Text = "Agregar evento:";
+            CheckBoxEventoAgregar.UseVisualStyleBackColor = true;
+            CheckBoxEventoAgregar.CheckedChanged += CheckBoxEventoAgregar_CheckedChanged;
+            // 
             // FormPointData
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(517, 294);
+            ClientSize = new Size(517, 352);
+            Controls.Add(GroupBoxAgregarEvento);
             Controls.Add(ButtonChapaNumeroObtenerDesdeNombre);
             Controls.Add(IntegerTextBoxChapaNumero);
             Controls.Add(LabelChapaNumero);
             Controls.Add(LabelEstablecimiento);
             Controls.Add(ComboBoxEstablecimiento);
-            Controls.Add(GroupBoxPoint);
-            Controls.Add(TextBoxUltimaActualizacion);
-            Controls.Add(LabelUltimaActualizacion);
+            Controls.Add(GroupBoxPunto);
+            Controls.Add(TextBoxUltimaModificacion);
+            Controls.Add(LabelUltimaModificacion);
             Controls.Add(ToolStripMain);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             KeyPreview = true;
@@ -329,11 +365,13 @@
             KeyPress += This_KeyPress;
             ToolStripMain.ResumeLayout(false);
             ToolStripMain.PerformLayout();
-            GroupBoxPoint.ResumeLayout(false);
-            GroupBoxPoint.PerformLayout();
+            GroupBoxPunto.ResumeLayout(false);
+            GroupBoxPunto.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)DoubleTextBoxLongitud).EndInit();
             ((System.ComponentModel.ISupportInitialize)DoubleTextBoxLatitud).EndInit();
             ((System.ComponentModel.ISupportInitialize)IntegerTextBoxChapaNumero).EndInit();
+            GroupBoxAgregarEvento.ResumeLayout(false);
+            GroupBoxAgregarEvento.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -341,13 +379,13 @@
         #endregion
 
         private ToolStrip ToolStripMain;
-        private TextBox TextBoxUltimaActualizacion;
-        private Label LabelUltimaActualizacion;
+        private TextBox TextBoxUltimaModificacion;
+        private Label LabelUltimaModificacion;
         internal ToolStripButton ToolStripButtonClose;
         internal ToolStripButton ToolStripButtonEdit;
         internal ToolStripButton ToolStripButtonCancel;
         internal ToolStripButton ToolStripButtonSave;
-        private GroupBox GroupBoxPoint;
+        private GroupBox GroupBoxPunto;
         private Label LabelLongitud;
         private Syncfusion.Windows.Forms.Tools.DoubleTextBox DoubleTextBoxLongitud;
         private Syncfusion.Windows.Forms.Tools.DoubleTextBox DoubleTextBoxLatitud;
@@ -362,5 +400,8 @@
         private Syncfusion.Windows.Forms.Tools.IntegerTextBox IntegerTextBoxChapaNumero;
         private Button ButtonBuscarPunto;
         private Button ButtonChapaNumeroObtenerDesdeNombre;
+        private GroupBox GroupBoxAgregarEvento;
+        private ComboBox ComboBoxEventoAgregar;
+        private CheckBox CheckBoxEventoAgregar;
     }
 }

@@ -1,6 +1,5 @@
 ﻿using CardonerSistemas.Framework.Base;
 using CardonerSistemas.Framework.Controls;
-using CSMaps.Models;
 
 namespace CSMaps.General
 {
@@ -56,6 +55,7 @@ namespace CSMaps.General
         {
             SetAppearance();
             Common.Lists.GetEstablecimientos(ComboBoxEstablecimiento, context, true);
+            Common.Lists.GetEventosTipos(ComboBoxEventoAgregar, context, false, false, false);
         }
 
         private void SetAppearance()
@@ -81,6 +81,9 @@ namespace CSMaps.General
             ComboBoxEstablecimiento.Enabled = isEditMode;
             IntegerTextBoxChapaNumero.ReadOnly = !isEditMode;
             ButtonChapaNumeroObtenerDesdeNombre.Visible = isEditMode;
+
+            GroupBoxAgregarEvento.Visible = isNew;
+            ComboBoxEventoAgregar.Visible = isNew && CheckBoxEventoAgregar.Checked;
         }
 
         private void This_FormClosed(object sender, FormClosedEventArgs e)
@@ -104,7 +107,7 @@ namespace CSMaps.General
 
             Values.ToComboBox(ComboBoxEstablecimiento, puntoDato.IdEstablecimiento);
             CardonerSistemas.Framework.Controls.Syncfusion.Values.ToIntegerTextBox(IntegerTextBoxChapaNumero, puntoDato.ChapaNumero);
-            Values.ToTextBoxAsShortDateTime(TextBoxUltimaActualizacion, puntoDato.FechaHoraUltimaModificacion);
+            Values.ToTextBoxAsShortDateTime(TextBoxUltimaModificacion, puntoDato.FechaHoraUltimaModificacion);
         }
 
         private void SetDataToEntityObject()
@@ -112,6 +115,21 @@ namespace CSMaps.General
             puntoDato.IdPunto = punto.IdPunto;
             puntoDato.IdEstablecimiento = Values.ComboBoxToShort(ComboBoxEstablecimiento);
             puntoDato.ChapaNumero = CardonerSistemas.Framework.Controls.Syncfusion.Values.IntegerTextBoxToInt(IntegerTextBoxChapaNumero);
+
+            if (isNew && CheckBoxEventoAgregar.Checked)
+            {
+                context.PuntoEventos.Add(
+                    new() {
+                        IdPunto = punto.IdPunto,
+                        IdEvento = 1,
+                        IdEventoTipo = (byte)ComboBoxEventoAgregar.SelectedValue,
+                        FechaHora = System.DateTime.Now,
+                        IdUsuarioCreacion = Program.Usuario.IdUsuario,
+                        FechaHoraCreacion = System.DateTime.Now,
+                        IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario,
+                        FechaHoraUltimaModificacion = System.DateTime.Now
+                    });
+            }
         }
 
         #endregion
@@ -151,6 +169,11 @@ namespace CSMaps.General
                 IntegerTextBoxChapaNumero.IntegerValue = result;
             }
             IntegerTextBoxChapaNumero.Focus();
+        }
+
+        private void CheckBoxEventoAgregar_CheckedChanged(object sender, EventArgs e)
+        {
+            ComboBoxEventoAgregar.Visible = CheckBoxEventoAgregar.Checked;
         }
 
         #endregion
@@ -247,6 +270,12 @@ namespace CSMaps.General
             {
                 MessageBox.Show($"El nº de chapa debe ser mayor o igual a {ChapaNumeroMinimo}", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 IntegerTextBoxChapaNumero.Focus();
+                return false;
+            }
+            if (isNew && CheckBoxEventoAgregar.Checked && ComboBoxEventoAgregar.SelectedIndex == -1)
+            {
+                Common.Forms.ShowRequiredFieldMessageBox(entityIsFemale, entityNameSingular, false, "evento");
+                ComboBoxEventoAgregar.Focus();
                 return false;
             }
             return true;

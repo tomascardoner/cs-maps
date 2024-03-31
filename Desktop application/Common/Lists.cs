@@ -100,7 +100,7 @@ namespace CSMaps.Common
             comboBox.ValueMember = "IdEventoTipo";
             comboBox.DisplayMember = "Nombre";
 
-            List<Models.EventoTipo> eventos = [.. context.EventoTipos.OrderBy(e => e.Nombre)];
+            List<Models.EventoTipo> eventos = [.. context.EventoTipos.OrderBy(e => e.Orden).ThenBy(e => e.Nombre)];
 
             if (showEmpty)
             {

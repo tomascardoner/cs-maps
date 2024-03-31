@@ -11,6 +11,8 @@ public partial class EventoTipo
 
     public string Nombre { get; set; }
 
+    public byte Orden { get; set; }
+
     public bool EsActivo { get; set; }
 
     public short IdUsuarioCreacion { get; set; }

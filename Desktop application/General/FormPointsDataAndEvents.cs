@@ -309,6 +309,12 @@ namespace CSMaps.General
             try
             {
                 using Models.CSMapsContext context = new();
+                if (context.PuntoEventos.Any(pe => pe.IdPunto == rowData.IdPunto))
+                {
+                    this.Cursor = Cursors.Default;
+                    MessageBox.Show("Para poder borrar los datos de este punto, primero deberá borrar los eventos del mismo.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
                 Models.PuntoDato puntoDato = context.PuntoDatos.Find(rowData.IdPunto);
                 context.PuntoDatos.Attach(puntoDato);
                 context.PuntoDatos.Remove(puntoDato);

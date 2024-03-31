@@ -243,7 +243,7 @@ namespace CSMaps.General
                 foreach (Models.Punto punto in puntos)
                 {
                     Geo.Geometries.Point point = new((double)punto.Latitud, (double)punto.Longitud, (double)punto.Altitud);
-                    gpsData.Waypoints.Add(new(point, punto.NombreExportar, punto.ComentarioExportar, punto.DescripcionExportar));
+                    gpsData.Waypoints.Add(new(point, punto.NombreExportar, punto.DescripcionExportar, punto.DescripcionExportar));
                 }
             }
             catch (Exception ex)
@@ -257,6 +257,7 @@ namespace CSMaps.General
             {
                 Geo.Gps.Serialization.Gpx11Serializer serializer = new();
                 using FileStream fileStream = new(filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None);
+                fileStream.SetLength(0);
                 serializer.Serialize(gpsData, fileStream);
             }
             catch (Exception ex)
