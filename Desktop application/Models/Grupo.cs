@@ -11,9 +11,19 @@ public partial class Grupo
 
     public string Nombre { get; set; }
 
-    public string GoogleMapsStyleId { get; set; }
+    public string IconoMapaDireccion { get; set; }
 
-    public byte[] GoogleMapsIcon { get; set; }
+    public string IconoMapaColor { get; set; }
+
+    public string IconoMapaLeyendaTexto { get; set; }
+
+    public byte? IconoMapaHotSpotX { get; set; }
+
+    public string IconoMapaHotSpotXunits { get; set; }
+
+    public byte? IconoMapaHotSpotY { get; set; }
+
+    public string IconoMapaHotSpotYunits { get; set; }
 
     public bool EsActivo { get; set; }
 

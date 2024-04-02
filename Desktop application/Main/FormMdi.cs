@@ -16,7 +16,8 @@ namespace CSMaps.Main
         internal General.FormSettlements FormSettlements;
         internal General.FormPointsDataAndEvents FormPointsDataAndEvents;
         internal General.FormImportGoogleEarthFile FormImportGoogleEarthFile;
-        internal General.FormExportGpsFile FormExportGarminFile;
+        internal General.FormExportGpsFile FormExportGpsFile;
+        internal General.FormExportGoogleEarthFile FormExportGoogleEarthFile;
 
         #endregion
 
@@ -176,12 +177,21 @@ namespace CSMaps.Main
             }
         }
 
-        private void ToolStripMenuItemExportGarminFile_Click(object sender, EventArgs e)
+        private void ToolStripMenuItemExportGpsFile_Click(object sender, EventArgs e)
         {
             if (Users.Permissions.Verify(Users.Permissions.Actions.PointExport))
             {
-                FormExportGarminFile ??= new() { MdiParent = this };
-                FormExportGarminFile.Show();
+                FormExportGpsFile ??= new() { MdiParent = this };
+                FormExportGpsFile.Show();
+            }
+        }
+
+        private void ToolStripMenuItemExportGoogleEarthFile_Click(object sender, EventArgs e)
+        {
+            if (Users.Permissions.Verify(Users.Permissions.Actions.PointExport))
+            {
+                FormExportGoogleEarthFile ??= new() { MdiParent = this };
+                FormExportGoogleEarthFile.Show();
             }
         }
 

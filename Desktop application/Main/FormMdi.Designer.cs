@@ -44,7 +44,7 @@
             ToolStripMenuItemImportGoogleEarthFile = new ToolStripMenuItem();
             ToolStripLabelUser = new ToolStripLabel();
             ToolStripDropDownButtonExport = new ToolStripDropDownButton();
-            ToolStripMenuItemExportGarminFile = new ToolStripMenuItem();
+            ToolStripMenuItemExportGpsFile = new ToolStripMenuItem();
             MenuStripMain = new MenuStrip();
             ToolStripMenuItemFile = new ToolStripMenuItem();
             ToolStripMenuItemFileCloseUserSession = new ToolStripMenuItem();
@@ -56,6 +56,7 @@
             ToolStripSeparatorWindowList = new ToolStripSeparator();
             ToolStripMenuItemHelp = new ToolStripMenuItem();
             ToolStripMenuItemHelpAbout = new ToolStripMenuItem();
+            ToolStripMenuItemExportGoogleEarthFile = new ToolStripMenuItem();
             ToolStripMain.SuspendLayout();
             MenuStripMain.SuspendLayout();
             SuspendLayout();
@@ -199,7 +200,7 @@
             // 
             // ToolStripDropDownButtonExport
             // 
-            ToolStripDropDownButtonExport.DropDownItems.AddRange(new ToolStripItem[] { ToolStripMenuItemExportGarminFile });
+            ToolStripDropDownButtonExport.DropDownItems.AddRange(new ToolStripItem[] { ToolStripMenuItemExportGpsFile, ToolStripMenuItemExportGoogleEarthFile });
             ToolStripDropDownButtonExport.Image = Properties.Resources.ImageExport32;
             ToolStripDropDownButtonExport.ImageAlign = ContentAlignment.MiddleLeft;
             ToolStripDropDownButtonExport.ImageScaling = ToolStripItemImageScaling.None;
@@ -209,12 +210,12 @@
             ToolStripDropDownButtonExport.Text = "Exportar";
             ToolStripDropDownButtonExport.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // ToolStripMenuItemExportGarminFile
+            // ToolStripMenuItemExportGpsFile
             // 
-            ToolStripMenuItemExportGarminFile.Name = "ToolStripMenuItemExportGarminFile";
-            ToolStripMenuItemExportGarminFile.Size = new Size(197, 22);
-            ToolStripMenuItemExportGarminFile.Text = "Archivo de GPS Garmin";
-            ToolStripMenuItemExportGarminFile.Click += ToolStripMenuItemExportGarminFile_Click;
+            ToolStripMenuItemExportGpsFile.Name = "ToolStripMenuItemExportGpsFile";
+            ToolStripMenuItemExportGpsFile.Size = new Size(202, 22);
+            ToolStripMenuItemExportGpsFile.Text = "Archivo de GPS";
+            ToolStripMenuItemExportGpsFile.Click += ToolStripMenuItemExportGpsFile_Click;
             // 
             // MenuStripMain
             // 
@@ -292,6 +293,13 @@
             ToolStripMenuItemHelpAbout.Text = "&Acerca de...";
             ToolStripMenuItemHelpAbout.Click += ToolStripMenuItemHelpAbout_Click;
             // 
+            // ToolStripMenuItemExportGoogleEarthFile
+            // 
+            ToolStripMenuItemExportGoogleEarthFile.Name = "ToolStripMenuItemExportGoogleEarthFile";
+            ToolStripMenuItemExportGoogleEarthFile.Size = new Size(202, 22);
+            ToolStripMenuItemExportGoogleEarthFile.Text = "Archivo de Google Earth";
+            ToolStripMenuItemExportGoogleEarthFile.Click += ToolStripMenuItemExportGoogleEarthFile_Click;
+            // 
             // FormMdi
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -341,10 +349,11 @@
         private ToolStripMenuItem ToolStripMenuItemTablesUsersGroupsPermissions;
         private ToolStripMenuItem ToolStripMenuItemTablesUsers;
         private ToolStripDropDownButton ToolStripDropDownButtonExport;
-        private ToolStripMenuItem ToolStripMenuItemExportGarminFile;
+        private ToolStripMenuItem ToolStripMenuItemExportGpsFile;
         private ToolStripDropDownButton ToolStripDropDownButtonImport;
         private ToolStripMenuItem ToolStripMenuItemImportGoogleEarthFile;
         private ToolStripButton ToolStripButtonPuntos;
+        private ToolStripMenuItem ToolStripMenuItemExportGoogleEarthFile;
     }
 }
 

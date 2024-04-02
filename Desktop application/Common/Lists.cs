@@ -167,5 +167,13 @@ namespace CSMaps.Common
             comboBox.DataSource = usuarioGrupos;
         }
 
+        internal static void GetGroups(ListBox listBox, Models.CSMapsContext context)
+        {
+            List<Models.Grupo> grupos = [..context.Grupos.Where(g => g.EsActivo).OrderBy(g => g.Nombre)];
+
+            listBox.DataSource = grupos;
+            listBox.ValueMember = "IdGrupo";
+            listBox.DisplayMember = "Nombre";
+        }
     }
 }

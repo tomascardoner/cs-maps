@@ -44,5 +44,32 @@
                 }
             }
         }
+        public string TelefonoMovilExportar
+        {
+            get
+            {
+                if (PuntoDato == null)
+                {
+                    return string.Empty;
+                }
+                else
+                {
+                    if (PuntoDato.IdEstablecimiento.HasValue)
+                    {
+                        if (!string.IsNullOrWhiteSpace(PuntoDato.IdEstablecimientoNavigation.TelefonoMovil))
+                        {
+                            // Teléfono del establecimiento
+                            return PuntoDato.IdEstablecimientoNavigation.TelefonoMovil;
+                        }
+                        if (PuntoDato.IdEstablecimientoNavigation.IdEntidad.HasValue && !string.IsNullOrWhiteSpace(PuntoDato.IdEstablecimientoNavigation.IdEntidadNavigation.TelefonoMovil))
+                        {
+                            // Teléfono de la entidad
+                            return PuntoDato.IdEstablecimientoNavigation.IdEntidadNavigation.TelefonoMovil;
+                        }
+                    }
+                    return string.Empty;
+                }
+            }
+        }
     }
 }

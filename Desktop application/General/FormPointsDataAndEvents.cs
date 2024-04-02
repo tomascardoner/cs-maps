@@ -138,7 +138,7 @@ namespace CSMaps.General
                 {
                     0 => [.. entitiesAll.Where(p => p.PuntoNombre.ToLower().ReplaceDiacritics().StartsWith(ToolStripTextBoxNameFilter.Text.ToLower().ReplaceDiacritics()))],
                     1 => [.. entitiesAll.Where(p => p.PuntoNombre.ToLower().ReplaceDiacritics().Contains(ToolStripTextBoxNameFilter.Text.ToLower().ReplaceDiacritics()))],
-                    _ => throw new NotImplementedException(),
+                    _ => throw new NotImplementedException()
                 };
             }
 

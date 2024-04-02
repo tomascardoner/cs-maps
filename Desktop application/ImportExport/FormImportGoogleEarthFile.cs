@@ -40,8 +40,8 @@ namespace CSMaps.General
             using OpenFileDialog openFileDialog = new()
             {
                 RestoreDirectory = true,
-                Title = Properties.Resources.StringKmlFileOpenDialogTitle,
-                Filter = Properties.Resources.StringKmlFileOpenDialogFilter,
+                Title = Properties.Resources.StringImportGoogleEarthFileOpenDialogTitle,
+                Filter = Properties.Resources.StringGoogleEarthFileDialogFilter,
                 CheckPathExists = true,
                 CheckFileExists = true,
                 Multiselect = false

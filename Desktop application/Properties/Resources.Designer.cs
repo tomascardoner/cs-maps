@@ -649,6 +649,24 @@ namespace CSMaps.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Especifique el archivo de Google Earth para exportar.
+        /// </summary>
+        internal static string StringExportGoogleEarthFileSaveDialogTitle {
+            get {
+                return ResourceManager.GetString("StringExportGoogleEarthFileSaveDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Especifique el archivo de GPS para exportar.
+        /// </summary>
+        internal static string StringExportGpsFileSaveDialogTitle {
+            get {
+                return ResourceManager.GetString("StringExportGpsFileSaveDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to El archivo especificado no existe..
         /// </summary>
         internal static string StringFileNotFound {
@@ -676,20 +694,20 @@ namespace CSMaps.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Archivos de intercambio de GPS (*.gpx)|*.gpx|Todos los archivos (*.*)|*.*.
+        ///   Looks up a localized string similar to Archivos de Google Earth (*.kmz, *.kml)|*.kmz;*.kml|Todos los archivos (*.*)|*.*.
         /// </summary>
-        internal static string StringGpsFileSaveDialogFilter {
+        internal static string StringGoogleEarthFileDialogFilter {
             get {
-                return ResourceManager.GetString("StringGpsFileSaveDialogFilter", resourceCulture);
+                return ResourceManager.GetString("StringGoogleEarthFileDialogFilter", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Especifique el archivo de GPS.
+        ///   Looks up a localized string similar to Archivos de intercambio de GPS (*.gpx)|*.gpx|Todos los archivos (*.*)|*.*.
         /// </summary>
-        internal static string StringGpsFileSaveDialogTitle {
+        internal static string StringGpsFileDialogFilter {
             get {
-                return ResourceManager.GetString("StringGpsFileSaveDialogTitle", resourceCulture);
+                return ResourceManager.GetString("StringGpsFileDialogFilter", resourceCulture);
             }
         }
         
@@ -708,6 +726,15 @@ namespace CSMaps.Properties {
         internal static string StringImportFileSuccesful {
             get {
                 return ResourceManager.GetString("StringImportFileSuccesful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Seleccione el archivo de Google Earth para importar.
+        /// </summary>
+        internal static string StringImportGoogleEarthFileOpenDialogTitle {
+            get {
+                return ResourceManager.GetString("StringImportGoogleEarthFileOpenDialogTitle", resourceCulture);
             }
         }
         
@@ -825,24 +852,6 @@ namespace CSMaps.Properties {
         internal static string StringKmlFileInvalidContentPlacemark {
             get {
                 return ResourceManager.GetString("StringKmlFileInvalidContentPlacemark", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Archivos de Google Earth (*.kmz, *.kml)|*.kmz;*.kml|Todos los archivos (*.*)|*.*.
-        /// </summary>
-        internal static string StringKmlFileOpenDialogFilter {
-            get {
-                return ResourceManager.GetString("StringKmlFileOpenDialogFilter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Seleccione el archivo de Google Earth.
-        /// </summary>
-        internal static string StringKmlFileOpenDialogTitle {
-            get {
-                return ResourceManager.GetString("StringKmlFileOpenDialogTitle", resourceCulture);
             }
         }
         

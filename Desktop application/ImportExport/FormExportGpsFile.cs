@@ -20,10 +20,10 @@ namespace CSMaps.General
         public FormExportGpsFile()
         {
             InitializeComponent();
-            InitializeFormAndControls();
+            InitializeForm();
         }
 
-        private void InitializeFormAndControls()
+        private void InitializeForm()
         {
             SetAppearance();
 
@@ -33,7 +33,7 @@ namespace CSMaps.General
 
         private void SetAppearance()
         {
-            this.Icon = CardonerSistemas.Framework.Base.Graphics.GetIconFromBitmap(Properties.Resources.ImageImport32);
+            this.Icon = CardonerSistemas.Framework.Base.Graphics.GetIconFromBitmap(Properties.Resources.ImageExport32);
             Forms.SetFont(this, Program.AppearanceConfig.Font);
         }
 
@@ -41,7 +41,7 @@ namespace CSMaps.General
         {
             context.Dispose();
             context = null;
-            Program.FormMdi.FormExportGarminFile = null;
+            Program.FormMdi.FormExportGpsFile = null;
             this.Dispose();
         }
 
@@ -60,8 +60,8 @@ namespace CSMaps.General
             {
                 FileName = DefaultFileName,
                 RestoreDirectory = true,
-                Title = Properties.Resources.StringGpsFileSaveDialogTitle,
-                Filter = Properties.Resources.StringGpsFileSaveDialogFilter,
+                Title = Properties.Resources.StringExportGpsFileSaveDialogTitle,
+                Filter = Properties.Resources.StringGpsFileDialogFilter,
                 CheckPathExists = true,
                 AddExtension = true,
                 CheckWriteAccess = true,
@@ -113,7 +113,7 @@ namespace CSMaps.General
 
         #endregion
 
-        #region Misc functions
+        #region Find GPS drive
 
         private void FindGpsLocation()
         {
@@ -207,6 +207,10 @@ namespace CSMaps.General
 
             return false;
         }
+
+        #endregion
+
+        #region Export GPX file
 
         private void ExportGpxFile(string filePath)
         {

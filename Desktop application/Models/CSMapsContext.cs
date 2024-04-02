@@ -166,9 +166,25 @@ public partial class CSMapsContext : DbContext
             entity.Property(e => e.FechaHoraUltimaModificacion)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("smalldatetime");
-            entity.Property(e => e.GoogleMapsIcon).HasColumnType("image");
-            entity.Property(e => e.GoogleMapsStyleId)
-                .HasMaxLength(50)
+            entity.Property(e => e.IconoMapaColor)
+                .HasMaxLength(8)
+                .IsUnicode(false)
+                .IsFixedLength();
+            entity.Property(e => e.IconoMapaDireccion)
+                .HasMaxLength(75)
+                .IsUnicode(false);
+            entity.Property(e => e.IconoMapaHotSpotXunits)
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasColumnName("IconoMapaHotSpotXUnits");
+            entity.Property(e => e.IconoMapaHotSpotYunits)
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasColumnName("IconoMapaHotSpotYUnits");
+            entity.Property(e => e.IconoMapaLeyendaTexto)
+                .HasMaxLength(200)
                 .IsUnicode(false);
             entity.Property(e => e.Nombre)
                 .IsRequired()
