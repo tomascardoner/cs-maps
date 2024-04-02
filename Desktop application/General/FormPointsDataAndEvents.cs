@@ -8,6 +8,8 @@ namespace CSMaps.General
 
         #region Declarations
 
+        internal FormPointEvents FormPointEvents;
+
         private const string entityNameSingle = "dato del punto";
         private const string entityNamePlural = "datos de los puntos";
         private const bool entityIsFemale = false;
@@ -332,8 +334,8 @@ namespace CSMaps.General
                 MessageBox.Show($"No hay ningún {entityNameSingle} para ver sus eventos.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            FormPointEvents formPointEvents = new(((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto);
-            formPointEvents.ShowDialog(this);
+            FormPointEvents ??= new(((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto);
+            FormPointEvents.ShowDialog(this);
         }
 
         #endregion

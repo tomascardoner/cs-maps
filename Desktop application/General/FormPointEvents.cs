@@ -72,7 +72,7 @@ namespace CSMaps.General
         private void SetAppearance()
         {
             Forms.SetFont(this, Program.AppearanceConfig.Font);
-            Common.Appearance.SetControlsDataGridViews(this.Controls, false);
+            Common.Appearance.SetControlsDataGridViews(this.Controls, true);
         }
 
         private void InitializeDateFilter()
@@ -138,6 +138,7 @@ namespace CSMaps.General
                 HostDateTimePickerDateFilterTo.Dispose();
                 HostDateTimePickerDateFilterTo = null;
             }
+            Program.FormMdi.FormPointsDataAndEvents.FormPointEvents = null;
         }
 
         #endregion
@@ -159,7 +160,7 @@ namespace CSMaps.General
             Values.ToTextBox(TextBoxChapaNumero, puntoDato.ChapaNumero);
         }
 
-        private void ReadData(short idEvento = 0, bool restoreCurrentPosition = false)
+        internal void ReadData(short idEvento = 0, bool restoreCurrentPosition = false)
         {
             this.Cursor = Cursors.WaitCursor;
             try
@@ -187,7 +188,7 @@ namespace CSMaps.General
                 }
                 else
                 {
-                    idEvento = ((Models.PuntoEvento)DataGridViewMain.CurrentRow.DataBoundItem).IdEvento;
+                    idEvento = ((DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem).IdEvento;
                 }
             }
 
@@ -198,7 +199,7 @@ namespace CSMaps.General
             {
                 foreach (DataGridViewRow row in DataGridViewMain.Rows)
                 {
-                    if (((Models.PuntoEvento)row.DataBoundItem).IdEvento == idEvento)
+                    if (((DataGridViewRowData)row.DataBoundItem).IdEvento == idEvento)
                     {
                         DataGridViewMain.CurrentCell = row.Cells[0];
                         break;
@@ -364,6 +365,7 @@ namespace CSMaps.General
             }
 
             ReadData();
+            Program.FormMdi.FormPointsDataAndEvents?.ReadData(idPunto);
             this.Cursor = Cursors.Default;
         }
 

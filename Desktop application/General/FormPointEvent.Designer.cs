@@ -173,6 +173,7 @@
             DateTimePickerHora.Format = DateTimePickerFormat.Time;
             DateTimePickerHora.Location = new Point(246, 35);
             DateTimePickerHora.Name = "DateTimePickerHora";
+            DateTimePickerHora.ShowUpDown = true;
             DateTimePickerHora.Size = new Size(87, 23);
             DateTimePickerHora.TabIndex = 4;
             // 

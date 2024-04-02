@@ -1,6 +1,5 @@
 ﻿using CardonerSistemas.Framework.Base;
 using CardonerSistemas.Framework.Controls;
-using CSMaps.Models;
 
 namespace CSMaps.General
 {
@@ -100,7 +99,7 @@ namespace CSMaps.General
             Values.ToDateTimePicker(DateTimePickerHora, puntoEvento.FechaHora);
 
             // Auditoría
-            Values.ToTextBox(TextBoxId, puntoEvento.IdPunto, true, entityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
+            Values.ToTextBox(TextBoxId, puntoEvento.IdEvento, true, entityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
             Values.ToTextBoxAsShortDateTime(TextBoxFechaHoraCreacion, puntoEvento.FechaHoraCreacion);
             TextBoxUsuarioCreacion.Text = Users.Users.GetDescription(context, puntoEvento.IdUsuarioCreacion);
             Values.ToTextBoxAsShortDateTime(TextBoxFechaHoraUltimaModificacion, puntoEvento.FechaHoraUltimaModificacion);
@@ -152,6 +151,7 @@ namespace CSMaps.General
                 try
                 {
                     context.SaveChanges();
+                    Program.FormMdi.FormPointsDataAndEvents.FormPointEvents.ReadData(puntoEvento.IdEvento);
                     Program.FormMdi.FormPointsDataAndEvents?.ReadData(idPunto);
                 }
                 catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
@@ -213,7 +213,7 @@ namespace CSMaps.General
             try
             {
                 using Models.CSMapsContext newIdContext = new();
-                if (newIdContext.PuntoEventos.Any())
+                if (newIdContext.PuntoEventos.Where(pe => pe.IdPunto == idPunto).Any())
                 {
                     puntoEvento.IdEvento = (short)(newIdContext.PuntoEventos.Where(pe => pe.IdPunto == idPunto).Max(pe => pe.IdEvento) + 1);
                 }
