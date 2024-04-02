@@ -17,7 +17,7 @@
     <Company>Cardoner Sistemas</Company>
     <Product>CS-Maps</Product>
     <Description>Sistema de gestión de puntos y datos de mapas.</Description>
-    <Copyright>© 2024 Cardoner Sistemas. All rights reserved.</Copyright>
+    <Copyright>Copyright © 2024 Cardoner Sistemas. All rights reserved.</Copyright>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -78,13 +78,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Config\Appearance.json">
+    <None Update="config\Appearance.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Config\Database.json">
+    <None Update="config\Database.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Config\General.json">
+    <None Update="config\General.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Properties\Settings.settings">

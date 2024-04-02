@@ -4,9 +4,16 @@ namespace CSMaps.Users
 {
     static class Users
     {
-        static internal string GetDescription(Models.Usuario usuario)
+        static internal string GetDescription(Models.CSMapsContext context, short idUsuario)
         {
-            return usuario?.Descripcion ?? string.Empty;
+            if (idUsuario == 0)
+            {
+                return string.Empty;
+            }
+            else
+            {
+                return context.Usuarios.Find(idUsuario).Nombre;
+            }
         }
 
         static internal void LogIn()

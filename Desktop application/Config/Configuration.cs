@@ -2,7 +2,7 @@
 {
     static class Configuration
     {
-        private const string ConfigSubFolder = "Config";
+        private const string ConfigSubFolder = "config";
 
         private const string AppearanceFileName = "Appearance.json";
         private const string DatabaseFileName = "Database.json";

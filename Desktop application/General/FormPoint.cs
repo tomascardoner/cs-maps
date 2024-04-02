@@ -1,5 +1,6 @@
 ﻿using CardonerSistemas.Framework.Base;
 using CardonerSistemas.Framework.Controls;
+using CSMaps.Users;
 
 namespace CSMaps.General
 {
@@ -41,14 +42,14 @@ namespace CSMaps.General
                 punto = context.Puntos.Find(idPunto);
             }
 
-            InitializeFormAndControls();
+            InitializeForm();
             SetDataToUserInterface();
             isLoading = false;
 
             ChangeEditMode();
         }
 
-        private void InitializeFormAndControls()
+        private void InitializeForm()
         {
             SetAppearance();
         }
@@ -91,12 +92,18 @@ namespace CSMaps.General
 
         private void SetDataToUserInterface()
         {
-            Values.ToTextBox(TextBoxIdPunto, punto.IdPunto, true, entityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
+            // General
             Values.ToTextBox(TextBoxNombre, punto.Nombre);
             CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDoubleTextBox(DoubleTextBoxLatitud, punto.Latitud);
             CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDoubleTextBox(DoubleTextBoxLongitud, punto.Longitud);
             CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDoubleTextBox(DoubleTextBoxAltitud, punto.Altitud);
-            Values.ToTextBoxAsShortDateTime(TextBoxUltimaActualizacion, punto.FechaHoraUltimaModificacion);
+
+            // Auditoría
+            Values.ToTextBox(TextBoxId, punto.IdPunto, true, entityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
+            Values.ToTextBoxAsShortDateTime(TextBoxFechaHoraCreacion, punto.FechaHoraCreacion);
+            TextBoxUsuarioCreacion.Text = Users.Users.GetDescription(context, punto.IdUsuarioCreacion);
+            Values.ToTextBoxAsShortDateTime(TextBoxFechaHoraUltimaModificacion, punto.FechaHoraUltimaModificacion);
+            TextBoxUsuarioUltimaModificacion.Text = Users.Users.GetDescription(context, punto.IdUsuarioUltimaModificacion);
         }
 
         private void SetDataToEntityObject()
@@ -175,8 +182,11 @@ namespace CSMaps.General
 
         private void ToolStripButtonEdit_Click(object sender, EventArgs e)
         {
-            isEditMode = true;
-            ChangeEditMode();
+            if (Permissions.Verify(Permissions.Actions.PointEdit))
+            {
+                isEditMode = true;
+                ChangeEditMode();
+            }
         }
 
         private void ToolStripButtonClose_Click(object sender, EventArgs e)
@@ -232,18 +242,21 @@ namespace CSMaps.General
             if (string.IsNullOrWhiteSpace(TextBoxNombre.Text))
             {
                 Common.Forms.ShowRequiredFieldMessageBox(entityIsFemale, entityNameSingular, false, "nombre");
+                TabControlMain.SelectedTab = TabPageGeneral;
                 TextBoxNombre.Focus();
                 return false;
             }
             if (DoubleTextBoxLatitud.DoubleValue == 0)
             {
                 Common.Forms.ShowRequiredFieldMessageBox(entityIsFemale, entityNameSingular, true, "latitud");
+                TabControlMain.SelectedTab = TabPageGeneral;
                 DoubleTextBoxLatitud.Focus();
                 return false;
             }
             if (DoubleTextBoxLongitud.DoubleValue == 0)
             {
                 Common.Forms.ShowRequiredFieldMessageBox(entityIsFemale, entityNameSingular, true, "longitud");
+                TabControlMain.SelectedTab = TabPageGeneral;
                 DoubleTextBoxLongitud.Focus();
                 return false;
             }

@@ -44,14 +44,14 @@ namespace CSMaps.General
                 puntoDato = context.PuntoDatos.Find(idPunto);
             }
 
-            InitializeFormAndControls();
+            InitializeForm();
             SetDataToUserInterface();
             isLoading = false;
 
             ChangeEditMode();
         }
 
-        private void InitializeFormAndControls()
+        private void InitializeForm()
         {
             SetAppearance();
             Common.Lists.GetEstablecimientos(ComboBoxEstablecimiento, context, true);
@@ -100,14 +100,19 @@ namespace CSMaps.General
 
         private void SetDataToUserInterface()
         {
-            Values.ToTextBox(TextBoxIdPunto, punto.IdPunto, true, entityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
+            // General
             Values.ToTextBox(TextBoxNombre, punto.Nombre);
             CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDoubleTextBox(DoubleTextBoxLatitud, punto.Latitud);
             CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDoubleTextBox(DoubleTextBoxLongitud, punto.Longitud);
-
             Values.ToComboBox(ComboBoxEstablecimiento, puntoDato.IdEstablecimiento);
             CardonerSistemas.Framework.Controls.Syncfusion.Values.ToIntegerTextBox(IntegerTextBoxChapaNumero, puntoDato.ChapaNumero);
-            Values.ToTextBoxAsShortDateTime(TextBoxUltimaModificacion, puntoDato.FechaHoraUltimaModificacion);
+
+            // Auditoría
+            Values.ToTextBox(TextBoxId, puntoDato.IdPunto, true, entityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
+            Values.ToTextBoxAsShortDateTime(TextBoxFechaHoraCreacion, puntoDato.FechaHoraCreacion);
+            TextBoxUsuarioCreacion.Text = Users.Users.GetDescription(context, puntoDato.IdUsuarioCreacion);
+            Values.ToTextBoxAsShortDateTime(TextBoxFechaHoraUltimaModificacion, puntoDato.FechaHoraUltimaModificacion);
+            TextBoxUsuarioUltimaModificacion.Text = Users.Users.GetDescription(context, puntoDato.IdUsuarioUltimaModificacion);
         }
 
         private void SetDataToEntityObject()
@@ -148,7 +153,6 @@ namespace CSMaps.General
             if (formPointFind.ShowDialog(this) == DialogResult.OK)
             {
                 punto = (Models.Punto)formPointFind.DataGridViewMain.CurrentRow.DataBoundItem;
-                Values.ToTextBox(TextBoxIdPunto, punto.IdPunto);
                 Values.ToTextBox(TextBoxNombre, punto.Nombre);
                 CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDoubleTextBox(DoubleTextBoxLatitud, punto.Latitud);
                 CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDoubleTextBox(DoubleTextBoxLongitud, punto.Longitud);
@@ -258,24 +262,28 @@ namespace CSMaps.General
             if (isNew && punto.IdPunto == 0)
             {
                 Common.Forms.ShowRequiredFieldMessageBox(entityIsFemale, entityNameSingular, false, "punto");
+                TabControlMain.SelectedTab = TabPageGeneral;
                 ButtonBuscarPunto.Focus();
                 return false;
             }
             if (ComboBoxEstablecimiento.SelectedIndex == -1)
             {
                 Common.Forms.ShowRequiredFieldMessageBox(entityIsFemale, entityNameSingular, false, "establecimiento");
+                TabControlMain.SelectedTab = TabPageGeneral;
                 ComboBoxEstablecimiento.Focus();
                 return false;
             }
             if (IntegerTextBoxChapaNumero.IntegerValue < ChapaNumeroMinimo)
             {
                 MessageBox.Show($"El nº de chapa debe ser mayor o igual a {ChapaNumeroMinimo}", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                TabControlMain.SelectedTab = TabPageGeneral;
                 IntegerTextBoxChapaNumero.Focus();
                 return false;
             }
             if (isNew && CheckBoxEventoAgregar.Checked && ComboBoxEventoAgregar.SelectedIndex == -1)
             {
                 Common.Forms.ShowRequiredFieldMessageBox(entityIsFemale, entityNameSingular, false, "evento");
+                TabControlMain.SelectedTab = TabPageGeneral;
                 ComboBoxEventoAgregar.Focus();
                 return false;
             }

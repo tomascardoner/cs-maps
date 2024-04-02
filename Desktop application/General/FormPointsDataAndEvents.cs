@@ -236,7 +236,7 @@ namespace CSMaps.General
             FilterData();
         }
 
-        private void ToolStripComboBoxDataExistFilter_SelectedIndexChanged(object sender, EventArgs e)
+        private void ToolStripComboBoxLastEventTypeFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
             FilterData();
         }
@@ -246,14 +246,6 @@ namespace CSMaps.General
             if (Common.DataGridViews.ColumnHeaderMouseClick(DataGridViewMain, e, ref sortedColumn, ref sortOrder, [DataGridViewColumnNombre, DataGridViewColumnEstablecimiento, DataGridViewColumnChapaNumero, DataGridViewColumnFechaHora]))
             {
                 OrderData();
-            }
-        }
-
-        private void DataGridViewMain_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (sortedColumn == DataGridViewColumnNombre)
-            {
-                Common.DataGridViews.SearchByKeyPress(e, DataGridViewMain, DataGridViewColumnNombre);
             }
         }
 
@@ -331,6 +323,17 @@ namespace CSMaps.General
 
             _ = ReadData();
             this.Cursor = Cursors.Default;
+        }
+
+        private void ToolStripButtonPointEvents_Click(object sender, EventArgs e)
+        {
+            if (DataGridViewMain.CurrentRow == null)
+            {
+                MessageBox.Show($"No hay ningún {entityNameSingle} para ver sus eventos.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            FormPointEvents formPointEvents = new(((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto);
+            formPointEvents.ShowDialog(this);
         }
 
         #endregion

@@ -28,33 +28,54 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            Label LabelCreacion;
+            Label LabelModificacion;
             ToolStripMain = new ToolStrip();
             ToolStripButtonClose = new ToolStripButton();
             ToolStripButtonEdit = new ToolStripButton();
             ToolStripButtonCancel = new ToolStripButton();
             ToolStripButtonSave = new ToolStripButton();
-            TextBoxUltimaActualizacion = new TextBox();
-            LabelUltimaActualizacion = new Label();
-            GroupBoxPoint = new GroupBox();
-            LabelLongitud = new Label();
-            DoubleTextBoxLongitud = new Syncfusion.Windows.Forms.Tools.DoubleTextBox();
-            DoubleTextBoxLatitud = new Syncfusion.Windows.Forms.Tools.DoubleTextBox();
-            LabelLatitud = new Label();
-            TextBoxNombre = new TextBox();
-            LabelNombre = new Label();
-            TextBoxIdPunto = new TextBox();
-            LabelIdPunto = new Label();
-            LabelEstablecimiento = new Label();
-            ComboBoxEstablecimiento = new ComboBox();
-            LabelChapaNumero = new Label();
-            IntegerTextBoxChapaNumero = new Syncfusion.Windows.Forms.Tools.IntegerTextBox();
+            LabelEventoTipo = new Label();
+            ComboBoxEventoTipo = new ComboBox();
+            LabelFechaHora = new Label();
+            DateTimePickerFecha = new DateTimePicker();
+            DateTimePickerHora = new DateTimePicker();
+            TabControlMain = new TabControl();
+            TabPageGeneral = new TabPage();
+            TabPageAuditoria = new TabPage();
+            LabelId = new Label();
+            TextBoxId = new TextBox();
+            TextBoxFechaHoraCreacion = new TextBox();
+            TextBoxUsuarioCreacion = new TextBox();
+            TextBoxFechaHoraUltimaModificacion = new TextBox();
+            TextBoxUsuarioUltimaModificacion = new TextBox();
+            LabelCreacion = new Label();
+            LabelModificacion = new Label();
             ToolStripMain.SuspendLayout();
-            GroupBoxPoint.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)DoubleTextBoxLongitud).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)DoubleTextBoxLatitud).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)IntegerTextBoxChapaNumero).BeginInit();
+            TabControlMain.SuspendLayout();
+            TabPageGeneral.SuspendLayout();
+            TabPageAuditoria.SuspendLayout();
             SuspendLayout();
+            // 
+            // LabelCreacion
+            // 
+            LabelCreacion.AutoSize = true;
+            LabelCreacion.Location = new Point(7, 38);
+            LabelCreacion.Margin = new Padding(4, 0, 4, 0);
+            LabelCreacion.Name = "LabelCreacion";
+            LabelCreacion.Size = new Size(57, 15);
+            LabelCreacion.TabIndex = 2;
+            LabelCreacion.Text = "Creación:";
+            // 
+            // LabelModificacion
+            // 
+            LabelModificacion.AutoSize = true;
+            LabelModificacion.Location = new Point(7, 67);
+            LabelModificacion.Margin = new Padding(4, 0, 4, 0);
+            LabelModificacion.Name = "LabelModificacion";
+            LabelModificacion.Size = new Size(118, 15);
+            LabelModificacion.TabIndex = 5;
+            LabelModificacion.Text = "Última modificación:";
             // 
             // ToolStripMain
             // 
@@ -109,190 +130,171 @@
             ToolStripButtonSave.Text = "Guardar";
             ToolStripButtonSave.Click += ToolStripButtonSave_Click;
             // 
-            // TextBoxUltimaActualizacion
+            // LabelEventoTipo
             // 
-            TextBoxUltimaActualizacion.Location = new Point(135, 257);
-            TextBoxUltimaActualizacion.Name = "TextBoxUltimaActualizacion";
-            TextBoxUltimaActualizacion.ReadOnly = true;
-            TextBoxUltimaActualizacion.Size = new Size(149, 23);
-            TextBoxUltimaActualizacion.TabIndex = 7;
-            TextBoxUltimaActualizacion.TabStop = false;
-            TextBoxUltimaActualizacion.Enter += TextBoxs_Enter;
+            LabelEventoTipo.AutoSize = true;
+            LabelEventoTipo.Location = new Point(6, 9);
+            LabelEventoTipo.Name = "LabelEventoTipo";
+            LabelEventoTipo.Size = new Size(33, 15);
+            LabelEventoTipo.TabIndex = 0;
+            LabelEventoTipo.Text = "Tipo:";
             // 
-            // LabelUltimaActualizacion
+            // ComboBoxEventoTipo
             // 
-            LabelUltimaActualizacion.AutoSize = true;
-            LabelUltimaActualizacion.Location = new Point(12, 260);
-            LabelUltimaActualizacion.Name = "LabelUltimaActualizacion";
-            LabelUltimaActualizacion.Size = new Size(117, 15);
-            LabelUltimaActualizacion.TabIndex = 6;
-            LabelUltimaActualizacion.Text = "Última actualización:";
+            ComboBoxEventoTipo.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            ComboBoxEventoTipo.DropDownStyle = ComboBoxStyle.DropDownList;
+            ComboBoxEventoTipo.FormattingEnabled = true;
+            ComboBoxEventoTipo.Location = new Point(114, 6);
+            ComboBoxEventoTipo.Name = "ComboBoxEventoTipo";
+            ComboBoxEventoTipo.Size = new Size(389, 23);
+            ComboBoxEventoTipo.TabIndex = 1;
             // 
-            // GroupBoxPoint
+            // LabelFechaHora
             // 
-            GroupBoxPoint.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            GroupBoxPoint.Controls.Add(LabelLongitud);
-            GroupBoxPoint.Controls.Add(DoubleTextBoxLongitud);
-            GroupBoxPoint.Controls.Add(DoubleTextBoxLatitud);
-            GroupBoxPoint.Controls.Add(LabelLatitud);
-            GroupBoxPoint.Controls.Add(TextBoxNombre);
-            GroupBoxPoint.Controls.Add(LabelNombre);
-            GroupBoxPoint.Controls.Add(TextBoxIdPunto);
-            GroupBoxPoint.Controls.Add(LabelIdPunto);
-            GroupBoxPoint.Location = new Point(12, 42);
-            GroupBoxPoint.Name = "GroupBoxPoint";
-            GroupBoxPoint.Size = new Size(493, 142);
-            GroupBoxPoint.TabIndex = 1;
-            GroupBoxPoint.TabStop = false;
+            LabelFechaHora.AutoSize = true;
+            LabelFechaHora.Location = new Point(6, 38);
+            LabelFechaHora.Name = "LabelFechaHora";
+            LabelFechaHora.Size = new Size(70, 15);
+            LabelFechaHora.TabIndex = 2;
+            LabelFechaHora.Text = "Fecha-hora:";
             // 
-            // LabelLongitud
+            // DateTimePickerFecha
             // 
-            LabelLongitud.AutoSize = true;
-            LabelLongitud.Location = new Point(6, 112);
-            LabelLongitud.Name = "LabelLongitud";
-            LabelLongitud.Size = new Size(58, 15);
-            LabelLongitud.TabIndex = 6;
-            LabelLongitud.Text = "Longitud:";
+            DateTimePickerFecha.Format = DateTimePickerFormat.Short;
+            DateTimePickerFecha.Location = new Point(114, 35);
+            DateTimePickerFecha.MaxDate = new DateTime(2099, 12, 31, 0, 0, 0, 0);
+            DateTimePickerFecha.MinDate = new DateTime(2023, 1, 1, 0, 0, 0, 0);
+            DateTimePickerFecha.Name = "DateTimePickerFecha";
+            DateTimePickerFecha.Size = new Size(126, 23);
+            DateTimePickerFecha.TabIndex = 3;
             // 
-            // DoubleTextBoxLongitud
+            // DateTimePickerHora
             // 
-            DoubleTextBoxLongitud.BeforeTouchSize = new Size(56, 23);
-            DoubleTextBoxLongitud.DoubleValue = 0D;
-            DoubleTextBoxLongitud.Location = new Point(70, 109);
-            DoubleTextBoxLongitud.MaxValue = 180D;
-            DoubleTextBoxLongitud.MinValue = -180D;
-            DoubleTextBoxLongitud.Name = "DoubleTextBoxLongitud";
-            DoubleTextBoxLongitud.NegativeColor = SystemColors.ControlText;
-            DoubleTextBoxLongitud.NumberDecimalDigits = 6;
-            DoubleTextBoxLongitud.ReadOnly = true;
-            DoubleTextBoxLongitud.Size = new Size(74, 23);
-            DoubleTextBoxLongitud.TabIndex = 7;
-            DoubleTextBoxLongitud.TabStop = false;
-            DoubleTextBoxLongitud.Text = "0,000000";
-            DoubleTextBoxLongitud.TextAlign = HorizontalAlignment.Right;
+            DateTimePickerHora.Format = DateTimePickerFormat.Time;
+            DateTimePickerHora.Location = new Point(246, 35);
+            DateTimePickerHora.Name = "DateTimePickerHora";
+            DateTimePickerHora.Size = new Size(87, 23);
+            DateTimePickerHora.TabIndex = 4;
             // 
-            // DoubleTextBoxLatitud
+            // TabControlMain
             // 
-            DoubleTextBoxLatitud.BeforeTouchSize = new Size(56, 23);
-            DoubleTextBoxLatitud.DoubleValue = 0D;
-            DoubleTextBoxLatitud.Location = new Point(70, 80);
-            DoubleTextBoxLatitud.MaxValue = 90D;
-            DoubleTextBoxLatitud.MinValue = -90D;
-            DoubleTextBoxLatitud.Name = "DoubleTextBoxLatitud";
-            DoubleTextBoxLatitud.NegativeColor = SystemColors.ControlText;
-            DoubleTextBoxLatitud.NumberDecimalDigits = 6;
-            DoubleTextBoxLatitud.ReadOnly = true;
-            DoubleTextBoxLatitud.Size = new Size(74, 23);
-            DoubleTextBoxLatitud.TabIndex = 5;
-            DoubleTextBoxLatitud.TabStop = false;
-            DoubleTextBoxLatitud.Text = "0,000000";
-            DoubleTextBoxLatitud.TextAlign = HorizontalAlignment.Right;
+            TabControlMain.Appearance = TabAppearance.FlatButtons;
+            TabControlMain.Controls.Add(TabPageGeneral);
+            TabControlMain.Controls.Add(TabPageAuditoria);
+            TabControlMain.Dock = DockStyle.Fill;
+            TabControlMain.Location = new Point(0, 39);
+            TabControlMain.Name = "TabControlMain";
+            TabControlMain.SelectedIndex = 0;
+            TabControlMain.Size = new Size(517, 126);
+            TabControlMain.TabIndex = 1;
             // 
-            // LabelLatitud
+            // TabPageGeneral
             // 
-            LabelLatitud.AutoSize = true;
-            LabelLatitud.Location = new Point(6, 83);
-            LabelLatitud.Name = "LabelLatitud";
-            LabelLatitud.Size = new Size(47, 15);
-            LabelLatitud.TabIndex = 4;
-            LabelLatitud.Text = "Latitud:";
+            TabPageGeneral.Controls.Add(LabelEventoTipo);
+            TabPageGeneral.Controls.Add(ComboBoxEventoTipo);
+            TabPageGeneral.Controls.Add(LabelFechaHora);
+            TabPageGeneral.Controls.Add(DateTimePickerFecha);
+            TabPageGeneral.Controls.Add(DateTimePickerHora);
+            TabPageGeneral.Location = new Point(4, 27);
+            TabPageGeneral.Name = "TabPageGeneral";
+            TabPageGeneral.Padding = new Padding(3);
+            TabPageGeneral.Size = new Size(509, 95);
+            TabPageGeneral.TabIndex = 0;
+            TabPageGeneral.Text = "General";
+            TabPageGeneral.UseVisualStyleBackColor = true;
             // 
-            // TextBoxNombre
+            // TabPageAuditoria
             // 
-            TextBoxNombre.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            TextBoxNombre.Location = new Point(70, 51);
-            TextBoxNombre.MaxLength = 100;
-            TextBoxNombre.Name = "TextBoxNombre";
-            TextBoxNombre.ReadOnly = true;
-            TextBoxNombre.Size = new Size(417, 23);
-            TextBoxNombre.TabIndex = 3;
-            TextBoxNombre.TabStop = false;
-            TextBoxNombre.Enter += TextBoxs_Enter;
+            TabPageAuditoria.Controls.Add(LabelId);
+            TabPageAuditoria.Controls.Add(TextBoxId);
+            TabPageAuditoria.Controls.Add(LabelCreacion);
+            TabPageAuditoria.Controls.Add(TextBoxFechaHoraCreacion);
+            TabPageAuditoria.Controls.Add(TextBoxUsuarioCreacion);
+            TabPageAuditoria.Controls.Add(LabelModificacion);
+            TabPageAuditoria.Controls.Add(TextBoxFechaHoraUltimaModificacion);
+            TabPageAuditoria.Controls.Add(TextBoxUsuarioUltimaModificacion);
+            TabPageAuditoria.Location = new Point(4, 27);
+            TabPageAuditoria.Name = "TabPageAuditoria";
+            TabPageAuditoria.Padding = new Padding(3);
+            TabPageAuditoria.Size = new Size(509, 95);
+            TabPageAuditoria.TabIndex = 1;
+            TabPageAuditoria.Text = "Auditoría";
+            TabPageAuditoria.UseVisualStyleBackColor = true;
             // 
-            // LabelNombre
+            // LabelId
             // 
-            LabelNombre.AutoSize = true;
-            LabelNombre.Location = new Point(6, 54);
-            LabelNombre.Name = "LabelNombre";
-            LabelNombre.Size = new Size(54, 15);
-            LabelNombre.TabIndex = 2;
-            LabelNombre.Text = "Nombre:";
+            LabelId.AutoSize = true;
+            LabelId.Location = new Point(7, 9);
+            LabelId.Margin = new Padding(4, 0, 4, 0);
+            LabelId.Name = "LabelId";
+            LabelId.Size = new Size(20, 15);
+            LabelId.TabIndex = 0;
+            LabelId.Text = "Id:";
             // 
-            // TextBoxIdPunto
+            // TextBoxId
             // 
-            TextBoxIdPunto.Location = new Point(70, 22);
-            TextBoxIdPunto.Name = "TextBoxIdPunto";
-            TextBoxIdPunto.ReadOnly = true;
-            TextBoxIdPunto.Size = new Size(61, 23);
-            TextBoxIdPunto.TabIndex = 1;
-            TextBoxIdPunto.TabStop = false;
-            TextBoxIdPunto.TextAlign = HorizontalAlignment.Center;
-            TextBoxIdPunto.Enter += TextBoxs_Enter;
+            TextBoxId.Location = new Point(133, 6);
+            TextBoxId.Margin = new Padding(4, 3, 4, 3);
+            TextBoxId.MaxLength = 10;
+            TextBoxId.Name = "TextBoxId";
+            TextBoxId.ReadOnly = true;
+            TextBoxId.Size = new Size(83, 23);
+            TextBoxId.TabIndex = 1;
+            TextBoxId.TabStop = false;
+            TextBoxId.TextAlign = HorizontalAlignment.Center;
             // 
-            // LabelIdPunto
+            // TextBoxFechaHoraCreacion
             // 
-            LabelIdPunto.AutoSize = true;
-            LabelIdPunto.Location = new Point(6, 25);
-            LabelIdPunto.Name = "LabelIdPunto";
-            LabelIdPunto.Size = new Size(20, 15);
-            LabelIdPunto.TabIndex = 0;
-            LabelIdPunto.Text = "Id:";
+            TextBoxFechaHoraCreacion.Location = new Point(133, 35);
+            TextBoxFechaHoraCreacion.Margin = new Padding(4, 3, 4, 3);
+            TextBoxFechaHoraCreacion.MaxLength = 0;
+            TextBoxFechaHoraCreacion.Name = "TextBoxFechaHoraCreacion";
+            TextBoxFechaHoraCreacion.ReadOnly = true;
+            TextBoxFechaHoraCreacion.Size = new Size(140, 23);
+            TextBoxFechaHoraCreacion.TabIndex = 3;
+            TextBoxFechaHoraCreacion.TabStop = false;
             // 
-            // LabelEstablecimiento
+            // TextBoxUsuarioCreacion
             // 
-            LabelEstablecimiento.AutoSize = true;
-            LabelEstablecimiento.Location = new Point(12, 202);
-            LabelEstablecimiento.Name = "LabelEstablecimiento";
-            LabelEstablecimiento.Size = new Size(94, 15);
-            LabelEstablecimiento.TabIndex = 2;
-            LabelEstablecimiento.Text = "Establecimiento:";
+            TextBoxUsuarioCreacion.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            TextBoxUsuarioCreacion.Location = new Point(281, 35);
+            TextBoxUsuarioCreacion.Margin = new Padding(4, 3, 4, 3);
+            TextBoxUsuarioCreacion.MaxLength = 50;
+            TextBoxUsuarioCreacion.Name = "TextBoxUsuarioCreacion";
+            TextBoxUsuarioCreacion.ReadOnly = true;
+            TextBoxUsuarioCreacion.Size = new Size(221, 23);
+            TextBoxUsuarioCreacion.TabIndex = 4;
+            TextBoxUsuarioCreacion.TabStop = false;
             // 
-            // ComboBoxEstablecimiento
+            // TextBoxFechaHoraUltimaModificacion
             // 
-            ComboBoxEstablecimiento.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            ComboBoxEstablecimiento.DropDownStyle = ComboBoxStyle.DropDownList;
-            ComboBoxEstablecimiento.FormattingEnabled = true;
-            ComboBoxEstablecimiento.Location = new Point(135, 199);
-            ComboBoxEstablecimiento.Name = "ComboBoxEstablecimiento";
-            ComboBoxEstablecimiento.Size = new Size(370, 23);
-            ComboBoxEstablecimiento.TabIndex = 3;
+            TextBoxFechaHoraUltimaModificacion.Location = new Point(133, 64);
+            TextBoxFechaHoraUltimaModificacion.Margin = new Padding(4, 3, 4, 3);
+            TextBoxFechaHoraUltimaModificacion.MaxLength = 0;
+            TextBoxFechaHoraUltimaModificacion.Name = "TextBoxFechaHoraUltimaModificacion";
+            TextBoxFechaHoraUltimaModificacion.ReadOnly = true;
+            TextBoxFechaHoraUltimaModificacion.Size = new Size(140, 23);
+            TextBoxFechaHoraUltimaModificacion.TabIndex = 6;
+            TextBoxFechaHoraUltimaModificacion.TabStop = false;
             // 
-            // LabelChapaNumero
+            // TextBoxUsuarioUltimaModificacion
             // 
-            LabelChapaNumero.AutoSize = true;
-            LabelChapaNumero.Location = new Point(12, 231);
-            LabelChapaNumero.Name = "LabelChapaNumero";
-            LabelChapaNumero.Size = new Size(75, 15);
-            LabelChapaNumero.TabIndex = 4;
-            LabelChapaNumero.Text = "Nº de chapa:";
-            // 
-            // IntegerTextBoxChapaNumero
-            // 
-            IntegerTextBoxChapaNumero.AllowNull = true;
-            IntegerTextBoxChapaNumero.BeforeTouchSize = new Size(56, 23);
-            IntegerTextBoxChapaNumero.IntegerValue = 1L;
-            IntegerTextBoxChapaNumero.Location = new Point(135, 228);
-            IntegerTextBoxChapaNumero.MaxValue = 109999L;
-            IntegerTextBoxChapaNumero.MinValue = 1L;
-            IntegerTextBoxChapaNumero.Name = "IntegerTextBoxChapaNumero";
-            IntegerTextBoxChapaNumero.NegativeColor = SystemColors.ControlText;
-            IntegerTextBoxChapaNumero.Size = new Size(56, 23);
-            IntegerTextBoxChapaNumero.TabIndex = 5;
-            IntegerTextBoxChapaNumero.Text = "1";
-            IntegerTextBoxChapaNumero.TextAlign = HorizontalAlignment.Right;
+            TextBoxUsuarioUltimaModificacion.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            TextBoxUsuarioUltimaModificacion.Location = new Point(281, 64);
+            TextBoxUsuarioUltimaModificacion.Margin = new Padding(4, 3, 4, 3);
+            TextBoxUsuarioUltimaModificacion.MaxLength = 50;
+            TextBoxUsuarioUltimaModificacion.Name = "TextBoxUsuarioUltimaModificacion";
+            TextBoxUsuarioUltimaModificacion.ReadOnly = true;
+            TextBoxUsuarioUltimaModificacion.Size = new Size(221, 23);
+            TextBoxUsuarioUltimaModificacion.TabIndex = 7;
+            TextBoxUsuarioUltimaModificacion.TabStop = false;
             // 
             // FormPointEvent
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(517, 294);
-            Controls.Add(IntegerTextBoxChapaNumero);
-            Controls.Add(LabelChapaNumero);
-            Controls.Add(LabelEstablecimiento);
-            Controls.Add(ComboBoxEstablecimiento);
-            Controls.Add(GroupBoxPoint);
-            Controls.Add(TextBoxUltimaActualizacion);
-            Controls.Add(LabelUltimaActualizacion);
+            ClientSize = new Size(517, 165);
+            Controls.Add(TabControlMain);
             Controls.Add(ToolStripMain);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             KeyPreview = true;
@@ -301,15 +303,15 @@
             Name = "FormPointEvent";
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
-            Text = "Datos del punto";
+            Text = "Evento del punto";
             KeyPress += This_KeyPress;
             ToolStripMain.ResumeLayout(false);
             ToolStripMain.PerformLayout();
-            GroupBoxPoint.ResumeLayout(false);
-            GroupBoxPoint.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)DoubleTextBoxLongitud).EndInit();
-            ((System.ComponentModel.ISupportInitialize)DoubleTextBoxLatitud).EndInit();
-            ((System.ComponentModel.ISupportInitialize)IntegerTextBoxChapaNumero).EndInit();
+            TabControlMain.ResumeLayout(false);
+            TabPageGeneral.ResumeLayout(false);
+            TabPageGeneral.PerformLayout();
+            TabPageAuditoria.ResumeLayout(false);
+            TabPageAuditoria.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -317,24 +319,23 @@
         #endregion
 
         private ToolStrip ToolStripMain;
-        private TextBox TextBoxUltimaActualizacion;
-        private Label LabelUltimaActualizacion;
         internal ToolStripButton ToolStripButtonClose;
         internal ToolStripButton ToolStripButtonEdit;
         internal ToolStripButton ToolStripButtonCancel;
         internal ToolStripButton ToolStripButtonSave;
-        private GroupBox GroupBoxPoint;
-        private Label LabelLongitud;
-        private Syncfusion.Windows.Forms.Tools.DoubleTextBox DoubleTextBoxLongitud;
-        private Syncfusion.Windows.Forms.Tools.DoubleTextBox DoubleTextBoxLatitud;
-        private Label LabelLatitud;
-        private TextBox TextBoxNombre;
-        private Label LabelNombre;
-        private TextBox TextBoxIdPunto;
-        private Label LabelIdPunto;
-        private Label LabelEstablecimiento;
-        private ComboBox ComboBoxEstablecimiento;
-        private Label LabelChapaNumero;
-        private Syncfusion.Windows.Forms.Tools.IntegerTextBox IntegerTextBoxChapaNumero;
+        private Label LabelEventoTipo;
+        private ComboBox ComboBoxEventoTipo;
+        private Label LabelFechaHora;
+        private DateTimePicker DateTimePickerFecha;
+        private DateTimePicker DateTimePickerHora;
+        private TabControl TabControlMain;
+        private TabPage TabPageGeneral;
+        private TabPage TabPageAuditoria;
+        internal Label LabelId;
+        internal TextBox TextBoxId;
+        internal TextBox TextBoxFechaHoraCreacion;
+        internal TextBox TextBoxUsuarioCreacion;
+        internal TextBox TextBoxFechaHoraUltimaModificacion;
+        internal TextBox TextBoxUsuarioUltimaModificacion;
     }
 }

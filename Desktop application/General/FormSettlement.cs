@@ -1,5 +1,6 @@
 ﻿using CardonerSistemas.Framework.Base;
 using CardonerSistemas.Framework.Controls;
+using CSMaps.Models;
 
 namespace CSMaps.General
 {
@@ -41,14 +42,14 @@ namespace CSMaps.General
                 establecimiento = context.Establecimientos.Find(idEstablecimiento);
             }
 
-            InitializeFormAndControls();
+            InitializeForm();
             SetDataToUserInterface();
             isLoading = false;
 
             ChangeEditMode();
         }
 
-        private void InitializeFormAndControls()
+        private void InitializeForm()
         {
             SetAppearance();
             Common.Lists.GetEntidades(ComboBoxEntidad, context, true);
@@ -91,11 +92,17 @@ namespace CSMaps.General
 
         private void SetDataToUserInterface()
         {
-            Values.ToTextBox(TextBoxIdEstablecimiento, establecimiento.IdEstablecimiento, true, entityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
+            // General
             Values.ToTextBox(TextBoxNombre, establecimiento.Nombre);
             Values.ToComboBox(ComboBoxEntidad, establecimiento.IdEntidad);
             Values.ToTextBox(TextBoxTelefonoMovil, establecimiento.TelefonoMovil);
-            Values.ToTextBoxAsShortDateTime(TextBoxUltimaActualizacion, establecimiento.FechaHoraUltimaModificacion);
+
+            // Auditoría
+            Values.ToTextBox(TextBoxId, establecimiento.IdEstablecimiento, true, entityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
+            Values.ToTextBoxAsShortDateTime(TextBoxFechaHoraCreacion, establecimiento.FechaHoraCreacion);
+            TextBoxUsuarioCreacion.Text = Users.Users.GetDescription(context, establecimiento.IdUsuarioCreacion);
+            Values.ToTextBoxAsShortDateTime(TextBoxFechaHoraUltimaModificacion, establecimiento.FechaHoraUltimaModificacion);
+            TextBoxUsuarioUltimaModificacion.Text = Users.Users.GetDescription(context, establecimiento.IdUsuarioUltimaModificacion);
         }
 
         private void SetDataToEntityObject()
@@ -230,12 +237,14 @@ namespace CSMaps.General
             if (string.IsNullOrWhiteSpace(TextBoxNombre.Text))
             {
                 Common.Forms.ShowRequiredFieldMessageBox(entityIsFemale, entityNameSingular, false, "nombre");
+                TabControlMain.SelectedTab = TabPageGeneral;
                 TextBoxNombre.Focus();
                 return false;
             }
             if (ComboBoxEntidad.SelectedIndex == -1)
             {
                 Common.Forms.ShowRequiredFieldMessageBox(entityIsFemale, entityNameSingular, true, "entidad");
+                TabControlMain.SelectedTab = TabPageGeneral;
                 ComboBoxEntidad.Focus();
                 return false;
             }

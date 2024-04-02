@@ -42,14 +42,14 @@ namespace CSMaps.General
                 entidad = context.Entidades.Find(idEntidad);
             }
 
-            InitializeFormAndControls();
+            InitializeForm();
             SetDataToUserInterface();
             isLoading = false;
 
             ChangeEditMode();
         }
 
-        private void InitializeFormAndControls()
+        private void InitializeForm()
         {
             SetAppearance();
         }
@@ -90,10 +90,16 @@ namespace CSMaps.General
 
         private void SetDataToUserInterface()
         {
-            Values.ToTextBox(TextBoxIdEntidad, entidad.IdEntidad, true, entityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
+            // General
             Values.ToTextBox(TextBoxNombre, entidad.Nombre);
             Values.ToTextBox(TextBoxTelefonoMovil, entidad.TelefonoMovil);
-            Values.ToTextBoxAsShortDateTime(TextBoxUltimaModificacion, entidad.FechaHoraUltimaModificacion);
+
+            // Auditoría
+            Values.ToTextBox(TextBoxId, entidad.IdEntidad, true, entityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
+            Values.ToTextBoxAsShortDateTime(TextBoxFechaHoraCreacion, entidad.FechaHoraCreacion);
+            TextBoxUsuarioCreacion.Text = Users.Users.GetDescription(context, entidad.IdUsuarioCreacion);
+            Values.ToTextBoxAsShortDateTime(TextBoxFechaHoraUltimaModificacion, entidad.FechaHoraUltimaModificacion);
+            TextBoxUsuarioUltimaModificacion.Text = Users.Users.GetDescription(context, entidad.IdUsuarioUltimaModificacion);
         }
 
         private void SetDataToEntityObject()
@@ -231,6 +237,7 @@ namespace CSMaps.General
             if (string.IsNullOrWhiteSpace(TextBoxNombre.Text))
             {
                 Common.Forms.ShowRequiredFieldMessageBox(entityIsFemale, entityNameSingular, false, "nombre");
+                TabControlMain.SelectedTab = TabPageGeneral;
                 TextBoxNombre.Focus();
                 return false;
             }

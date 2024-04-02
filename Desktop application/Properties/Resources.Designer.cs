@@ -293,6 +293,16 @@ namespace CSMaps.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ImagePuntoEvento32 {
+            get {
+                object obj = ResourceManager.GetObject("ImagePuntoEvento32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ImageSearch16 {
             get {
                 object obj = ResourceManager.GetObject("ImageSearch16", resourceCulture);

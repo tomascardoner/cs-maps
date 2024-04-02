@@ -108,9 +108,9 @@ namespace CSMaps.Users
             Values.ToCheckBox(CheckBoxEsActivo, usuarioGrupo.EsActivo);
             Values.ToTextBox(TextBoxId, usuarioGrupo.IdUsuarioGrupo, true, entidadFemenina ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
             Values.ToTextBoxAsShortDateTime(TextBoxFechaHoraCreacion, usuarioGrupo.FechaHoraCreacion);
-            TextBoxUsuarioCreacion.Text = Users.GetDescription(usuarioGrupo.IdUsuarioCreacionNavigation);
+            TextBoxUsuarioCreacion.Text = Users.GetDescription(context, usuarioGrupo.IdUsuarioCreacion);
             Values.ToTextBoxAsShortDateTime(TextBoxFechaHoraModificacion, usuarioGrupo.FechaHoraUltimaModificacion);
-            TextBoxUsuarioModificacion.Text = Users.GetDescription(usuarioGrupo.IdUsuarioUltimaModificacionNavigation);
+            TextBoxUsuarioModificacion.Text = Users.GetDescription(context, usuarioGrupo.IdUsuarioUltimaModificacion);
         }
 
         private void SetDataToEntityObject()

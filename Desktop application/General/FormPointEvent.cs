@@ -1,5 +1,6 @@
 ﻿using CardonerSistemas.Framework.Base;
 using CardonerSistemas.Framework.Controls;
+using CSMaps.Models;
 
 namespace CSMaps.General
 {
@@ -8,7 +9,7 @@ namespace CSMaps.General
 
         #region Declarations
 
-        private const string entityNameSingular = "punto";
+        private const string entityNameSingular = "evento del punto";
         private const bool entityIsFemale = false;
 
         private readonly bool isLoading;
@@ -16,14 +17,14 @@ namespace CSMaps.General
         private bool isEditMode;
 
         private Models.CSMapsContext context = new();
-        private Models.Punto punto;
+        private readonly int idPunto;
         private readonly Models.PuntoEvento puntoEvento;
 
         #endregion
 
         #region Form stuff
 
-        public FormPointEvent(bool editMode, int idPunto, short idEvento)
+        public FormPointEvent(bool editMode, int idPuntoOrigen, short idEvento)
         {
             InitializeComponent();
 
@@ -31,7 +32,7 @@ namespace CSMaps.General
             isNew = (idEvento == 0);
             isEditMode = editMode;
 
-            punto = context.Puntos.Find(idPunto);
+            idPunto = idPuntoOrigen;
             puntoEvento = context.PuntoEventos.Find(idPunto, idEvento);
             if (isNew)
             {
@@ -41,19 +42,20 @@ namespace CSMaps.General
             }
             else
             {
+                puntoEvento = context.PuntoEventos.Find(idPunto, idEvento);
             }
 
-            InitializeFormAndControls();
+            InitializeForm();
             SetDataToUserInterface();
             isLoading = false;
 
             ChangeEditMode();
         }
 
-        private void InitializeFormAndControls()
+        private void InitializeForm()
         {
             SetAppearance();
-            Common.Lists.GetEstablecimientos(ComboBoxEstablecimiento, context, true);
+            Common.Lists.GetEventosTipos(ComboBoxEventoTipo, context, false, false, false);
         }
 
         private void SetAppearance()
@@ -74,15 +76,15 @@ namespace CSMaps.General
             ToolStripButtonEdit.Visible = !isEditMode;
             ToolStripButtonClose.Visible = !isEditMode;
 
-            ComboBoxEstablecimiento.Enabled = isEditMode;
-            IntegerTextBoxChapaNumero.ReadOnly = !isEditMode;
+            ComboBoxEventoTipo.Enabled = isEditMode;
+            DateTimePickerFecha.Enabled = isEditMode;
+            DateTimePickerHora.Enabled = isEditMode;
         }
 
         private void This_FormClosed(object sender, FormClosedEventArgs e)
         {
             context.Dispose();
             context = null;
-            punto = null;
             this.Dispose();
         }
 
@@ -92,16 +94,23 @@ namespace CSMaps.General
 
         private void SetDataToUserInterface()
         {
-            Values.ToTextBox(TextBoxIdPunto, punto.IdPunto, true, entityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
-            Values.ToTextBox(TextBoxNombre, punto.Nombre);
-            CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDoubleTextBox(DoubleTextBoxLatitud, punto.Latitud);
-            CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDoubleTextBox(DoubleTextBoxLongitud, punto.Longitud);
+            // General
+            Values.ToComboBox(ComboBoxEventoTipo, puntoEvento.IdEventoTipo);
+            Values.ToDateTimePicker(DateTimePickerFecha, puntoEvento.FechaHora);
+            Values.ToDateTimePicker(DateTimePickerHora, puntoEvento.FechaHora);
 
-            Values.ToTextBoxAsShortDateTime(TextBoxUltimaActualizacion, puntoEvento.FechaHoraUltimaModificacion);
+            // Auditoría
+            Values.ToTextBox(TextBoxId, puntoEvento.IdPunto, true, entityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
+            Values.ToTextBoxAsShortDateTime(TextBoxFechaHoraCreacion, puntoEvento.FechaHoraCreacion);
+            TextBoxUsuarioCreacion.Text = Users.Users.GetDescription(context, puntoEvento.IdUsuarioCreacion);
+            Values.ToTextBoxAsShortDateTime(TextBoxFechaHoraUltimaModificacion, puntoEvento.FechaHoraUltimaModificacion);
+            TextBoxUsuarioUltimaModificacion.Text = Users.Users.GetDescription(context, puntoEvento.IdUsuarioUltimaModificacion);
         }
 
         private void SetDataToEntityObject()
         {
+            puntoEvento.IdEventoTipo = Values.ComboBoxToByte(ComboBoxEventoTipo).Value;
+            puntoEvento.FechaHora = Values.DateTimePickersToDateTime(DateTimePickerFecha, DateTimePickerHora).Value;
         }
 
         #endregion
@@ -129,6 +138,11 @@ namespace CSMaps.General
                 return;
             }
 
+            if (!CompleteNewObjectData())
+            {
+                return;
+            }
+
             SetDataToEntityObject();
 
             if (context.ChangeTracker.HasChanges())
@@ -138,7 +152,7 @@ namespace CSMaps.General
                 try
                 {
                     context.SaveChanges();
-                    Program.FormMdi.FormPointsDataAndEvents?.ReadData(punto.IdPunto);
+                    Program.FormMdi.FormPointsDataAndEvents?.ReadData(idPunto);
                 }
                 catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
                 {
@@ -182,10 +196,38 @@ namespace CSMaps.General
 
         private void InitializeNewObjectData()
         {
+            puntoEvento.FechaHora = System.DateTime.Now;
             puntoEvento.IdUsuarioCreacion = Program.Usuario.IdUsuario;
             puntoEvento.FechaHoraCreacion = System.DateTime.Now;
             puntoEvento.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
             puntoEvento.FechaHoraUltimaModificacion = System.DateTime.Now;
+        }
+
+        private bool CompleteNewObjectData()
+        {
+            if (!isNew)
+            {
+                return true;
+            }
+
+            try
+            {
+                using Models.CSMapsContext newIdContext = new();
+                if (newIdContext.PuntoEventos.Any())
+                {
+                    puntoEvento.IdEvento = (short)(newIdContext.PuntoEventos.Where(pe => pe.IdPunto == idPunto).Max(pe => pe.IdEvento) + 1);
+                }
+                else
+                {
+                    puntoEvento.IdEvento = 1;
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Error.ProcessException(ex, string.Format(entityIsFemale ? Properties.Resources.StringEntityNewValuesErrorFemale : Properties.Resources.StringEntityNewValuesErrorMale, entityNameSingular));
+                return false;
+            }
         }
 
         #endregion
@@ -194,6 +236,13 @@ namespace CSMaps.General
 
         private bool VerifyData()
         {
+            if (ComboBoxEventoTipo.SelectedIndex == -1)
+            {
+                Common.Forms.ShowRequiredFieldMessageBox(entityIsFemale, entityNameSingular, false, "tipo de evento");
+                TabControlMain.SelectedTab = TabPageGeneral;
+                ComboBoxEventoTipo.Focus();
+                return false;
+            }
             return true;
         }
 

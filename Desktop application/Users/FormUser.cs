@@ -126,9 +126,9 @@ namespace CSMaps.Users
             Values.ToCheckBox(CheckBoxEsActivo, usuario.EsActivo);
             Values.ToTextBox(TextBoxId, usuario.IdUsuario, true, entityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
             Values.ToTextBoxAsShortDateTime(TextBoxFechaHoraCreacion, usuario.FechaHoraCreacion);
-            TextBoxUsuarioCreacion.Text = Users.GetDescription(usuario.IdUsuarioCreacionNavigation);
+            TextBoxUsuarioCreacion.Text = Users.GetDescription(context, usuario.IdUsuarioCreacion);
             Values.ToTextBoxAsShortDateTime(TextBoxFechaHoraModificacion, usuario.FechaHoraUltimaModificacion);
-            TextBoxUsuarioModificacion.Text = Users.GetDescription(usuario.IdUsuarioUltimaModificacionNavigation);
+            TextBoxUsuarioModificacion.Text = Users.GetDescription(context, usuario.IdUsuarioUltimaModificacion);
         }
 
         private void SetDataToEntityObject()
