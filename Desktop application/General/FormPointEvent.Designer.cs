@@ -42,6 +42,8 @@
             DateTimePickerHora = new DateTimePicker();
             TabControlMain = new TabControl();
             TabPageGeneral = new TabPage();
+            TextBoxNotas = new TextBox();
+            LabelNotas = new Label();
             TabPageAuditoria = new TabPage();
             LabelId = new Label();
             TextBoxId = new TextBox();
@@ -186,11 +188,13 @@
             TabControlMain.Location = new Point(0, 39);
             TabControlMain.Name = "TabControlMain";
             TabControlMain.SelectedIndex = 0;
-            TabControlMain.Size = new Size(517, 126);
+            TabControlMain.Size = new Size(517, 200);
             TabControlMain.TabIndex = 1;
             // 
             // TabPageGeneral
             // 
+            TabPageGeneral.Controls.Add(TextBoxNotas);
+            TabPageGeneral.Controls.Add(LabelNotas);
             TabPageGeneral.Controls.Add(LabelEventoTipo);
             TabPageGeneral.Controls.Add(ComboBoxEventoTipo);
             TabPageGeneral.Controls.Add(LabelFechaHora);
@@ -199,10 +203,32 @@
             TabPageGeneral.Location = new Point(4, 27);
             TabPageGeneral.Name = "TabPageGeneral";
             TabPageGeneral.Padding = new Padding(3);
-            TabPageGeneral.Size = new Size(509, 95);
+            TabPageGeneral.Size = new Size(509, 169);
             TabPageGeneral.TabIndex = 0;
             TabPageGeneral.Text = "General";
             TabPageGeneral.UseVisualStyleBackColor = true;
+            // 
+            // TextBoxNotas
+            // 
+            TextBoxNotas.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            TextBoxNotas.Location = new Point(114, 64);
+            TextBoxNotas.Margin = new Padding(4, 3, 4, 3);
+            TextBoxNotas.MaxLength = 0;
+            TextBoxNotas.Multiline = true;
+            TextBoxNotas.Name = "TextBoxNotas";
+            TextBoxNotas.ScrollBars = ScrollBars.Vertical;
+            TextBoxNotas.Size = new Size(388, 99);
+            TextBoxNotas.TabIndex = 6;
+            // 
+            // LabelNotas
+            // 
+            LabelNotas.AutoSize = true;
+            LabelNotas.Location = new Point(7, 67);
+            LabelNotas.Margin = new Padding(4, 0, 4, 0);
+            LabelNotas.Name = "LabelNotas";
+            LabelNotas.Size = new Size(41, 15);
+            LabelNotas.TabIndex = 5;
+            LabelNotas.Text = "Notas:";
             // 
             // TabPageAuditoria
             // 
@@ -217,7 +243,7 @@
             TabPageAuditoria.Location = new Point(4, 27);
             TabPageAuditoria.Name = "TabPageAuditoria";
             TabPageAuditoria.Padding = new Padding(3);
-            TabPageAuditoria.Size = new Size(509, 95);
+            TabPageAuditoria.Size = new Size(509, 218);
             TabPageAuditoria.TabIndex = 1;
             TabPageAuditoria.Text = "Auditoría";
             TabPageAuditoria.UseVisualStyleBackColor = true;
@@ -294,7 +320,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(517, 165);
+            ClientSize = new Size(517, 239);
             Controls.Add(TabControlMain);
             Controls.Add(ToolStripMain);
             FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -338,5 +364,7 @@
         internal TextBox TextBoxUsuarioCreacion;
         internal TextBox TextBoxFechaHoraUltimaModificacion;
         internal TextBox TextBoxUsuarioUltimaModificacion;
+        internal Label LabelNotas;
+        internal TextBox TextBoxNotas;
     }
 }

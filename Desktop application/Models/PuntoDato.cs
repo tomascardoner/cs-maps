@@ -13,6 +13,8 @@ public partial class PuntoDato
 
     public int? ChapaNumero { get; set; }
 
+    public string Notas { get; set; }
+
     public short IdUsuarioCreacion { get; set; }
 
     public DateTime FechaHoraCreacion { get; set; }

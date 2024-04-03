@@ -78,6 +78,7 @@ namespace CSMaps.General
             ComboBoxEventoTipo.Enabled = isEditMode;
             DateTimePickerFecha.Enabled = isEditMode;
             DateTimePickerHora.Enabled = isEditMode;
+            TextBoxNotas.ReadOnly = !isEditMode;
         }
 
         private void This_FormClosed(object sender, FormClosedEventArgs e)
@@ -97,6 +98,7 @@ namespace CSMaps.General
             Values.ToComboBox(ComboBoxEventoTipo, puntoEvento.IdEventoTipo);
             Values.ToDateTimePicker(DateTimePickerFecha, puntoEvento.FechaHora);
             Values.ToDateTimePicker(DateTimePickerHora, puntoEvento.FechaHora);
+            Values.ToTextBox(TextBoxNotas, puntoEvento.Notas);
 
             // Auditoría
             Values.ToTextBox(TextBoxId, puntoEvento.IdEvento, true, entityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
@@ -110,6 +112,7 @@ namespace CSMaps.General
         {
             puntoEvento.IdEventoTipo = Values.ComboBoxToByte(ComboBoxEventoTipo).Value;
             puntoEvento.FechaHora = Values.DateTimePickersToDateTime(DateTimePickerFecha, DateTimePickerHora).Value;
+            puntoEvento.Notas = Values.TextBoxToString(TextBoxNotas);
         }
 
         #endregion

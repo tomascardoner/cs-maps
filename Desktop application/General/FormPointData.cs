@@ -81,6 +81,7 @@ namespace CSMaps.General
             ComboBoxEstablecimiento.Enabled = isEditMode;
             IntegerTextBoxChapaNumero.ReadOnly = !isEditMode;
             ButtonChapaNumeroObtenerDesdeNombre.Visible = isEditMode;
+            TextBoxNotas.ReadOnly = !isEditMode;
 
             GroupBoxAgregarEvento.Visible = isNew;
             ComboBoxEventoAgregar.Visible = isNew && CheckBoxEventoAgregar.Checked;
@@ -106,6 +107,7 @@ namespace CSMaps.General
             CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDoubleTextBox(DoubleTextBoxLongitud, punto.Longitud);
             Values.ToComboBox(ComboBoxEstablecimiento, puntoDato.IdEstablecimiento);
             CardonerSistemas.Framework.Controls.Syncfusion.Values.ToIntegerTextBox(IntegerTextBoxChapaNumero, puntoDato.ChapaNumero);
+            Values.ToTextBox(TextBoxNotas, puntoDato.Notas);
 
             // Auditoría
             Values.ToTextBox(TextBoxId, puntoDato.IdPunto, true, entityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
@@ -120,6 +122,7 @@ namespace CSMaps.General
             puntoDato.IdPunto = punto.IdPunto;
             puntoDato.IdEstablecimiento = Values.ComboBoxToShort(ComboBoxEstablecimiento);
             puntoDato.ChapaNumero = CardonerSistemas.Framework.Controls.Syncfusion.Values.IntegerTextBoxToInt(IntegerTextBoxChapaNumero);
+            puntoDato.Notas = Values.TextBoxToString(TextBoxNotas);
 
             if (isNew && CheckBoxEventoAgregar.Checked)
             {

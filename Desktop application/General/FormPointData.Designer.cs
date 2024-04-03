@@ -61,6 +61,8 @@
             TextBoxUsuarioCreacion = new TextBox();
             TextBoxFechaHoraUltimaModificacion = new TextBox();
             TextBoxUsuarioUltimaModificacion = new TextBox();
+            LabelNotas = new Label();
+            TextBoxNotas = new TextBox();
             LabelCreacion = new Label();
             LabelModificacion = new Label();
             ToolStripMain.SuspendLayout();
@@ -301,12 +303,13 @@
             // 
             // GroupBoxAgregarEvento
             // 
+            GroupBoxAgregarEvento.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             GroupBoxAgregarEvento.Controls.Add(ComboBoxEventoAgregar);
             GroupBoxAgregarEvento.Controls.Add(CheckBoxEventoAgregar);
-            GroupBoxAgregarEvento.Location = new Point(6, 184);
+            GroupBoxAgregarEvento.Location = new Point(6, 285);
             GroupBoxAgregarEvento.Name = "GroupBoxAgregarEvento";
-            GroupBoxAgregarEvento.Size = new Size(497, 56);
-            GroupBoxAgregarEvento.TabIndex = 6;
+            GroupBoxAgregarEvento.Size = new Size(497, 52);
+            GroupBoxAgregarEvento.TabIndex = 8;
             GroupBoxAgregarEvento.TabStop = false;
             // 
             // ComboBoxEventoAgregar
@@ -339,11 +342,13 @@
             TabControlMain.Location = new Point(0, 39);
             TabControlMain.Name = "TabControlMain";
             TabControlMain.SelectedIndex = 0;
-            TabControlMain.Size = new Size(517, 276);
+            TabControlMain.Size = new Size(517, 374);
             TabControlMain.TabIndex = 1;
             // 
             // TabPageGeneral
             // 
+            TabPageGeneral.Controls.Add(TextBoxNotas);
+            TabPageGeneral.Controls.Add(LabelNotas);
             TabPageGeneral.Controls.Add(GroupBoxPunto);
             TabPageGeneral.Controls.Add(LabelEstablecimiento);
             TabPageGeneral.Controls.Add(ComboBoxEstablecimiento);
@@ -354,7 +359,7 @@
             TabPageGeneral.Location = new Point(4, 27);
             TabPageGeneral.Name = "TabPageGeneral";
             TabPageGeneral.Padding = new Padding(3);
-            TabPageGeneral.Size = new Size(509, 245);
+            TabPageGeneral.Size = new Size(509, 343);
             TabPageGeneral.TabIndex = 0;
             TabPageGeneral.Text = "General";
             TabPageGeneral.UseVisualStyleBackColor = true;
@@ -445,11 +450,33 @@
             TextBoxUsuarioUltimaModificacion.TabIndex = 7;
             TextBoxUsuarioUltimaModificacion.TabStop = false;
             // 
+            // LabelNotas
+            // 
+            LabelNotas.AutoSize = true;
+            LabelNotas.Location = new Point(7, 187);
+            LabelNotas.Margin = new Padding(4, 0, 4, 0);
+            LabelNotas.Name = "LabelNotas";
+            LabelNotas.Size = new Size(41, 15);
+            LabelNotas.TabIndex = 6;
+            LabelNotas.Text = "Notas:";
+            // 
+            // TextBoxNotas
+            // 
+            TextBoxNotas.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            TextBoxNotas.Location = new Point(106, 184);
+            TextBoxNotas.Margin = new Padding(4, 3, 4, 3);
+            TextBoxNotas.MaxLength = 0;
+            TextBoxNotas.Multiline = true;
+            TextBoxNotas.Name = "TextBoxNotas";
+            TextBoxNotas.ScrollBars = ScrollBars.Vertical;
+            TextBoxNotas.Size = new Size(396, 95);
+            TextBoxNotas.TabIndex = 7;
+            // 
             // FormPointData
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(517, 315);
+            ClientSize = new Size(517, 413);
             Controls.Add(TabControlMain);
             Controls.Add(ToolStripMain);
             FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -511,5 +538,7 @@
         internal TextBox TextBoxUsuarioCreacion;
         internal TextBox TextBoxFechaHoraUltimaModificacion;
         internal TextBox TextBoxUsuarioUltimaModificacion;
+        internal Label LabelNotas;
+        internal TextBox TextBoxNotas;
     }
 }
