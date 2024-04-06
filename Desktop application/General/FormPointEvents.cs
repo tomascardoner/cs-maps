@@ -1,6 +1,5 @@
 ﻿using CardonerSistemas.Framework.Base;
 using CardonerSistemas.Framework.Controls;
-using CSMaps.Users;
 
 namespace CSMaps.General
 {
@@ -17,9 +16,9 @@ namespace CSMaps.General
         private List<DataGridViewRowData> entitiesAll;
         private List<DataGridViewRowData> entitiesFiltered;
 
-        private readonly Permissions.Actions addPermission = Permissions.Actions.PointEventAdd;
-        private readonly Permissions.Actions editPermission = Permissions.Actions.PointEventEdit;
-        private readonly Permissions.Actions deletePermission = Permissions.Actions.PointEventDelete;
+        private readonly Users.Permissions.Actions addPermission = Users.Permissions.Actions.PointEventAdd;
+        private readonly Users.Permissions.Actions editPermission = Users.Permissions.Actions.PointEventEdit;
+        private readonly Users.Permissions.Actions deletePermission = Users.Permissions.Actions.PointEventDelete;
 
         private ToolStripControlHost HostDateTimePickerDateFilterFrom;
         private ToolStripControlHost HostDateTimePickerDateFilterTo;
@@ -363,9 +362,7 @@ namespace CSMaps.General
             {
                 Common.DBErrors.OtherUpdateException(ex, entityNameSingle, entityIsFemale, Properties.Resources.StringActionDelete);
             }
-
-            ReadData();
-            Program.FormMdi.FormPointsDataAndEvents?.ReadData(idPunto);
+            Common.RefreshLists.PointsEvents(idPunto, 0);
             this.Cursor = Cursors.Default;
         }
 

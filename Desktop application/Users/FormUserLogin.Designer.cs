@@ -116,7 +116,7 @@
             // PictureBoxMain
             // 
             PictureBoxMain.Image = Properties.Resources.ImageLogin48;
-            PictureBoxMain.Location = new Point(18, 53);
+            PictureBoxMain.Location = new Point(13, 60);
             PictureBoxMain.Margin = new Padding(4, 3, 4, 3);
             PictureBoxMain.Name = "PictureBoxMain";
             PictureBoxMain.Size = new Size(48, 48);
@@ -126,8 +126,8 @@
             // 
             // FormUserLogin
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleDimensions = new SizeF(96F, 96F);
+            AutoScaleMode = AutoScaleMode.Dpi;
             ClientSize = new Size(379, 127);
             ControlBox = false;
             Controls.Add(ToolStripMain);

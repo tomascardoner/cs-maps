@@ -41,10 +41,10 @@
             labelStatus.BackColor = Color.Transparent;
             labelStatus.Font = new Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelStatus.ForeColor = Color.Black;
-            labelStatus.Location = new Point(13, 303);
+            labelStatus.Location = new Point(13, 253);
             labelStatus.Margin = new Padding(4, 0, 4, 0);
             labelStatus.Name = "labelStatus";
-            labelStatus.Size = new Size(614, 18);
+            labelStatus.Size = new Size(507, 18);
             labelStatus.TabIndex = 10;
             labelStatus.Text = "Status";
             labelStatus.TextAlign = ContentAlignment.MiddleCenter;
@@ -52,12 +52,12 @@
             // labelLicensedTo
             // 
             labelLicensedTo.BackColor = Color.Transparent;
-            labelLicensedTo.Font = new Font("Tahoma", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelLicensedTo.Font = new Font("Tahoma", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelLicensedTo.ForeColor = Color.Blue;
-            labelLicensedTo.Location = new Point(13, 239);
+            labelLicensedTo.Location = new Point(13, 212);
             labelLicensedTo.Margin = new Padding(4, 0, 4, 0);
             labelLicensedTo.Name = "labelLicensedTo";
-            labelLicensedTo.Size = new Size(614, 36);
+            labelLicensedTo.Size = new Size(507, 36);
             labelLicensedTo.TabIndex = 9;
             labelLicensedTo.Text = "LicensedTo";
             labelLicensedTo.TextAlign = ContentAlignment.MiddleCenter;
@@ -67,10 +67,10 @@
             labelCopyright.BackColor = Color.Transparent;
             labelCopyright.Font = new Font("Tahoma", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             labelCopyright.ForeColor = Color.MediumTurquoise;
-            labelCopyright.Location = new Point(13, 333);
+            labelCopyright.Location = new Point(13, 273);
             labelCopyright.Margin = new Padding(4, 0, 4, 0);
             labelCopyright.Name = "labelCopyright";
-            labelCopyright.Size = new Size(614, 18);
+            labelCopyright.Size = new Size(507, 18);
             labelCopyright.TabIndex = 8;
             labelCopyright.Text = "Copyright";
             labelCopyright.TextAlign = ContentAlignment.MiddleCenter;
@@ -81,10 +81,10 @@
             labelAppTitle.BackColor = Color.Transparent;
             labelAppTitle.Font = new Font("Tahoma", 38.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             labelAppTitle.ForeColor = Color.DarkRed;
-            labelAppTitle.Location = new Point(13, 157);
+            labelAppTitle.Location = new Point(13, 12);
             labelAppTitle.Margin = new Padding(4, 0, 4, 0);
             labelAppTitle.Name = "labelAppTitle";
-            labelAppTitle.Size = new Size(579, 82);
+            labelAppTitle.Size = new Size(311, 58);
             labelAppTitle.TabIndex = 6;
             labelAppTitle.Text = "Title";
             // 
@@ -92,10 +92,10 @@
             // 
             PictureBoxCompanyLogo.BackColor = Color.White;
             PictureBoxCompanyLogo.Image = Properties.Resources.ImageCardonerSistemas;
-            PictureBoxCompanyLogo.Location = new Point(401, 12);
+            PictureBoxCompanyLogo.Location = new Point(332, 12);
             PictureBoxCompanyLogo.Margin = new Padding(4, 3, 4, 3);
             PictureBoxCompanyLogo.Name = "PictureBoxCompanyLogo";
-            PictureBoxCompanyLogo.Size = new Size(226, 66);
+            PictureBoxCompanyLogo.Size = new Size(188, 58);
             PictureBoxCompanyLogo.SizeMode = PictureBoxSizeMode.Zoom;
             PictureBoxCompanyLogo.TabIndex = 17;
             PictureBoxCompanyLogo.TabStop = false;
@@ -107,7 +107,7 @@
             BackColor = Color.FromArgb(192, 192, 0);
             BackgroundImage = Properties.Resources.ImageSplash;
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(640, 360);
+            ClientSize = new Size(533, 300);
             ControlBox = false;
             Controls.Add(PictureBoxCompanyLogo);
             Controls.Add(labelAppTitle);

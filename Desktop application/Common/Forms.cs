@@ -2,6 +2,9 @@
 {
     internal static class Forms
     {
+
+        #region Events
+
         internal static void This_KeyPress(KeyPressEventArgs e, bool isEditMode, Control activeControl, ToolStripButton toolStripButtonClose, ToolStripButton toolStripButtonSave, ToolStripButton toolStripButtonCancel, TextBox[] textBoxsToIgnore)
         {
             switch (e.KeyChar)
@@ -105,4 +108,7 @@
             MessageBox.Show(string.Format(message, entityName, fieldName), Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
+
+    #endregion
+
 }

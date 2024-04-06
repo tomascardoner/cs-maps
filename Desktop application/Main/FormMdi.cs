@@ -170,7 +170,7 @@ namespace CSMaps.Main
 
         private void ToolStripMenuItemImportGoogleEarthFile_Click(object sender, EventArgs e)
         {
-            if (Users.Permissions.Verify(Users.Permissions.Actions.PointImport))
+            if (Users.Permissions.Verify(Users.Permissions.Actions.PointImportFromGpsFile))
             {
                 FormImportGoogleEarthFile ??= new() { MdiParent = this };
                 FormImportGoogleEarthFile.Show();
@@ -179,7 +179,7 @@ namespace CSMaps.Main
 
         private void ToolStripMenuItemExportGpsFile_Click(object sender, EventArgs e)
         {
-            if (Users.Permissions.Verify(Users.Permissions.Actions.PointExport))
+            if (Users.Permissions.Verify(Users.Permissions.Actions.PointExportToGpsFile))
             {
                 FormExportGpsFile ??= new() { MdiParent = this };
                 FormExportGpsFile.Show();
@@ -188,7 +188,7 @@ namespace CSMaps.Main
 
         private void ToolStripMenuItemExportGoogleEarthFile_Click(object sender, EventArgs e)
         {
-            if (Users.Permissions.Verify(Users.Permissions.Actions.PointExport))
+            if (Users.Permissions.Verify(Users.Permissions.Actions.PointExportToGoogleEarthFile))
             {
                 FormExportGoogleEarthFile ??= new() { MdiParent = this };
                 FormExportGoogleEarthFile.Show();

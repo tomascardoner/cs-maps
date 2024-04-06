@@ -1,5 +1,4 @@
 ﻿using CardonerSistemas.Framework.Base;
-using CSMaps.Users;
 
 namespace CSMaps.General
 {
@@ -17,9 +16,9 @@ namespace CSMaps.General
         private List<Models.ObtenerPuntosDatosYEventosResult> entitiesAll;
         private List<Models.ObtenerPuntosDatosYEventosResult> entitiesFiltered;
 
-        private readonly Permissions.Actions addPermission = Permissions.Actions.PointDataAdd;
-        private readonly Permissions.Actions editPermission = Permissions.Actions.PointDataEdit;
-        private readonly Permissions.Actions deletePermission = Permissions.Actions.PointDataDelete;
+        private readonly Users.Permissions.Actions addPermission = Users.Permissions.Actions.PointDataAdd;
+        private readonly Users.Permissions.Actions editPermission = Users.Permissions.Actions.PointDataEdit;
+        private readonly Users.Permissions.Actions deletePermission = Users.Permissions.Actions.PointDataDelete;
 
         private DataGridViewColumn sortedColumn;
         private SortOrder sortOrder;
@@ -40,8 +39,8 @@ namespace CSMaps.General
         {
             SetAppearance();
 
-            ToolStripComboBoxNameFilterType.Items.AddRange([Properties.Resources.StringTextFilterTypeBegin, Properties.Resources.StringTextFilterTypeContains]);
-            ToolStripComboBoxNameFilterType.SelectedIndex = 1;
+            ToolStripComboBoxNameAndSettlementFilterType.Items.AddRange([string.Format(Properties.Resources.StringTextFilterTypeCompositeBegin, "establecimientos"), string.Format(Properties.Resources.StringTextFilterTypeCompositeContains, "establecimientos"), string.Format(Properties.Resources.StringTextFilterTypeCompositeBegin, "nombres"), string.Format(Properties.Resources.StringTextFilterTypeCompositeContains, "nombres")]);
+            ToolStripComboBoxNameAndSettlementFilterType.SelectedIndex = 1;
             using Models.CSMapsContext context = new();
             Common.Lists.GetEventosTipos(ToolStripComboBoxLastEventTypeFilter.ComboBox, context, true, true, true);
 
@@ -130,16 +129,18 @@ namespace CSMaps.General
 
             this.Cursor = Cursors.WaitCursor;
 
-            if (string.IsNullOrWhiteSpace(ToolStripTextBoxNameFilter.Text))
+            if (string.IsNullOrWhiteSpace(ToolStripTextBoxNameAndSettlementFilter.Text))
             {
                 entitiesFiltered = entitiesAll;
             }
             else
             {
-                entitiesFiltered = ToolStripComboBoxNameFilterType.SelectedIndex switch
+                entitiesFiltered = ToolStripComboBoxNameAndSettlementFilterType.SelectedIndex switch
                 {
-                    0 => [.. entitiesAll.Where(p => p.PuntoNombre.ToLower().ReplaceDiacritics().StartsWith(ToolStripTextBoxNameFilter.Text.ToLower().ReplaceDiacritics()))],
-                    1 => [.. entitiesAll.Where(p => p.PuntoNombre.ToLower().ReplaceDiacritics().Contains(ToolStripTextBoxNameFilter.Text.ToLower().ReplaceDiacritics()))],
+                    0 => [.. entitiesAll.Where(p => p.EstablecimientoNombre.ToLower().ReplaceDiacritics().StartsWith(ToolStripTextBoxNameAndSettlementFilter.Text.ToLower().ReplaceDiacritics()))],
+                    1 => [.. entitiesAll.Where(p => p.EstablecimientoNombre.ToLower().ReplaceDiacritics().Contains(ToolStripTextBoxNameAndSettlementFilter.Text.ToLower().ReplaceDiacritics()))],
+                    2 => [.. entitiesAll.Where(p => p.PuntoNombre.ToLower().ReplaceDiacritics().StartsWith(ToolStripTextBoxNameAndSettlementFilter.Text.ToLower().ReplaceDiacritics()))],
+                    3 => [.. entitiesAll.Where(p => p.PuntoNombre.ToLower().ReplaceDiacritics().Contains(ToolStripTextBoxNameAndSettlementFilter.Text.ToLower().ReplaceDiacritics()))],
                     _ => throw new NotImplementedException()
                 };
             }
@@ -213,28 +214,28 @@ namespace CSMaps.General
 
         #region Controls events
 
-        private void ToolStripComboBoxFilterType_SelectedIndexChanged(object sender, EventArgs e)
+        private void ToolStripComboBoxNameAndSettlementFilterType_SelectedIndexChanged(object sender, EventArgs e)
         {
             FilterData();
         }
 
-        private void ToolStripTextBoxSearch_Enter(object sender, EventArgs e)
+        private void ToolStripTextBoxNameAndSettlementSearch_Enter(object sender, EventArgs e)
         {
-            ToolStripTextBoxNameFilter.Select();
+            ToolStripTextBoxNameAndSettlementFilter.Select();
         }
 
-        private void ToolStripTextBoxSearch_KeyPress(object sender, KeyPressEventArgs e)
+        private void ToolStripTextBoxNameAndSettlementSearch_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (Common.Forms.Filter_KeyPress(e, ToolStripTextBoxNameFilter.TextBox))
+            if (Common.Forms.Filter_KeyPress(e, ToolStripTextBoxNameAndSettlementFilter.TextBox))
             {
                 FilterData();
                 e.Handled = true;
             }
         }
 
-        private void ToolStripButtonSearchClear_Click(object sender, EventArgs e)
+        private void ToolStripButtonNameAndSettlementSearchClear_Click(object sender, EventArgs e)
         {
-            ToolStripTextBoxNameFilter.Clear();
+            ToolStripTextBoxNameAndSettlementFilter.Clear();
             FilterData();
         }
 
@@ -323,8 +324,23 @@ namespace CSMaps.General
                 Common.DBErrors.OtherUpdateException(ex, entityNameSingle, entityIsFemale, Properties.Resources.StringActionDelete);
             }
 
-            _ = ReadData();
+            Common.RefreshLists.PointsData(0);
             this.Cursor = Cursors.Default;
+        }
+
+        private void ToolStripButtonPointEventAdd_Click(object sender, EventArgs e)
+        {
+            if (DataGridViewMain.CurrentRow == null)
+            {
+                MessageBox.Show($"No hay ningún {entityNameSingle} para agregar un evento.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (!Users.Permissions.Verify(Users.Permissions.Actions.PointEventAdd))
+            {
+                return;
+            }
+            FormPointEvent formPointEvent = new(true, ((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto, 0);
+            formPointEvent.ShowDialog(this);
         }
 
         private void ToolStripButtonPointEvents_Click(object sender, EventArgs e)

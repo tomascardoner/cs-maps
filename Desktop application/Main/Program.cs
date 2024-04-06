@@ -33,6 +33,8 @@ namespace CSMaps
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.SetHighDpiMode(HighDpiMode.SystemAware);
 
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(Constants.SyncfusionLicenseKey);
 
@@ -46,7 +48,7 @@ namespace CSMaps
             using FormSplash formSplash = new();
             formSplash.Show();
             formSplash.Cursor = Cursors.AppStarting;
-            formSplash.labelStatus.Text = "Obteniendo parámetros de conexión a base de datos...";
+            formSplash.labelStatus.Text = "Estableciendo conexión a la base de datos...";
             Application.DoEvents();
 
             // Obtengo el connection string para la conexión a la base de datos
@@ -68,6 +70,9 @@ namespace CSMaps
                 return;
             }
 
+            formSplash.labelStatus.Text = "Estableciendo conexión a la base de datos...OK";
+            Application.DoEvents();
+
             // Verifico que la Base de Datos corresponda a esta Aplicación a través del GUID guardado en los Parámetros
             if (Parameters.GetText(Parameters.ParametersId.ApplicationDatabaseGuid) != Constants.ApplicationDatabaseGuid)
             {
@@ -85,7 +90,9 @@ namespace CSMaps
                 TerminateApplication();
                 return;
             }
-            //formSplash.labelLicensedTo.Text = licensedCompany;
+            formSplash.labelLicensedTo.Text = LicensedCompany.ToUpper();
+            formSplash.labelLicensedTo.Visible = true;
+            Application.DoEvents();
 
             // Tomo el tiempo de inicio para controlar los segundos mínimos que se debe mostrar el Splash Screen
             Stopwatch stopwatch = Stopwatch.StartNew();

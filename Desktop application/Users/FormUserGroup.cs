@@ -179,9 +179,7 @@ namespace CSMaps.Users
                 try
                 {
                     context.SaveChanges();
-
-                    FormUsersGroups usuariosGrupos = (FormUsersGroups)Forms.MdiChildGetInstance(Program.FormMdi, "FormUsuariosGrupos");
-                    usuariosGrupos?.RefreshData(usuarioGrupo.IdUsuarioGrupo);
+                    Common.RefreshLists.UsersGroups(usuarioGrupo.IdUsuarioGrupo);
                 }
                 catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
                 {

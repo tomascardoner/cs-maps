@@ -154,8 +154,7 @@ namespace CSMaps.General
                 try
                 {
                     context.SaveChanges();
-                    Program.FormMdi.FormPointsDataAndEvents.FormPointEvents.ReadData(puntoEvento.IdEvento);
-                    Program.FormMdi.FormPointsDataAndEvents?.ReadData(idPunto);
+                    Common.RefreshLists.PointsEvents(idPunto, puntoEvento.IdEvento);
                 }
                 catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
                 {

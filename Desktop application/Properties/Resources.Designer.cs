@@ -303,6 +303,16 @@ namespace CSMaps.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ImagePuntoEventoAdd32 {
+            get {
+                object obj = ResourceManager.GetObject("ImagePuntoEventoAdd32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ImageSearch16 {
             get {
                 object obj = ResourceManager.GetObject("ImageSearch16", resourceCulture);
@@ -915,6 +925,24 @@ namespace CSMaps.Properties {
         internal static string StringTextFilterTypeBegin {
             get {
                 return ResourceManager.GetString("StringTextFilterTypeBegin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} que comienzan con:.
+        /// </summary>
+        internal static string StringTextFilterTypeCompositeBegin {
+            get {
+                return ResourceManager.GetString("StringTextFilterTypeCompositeBegin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} que contienen:.
+        /// </summary>
+        internal static string StringTextFilterTypeCompositeContains {
+            get {
+                return ResourceManager.GetString("StringTextFilterTypeCompositeContains", resourceCulture);
             }
         }
         
