@@ -153,7 +153,7 @@ namespace CSMaps.General
                 try
                 {
                     context.SaveChanges();
-                    Program.FormMdi.FormPoints?.ReadData(punto.IdPunto);
+                    Common.RefreshLists.Points(punto.IdPunto);
                 }
                 catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
                 {

@@ -21,11 +21,6 @@ namespace CSMaps.General
             Forms.SetFont(this, Program.AppearanceConfig.Font);
         }
 
-        private void This_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Program.FormMdi.FormImportGoogleEarthFile = null;
-        }
-
         #endregion
 
         #region Controls events

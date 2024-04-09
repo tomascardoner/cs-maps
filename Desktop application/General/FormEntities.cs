@@ -66,7 +66,6 @@ namespace CSMaps.General
         {
             entitiesAll = null;
             entitiesFiltered = null;
-            Program.FormMdi.FormEntities = null;
         }
 
         #endregion
@@ -284,7 +283,7 @@ namespace CSMaps.General
                 Common.DBErrors.OtherUpdateException(ex, entityNameSingle, entityIsFemale, Properties.Resources.StringActionDelete);
             }
 
-            ReadData();
+            Common.RefreshLists.Entities();
             this.Cursor = Cursors.Default;
         }
 

@@ -87,7 +87,6 @@
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "Importar datos desde archivo de Google Earth";
-            FormClosed += This_FormClosed;
             ResumeLayout(false);
             PerformLayout();
         }

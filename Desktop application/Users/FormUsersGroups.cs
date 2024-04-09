@@ -46,7 +46,7 @@ namespace CSMaps.Users
             ordenColumna = DataGridViewColumnNombre;
             ordenTipo = SortOrder.Ascending;
 
-            RefreshData();
+            ReadData();
         }
 
         private void SetAppearance()
@@ -61,14 +61,13 @@ namespace CSMaps.Users
         {
             listaBase = null;
             listaFiltradaYOrdenada = null;
-            Program.FormMdi.FormUsersGroups = null;
         }
 
         #endregion
 
         #region Leer y mostrar datos
 
-        internal void RefreshData(short positionIdUsuario = 0, bool restoreCurrentPosition = false)
+        internal void ReadData(short positionIdUsuario = 0, bool restoreCurrentPosition = false)
         {
             this.Cursor = Cursors.WaitCursor;
 
@@ -258,7 +257,7 @@ namespace CSMaps.Users
                 Common.DBErrors.OtherUpdateException(ex, entidadNombreSingular, entidadFemenina, Properties.Resources.StringActionDelete);
             }
 
-            RefreshData();
+            Common.RefreshLists.UsersGroups();
             this.Cursor = Cursors.Default;
         }
 

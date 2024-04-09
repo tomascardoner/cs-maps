@@ -151,7 +151,7 @@ namespace CSMaps.General
                 try
                 {
                     context.SaveChanges();
-                    Program.FormMdi.FormSettlements?.ReadData(establecimiento.IdEstablecimiento);
+                    Common.RefreshLists.Settlements(establecimiento.IdEstablecimiento);
                 }
                 catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
                 {

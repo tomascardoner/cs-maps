@@ -42,7 +42,6 @@ namespace CSMaps.General
         {
             context.Dispose();
             context = null;
-            Program.FormMdi.FormExportGoogleEarthFile = null;
             this.Dispose();
         }
 

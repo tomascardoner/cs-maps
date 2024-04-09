@@ -46,7 +46,6 @@ namespace CSMaps.Users
         {
             context.Dispose();
             context = null;
-            Program.FormMdi.FormUsersGroupsPermissions = null;
         }
 
         #endregion

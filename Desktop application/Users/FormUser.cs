@@ -197,7 +197,7 @@ namespace CSMaps.Users
                 try
                 {
                     context.SaveChanges();
-                    Program.FormMdi.FormUsers?.ReadData(usuario.IdUsuario);
+                    Common.RefreshLists.Users(usuario.IdUsuario);
                 }
                 catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
                 {
@@ -212,7 +212,6 @@ namespace CSMaps.Users
                     return;
                 }
             }
-
             this.Close();
         }
 

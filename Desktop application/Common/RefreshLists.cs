@@ -1,53 +1,43 @@
 ﻿namespace CSMaps.Common
 {
-    internal class RefreshLists
+    internal static class RefreshLists
     {
 
-        #region Declarations
-
-        private const string ForNamemUsersGroups = "FormUsersGroups";
-        private const string FormNamePointsDataAndEvents = "FormPointsDataAndEvents";
-        private const string FormNamePointEvents = "FormPointEvents";
-
-        #endregion
-
-        internal static void UsersGroups(byte idUserGroup)
+        internal static void UsersGroups(byte idUserGroup = 0)
         {
-            Form form;
-
-            form = CardonerSistemas.Framework.Base.Forms.GetInstance(Program.FormMdi.MdiChildren, ForNamemUsersGroups);
-            if (form != null)
-            {
-                ((Users.FormUsersGroups)form).RefreshData(idUserGroup);
-            }
+            Forms.GetUsersGroups()?.ReadData(idUserGroup);
         }
 
-        internal static void PointsData(int idPunto)
+        internal static void Users(short idUser = 0)
         {
-            Form form;
-
-            form = CardonerSistemas.Framework.Base.Forms.GetInstance(Program.FormMdi.MdiChildren, FormNamePointsDataAndEvents);
-            if (form != null)
-            {
-                _ = ((General.FormPointsDataAndEvents)form).ReadData(idPunto);
-            }
+            Forms.GetUsers()?.ReadData(idUser);
         }
 
-        internal static void PointsEvents(int idPunto, short idEvento)
+        internal static void Entities(short idEntity = 0)
         {
-            Form form;
+            Forms.GetEntities()?.ReadData(idEntity);
+        }
 
-            form = CardonerSistemas.Framework.Base.Forms.GetInstance(Program.FormMdi.MdiChildren, FormNamePointsDataAndEvents);
-            if (form != null)
-            {
-                _ = ((General.FormPointsDataAndEvents)form).ReadData(idPunto);
-            }
+        internal static void Settlements(short idSettlement = 0)
+        {
+            Forms.GetSettlements()?.ReadData(idSettlement);
+        }
 
-            form = CardonerSistemas.Framework.Base.Forms.GetInstance(Application.OpenForms.Cast<Form>().ToArray(), FormNamePointEvents);
-            if (form != null)
-            {
-                ((General.FormPointEvents)form).ReadData(idEvento);
-            }
+        internal static void Points(int idPoint = 0)
+        {
+            Forms.GetPoints()?.ReadData(idPoint);
+            PointsEvents(idPoint);
+        }
+
+        internal static void PointsData(int idPoint = 0)
+        {
+            Forms.GetPointsDataAndEvents()?.ReadData(idPoint);
+        }
+
+        internal static void PointsEvents(int idPoint = 0, short idEvent = 0)
+        {
+            PointsData(idPoint);
+            Forms.GetPointEvents()?.ReadData(idEvent);
         }
     }
 }

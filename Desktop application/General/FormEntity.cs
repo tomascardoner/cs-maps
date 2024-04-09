@@ -148,7 +148,7 @@ namespace CSMaps.General
                 try
                 {
                     context.SaveChanges();
-                    Program.FormMdi.FormEntities?.ReadData(entidad.IdEntidad);
+                    Common.RefreshLists.Entities(entidad.IdEntidad);
                 }
                 catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
                 {

@@ -76,7 +76,6 @@ namespace CSMaps.Users
         {
             entitiesAll = null;
             entitiesFiltered = null;
-            Program.FormMdi.FormEntities = null;
         }
 
         #endregion
@@ -273,7 +272,7 @@ namespace CSMaps.Users
                 Common.DBErrors.OtherUpdateException(ex, entityNameSingle, entityIsFemale, Properties.Resources.StringActionDelete);
             }
 
-            ReadData();
+            Common.RefreshLists.Users();
             this.Cursor = Cursors.Default;
         }
 

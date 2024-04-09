@@ -137,7 +137,6 @@ namespace CSMaps.General
                 HostDateTimePickerDateFilterTo.Dispose();
                 HostDateTimePickerDateFilterTo = null;
             }
-            Program.FormMdi.FormPointsDataAndEvents.FormPointEvents = null;
         }
 
         #endregion
@@ -362,7 +361,7 @@ namespace CSMaps.General
             {
                 Common.DBErrors.OtherUpdateException(ex, entityNameSingle, entityIsFemale, Properties.Resources.StringActionDelete);
             }
-            Common.RefreshLists.PointsEvents(idPunto, 0);
+            Common.RefreshLists.PointsEvents(idPunto);
             this.Cursor = Cursors.Default;
         }
 

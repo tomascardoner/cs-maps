@@ -1,25 +1,10 @@
 ﻿using CardonerSistemas.Framework.Base;
+using CSMaps.General;
 
 namespace CSMaps.Main
 {
     public partial class FormMdi : Form
     {
-
-        #region Declarations
-
-        internal General.FormPoints FormPoints;
-        internal Users.FormUsersGroups FormUsersGroups;
-        internal Users.FormUsersGroupsPermissions FormUsersGroupsPermissions;
-        internal Users.FormUsers FormUsers;
-
-        internal General.FormEntities FormEntities;
-        internal General.FormSettlements FormSettlements;
-        internal General.FormPointsDataAndEvents FormPointsDataAndEvents;
-        internal General.FormImportGoogleEarthFile FormImportGoogleEarthFile;
-        internal General.FormExportGpsFile FormExportGpsFile;
-        internal General.FormExportGoogleEarthFile FormExportGoogleEarthFile;
-
-        #endregion
 
         #region Form stuff
 
@@ -109,8 +94,7 @@ namespace CSMaps.Main
         {
             if (Users.Permissions.Verify(Users.Permissions.Actions.UserGroupView))
             {
-                FormUsersGroups ??= new();
-                ShowMdiForm(FormUsersGroups);
+                ShowMdiForm(Common.Forms.GetUsersGroupsOrNew(), true);
             }
         }
 
@@ -118,8 +102,7 @@ namespace CSMaps.Main
         {
             if (Users.Permissions.Verify(Users.Permissions.Actions.UserGroupPermissionView))
             {
-                FormUsersGroupsPermissions ??= new();
-                ShowMdiForm(FormUsersGroupsPermissions);
+                ShowMdiForm(Common.Forms.GetUsersGroupsPermissionsOrNew(), true);
             }
         }
 
@@ -127,8 +110,7 @@ namespace CSMaps.Main
         {
             if (Users.Permissions.Verify(Users.Permissions.Actions.UserView))
             {
-                FormUsers ??= new();
-                ShowMdiForm(FormUsers);
+                ShowMdiForm(Common.Forms.GetUsersOrNew(), true);
             }
         }
 
@@ -136,8 +118,7 @@ namespace CSMaps.Main
         {
             if (Users.Permissions.Verify(Users.Permissions.Actions.EntityView))
             {
-                FormEntities ??= new();
-                ShowMdiForm(FormEntities);
+                ShowMdiForm(Common.Forms.GetEntitiesOrNew(), true);
             }
         }
 
@@ -145,8 +126,7 @@ namespace CSMaps.Main
         {
             if (Users.Permissions.Verify(Users.Permissions.Actions.SettlementView))
             {
-                FormSettlements ??= new();
-                ShowMdiForm(FormSettlements);
+                ShowMdiForm(Common.Forms.GetSettlementsOrNew(), true);
             }
         }
 
@@ -154,8 +134,7 @@ namespace CSMaps.Main
         {
             if (Users.Permissions.Verify(Users.Permissions.Actions.PointView))
             {
-                FormPoints ??= new();
-                ShowMdiForm(FormPoints);
+                ShowMdiForm(Common.Forms.GetPointsOrNew(), true);
             }
         }
 
@@ -163,8 +142,7 @@ namespace CSMaps.Main
         {
             if (Users.Permissions.Verify(Users.Permissions.Actions.PointDataView))
             {
-                FormPointsDataAndEvents ??= new();
-                ShowMdiForm(FormPointsDataAndEvents);
+                ShowMdiForm(Common.Forms.GetPointsDataAndEventsOrNew(), true);
             }
         }
 
@@ -172,8 +150,7 @@ namespace CSMaps.Main
         {
             if (Users.Permissions.Verify(Users.Permissions.Actions.PointImportFromGpsFile))
             {
-                FormImportGoogleEarthFile ??= new() { MdiParent = this };
-                FormImportGoogleEarthFile.Show();
+                ShowMdiForm(Common.Forms.GetImportGoogleEarthFileOrNew(), false);
             }
         }
 
@@ -181,8 +158,7 @@ namespace CSMaps.Main
         {
             if (Users.Permissions.Verify(Users.Permissions.Actions.PointExportToGpsFile))
             {
-                FormExportGpsFile ??= new() { MdiParent = this };
-                FormExportGpsFile.Show();
+                ShowMdiForm(Common.Forms.GetExportGpsFileOrNew(), false);
             }
         }
 
@@ -190,8 +166,7 @@ namespace CSMaps.Main
         {
             if (Users.Permissions.Verify(Users.Permissions.Actions.PointExportToGoogleEarthFile))
             {
-                FormExportGoogleEarthFile ??= new() { MdiParent = this };
-                FormExportGoogleEarthFile.Show();
+                ShowMdiForm(Common.Forms.GetExportGoogleEarthFileOrNew(), false);
             }
         }
 
@@ -199,18 +174,16 @@ namespace CSMaps.Main
 
         #region Extra stuff
 
-        private void ShowMdiForm(Form form)
+        private void ShowMdiForm(Form form, bool fitOnMdiClient)
         {
             Application.UseWaitCursor = true;
             this.Cursor = Cursors.WaitCursor;
             Application.DoEvents();
 
-            Forms.MdiChildPositionAndSizeToFit(this, form);
+            form.MdiParent = this;
+            form.WindowState = FormWindowState.Normal;
+            form.Dock = fitOnMdiClient ? DockStyle.Fill : DockStyle.None;
             form.Show();
-            if (form.WindowState == FormWindowState.Minimized)
-            {
-                form.WindowState = FormWindowState.Normal;
-            }
             form.Focus();
 
             this.Cursor = Cursors.Default;

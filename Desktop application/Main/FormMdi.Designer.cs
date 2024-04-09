@@ -45,6 +45,7 @@
             ToolStripLabelUser = new ToolStripLabel();
             ToolStripDropDownButtonExport = new ToolStripDropDownButton();
             ToolStripMenuItemExportGpsFile = new ToolStripMenuItem();
+            ToolStripMenuItemExportGoogleEarthFile = new ToolStripMenuItem();
             MenuStripMain = new MenuStrip();
             ToolStripMenuItemFile = new ToolStripMenuItem();
             ToolStripMenuItemFileCloseUserSession = new ToolStripMenuItem();
@@ -56,7 +57,6 @@
             ToolStripSeparatorWindowList = new ToolStripSeparator();
             ToolStripMenuItemHelp = new ToolStripMenuItem();
             ToolStripMenuItemHelpAbout = new ToolStripMenuItem();
-            ToolStripMenuItemExportGoogleEarthFile = new ToolStripMenuItem();
             ToolStripMain.SuspendLayout();
             MenuStripMain.SuspendLayout();
             SuspendLayout();
@@ -217,6 +217,13 @@
             ToolStripMenuItemExportGpsFile.Text = "Archivo de GPS";
             ToolStripMenuItemExportGpsFile.Click += ToolStripMenuItemExportGpsFile_Click;
             // 
+            // ToolStripMenuItemExportGoogleEarthFile
+            // 
+            ToolStripMenuItemExportGoogleEarthFile.Name = "ToolStripMenuItemExportGoogleEarthFile";
+            ToolStripMenuItemExportGoogleEarthFile.Size = new Size(202, 22);
+            ToolStripMenuItemExportGoogleEarthFile.Text = "Archivo de Google Earth";
+            ToolStripMenuItemExportGoogleEarthFile.Click += ToolStripMenuItemExportGoogleEarthFile_Click;
+            // 
             // MenuStripMain
             // 
             MenuStripMain.Items.AddRange(new ToolStripItem[] { ToolStripMenuItemFile, ToolStripMenuItemWindow, ToolStripMenuItemHelp });
@@ -259,6 +266,7 @@
             ToolStripMenuItemFileExit.Name = "ToolStripMenuItemFileExit";
             ToolStripMenuItemFileExit.Size = new Size(280, 22);
             ToolStripMenuItemFileExit.Text = "&Salir";
+            ToolStripMenuItemFileExit.Click += ToolStripMenuItemFileExit_Click;
             // 
             // ToolStripMenuItemWindow
             // 
@@ -292,13 +300,6 @@
             ToolStripMenuItemHelpAbout.Size = new Size(135, 22);
             ToolStripMenuItemHelpAbout.Text = "&Acerca de...";
             ToolStripMenuItemHelpAbout.Click += ToolStripMenuItemHelpAbout_Click;
-            // 
-            // ToolStripMenuItemExportGoogleEarthFile
-            // 
-            ToolStripMenuItemExportGoogleEarthFile.Name = "ToolStripMenuItemExportGoogleEarthFile";
-            ToolStripMenuItemExportGoogleEarthFile.Size = new Size(202, 22);
-            ToolStripMenuItemExportGoogleEarthFile.Text = "Archivo de Google Earth";
-            ToolStripMenuItemExportGoogleEarthFile.Click += ToolStripMenuItemExportGoogleEarthFile_Click;
             // 
             // FormMdi
             // 

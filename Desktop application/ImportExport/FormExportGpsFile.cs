@@ -41,7 +41,6 @@ namespace CSMaps.General
         {
             context.Dispose();
             context = null;
-            Program.FormMdi.FormExportGpsFile = null;
             this.Dispose();
         }
 
