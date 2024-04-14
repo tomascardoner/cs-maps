@@ -28,32 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            GroupBoxIncludedPoints = new GroupBox();
             RadioButtonPointsAll = new RadioButton();
             RadioButtonPointsWithData = new RadioButton();
-            ButtonStart = new Button();
-            ButtonFile = new Button();
-            TextBoxFile = new TextBox();
+            ButtonFinish = new Button();
+            GroupBoxStep1 = new GroupBox();
+            ButtonNext = new Button();
+            ButtonPrevious = new Button();
+            GroupBoxSummary = new GroupBox();
+            LabelSummary = new Label();
+            GroupBoxStep2 = new GroupBox();
+            ListViewDevices = new ListView();
+            ColumnHeaderDescription = new ColumnHeader();
+            ColumnHeaderDriveLetter = new ColumnHeader();
             LabelFile = new Label();
-            ButtonFileFindGps = new Button();
-            GroupBoxIncludedPoints.SuspendLayout();
+            TextBoxFile = new TextBox();
+            ButtonFile = new Button();
+            GroupBoxStep1.SuspendLayout();
+            GroupBoxSummary.SuspendLayout();
+            GroupBoxStep2.SuspendLayout();
             SuspendLayout();
-            // 
-            // GroupBoxIncludedPoints
-            // 
-            GroupBoxIncludedPoints.Controls.Add(RadioButtonPointsAll);
-            GroupBoxIncludedPoints.Controls.Add(RadioButtonPointsWithData);
-            GroupBoxIncludedPoints.Location = new Point(12, 12);
-            GroupBoxIncludedPoints.Name = "GroupBoxIncludedPoints";
-            GroupBoxIncludedPoints.Size = new Size(318, 77);
-            GroupBoxIncludedPoints.TabIndex = 0;
-            GroupBoxIncludedPoints.TabStop = false;
-            GroupBoxIncludedPoints.Text = "Puntos a incluir:";
             // 
             // RadioButtonPointsAll
             // 
             RadioButtonPointsAll.AutoSize = true;
-            RadioButtonPointsAll.Location = new Point(6, 47);
+            RadioButtonPointsAll.Location = new Point(6, 64);
             RadioButtonPointsAll.Name = "RadioButtonPointsAll";
             RadioButtonPointsAll.Size = new Size(56, 19);
             RadioButtonPointsAll.TabIndex = 1;
@@ -64,7 +62,7 @@
             // 
             RadioButtonPointsWithData.AutoSize = true;
             RadioButtonPointsWithData.Checked = true;
-            RadioButtonPointsWithData.Location = new Point(6, 22);
+            RadioButtonPointsWithData.Location = new Point(6, 39);
             RadioButtonPointsWithData.Name = "RadioButtonPointsWithData";
             RadioButtonPointsWithData.Size = new Size(212, 19);
             RadioButtonPointsWithData.TabIndex = 0;
@@ -72,19 +70,135 @@
             RadioButtonPointsWithData.Text = "Sólo los que tienen datos asociados";
             RadioButtonPointsWithData.UseVisualStyleBackColor = true;
             // 
-            // ButtonStart
+            // ButtonFinish
             // 
-            ButtonStart.Location = new Point(672, 166);
-            ButtonStart.Name = "ButtonStart";
-            ButtonStart.Size = new Size(93, 34);
-            ButtonStart.TabIndex = 5;
-            ButtonStart.Text = "Iniciar...";
-            ButtonStart.UseVisualStyleBackColor = true;
-            ButtonStart.Click += ButtonStart_Click;
+            ButtonFinish.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            ButtonFinish.Location = new Point(398, 200);
+            ButtonFinish.Name = "ButtonFinish";
+            ButtonFinish.Size = new Size(98, 30);
+            ButtonFinish.TabIndex = 5;
+            ButtonFinish.Text = "Finalizar";
+            ButtonFinish.UseVisualStyleBackColor = true;
+            ButtonFinish.Click += ButtonFinish_Click;
+            // 
+            // GroupBoxStep1
+            // 
+            GroupBoxStep1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            GroupBoxStep1.Controls.Add(RadioButtonPointsAll);
+            GroupBoxStep1.Controls.Add(RadioButtonPointsWithData);
+            GroupBoxStep1.Location = new Point(12, 12);
+            GroupBoxStep1.Name = "GroupBoxStep1";
+            GroupBoxStep1.Size = new Size(484, 182);
+            GroupBoxStep1.TabIndex = 0;
+            GroupBoxStep1.TabStop = false;
+            GroupBoxStep1.Text = "Paso 1: seleccione los puntos a incluir";
+            // 
+            // ButtonNext
+            // 
+            ButtonNext.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            ButtonNext.Location = new Point(398, 200);
+            ButtonNext.Name = "ButtonNext";
+            ButtonNext.Size = new Size(98, 30);
+            ButtonNext.TabIndex = 4;
+            ButtonNext.Text = "Siguiente";
+            ButtonNext.UseVisualStyleBackColor = true;
+            ButtonNext.Click += ButtonNext_Click;
+            // 
+            // ButtonPrevious
+            // 
+            ButtonPrevious.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            ButtonPrevious.Location = new Point(294, 200);
+            ButtonPrevious.Name = "ButtonPrevious";
+            ButtonPrevious.Size = new Size(98, 30);
+            ButtonPrevious.TabIndex = 3;
+            ButtonPrevious.Text = "Anterior";
+            ButtonPrevious.UseVisualStyleBackColor = true;
+            ButtonPrevious.Click += ButtonPrevious_Click;
+            // 
+            // GroupBoxSummary
+            // 
+            GroupBoxSummary.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            GroupBoxSummary.Controls.Add(LabelSummary);
+            GroupBoxSummary.Location = new Point(12, 12);
+            GroupBoxSummary.Name = "GroupBoxSummary";
+            GroupBoxSummary.Size = new Size(484, 182);
+            GroupBoxSummary.TabIndex = 3;
+            GroupBoxSummary.TabStop = false;
+            GroupBoxSummary.Text = "Paso 3 - Resumen y finalización:";
+            // 
+            // LabelSummary
+            // 
+            LabelSummary.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            LabelSummary.Location = new Point(6, 22);
+            LabelSummary.Name = "LabelSummary";
+            LabelSummary.Size = new Size(472, 163);
+            LabelSummary.TabIndex = 0;
+            // 
+            // GroupBoxStep2
+            // 
+            GroupBoxStep2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            GroupBoxStep2.Controls.Add(ListViewDevices);
+            GroupBoxStep2.Controls.Add(LabelFile);
+            GroupBoxStep2.Controls.Add(TextBoxFile);
+            GroupBoxStep2.Controls.Add(ButtonFile);
+            GroupBoxStep2.Location = new Point(12, 12);
+            GroupBoxStep2.Name = "GroupBoxStep2";
+            GroupBoxStep2.Size = new Size(484, 182);
+            GroupBoxStep2.TabIndex = 1;
+            GroupBoxStep2.TabStop = false;
+            GroupBoxStep2.Text = "Paso 2 - seleccione el dispositivo de destino:";
+            // 
+            // ListViewDevices
+            // 
+            ListViewDevices.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            ListViewDevices.Columns.AddRange(new ColumnHeader[] { ColumnHeaderDescription, ColumnHeaderDriveLetter });
+            ListViewDevices.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            ListViewDevices.FullRowSelect = true;
+            ListViewDevices.GridLines = true;
+            ListViewDevices.HeaderStyle = ColumnHeaderStyle.Nonclickable;
+            ListViewDevices.LabelWrap = false;
+            ListViewDevices.Location = new Point(6, 22);
+            ListViewDevices.MultiSelect = false;
+            ListViewDevices.Name = "ListViewDevices";
+            ListViewDevices.ShowGroups = false;
+            ListViewDevices.Size = new Size(472, 124);
+            ListViewDevices.TabIndex = 0;
+            ListViewDevices.TileSize = new Size(250, 50);
+            ListViewDevices.UseCompatibleStateImageBehavior = false;
+            ListViewDevices.View = View.Details;
+            // 
+            // ColumnHeaderDescription
+            // 
+            ColumnHeaderDescription.Text = "Nombre";
+            ColumnHeaderDescription.Width = 330;
+            // 
+            // ColumnHeaderDriveLetter
+            // 
+            ColumnHeaderDriveLetter.Text = "Unidad";
+            ColumnHeaderDriveLetter.Width = 110;
+            // 
+            // LabelFile
+            // 
+            LabelFile.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            LabelFile.AutoSize = true;
+            LabelFile.Location = new Point(6, 156);
+            LabelFile.Name = "LabelFile";
+            LabelFile.Size = new Size(136, 15);
+            LabelFile.TabIndex = 1;
+            LabelFile.Text = "O especifique el archivo:";
+            // 
+            // TextBoxFile
+            // 
+            TextBoxFile.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            TextBoxFile.Location = new Point(148, 153);
+            TextBoxFile.Name = "TextBoxFile";
+            TextBoxFile.Size = new Size(294, 23);
+            TextBoxFile.TabIndex = 2;
             // 
             // ButtonFile
             // 
-            ButtonFile.Location = new Point(635, 109);
+            ButtonFile.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            ButtonFile.Location = new Point(448, 152);
             ButtonFile.Name = "ButtonFile";
             ButtonFile.Size = new Size(30, 23);
             ButtonFile.TabIndex = 3;
@@ -92,44 +206,17 @@
             ButtonFile.UseVisualStyleBackColor = true;
             ButtonFile.Click += ButtonFile_Click;
             // 
-            // TextBoxFile
-            // 
-            TextBoxFile.Location = new Point(130, 110);
-            TextBoxFile.Name = "TextBoxFile";
-            TextBoxFile.Size = new Size(499, 23);
-            TextBoxFile.TabIndex = 2;
-            TextBoxFile.Enter += TextBoxFile_Enter;
-            // 
-            // LabelFile
-            // 
-            LabelFile.AutoSize = true;
-            LabelFile.Location = new Point(15, 114);
-            LabelFile.Name = "LabelFile";
-            LabelFile.Size = new Size(109, 15);
-            LabelFile.TabIndex = 1;
-            LabelFile.Text = "Archivo de destino:";
-            // 
-            // ButtonFileFindGps
-            // 
-            ButtonFileFindGps.Location = new Point(671, 109);
-            ButtonFileFindGps.Name = "ButtonFileFindGps";
-            ButtonFileFindGps.Size = new Size(91, 23);
-            ButtonFileFindGps.TabIndex = 4;
-            ButtonFileFindGps.Text = "Buscar GPS";
-            ButtonFileFindGps.UseVisualStyleBackColor = true;
-            ButtonFileFindGps.Click += ButtonFileFindGps_Click;
-            // 
             // FormExportGpsFile
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(774, 214);
-            Controls.Add(ButtonFileFindGps);
-            Controls.Add(ButtonStart);
-            Controls.Add(ButtonFile);
-            Controls.Add(TextBoxFile);
-            Controls.Add(LabelFile);
-            Controls.Add(GroupBoxIncludedPoints);
+            ClientSize = new Size(508, 242);
+            Controls.Add(GroupBoxStep2);
+            Controls.Add(ButtonPrevious);
+            Controls.Add(ButtonNext);
+            Controls.Add(ButtonFinish);
+            Controls.Add(GroupBoxStep1);
+            Controls.Add(GroupBoxSummary);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
@@ -138,20 +225,29 @@
             StartPosition = FormStartPosition.CenterParent;
             Text = "Exportar datos a archivo de GPS";
             FormClosed += This_FormClosed;
-            GroupBoxIncludedPoints.ResumeLayout(false);
-            GroupBoxIncludedPoints.PerformLayout();
+            GroupBoxStep1.ResumeLayout(false);
+            GroupBoxStep1.PerformLayout();
+            GroupBoxSummary.ResumeLayout(false);
+            GroupBoxStep2.ResumeLayout(false);
+            GroupBoxStep2.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
-        private GroupBox GroupBoxIncludedPoints;
         private RadioButton RadioButtonPointsWithData;
         private RadioButton RadioButtonPointsAll;
-        private Button ButtonStart;
-        private Button ButtonFile;
+        private Button ButtonFinish;
+        private GroupBox GroupBoxStep1;
+        private Button ButtonNext;
+        private Button ButtonPrevious;
+        private GroupBox GroupBoxSummary;
+        private GroupBox GroupBoxStep2;
+        private ListView ListViewDevices;
         private TextBox TextBoxFile;
         private Label LabelFile;
-        private Button ButtonFileFindGps;
+        private Button ButtonFile;
+        private Label LabelSummary;
+        private ColumnHeader ColumnHeaderDescription;
+        private ColumnHeader ColumnHeaderDriveLetter;
     }
 }

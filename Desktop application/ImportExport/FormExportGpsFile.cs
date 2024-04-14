@@ -1,6 +1,8 @@
 ﻿using CardonerSistemas.Framework.Base;
 using Geo.Gps;
+using MediaDevices;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CSMaps.General
 {
@@ -9,9 +11,19 @@ namespace CSMaps.General
 
         #region Declarations
 
-        const string DefaultFileName = "Current.gpx";
+        const byte StepNumberMax = 3;
+
+        const string DefaultFileName = "CSMaps.gpx";
+        const string DefaultFileExtension = "gpx";
+        const string ExpectedFileSystem = "FAT32";
+        readonly string[] ManufacturerExpectedContains = ["Garmin"];
+        readonly string[] FriendlyNameExpectedContains = ["Garmin"];
+        readonly string[] DirectoriesExpected = ["GPX", "Garmin\\GPX"];
+        readonly string[] VolumeNameExpectedContains = ["Garmin"];
 
         Models.CSMapsContext context = new();
+        List<MediaDevice> mediaDevices;
+        byte stepNumber = 1;
 
         #endregion
 
@@ -26,21 +38,21 @@ namespace CSMaps.General
         private void InitializeForm()
         {
             SetAppearance();
-
-            RadioButtonPointsWithData.Text = $"Sólo los que tienen datos asociados ({context.PuntoDatos.Count():N0} puntos).";
-            RadioButtonPointsAll.Text = $"Todos ({context.Puntos.Count():N0} puntos).";
         }
 
         private void SetAppearance()
         {
             this.Icon = CardonerSistemas.Framework.Base.Graphics.GetIconFromBitmap(Properties.Resources.ImageExport32);
             Forms.SetFont(this, Program.AppearanceConfig.Font);
+
+            ShowControls();
         }
 
         private void This_FormClosed(object sender, FormClosedEventArgs e)
         {
             context.Dispose();
             context = null;
+            mediaDevices = null;
             this.Dispose();
         }
 
@@ -64,7 +76,7 @@ namespace CSMaps.General
                 CheckPathExists = true,
                 AddExtension = true,
                 CheckWriteAccess = true,
-                DefaultExt = "gpx",
+                DefaultExt = DefaultFileExtension,
                 OverwritePrompt = true
             };
             if (string.IsNullOrWhiteSpace(TextBoxFile.Text))
@@ -86,41 +98,44 @@ namespace CSMaps.General
             if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
             {
                 TextBoxFile.Text = saveFileDialog.FileName;
-                ButtonStart.Focus();
+                ButtonFinish.Focus();
             }
         }
 
-        private void ButtonFileFindGps_Click(object sender, EventArgs e)
+        private void ButtonPrevious_Click(object sender, EventArgs e)
         {
-            FindGpsLocation();
+            StepPrevious();
         }
 
-        private void ButtonStart_Click(object sender, EventArgs e)
+        private void ButtonNext_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(TextBoxFile.Text))
-            {
-                MessageBox.Show(Properties.Resources.StringExportFileNotSpecified, Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
-            }
-            if (Path.Exists(TextBoxFile.Text.Trim()) && MessageBox.Show("El archivo de destino ya existe y será reemplazado por el nuevo.\n\n¿Desea continuar?", Program.ApplicationTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
-            {
-                return;
-            }
+            StepNext();
+        }
 
-            ExportGpxFile(TextBoxFile.Text.Trim());
+        private void ButtonFinish_Click(object sender, EventArgs e)
+        {
+            ExportGpxFile();
         }
 
         #endregion
 
-        #region Find GPS drive
+        #region Find GPS devices and drives
 
-        private void FindGpsLocation()
+        private void GetGpsDevicesAndDrives()
         {
             List<string> drivesBestCandidates = [];
             List<string> drivesOtherCandidates = [];
 
             this.Cursor = Cursors.WaitCursor;
             string gpsFilePath = string.Empty;
+
+            // Try to get GPS devices by using devices method
+            GetGpsDevices();
+            if (ListViewDevices.Items.Count > 0)
+            {
+                this.Cursor = Cursors.Default;
+                return;
+            }
 
             // Gets list of possible drives
             if (!GetPossibleGpsDrives(ref drivesBestCandidates, ref drivesOtherCandidates))
@@ -130,55 +145,96 @@ namespace CSMaps.General
             }
 
             // Try directories in best candidates drives
-            foreach (var _ in from string drive in drivesBestCandidates
-                              where FindGpsDirectory(drive, ref gpsFilePath)
-                              select new { })
+            if (drivesBestCandidates.Exists(dbc => FindGpsDirectory(dbc, ref gpsFilePath)))
             {
                 this.Cursor = Cursors.Default;
                 TextBoxFile.Text = gpsFilePath;
-#pragma warning disable S1751	//Refactor the containing loop to do more than one iteration.
                 return;
-#pragma warning restore S1751    //Refactor the containing loop to do more than one iteration.                                                                
             }
 
             // Try directories in other candidates drives
-            foreach (var _ in from string drive in drivesOtherCandidates
-                              where FindGpsDirectory(drive, ref gpsFilePath)
-                              select new { })
+            if (drivesOtherCandidates.Exists(doc => FindGpsDirectory(doc, ref gpsFilePath)))
             {
                 this.Cursor = Cursors.Default;
                 TextBoxFile.Text = gpsFilePath;
-#pragma warning disable S1751	//Refactor the containing loop to do more than one iteration.
                 return;
-#pragma warning restore S1751    //Refactor the containing loop to do more than one iteration.                                                                
             }
 
             this.Cursor = Cursors.Default;
-            MessageBox.Show("No se encontró la unidad de almacenamiento correspondiente al GPS.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            MessageBox.Show("No se encontraron dispositivos o unidades de almacenamiento correspondientes a un GPS.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        }
+
+
+        private void GetGpsDevices()
+        {
+            try
+            {
+                mediaDevices = [];
+                foreach (MediaDevice mediaDevice in MediaDevice.GetDevices().Where(md => Array.Exists(ManufacturerExpectedContains, m => md.Manufacturer.ToLowerInvariant().Contains(m.ToLowerInvariant())) || Array.Exists(FriendlyNameExpectedContains, fn => md.FriendlyName.ToLowerInvariant().Contains(fn.ToLowerInvariant()))))
+                {
+                    mediaDevice.Connect();
+                    if (mediaDevice.DeviceType == DeviceType.Generic && mediaDevice.FunctionalCategories().Any(fc => fc == FunctionalCategory.Storage))
+                    {
+                        MediaDriveInfo mediaDriveInfo = mediaDevice.GetDrives().FirstOrDefault();
+                        MediaDirectoryInfo mediaDirectoryInfo = mediaDriveInfo?.RootDirectory;
+                        if (mediaDirectoryInfo != null)
+                        {
+                            foreach (string directory in DirectoriesExpected.Where(de => !string.IsNullOrWhiteSpace(de) && GpsDeviceDirectoryExists(de, ref mediaDirectoryInfo)))
+                            {
+                                mediaDevices.Add(mediaDevice);
+                                ListViewDevices.Items.Add(
+                                    new ListViewItem(
+                                        new string[] {
+                                        mediaDevice.Description.Trim(),
+                                        mediaDriveInfo?.Name
+                                            .Replace(Path.DirectorySeparatorChar.ToString(), string.Empty)
+                                            .Replace(Path.AltDirectorySeparatorChar.ToString(), string.Empty)
+                                        })
+                                    { Tag = mediaDirectoryInfo.FullName });
+                            }
+                        }
+                    }
+                    mediaDevice.Disconnect();
+                }
+            }
+            catch (Exception ex)
+            {
+                Error.ProcessException(ex, "Error al obtener la lista de dispositivos del sistema.");
+            }
+
+        }
+
+        private static bool GpsDeviceDirectoryExists(string directory, ref MediaDirectoryInfo mediaDirectoryInfo)
+        {
+            char[] separators = [Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar];
+            string firstDirectoryPart = directory.Split(separators, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)[0];
+            MediaDirectoryInfo targetMediaDirectoryInfo = mediaDirectoryInfo.EnumerateDirectories().FirstOrDefault(d => d.Name.Equals(firstDirectoryPart, StringComparison.InvariantCultureIgnoreCase));
+            if (targetMediaDirectoryInfo == null)
+            {
+                return false;
+            }
+            mediaDirectoryInfo = targetMediaDirectoryInfo;
+            if(directory.Length > firstDirectoryPart.Length)
+            {
+                return GpsDeviceDirectoryExists(directory[(firstDirectoryPart.Length + 1)..], ref mediaDirectoryInfo);
+            }
+            return true;
         }
 
         private bool GetPossibleGpsDrives(ref List<string> bestCandidates, ref List<string> otherCandidates)
         {
-            const string GpsExpectedFileSystem = "FAT32";
-            string[] GpsVolumeNameExpectedContains = ["Garm"];
 
             try
             {
-                foreach (DriveInfo driveInfo in DriveInfo.GetDrives())
+                foreach (DriveInfo driveInfo in DriveInfo.GetDrives().Where(di => di.DriveType == DriveType.Removable && di.IsReady && di.DriveFormat == ExpectedFileSystem))
                 {
-                    if (driveInfo.DriveType == DriveType.Removable && driveInfo.IsReady && driveInfo.DriveFormat == GpsExpectedFileSystem)
+                    if (Array.Exists(VolumeNameExpectedContains, vn => driveInfo.VolumeLabel.ToLowerInvariant().Contains(vn.ToLowerInvariant())))
                     {
-
-#pragma warning disable CA1862 // Use the 'StringComparison' method overloads to perform case-insensitive string comparisons
-                        if (Array.Exists(GpsVolumeNameExpectedContains, vn => driveInfo.VolumeLabel.ToLowerInvariant().Contains(vn.ToLowerInvariant())))
-                        {
-                            bestCandidates.Add(driveInfo.RootDirectory.ToString());
-                        }
-                        else
-                        {
-                            otherCandidates.Add(driveInfo.RootDirectory.ToString());
-                        }
-#pragma warning restore CA1862 // Use the 'StringComparison' method overloads to perform case-insensitive string comparisons
+                        bestCandidates.Add(driveInfo.RootDirectory.ToString());
+                    }
+                    else
+                    {
+                        otherCandidates.Add(driveInfo.RootDirectory.ToString());
                     }
                 }
                 return true;
@@ -191,35 +247,223 @@ namespace CSMaps.General
             }
         }
 
-        private static bool FindGpsDirectory(string rootDirectory, ref string gpsFilePath)
+        private bool FindGpsDirectory(string rootDirectory, ref string gpsFilePath)
         {
-            string[] GpsDirectoriesExpected = ["Garmin\\GPX", "GPX"];
-            foreach (string directoryName in from string directoryName in GpsDirectoriesExpected
-                                             where Path.Exists(Path.Combine(rootDirectory, directoryName))
-                                             select directoryName)
+            string directoryName = (from de in DirectoriesExpected
+                                    where Path.Exists(Path.Combine(rootDirectory, de))
+                                    select de).FirstOrDefault();
+            if (directoryName == null)
+            {
+                gpsFilePath = string.Empty;
+                return false;
+            }
+            else
             {
                 gpsFilePath = Path.Combine(rootDirectory, directoryName, DefaultFileName);
-#pragma warning disable S1751 //Refactor the containing loop to do more than one iteration.                                                                
                 return true;
-#pragma warning restore S1751 //Refactor the containing loop to do more than one iteration.                                                                
+            }
+        }
+
+        #endregion
+
+        #region Steps methods
+
+        private void ShowControls()
+        {
+            GroupBoxStep1.Visible = stepNumber == 1;
+            GroupBoxStep2.Visible = stepNumber == 2;
+            GroupBoxSummary.Visible = stepNumber == 3;
+
+            if (stepNumber == 1)
+            {
+                RadioButtonPointsWithData.Text = $"Sólo los que tienen datos asociados ({context.PuntoDatos.Count():N0} puntos).";
+                RadioButtonPointsAll.Text = $"Todos ({context.Puntos.Count():N0} puntos).";
+            }
+            if (stepNumber == 2)
+            {
+                GetGpsDevicesAndDrives();
+            }
+            if (stepNumber == 3)
+            {
+                ShowSummary();
             }
 
-            return false;
+            ButtonPrevious.Visible = stepNumber > 1;
+            ButtonNext.Visible = stepNumber < StepNumberMax;
+            ButtonFinish.Visible = stepNumber == StepNumberMax;
+        }
+
+        private void StepPrevious()
+        {
+            if (stepNumber > 1)
+            {
+                stepNumber--;
+                ShowControls();
+            }
+        }
+
+        private void StepNext()
+        {
+            if (stepNumber < StepNumberMax && StepVerifyRequirements())
+            {
+                stepNumber++;
+                ShowControls();
+            }
+        }
+
+        private bool StepVerifyRequirements()
+        {
+            switch (stepNumber)
+            {
+                case 1:
+                    if (!RadioButtonPointsWithData.Checked && !RadioButtonPointsAll.Checked)
+                    {
+                        MessageBox.Show("Debe especificar qué puntos quiere incluir en el archivo a exportar.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                case 2:
+                    return VerifyDestination();
+                default:
+                    return true;
+            }
+        }
+
+        private bool VerifyDestination()
+        {
+            if (ListViewDevices.SelectedItems.Count == 0 && TextBoxFile.Text.Trim().IsNullOrEmpty())
+            {
+                MessageBox.Show(Properties.Resources.StringExportDestinationNotSpecified, Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return false;
+            }
+
+            if (!TextBoxFile.Text.Trim().IsNullOrEmpty() && !Path.Exists(FileSystem.GetPathWithoutFileName(TextBoxFile.Text)))
+            {
+                MessageBox.Show("La ubicación del archivo de destino a exportar no existe.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return false;
+            }
+
+            return true;
+        }
+
+        private void ShowSummary()
+        {
+            string summary;
+            if (RadioButtonPointsAll.Checked)
+            {
+                summary = $"Se exportarán todos los puntos del sistema (cantidad: {context.Puntos.Count():N0}).\n\n";
+            }
+            else
+            {
+                summary = $"Se exportarán sólo los puntos del sistema que tienen datos asociados (cantidad: {context.PuntoDatos.Count():N0}).\n\n";
+            }
+            if (TextBoxFile.Text.IsNullOrEmpty())
+            {
+                summary += $"El dispositivo de destino es: {ListViewDevices.SelectedItems[0].Text} - unidad {ListViewDevices.SelectedItems[0].SubItems[1].Text}";
+            }
+            else
+            {
+                summary += $"El archivo de destino es: {TextBoxFile.Text.Trim()}";
+            }
+
+            LabelSummary.Text = summary;
         }
 
         #endregion
 
         #region Export GPX file
 
-        private void ExportGpxFile(string filePath)
+        private void ExportGpxFile()
         {
+            bool destinationIsDevice = TextBoxFile.Text.IsNullOrEmpty();
+            string fileFullPath;
+
+            if (destinationIsDevice)
+            {
+                fileFullPath = Path.Combine(ListViewDevices.SelectedItems[0].Tag.ToString(), DefaultFileName);
+            }
+            else
+            {
+                fileFullPath = TextBoxFile.Text.Trim();
+            }
+
             this.Cursor = Cursors.WaitCursor;
-            List<Models.Punto> puntos;
+            if (!ExportVerifyDestination(destinationIsDevice, fileFullPath))
+            {
+                this.Cursor = Cursors.Default;
+                return;
+            }
+
+            List<Models.Punto> puntos = ExportGetPoints();
+            if (puntos.Count == 0)
+            {
+                this.Cursor = Cursors.Default;
+                return;
+            }
+
+            GpsData gpsData = new();
+            if (!ExportGetGpsData(puntos, gpsData))
+            {
+                this.Cursor = Cursors.Default;
+                return;
+            }
+
+            string tempFilePath = Path.Combine(Path.GetTempPath(), DefaultFileName);
+            if (!ExportSaveToFile(destinationIsDevice, destinationIsDevice ? tempFilePath : fileFullPath, gpsData))
+            {
+                this.Cursor = Cursors.Default;
+                return;
+            }
+
+            if (destinationIsDevice && !ExportUploadFileToDevice(tempFilePath, fileFullPath))
+            {
+                this.Cursor = Cursors.Default;
+                return;
+            }
+
+            this.Cursor = Cursors.Default;
+            MessageBox.Show($"Se ha exportado correctamente la información de {puntos.Count:N0} puntos al destino especificado.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            this.Close();
+        }
+
+        private bool ExportVerifyDestination(bool destinationIsDevice, string fileFullPath)
+        {
+            if (destinationIsDevice)
+            {
+                try
+                {
+                    using MediaDevice mediaDevice = mediaDevices[ListViewDevices.SelectedItems[0].Index];
+                    mediaDevice.Connect();
+                    if (mediaDevice.FileExists(fileFullPath) && MessageBox.Show(string.Format(Properties.Resources.StringFileDestinationConfirmOverwrite, Environment.NewLine), Program.ApplicationTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
+                    {
+                        mediaDevice.Disconnect();
+                        return false;
+                    }
+                    mediaDevice.Disconnect();
+                }
+                catch (Exception ex)
+                {
+                    Error.ProcessException(ex, "Error al verificar la ubicación en el dispositivo de destino.");
+                    return false;
+                }
+            }
+            else if (Path.Exists(fileFullPath) && MessageBox.Show(Properties.Resources.StringFileDestinationConfirmOverwrite, Program.ApplicationTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private List<Models.Punto> ExportGetPoints()
+        {
             try
             {
                 if (RadioButtonPointsWithData.Checked)
                 {
-                    puntos = [.. context.Puntos
+                    return [.. context.Puntos
                                 .Include(p => p.PuntoDato)
                                 .ThenInclude(pd => pd.IdEstablecimientoNavigation)
                                 .ThenInclude(e => e.IdEntidadNavigation)
@@ -228,7 +472,7 @@ namespace CSMaps.General
                 }
                 else
                 {
-                    puntos = [.. context.Puntos
+                    return [.. context.Puntos
                                 .Include(p => p.PuntoDato)
                                 .ThenInclude(pd => pd.IdEstablecimientoNavigation)
                                 .ThenInclude(e => e.IdEntidadNavigation)
@@ -237,12 +481,13 @@ namespace CSMaps.General
             }
             catch (Exception ex)
             {
-                this.Cursor = Cursors.Default;
                 Error.ProcessException(ex, "Error al obtener los puntos para exportar.");
-                return;
+                return [];
             }
+        }
 
-            GpsData gpsData = new();
+        private static bool ExportGetGpsData(List<Models.Punto> puntos, GpsData gpsData)
+        {
             try
             {
                 foreach (Models.Punto punto in puntos)
@@ -250,30 +495,53 @@ namespace CSMaps.General
                     Geo.Geometries.Point point = new((double)punto.Latitud, (double)punto.Longitud, (double)punto.Altitud);
                     gpsData.Waypoints.Add(new(point, punto.NombreExportar, punto.ComentarioExportar, punto.DescripcionExportar));
                 }
+                return true;
             }
             catch (Exception ex)
             {
-                this.Cursor = Cursors.Default;
                 Error.ProcessException(ex, "Error al convertir los puntos para exportar.");
-                return;
+                return false;
             }
+        }
 
+        private static bool ExportSaveToFile(bool destinationIsDevice, string fileFullPath, GpsData gpsData)
+        {
             try
             {
                 Geo.Gps.Serialization.Gpx11Serializer serializer = new();
-                using FileStream fileStream = new(filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None);
+                using FileStream fileStream = new(fileFullPath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None);
                 fileStream.SetLength(0);
                 serializer.Serialize(gpsData, fileStream);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Error.ProcessException(ex, destinationIsDevice ? Properties.Resources.StringExportFileTempWriteError : Properties.Resources.StringExportFileWriteError);
+                return false;
+            }
+        }
+
+        private bool ExportUploadFileToDevice(string tempFilePath, string fileFullPath)
+        {
+            try
+            {
+                using MediaDevice mediaDevice = mediaDevices[ListViewDevices.SelectedItems[0].Index];
+                mediaDevice.Connect();
+                if (mediaDevice.FileExists(fileFullPath))
+                {
+                    mediaDevice.DeleteFile(fileFullPath);
+                }
+                using FileStream fileStream = File.OpenRead(tempFilePath);
+                mediaDevice.UploadFile(fileStream, fileFullPath);
+                mediaDevice.Disconnect();
+                return true;
             }
             catch (Exception ex)
             {
                 this.Cursor = Cursors.Default;
-                Error.ProcessException(ex, "Error al guardar los datos en el archivo de destino.");
-                return;
+                Error.ProcessException(ex, "Error al enviar el archivo de datos al dispositivo de destino.");
+                return false;
             }
-
-            this.Cursor = Cursors.Default;
-            MessageBox.Show($"Se ha exportado correctamente la información de {puntos.Count:N0} puntos al archivo GPX especificado.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         #endregion

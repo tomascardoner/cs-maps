@@ -311,14 +311,23 @@
   <data name="StringEntitySaveChangesErrorMale" xml:space="preserve">
     <value>Error al actualizar los cambios de el {0} en la base de datos.</value>
   </data>
-  <data name="StringExportFileNotSpecified" xml:space="preserve">
-    <value>Debe especificar el archivo de destino al que desea exportar.</value>
+  <data name="StringExportDestinationNotSpecified" xml:space="preserve">
+    <value>Debe especificar el dispositivo o la ubicación del archivo al que desea exportar.</value>
+  </data>
+  <data name="StringExportFileTempWriteError" xml:space="preserve">
+    <value>Error al guardar los datos en el archivo temporario.</value>
+  </data>
+  <data name="StringExportFileWriteError" xml:space="preserve">
+    <value>Error al guardar los datos en el archivo de destino.</value>
   </data>
   <data name="StringExportGoogleEarthFileSaveDialogTitle" xml:space="preserve">
     <value>Especifique el archivo de Google Earth para exportar</value>
   </data>
   <data name="StringExportGpsFileSaveDialogTitle" xml:space="preserve">
     <value>Especifique el archivo de GPS para exportar</value>
+  </data>
+  <data name="StringFileDestinationConfirmOverwrite" xml:space="preserve">
+    <value>El archivo de destino ya existe y será reemplazado por el nuevo.{0}{0}¿Desea continuar?</value>
   </data>
   <data name="StringFileNotFound" xml:space="preserve">
     <value>El archivo especificado no existe.</value>

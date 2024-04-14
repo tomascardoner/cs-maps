@@ -650,11 +650,29 @@ namespace CSMaps.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Debe especificar el archivo de destino al que desea exportar..
+        ///   Looks up a localized string similar to Debe especificar el dispositivo o la ubicación del archivo al que desea exportar..
         /// </summary>
-        internal static string StringExportFileNotSpecified {
+        internal static string StringExportDestinationNotSpecified {
             get {
-                return ResourceManager.GetString("StringExportFileNotSpecified", resourceCulture);
+                return ResourceManager.GetString("StringExportDestinationNotSpecified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error al guardar los datos en el archivo temporario..
+        /// </summary>
+        internal static string StringExportFileTempWriteError {
+            get {
+                return ResourceManager.GetString("StringExportFileTempWriteError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error al guardar los datos en el archivo de destino..
+        /// </summary>
+        internal static string StringExportFileWriteError {
+            get {
+                return ResourceManager.GetString("StringExportFileWriteError", resourceCulture);
             }
         }
         
@@ -673,6 +691,15 @@ namespace CSMaps.Properties {
         internal static string StringExportGpsFileSaveDialogTitle {
             get {
                 return ResourceManager.GetString("StringExportGpsFileSaveDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El archivo de destino ya existe y será reemplazado por el nuevo.{0}{0}¿Desea continuar?.
+        /// </summary>
+        internal static string StringFileDestinationConfirmOverwrite {
+            get {
+                return ResourceManager.GetString("StringFileDestinationConfirmOverwrite", resourceCulture);
             }
         }
         

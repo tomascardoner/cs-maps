@@ -124,7 +124,7 @@ namespace CSMaps.General
             }
             if (string.IsNullOrWhiteSpace(TextBoxFile.Text))
             {
-                MessageBox.Show(Properties.Resources.StringExportFileNotSpecified, Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(Properties.Resources.StringExportDestinationNotSpecified, Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
             if (Path.Exists(TextBoxFile.Text.Trim()) && MessageBox.Show("El archivo de destino ya existe y será reemplazado por el nuevo.\n\n¿Desea continuar?", Program.ApplicationTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
