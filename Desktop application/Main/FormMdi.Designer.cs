@@ -303,7 +303,7 @@
             // 
             // FormMdi
             // 
-            AutoScaleMode = AutoScaleMode.None;
+            AutoScaleMode = AutoScaleMode.Inherit;
             ClientSize = new Size(737, 400);
             Controls.Add(ToolStripMain);
             Controls.Add(MenuStripMain);

@@ -70,7 +70,7 @@
             ToolStripMain.Items.AddRange(new ToolStripItem[] { ToolStripButtonAdd, ToolStripButtonView, ToolStripButtonEdit, ToolStripButtonDelete, ToolStripButtonPointEventAdd, ToolStripButtonPointEvents });
             ToolStripMain.Location = new Point(0, 0);
             ToolStripMain.Name = "ToolStripMain";
-            ToolStripMain.Size = new Size(534, 39);
+            ToolStripMain.Size = new Size(503, 39);
             ToolStripMain.TabIndex = 0;
             // 
             // ToolStripButtonAdd
@@ -314,8 +314,7 @@
             // 
             // FormPointsDataAndEvents
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.Inherit;
             ClientSize = new Size(910, 333);
             Controls.Add(DataGridViewMain);
             Controls.Add(FlowLayoutPanelToolbars);

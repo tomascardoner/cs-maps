@@ -30,11 +30,10 @@ namespace CSMaps
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();
+            Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.SetHighDpiMode(HighDpiMode.SystemAware);
+            Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
+            ApplicationConfiguration.Initialize();
 
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(Constants.SyncfusionLicenseKey);
 
@@ -132,13 +131,13 @@ namespace CSMaps
             }
             else
             {
-                using Users.FormUserLogin formLogin = new();
-                if (formLogin.ShowDialog(FormMdi) == DialogResult.Cancel)
+                using Users.FormUserLogin formUserLogin = new();
+                if (formUserLogin.ShowDialog(FormMdi) == DialogResult.Cancel)
                 {
                     Application.Exit();
                     return;
                 }
-                formLogin.Close();
+                formUserLogin.Close();
             }
 
             // Cambio el puntero del mouse a modo normal

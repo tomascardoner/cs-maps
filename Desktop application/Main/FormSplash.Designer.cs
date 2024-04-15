@@ -54,13 +54,13 @@
             labelLicensedTo.BackColor = Color.Transparent;
             labelLicensedTo.Font = new Font("Tahoma", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelLicensedTo.ForeColor = Color.Blue;
-            labelLicensedTo.Location = new Point(13, 212);
+            labelLicensedTo.Location = new Point(13, 214);
             labelLicensedTo.Margin = new Padding(4, 0, 4, 0);
             labelLicensedTo.Name = "labelLicensedTo";
-            labelLicensedTo.Size = new Size(507, 36);
+            labelLicensedTo.Size = new Size(507, 30);
             labelLicensedTo.TabIndex = 9;
             labelLicensedTo.Text = "LicensedTo";
-            labelLicensedTo.TextAlign = ContentAlignment.MiddleCenter;
+            labelLicensedTo.TextAlign = ContentAlignment.TopCenter;
             // 
             // labelCopyright
             // 
@@ -79,12 +79,12 @@
             // 
             labelAppTitle.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             labelAppTitle.BackColor = Color.Transparent;
-            labelAppTitle.Font = new Font("Tahoma", 38.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelAppTitle.Font = new Font("Tahoma", 38.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelAppTitle.ForeColor = Color.DarkRed;
             labelAppTitle.Location = new Point(13, 12);
             labelAppTitle.Margin = new Padding(4, 0, 4, 0);
             labelAppTitle.Name = "labelAppTitle";
-            labelAppTitle.Size = new Size(311, 58);
+            labelAppTitle.Size = new Size(311, 77);
             labelAppTitle.TabIndex = 6;
             labelAppTitle.Text = "Title";
             // 
@@ -102,8 +102,7 @@
             // 
             // FormSplash
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.FromArgb(192, 192, 0);
             BackgroundImage = Properties.Resources.ImageSplash;
             BackgroundImageLayout = ImageLayout.Stretch;

@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             FlowLayoutPanelToolbars = new FlowLayoutPanel();
             ToolStripMain = new ToolStrip();
             ToolStripButtonAdd = new ToolStripButton();
@@ -39,16 +39,16 @@
             ToolStripActiveFilter = new ToolStrip();
             ToolStripLabelActiveFilter = new ToolStripLabel();
             ToolStripComboBoxActiveFilter = new ToolStripComboBox();
+            ToolStripItemsCounter = new ToolStrip();
+            ToolStripLabelItemsCounter = new ToolStripLabel();
             DataGridViewMain = new DataGridView();
             DataGridViewColumnNombre = new DataGridViewTextBoxColumn();
             DataGridViewColumnEsActivo = new DataGridViewCheckBoxColumn();
-            ToolStripItemsCounter = new ToolStrip();
-            ToolStripLabelItemsCounter = new ToolStripLabel();
             FlowLayoutPanelToolbars.SuspendLayout();
             ToolStripMain.SuspendLayout();
             ToolStripActiveFilter.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)DataGridViewMain).BeginInit();
             ToolStripItemsCounter.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)DataGridViewMain).BeginInit();
             SuspendLayout();
             // 
             // FlowLayoutPanelToolbars
@@ -139,17 +139,34 @@
             ToolStripComboBoxActiveFilter.Size = new Size(87, 39);
             ToolStripComboBoxActiveFilter.SelectedIndexChanged += Activo_SelectedIndexChanged;
             // 
+            // ToolStripItemsCounter
+            // 
+            ToolStripItemsCounter.BackColor = Color.FromArgb(255, 224, 192);
+            ToolStripItemsCounter.Dock = DockStyle.Fill;
+            ToolStripItemsCounter.GripStyle = ToolStripGripStyle.Hidden;
+            ToolStripItemsCounter.Items.AddRange(new ToolStripItem[] { ToolStripLabelItemsCounter });
+            ToolStripItemsCounter.Location = new Point(483, 0);
+            ToolStripItemsCounter.Name = "ToolStripItemsCounter";
+            ToolStripItemsCounter.Size = new Size(3, 39);
+            ToolStripItemsCounter.TabIndex = 18;
+            // 
+            // ToolStripLabelItemsCounter
+            // 
+            ToolStripLabelItemsCounter.Alignment = ToolStripItemAlignment.Right;
+            ToolStripLabelItemsCounter.Name = "ToolStripLabelItemsCounter";
+            ToolStripLabelItemsCounter.Size = new Size(0, 36);
+            // 
             // DataGridViewMain
             // 
             DataGridViewMain.AllowUserToAddRows = false;
             DataGridViewMain.AllowUserToDeleteRows = false;
             DataGridViewMain.AllowUserToOrderColumns = true;
             DataGridViewMain.AllowUserToResizeRows = false;
-            dataGridViewCellStyle5.BackColor = SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = SystemColors.MenuHighlight;
-            dataGridViewCellStyle5.SelectionForeColor = SystemColors.WindowText;
-            DataGridViewMain.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.BackColor = SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.MenuHighlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.WindowText;
+            DataGridViewMain.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             DataGridViewMain.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             DataGridViewMain.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             DataGridViewMain.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -172,8 +189,8 @@
             // 
             DataGridViewColumnNombre.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             DataGridViewColumnNombre.DataPropertyName = "Nombre";
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            DataGridViewColumnNombre.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            DataGridViewColumnNombre.DefaultCellStyle = dataGridViewCellStyle2;
             DataGridViewColumnNombre.HeaderText = "Nombre";
             DataGridViewColumnNombre.Name = "DataGridViewColumnNombre";
             DataGridViewColumnNombre.ReadOnly = true;
@@ -188,27 +205,9 @@
             DataGridViewColumnEsActivo.ReadOnly = true;
             DataGridViewColumnEsActivo.Width = 47;
             // 
-            // ToolStripItemsCounter
-            // 
-            ToolStripItemsCounter.BackColor = Color.FromArgb(255, 224, 192);
-            ToolStripItemsCounter.Dock = DockStyle.Fill;
-            ToolStripItemsCounter.GripStyle = ToolStripGripStyle.Hidden;
-            ToolStripItemsCounter.Items.AddRange(new ToolStripItem[] { ToolStripLabelItemsCounter });
-            ToolStripItemsCounter.Location = new Point(483, 0);
-            ToolStripItemsCounter.Name = "ToolStripItemsCounter";
-            ToolStripItemsCounter.Size = new Size(3, 39);
-            ToolStripItemsCounter.TabIndex = 18;
-            // 
-            // ToolStripLabelItemsCounter
-            // 
-            ToolStripLabelItemsCounter.Alignment = ToolStripItemAlignment.Right;
-            ToolStripLabelItemsCounter.Name = "ToolStripLabelItemsCounter";
-            ToolStripLabelItemsCounter.Size = new Size(0, 36);
-            // 
             // FormUsersGroups
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.Inherit;
             ClientSize = new Size(1002, 430);
             Controls.Add(DataGridViewMain);
             Controls.Add(FlowLayoutPanelToolbars);
@@ -225,9 +224,9 @@
             ToolStripMain.PerformLayout();
             ToolStripActiveFilter.ResumeLayout(false);
             ToolStripActiveFilter.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)DataGridViewMain).EndInit();
             ToolStripItemsCounter.ResumeLayout(false);
             ToolStripItemsCounter.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)DataGridViewMain).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }

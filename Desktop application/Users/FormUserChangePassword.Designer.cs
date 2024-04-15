@@ -142,8 +142,7 @@
             // 
             // FormUserChangePassword
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.Inherit;
             ClientSize = new Size(410, 166);
             ControlBox = false;
             Controls.Add(TextBoxPasswordConfirma);

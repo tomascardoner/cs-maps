@@ -54,6 +54,8 @@
             CheckBoxEventoAgregar = new CheckBox();
             TabControlMain = new TabControl();
             TabPageGeneral = new TabPage();
+            TextBoxNotas = new TextBox();
+            LabelNotas = new Label();
             TabPageAuditoria = new TabPage();
             LabelId = new Label();
             TextBoxId = new TextBox();
@@ -61,8 +63,6 @@
             TextBoxUsuarioCreacion = new TextBox();
             TextBoxFechaHoraUltimaModificacion = new TextBox();
             TextBoxUsuarioUltimaModificacion = new TextBox();
-            LabelNotas = new Label();
-            TextBoxNotas = new TextBox();
             LabelCreacion = new Label();
             LabelModificacion = new Label();
             ToolStripMain.SuspendLayout();
@@ -364,6 +364,28 @@
             TabPageGeneral.Text = "General";
             TabPageGeneral.UseVisualStyleBackColor = true;
             // 
+            // TextBoxNotas
+            // 
+            TextBoxNotas.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            TextBoxNotas.Location = new Point(106, 184);
+            TextBoxNotas.Margin = new Padding(4, 3, 4, 3);
+            TextBoxNotas.MaxLength = 0;
+            TextBoxNotas.Multiline = true;
+            TextBoxNotas.Name = "TextBoxNotas";
+            TextBoxNotas.ScrollBars = ScrollBars.Vertical;
+            TextBoxNotas.Size = new Size(396, 95);
+            TextBoxNotas.TabIndex = 7;
+            // 
+            // LabelNotas
+            // 
+            LabelNotas.AutoSize = true;
+            LabelNotas.Location = new Point(7, 187);
+            LabelNotas.Margin = new Padding(4, 0, 4, 0);
+            LabelNotas.Name = "LabelNotas";
+            LabelNotas.Size = new Size(41, 15);
+            LabelNotas.TabIndex = 6;
+            LabelNotas.Text = "Notas:";
+            // 
             // TabPageAuditoria
             // 
             TabPageAuditoria.Controls.Add(LabelId);
@@ -377,7 +399,7 @@
             TabPageAuditoria.Location = new Point(4, 27);
             TabPageAuditoria.Name = "TabPageAuditoria";
             TabPageAuditoria.Padding = new Padding(3);
-            TabPageAuditoria.Size = new Size(509, 245);
+            TabPageAuditoria.Size = new Size(509, 343);
             TabPageAuditoria.TabIndex = 1;
             TabPageAuditoria.Text = "Auditoría";
             TabPageAuditoria.UseVisualStyleBackColor = true;
@@ -450,32 +472,9 @@
             TextBoxUsuarioUltimaModificacion.TabIndex = 7;
             TextBoxUsuarioUltimaModificacion.TabStop = false;
             // 
-            // LabelNotas
-            // 
-            LabelNotas.AutoSize = true;
-            LabelNotas.Location = new Point(7, 187);
-            LabelNotas.Margin = new Padding(4, 0, 4, 0);
-            LabelNotas.Name = "LabelNotas";
-            LabelNotas.Size = new Size(41, 15);
-            LabelNotas.TabIndex = 6;
-            LabelNotas.Text = "Notas:";
-            // 
-            // TextBoxNotas
-            // 
-            TextBoxNotas.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            TextBoxNotas.Location = new Point(106, 184);
-            TextBoxNotas.Margin = new Padding(4, 3, 4, 3);
-            TextBoxNotas.MaxLength = 0;
-            TextBoxNotas.Multiline = true;
-            TextBoxNotas.Name = "TextBoxNotas";
-            TextBoxNotas.ScrollBars = ScrollBars.Vertical;
-            TextBoxNotas.Size = new Size(396, 95);
-            TextBoxNotas.TabIndex = 7;
-            // 
             // FormPointData
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.Inherit;
             ClientSize = new Size(517, 413);
             Controls.Add(TabControlMain);
             Controls.Add(ToolStripMain);

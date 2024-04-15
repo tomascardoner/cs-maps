@@ -216,8 +216,7 @@
             // 
             // FormEntities
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.Inherit;
             ClientSize = new Size(910, 333);
             Controls.Add(DataGridViewMain);
             Controls.Add(FlowLayoutPanelToolbars);

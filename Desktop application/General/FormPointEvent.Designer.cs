@@ -243,7 +243,7 @@
             TabPageAuditoria.Location = new Point(4, 27);
             TabPageAuditoria.Name = "TabPageAuditoria";
             TabPageAuditoria.Padding = new Padding(3);
-            TabPageAuditoria.Size = new Size(509, 218);
+            TabPageAuditoria.Size = new Size(509, 169);
             TabPageAuditoria.TabIndex = 1;
             TabPageAuditoria.Text = "Auditoría";
             TabPageAuditoria.UseVisualStyleBackColor = true;
@@ -318,8 +318,7 @@
             // 
             // FormPointEvent
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.Inherit;
             ClientSize = new Size(517, 239);
             Controls.Add(TabControlMain);
             Controls.Add(ToolStripMain);

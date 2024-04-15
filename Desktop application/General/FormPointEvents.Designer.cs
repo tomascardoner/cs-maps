@@ -352,8 +352,7 @@
             // 
             // FormPointEvents
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.Inherit;
             ClientSize = new Size(528, 382);
             Controls.Add(TableLayoutPanelMain);
             FormBorderStyle = FormBorderStyle.FixedDialog;

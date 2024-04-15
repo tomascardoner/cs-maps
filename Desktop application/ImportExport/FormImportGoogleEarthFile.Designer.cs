@@ -73,8 +73,7 @@
             // 
             // FormImportGoogleEarthFile
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.Inherit;
             ClientSize = new Size(774, 114);
             Controls.Add(ButtonStart);
             Controls.Add(ButtonFile);

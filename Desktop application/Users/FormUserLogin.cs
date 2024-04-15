@@ -19,9 +19,7 @@ namespace CSMaps.Users
         public FormUserLogin()
         {
             InitializeComponent();
-
             SetApperance();
-
             InitializeFormAndControls();
         }
 

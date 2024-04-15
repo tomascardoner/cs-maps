@@ -34,6 +34,10 @@
             ToolStripButtonEdit = new ToolStripButton();
             ToolStripButtonDelete = new ToolStripButton();
             DataGridViewMain = new DataGridView();
+            DataGridViewColumnNombre = new DataGridViewTextBoxColumn();
+            DataGridViewColumnLatitud = new DataGridViewTextBoxColumn();
+            DataGridViewColumnLongitud = new DataGridViewTextBoxColumn();
+            DataGridViewColumnAltitud = new DataGridViewTextBoxColumn();
             FlowLayoutPanelToolbars = new FlowLayoutPanel();
             ToolStripNameFilter = new ToolStrip();
             ToolStripLabelNameFilter = new ToolStripLabel();
@@ -42,10 +46,6 @@
             ToolStripButtonNameFilterClear = new ToolStripButton();
             ToolStripItemsCounter = new ToolStrip();
             ToolStripLabelItemsCounter = new ToolStripLabel();
-            DataGridViewColumnNombre = new DataGridViewTextBoxColumn();
-            DataGridViewColumnLatitud = new DataGridViewTextBoxColumn();
-            DataGridViewColumnLongitud = new DataGridViewTextBoxColumn();
-            DataGridViewColumnAltitud = new DataGridViewTextBoxColumn();
             ToolStripMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DataGridViewMain).BeginInit();
             FlowLayoutPanelToolbars.SuspendLayout();
@@ -127,6 +127,38 @@
             DataGridViewMain.DoubleClick += ToolStripButtonView_Click;
             DataGridViewMain.KeyPress += DataGridViewMain_KeyPress;
             // 
+            // DataGridViewColumnNombre
+            // 
+            DataGridViewColumnNombre.DataPropertyName = "Nombre";
+            DataGridViewColumnNombre.HeaderText = "Nombre";
+            DataGridViewColumnNombre.Name = "DataGridViewColumnNombre";
+            DataGridViewColumnNombre.ReadOnly = true;
+            DataGridViewColumnNombre.Width = 76;
+            // 
+            // DataGridViewColumnLatitud
+            // 
+            DataGridViewColumnLatitud.DataPropertyName = "Latitud";
+            DataGridViewColumnLatitud.HeaderText = "Latitud";
+            DataGridViewColumnLatitud.Name = "DataGridViewColumnLatitud";
+            DataGridViewColumnLatitud.ReadOnly = true;
+            DataGridViewColumnLatitud.Width = 69;
+            // 
+            // DataGridViewColumnLongitud
+            // 
+            DataGridViewColumnLongitud.DataPropertyName = "Longitud";
+            DataGridViewColumnLongitud.HeaderText = "Longitud";
+            DataGridViewColumnLongitud.Name = "DataGridViewColumnLongitud";
+            DataGridViewColumnLongitud.ReadOnly = true;
+            DataGridViewColumnLongitud.Width = 80;
+            // 
+            // DataGridViewColumnAltitud
+            // 
+            DataGridViewColumnAltitud.DataPropertyName = "Altitud";
+            DataGridViewColumnAltitud.HeaderText = "Altitud";
+            DataGridViewColumnAltitud.Name = "DataGridViewColumnAltitud";
+            DataGridViewColumnAltitud.ReadOnly = true;
+            DataGridViewColumnAltitud.Width = 68;
+            // 
             // FlowLayoutPanelToolbars
             // 
             FlowLayoutPanelToolbars.AutoSize = true;
@@ -200,42 +232,9 @@
             ToolStripLabelItemsCounter.Name = "ToolStripLabelItemsCounter";
             ToolStripLabelItemsCounter.Size = new Size(0, 36);
             // 
-            // DataGridViewColumnNombre
-            // 
-            DataGridViewColumnNombre.DataPropertyName = "Nombre";
-            DataGridViewColumnNombre.HeaderText = "Nombre";
-            DataGridViewColumnNombre.Name = "DataGridViewColumnNombre";
-            DataGridViewColumnNombre.ReadOnly = true;
-            DataGridViewColumnNombre.Width = 76;
-            // 
-            // DataGridViewColumnLatitud
-            // 
-            DataGridViewColumnLatitud.DataPropertyName = "Latitud";
-            DataGridViewColumnLatitud.HeaderText = "Latitud";
-            DataGridViewColumnLatitud.Name = "DataGridViewColumnLatitud";
-            DataGridViewColumnLatitud.ReadOnly = true;
-            DataGridViewColumnLatitud.Width = 69;
-            // 
-            // DataGridViewColumnLongitud
-            // 
-            DataGridViewColumnLongitud.DataPropertyName = "Longitud";
-            DataGridViewColumnLongitud.HeaderText = "Longitud";
-            DataGridViewColumnLongitud.Name = "DataGridViewColumnLongitud";
-            DataGridViewColumnLongitud.ReadOnly = true;
-            DataGridViewColumnLongitud.Width = 80;
-            // 
-            // DataGridViewColumnAltitud
-            // 
-            DataGridViewColumnAltitud.DataPropertyName = "Altitud";
-            DataGridViewColumnAltitud.HeaderText = "Altitud";
-            DataGridViewColumnAltitud.Name = "DataGridViewColumnAltitud";
-            DataGridViewColumnAltitud.ReadOnly = true;
-            DataGridViewColumnAltitud.Width = 68;
-            // 
             // FormPoints
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.Inherit;
             ClientSize = new Size(910, 333);
             Controls.Add(DataGridViewMain);
             Controls.Add(FlowLayoutPanelToolbars);

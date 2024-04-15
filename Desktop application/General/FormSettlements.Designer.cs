@@ -177,21 +177,21 @@
             // ToolStripLabelNameFilter
             // 
             ToolStripLabelNameFilter.Name = "ToolStripLabelNameFilter";
-            ToolStripLabelNameFilter.Size = new Size(111, 22);
+            ToolStripLabelNameFilter.Size = new Size(111, 36);
             ToolStripLabelNameFilter.Text = "Filtrar por nombres:";
             // 
             // ToolStripComboBoxNameFilterType
             // 
             ToolStripComboBoxNameFilterType.DropDownStyle = ComboBoxStyle.DropDownList;
             ToolStripComboBoxNameFilterType.Name = "ToolStripComboBoxNameFilterType";
-            ToolStripComboBoxNameFilterType.Size = new Size(121, 25);
+            ToolStripComboBoxNameFilterType.Size = new Size(121, 39);
             ToolStripComboBoxNameFilterType.SelectedIndexChanged += ToolStripComboBoxFilterType_SelectedIndexChanged;
             // 
             // ToolStripTextBoxNameFilter
             // 
             ToolStripTextBoxNameFilter.MaxLength = 100;
             ToolStripTextBoxNameFilter.Name = "ToolStripTextBoxNameFilter";
-            ToolStripTextBoxNameFilter.Size = new Size(150, 25);
+            ToolStripTextBoxNameFilter.Size = new Size(150, 39);
             ToolStripTextBoxNameFilter.Enter += ToolStripTextBoxSearch_Enter;
             ToolStripTextBoxNameFilter.KeyPress += ToolStripTextBoxSearch_KeyPress;
             // 
@@ -202,7 +202,7 @@
             ToolStripButtonNameFilterClear.ImageScaling = ToolStripItemImageScaling.None;
             ToolStripButtonNameFilterClear.ImageTransparentColor = Color.Magenta;
             ToolStripButtonNameFilterClear.Name = "ToolStripButtonNameFilterClear";
-            ToolStripButtonNameFilterClear.Size = new Size(23, 22);
+            ToolStripButtonNameFilterClear.Size = new Size(23, 36);
             ToolStripButtonNameFilterClear.ToolTipText = "Limpiar búsqueda";
             ToolStripButtonNameFilterClear.Click += ToolStripButtonSearchClear_Click;
             // 
@@ -221,12 +221,11 @@
             // 
             ToolStripLabelItemsCounter.Alignment = ToolStripItemAlignment.Right;
             ToolStripLabelItemsCounter.Name = "ToolStripLabelItemsCounter";
-            ToolStripLabelItemsCounter.Size = new Size(0, 22);
+            ToolStripLabelItemsCounter.Size = new Size(0, 36);
             // 
             // FormSettlements
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.Inherit;
             ClientSize = new Size(730, 333);
             Controls.Add(DataGridViewMain);
             Controls.Add(FlowLayoutPanelToolbars);

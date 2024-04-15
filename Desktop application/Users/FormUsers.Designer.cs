@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             FlowLayoutPanelToolbars = new FlowLayoutPanel();
             ToolStripMain = new ToolStrip();
             ToolStripButtonAdd = new ToolStripButton();
@@ -153,7 +153,7 @@
             ToolStripActiveFilter.Items.AddRange(new ToolStripItem[] { ToolStripLabelActiveFilter, ToolStripComboBoxActiveFilter });
             ToolStripActiveFilter.Location = new Point(629, 0);
             ToolStripActiveFilter.Name = "ToolStripActiveFilter";
-            ToolStripActiveFilter.Size = new Size(221, 39);
+            ToolStripActiveFilter.Size = new Size(188, 39);
             ToolStripActiveFilter.TabIndex = 13;
             // 
             // ToolStripLabelActiveFilter
@@ -175,7 +175,7 @@
             ToolStripItemsCounter.Dock = DockStyle.Fill;
             ToolStripItemsCounter.GripStyle = ToolStripGripStyle.Hidden;
             ToolStripItemsCounter.Items.AddRange(new ToolStripItem[] { ToolStripLabelItemsCounter });
-            ToolStripItemsCounter.Location = new Point(850, 0);
+            ToolStripItemsCounter.Location = new Point(817, 0);
             ToolStripItemsCounter.Name = "ToolStripItemsCounter";
             ToolStripItemsCounter.Size = new Size(3, 39);
             ToolStripItemsCounter.TabIndex = 17;
@@ -192,11 +192,11 @@
             DataGridViewMain.AllowUserToDeleteRows = false;
             DataGridViewMain.AllowUserToOrderColumns = true;
             DataGridViewMain.AllowUserToResizeRows = false;
-            dataGridViewCellStyle3.BackColor = SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.MenuHighlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.WindowText;
-            DataGridViewMain.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.MenuHighlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.WindowText;
+            DataGridViewMain.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             DataGridViewMain.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             DataGridViewMain.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             DataGridViewMain.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -220,8 +220,8 @@
             // 
             DataGridViewColumnNombre.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             DataGridViewColumnNombre.DataPropertyName = "Nombre";
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            DataGridViewColumnNombre.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            DataGridViewColumnNombre.DefaultCellStyle = dataGridViewCellStyle2;
             DataGridViewColumnNombre.HeaderText = "Nombre";
             DataGridViewColumnNombre.Name = "DataGridViewColumnNombre";
             DataGridViewColumnNombre.ReadOnly = true;
@@ -256,8 +256,7 @@
             // 
             // FormUsers
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.Inherit;
             ClientSize = new Size(1002, 430);
             Controls.Add(DataGridViewMain);
             Controls.Add(FlowLayoutPanelToolbars);

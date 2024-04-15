@@ -49,10 +49,10 @@
             TabPageAuditoria = new TabPage();
             LabelId = new Label();
             TextBoxId = new TextBox();
-            TextBoxUsuarioUltimaModificacion = new TextBox();
+            TextBoxFechaHoraCreacion = new TextBox();
             TextBoxUsuarioCreacion = new TextBox();
             TextBoxFechaHoraUltimaModificacion = new TextBox();
-            TextBoxFechaHoraCreacion = new TextBox();
+            TextBoxUsuarioUltimaModificacion = new TextBox();
             LabelModificacion = new Label();
             LabelCreacion = new Label();
             ToolStripMain.SuspendLayout();
@@ -297,17 +297,16 @@
             TextBoxId.TabStop = false;
             TextBoxId.TextAlign = HorizontalAlignment.Center;
             // 
-            // TextBoxUsuarioUltimaModificacion
+            // TextBoxFechaHoraCreacion
             // 
-            TextBoxUsuarioUltimaModificacion.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            TextBoxUsuarioUltimaModificacion.Location = new Point(281, 64);
-            TextBoxUsuarioUltimaModificacion.Margin = new Padding(4, 3, 4, 3);
-            TextBoxUsuarioUltimaModificacion.MaxLength = 50;
-            TextBoxUsuarioUltimaModificacion.Name = "TextBoxUsuarioUltimaModificacion";
-            TextBoxUsuarioUltimaModificacion.ReadOnly = true;
-            TextBoxUsuarioUltimaModificacion.Size = new Size(195, 23);
-            TextBoxUsuarioUltimaModificacion.TabIndex = 7;
-            TextBoxUsuarioUltimaModificacion.TabStop = false;
+            TextBoxFechaHoraCreacion.Location = new Point(133, 35);
+            TextBoxFechaHoraCreacion.Margin = new Padding(4, 3, 4, 3);
+            TextBoxFechaHoraCreacion.MaxLength = 0;
+            TextBoxFechaHoraCreacion.Name = "TextBoxFechaHoraCreacion";
+            TextBoxFechaHoraCreacion.ReadOnly = true;
+            TextBoxFechaHoraCreacion.Size = new Size(140, 23);
+            TextBoxFechaHoraCreacion.TabIndex = 3;
+            TextBoxFechaHoraCreacion.TabStop = false;
             // 
             // TextBoxUsuarioCreacion
             // 
@@ -332,21 +331,21 @@
             TextBoxFechaHoraUltimaModificacion.TabIndex = 6;
             TextBoxFechaHoraUltimaModificacion.TabStop = false;
             // 
-            // TextBoxFechaHoraCreacion
+            // TextBoxUsuarioUltimaModificacion
             // 
-            TextBoxFechaHoraCreacion.Location = new Point(133, 35);
-            TextBoxFechaHoraCreacion.Margin = new Padding(4, 3, 4, 3);
-            TextBoxFechaHoraCreacion.MaxLength = 0;
-            TextBoxFechaHoraCreacion.Name = "TextBoxFechaHoraCreacion";
-            TextBoxFechaHoraCreacion.ReadOnly = true;
-            TextBoxFechaHoraCreacion.Size = new Size(140, 23);
-            TextBoxFechaHoraCreacion.TabIndex = 3;
-            TextBoxFechaHoraCreacion.TabStop = false;
+            TextBoxUsuarioUltimaModificacion.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            TextBoxUsuarioUltimaModificacion.Location = new Point(281, 64);
+            TextBoxUsuarioUltimaModificacion.Margin = new Padding(4, 3, 4, 3);
+            TextBoxUsuarioUltimaModificacion.MaxLength = 50;
+            TextBoxUsuarioUltimaModificacion.Name = "TextBoxUsuarioUltimaModificacion";
+            TextBoxUsuarioUltimaModificacion.ReadOnly = true;
+            TextBoxUsuarioUltimaModificacion.Size = new Size(195, 23);
+            TextBoxUsuarioUltimaModificacion.TabIndex = 7;
+            TextBoxUsuarioUltimaModificacion.TabStop = false;
             // 
             // FormPoint
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.Inherit;
             ClientSize = new Size(491, 195);
             Controls.Add(TabControlMain);
             Controls.Add(ToolStripMain);

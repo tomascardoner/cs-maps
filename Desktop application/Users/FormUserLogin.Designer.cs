@@ -126,8 +126,7 @@
             // 
             // FormUserLogin
             // 
-            AutoScaleDimensions = new SizeF(96F, 96F);
-            AutoScaleMode = AutoScaleMode.Dpi;
+            AutoScaleMode = AutoScaleMode.Inherit;
             ClientSize = new Size(379, 127);
             ControlBox = false;
             Controls.Add(ToolStripMain);

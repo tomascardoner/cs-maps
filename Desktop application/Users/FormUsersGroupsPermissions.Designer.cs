@@ -70,8 +70,7 @@ namespace CSMaps.Users
             // 
             // FormUsersGroupsPermissions
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.Inherit;
             ClientSize = new Size(931, 519);
             Controls.Add(TreeViewPermisos);
             Controls.Add(ComboBoxUsuarioGrupo);

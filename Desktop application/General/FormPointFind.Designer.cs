@@ -168,8 +168,7 @@
             // FormPointFind
             // 
             AcceptButton = ButtonBuscar;
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.Inherit;
             ClientSize = new Size(446, 273);
             ControlBox = false;
             Controls.Add(ComboBoxTipoBusqueda);

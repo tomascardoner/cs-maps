@@ -150,8 +150,7 @@
             // 
             // FormAboutBox
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.Inherit;
             ClientSize = new Size(516, 348);
             Controls.Add(PictureBoxCompanyLogo);
             Controls.Add(LabelLicense);
@@ -166,7 +165,7 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "FormAboutBox";
-            Padding = new Padding(10, 10, 10, 10);
+            Padding = new Padding(10);
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "FormAboutBox";

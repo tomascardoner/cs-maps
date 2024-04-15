@@ -63,7 +63,7 @@
             // 
             LabelEsActivo.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             LabelEsActivo.AutoSize = true;
-            LabelEsActivo.Location = new Point(9, 93);
+            LabelEsActivo.Location = new Point(12, 56);
             LabelEsActivo.Margin = new Padding(4, 0, 4, 0);
             LabelEsActivo.Name = "LabelEsActivo";
             LabelEsActivo.Size = new Size(44, 15);
@@ -74,7 +74,7 @@
             // 
             LabelModificacion.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             LabelModificacion.AutoSize = true;
-            LabelModificacion.Location = new Point(9, 183);
+            LabelModificacion.Location = new Point(12, 146);
             LabelModificacion.Margin = new Padding(4, 0, 4, 0);
             LabelModificacion.Name = "LabelModificacion";
             LabelModificacion.Size = new Size(118, 15);
@@ -85,7 +85,7 @@
             // 
             LabelCreacion.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             LabelCreacion.AutoSize = true;
-            LabelCreacion.Location = new Point(9, 153);
+            LabelCreacion.Location = new Point(12, 116);
             LabelCreacion.Margin = new Padding(4, 0, 4, 0);
             LabelCreacion.Name = "LabelCreacion";
             LabelCreacion.Size = new Size(57, 15);
@@ -155,7 +155,7 @@
             TabControlMain.Margin = new Padding(4, 3, 4, 3);
             TabControlMain.Name = "TabControlMain";
             TabControlMain.SelectedIndex = 0;
-            TabControlMain.Size = new Size(574, 271);
+            TabControlMain.Size = new Size(574, 205);
             TabControlMain.TabIndex = 0;
             TabControlMain.TabStop = false;
             // 
@@ -167,7 +167,7 @@
             TabPageGeneral.Margin = new Padding(4, 3, 4, 3);
             TabPageGeneral.Name = "TabPageGeneral";
             TabPageGeneral.Padding = new Padding(4, 3, 4, 3);
-            TabPageGeneral.Size = new Size(566, 240);
+            TabPageGeneral.Size = new Size(566, 174);
             TabPageGeneral.TabIndex = 0;
             TabPageGeneral.Text = "General";
             TabPageGeneral.UseVisualStyleBackColor = true;
@@ -211,7 +211,7 @@
             TabPageNotasAuditoria.Margin = new Padding(4, 3, 4, 3);
             TabPageNotasAuditoria.Name = "TabPageNotasAuditoria";
             TabPageNotasAuditoria.Padding = new Padding(4, 3, 4, 3);
-            TabPageNotasAuditoria.Size = new Size(566, 217);
+            TabPageNotasAuditoria.Size = new Size(566, 174);
             TabPageNotasAuditoria.TabIndex = 1;
             TabPageNotasAuditoria.Text = "Notas y Auditoría";
             TabPageNotasAuditoria.UseVisualStyleBackColor = true;
@@ -220,7 +220,7 @@
             // 
             LabelId.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             LabelId.AutoSize = true;
-            LabelId.Location = new Point(9, 123);
+            LabelId.Location = new Point(12, 86);
             LabelId.Margin = new Padding(4, 0, 4, 0);
             LabelId.Name = "LabelId";
             LabelId.Size = new Size(20, 15);
@@ -231,7 +231,7 @@
             // 
             CheckBoxEsActivo.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             CheckBoxEsActivo.AutoSize = true;
-            CheckBoxEsActivo.Location = new Point(136, 94);
+            CheckBoxEsActivo.Location = new Point(139, 57);
             CheckBoxEsActivo.Margin = new Padding(4, 3, 4, 3);
             CheckBoxEsActivo.Name = "CheckBoxEsActivo";
             CheckBoxEsActivo.Size = new Size(15, 14);
@@ -241,7 +241,7 @@
             // TextBoxId
             // 
             TextBoxId.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            TextBoxId.Location = new Point(135, 120);
+            TextBoxId.Location = new Point(138, 83);
             TextBoxId.Margin = new Padding(4, 3, 4, 3);
             TextBoxId.MaxLength = 10;
             TextBoxId.Name = "TextBoxId";
@@ -254,7 +254,7 @@
             // TextBoxUsuarioModificacion
             // 
             TextBoxUsuarioModificacion.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            TextBoxUsuarioModificacion.Location = new Point(284, 180);
+            TextBoxUsuarioModificacion.Location = new Point(287, 143);
             TextBoxUsuarioModificacion.Margin = new Padding(4, 3, 4, 3);
             TextBoxUsuarioModificacion.MaxLength = 50;
             TextBoxUsuarioModificacion.Name = "TextBoxUsuarioModificacion";
@@ -265,7 +265,7 @@
             // TextBoxUsuarioCreacion
             // 
             TextBoxUsuarioCreacion.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            TextBoxUsuarioCreacion.Location = new Point(284, 150);
+            TextBoxUsuarioCreacion.Location = new Point(287, 113);
             TextBoxUsuarioCreacion.Margin = new Padding(4, 3, 4, 3);
             TextBoxUsuarioCreacion.MaxLength = 50;
             TextBoxUsuarioCreacion.Name = "TextBoxUsuarioCreacion";
@@ -276,7 +276,7 @@
             // TextBoxFechaHoraModificacion
             // 
             TextBoxFechaHoraModificacion.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            TextBoxFechaHoraModificacion.Location = new Point(135, 180);
+            TextBoxFechaHoraModificacion.Location = new Point(138, 143);
             TextBoxFechaHoraModificacion.Margin = new Padding(4, 3, 4, 3);
             TextBoxFechaHoraModificacion.MaxLength = 0;
             TextBoxFechaHoraModificacion.Name = "TextBoxFechaHoraModificacion";
@@ -287,7 +287,7 @@
             // TextBoxFechaHoraCreacion
             // 
             TextBoxFechaHoraCreacion.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            TextBoxFechaHoraCreacion.Location = new Point(135, 150);
+            TextBoxFechaHoraCreacion.Location = new Point(138, 113);
             TextBoxFechaHoraCreacion.Margin = new Padding(4, 3, 4, 3);
             TextBoxFechaHoraCreacion.MaxLength = 0;
             TextBoxFechaHoraCreacion.Name = "TextBoxFechaHoraCreacion";
@@ -298,13 +298,13 @@
             // TextBoxNotas
             // 
             TextBoxNotas.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            TextBoxNotas.Location = new Point(136, 7);
+            TextBoxNotas.Location = new Point(138, 7);
             TextBoxNotas.Margin = new Padding(4, 3, 4, 3);
             TextBoxNotas.MaxLength = 0;
             TextBoxNotas.Multiline = true;
             TextBoxNotas.Name = "TextBoxNotas";
             TextBoxNotas.ScrollBars = ScrollBars.Vertical;
-            TextBoxNotas.Size = new Size(418, 78);
+            TextBoxNotas.Size = new Size(416, 44);
             TextBoxNotas.TabIndex = 1;
             TextBoxNotas.Enter += TextBoxs_Enter;
             // 
@@ -320,9 +320,8 @@
             // 
             // FormUserGroup
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(574, 310);
+            AutoScaleMode = AutoScaleMode.Inherit;
+            ClientSize = new Size(574, 244);
             Controls.Add(TabControlMain);
             Controls.Add(ToolStripMain);
             FormBorderStyle = FormBorderStyle.FixedSingle;

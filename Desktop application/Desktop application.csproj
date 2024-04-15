@@ -10,6 +10,7 @@
     <AssemblyName>CSMaps</AssemblyName>
     <PlatformTarget>x64</PlatformTarget>
     <StartupObject>CSMaps.Program</StartupObject>
+    <ApplicationDefaultFont>Segoe UI, 9pt</ApplicationDefaultFont>
     <ApplicationIcon>Resources\Application\IconApplication.ico</ApplicationIcon>
     <NeutralLanguage>es-AR</NeutralLanguage>
     <Title>CS-Maps</Title>
