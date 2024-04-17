@@ -31,12 +31,16 @@
             ToolStripMain = new ToolStrip();
             ButtonCancelar = new ToolStripButton();
             ButtonAceptar = new ToolStripButton();
+            tableLayoutPanel2 = new TableLayoutPanel();
+            tableLayoutPanel1 = new TableLayoutPanel();
             TextBoxPassword = new TextBox();
-            TextBoxNombre = new TextBox();
             LabelPassword = new Label();
+            TextBoxNombre = new TextBox();
             LabelNombre = new Label();
             PictureBoxMain = new PictureBox();
             ToolStripMain.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PictureBoxMain).BeginInit();
             SuspendLayout();
             // 
@@ -46,7 +50,7 @@
             ToolStripMain.Items.AddRange(new ToolStripItem[] { ButtonCancelar, ButtonAceptar });
             ToolStripMain.Location = new Point(0, 0);
             ToolStripMain.Name = "ToolStripMain";
-            ToolStripMain.Size = new Size(379, 39);
+            ToolStripMain.Size = new Size(385, 39);
             ToolStripMain.TabIndex = 4;
             // 
             // ButtonCancelar
@@ -71,70 +75,122 @@
             ButtonAceptar.Text = "Aceptar";
             ButtonAceptar.Click += Aceptar_Click;
             // 
+            // tableLayoutPanel2
+            // 
+            tableLayoutPanel2.AutoSize = true;
+            tableLayoutPanel2.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            tableLayoutPanel2.ColumnCount = 5;
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 8F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 8F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 80F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 8F));
+            tableLayoutPanel2.Controls.Add(tableLayoutPanel1, 3, 1);
+            tableLayoutPanel2.Controls.Add(PictureBoxMain, 1, 1);
+            tableLayoutPanel2.Dock = DockStyle.Fill;
+            tableLayoutPanel2.GrowStyle = TableLayoutPanelGrowStyle.FixedSize;
+            tableLayoutPanel2.Location = new Point(0, 39);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RowCount = 3;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 8F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 8F));
+            tableLayoutPanel2.Size = new Size(385, 81);
+            tableLayoutPanel2.TabIndex = 8;
+            // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.AutoSize = true;
+            tableLayoutPanel1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Controls.Add(TextBoxPassword, 1, 2);
+            tableLayoutPanel1.Controls.Add(LabelPassword, 0, 2);
+            tableLayoutPanel1.Controls.Add(TextBoxNombre, 1, 0);
+            tableLayoutPanel1.Controls.Add(LabelNombre, 0, 0);
+            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.GrowStyle = TableLayoutPanelGrowStyle.FixedSize;
+            tableLayoutPanel1.Location = new Point(88, 8);
+            tableLayoutPanel1.Margin = new Padding(0);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 3;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle());
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle());
+            tableLayoutPanel1.Size = new Size(288, 65);
+            tableLayoutPanel1.TabIndex = 8;
+            // 
             // TextBoxPassword
             // 
-            TextBoxPassword.Location = new Point(182, 90);
+            TextBoxPassword.Dock = DockStyle.Fill;
+            TextBoxPassword.Location = new Point(82, 39);
             TextBoxPassword.Margin = new Padding(4, 3, 4, 3);
             TextBoxPassword.Name = "TextBoxPassword";
-            TextBoxPassword.Size = new Size(184, 23);
-            TextBoxPassword.TabIndex = 3;
+            TextBoxPassword.Size = new Size(202, 23);
+            TextBoxPassword.TabIndex = 4;
             TextBoxPassword.UseSystemPasswordChar = true;
             TextBoxPassword.Enter += TextBoxs_Enter;
             TextBoxPassword.Leave += TextBoxs_Leave;
             // 
-            // TextBoxNombre
-            // 
-            TextBoxNombre.Location = new Point(182, 52);
-            TextBoxNombre.Margin = new Padding(4, 3, 4, 3);
-            TextBoxNombre.MaxLength = 30;
-            TextBoxNombre.Name = "TextBoxNombre";
-            TextBoxNombre.Size = new Size(184, 23);
-            TextBoxNombre.TabIndex = 1;
-            TextBoxNombre.Enter += TextBoxs_Enter;
-            TextBoxNombre.Leave += TextBoxs_Leave;
-            // 
             // LabelPassword
             // 
             LabelPassword.AutoSize = true;
-            LabelPassword.Location = new Point(96, 94);
+            LabelPassword.Dock = DockStyle.Fill;
+            LabelPassword.Location = new Point(4, 36);
             LabelPassword.Margin = new Padding(4, 0, 4, 0);
             LabelPassword.Name = "LabelPassword";
-            LabelPassword.Size = new Size(70, 15);
-            LabelPassword.TabIndex = 2;
+            LabelPassword.Size = new Size(70, 29);
+            LabelPassword.TabIndex = 3;
             LabelPassword.Text = "Contraseña:";
+            LabelPassword.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // TextBoxNombre
+            // 
+            TextBoxNombre.Dock = DockStyle.Fill;
+            TextBoxNombre.Location = new Point(82, 3);
+            TextBoxNombre.Margin = new Padding(4, 3, 4, 3);
+            TextBoxNombre.MaxLength = 30;
+            TextBoxNombre.Name = "TextBoxNombre";
+            TextBoxNombre.Size = new Size(202, 23);
+            TextBoxNombre.TabIndex = 2;
+            TextBoxNombre.Enter += TextBoxs_Enter;
+            TextBoxNombre.Leave += TextBoxs_Leave;
             // 
             // LabelNombre
             // 
             LabelNombre.AutoSize = true;
-            LabelNombre.Location = new Point(96, 56);
+            LabelNombre.Dock = DockStyle.Fill;
+            LabelNombre.Location = new Point(4, 0);
             LabelNombre.Margin = new Padding(4, 0, 4, 0);
             LabelNombre.Name = "LabelNombre";
-            LabelNombre.Size = new Size(50, 15);
-            LabelNombre.TabIndex = 0;
+            LabelNombre.Size = new Size(70, 29);
+            LabelNombre.TabIndex = 1;
             LabelNombre.Text = "Usuario:";
+            LabelNombre.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // PictureBoxMain
             // 
+            PictureBoxMain.Dock = DockStyle.Fill;
             PictureBoxMain.Image = Properties.Resources.ImageLogin48;
-            PictureBoxMain.Location = new Point(13, 60);
-            PictureBoxMain.Margin = new Padding(4, 3, 4, 3);
+            PictureBoxMain.Location = new Point(8, 8);
+            PictureBoxMain.Margin = new Padding(0);
             PictureBoxMain.Name = "PictureBoxMain";
-            PictureBoxMain.Size = new Size(48, 48);
-            PictureBoxMain.SizeMode = PictureBoxSizeMode.AutoSize;
-            PictureBoxMain.TabIndex = 6;
+            PictureBoxMain.Size = new Size(72, 65);
+            PictureBoxMain.SizeMode = PictureBoxSizeMode.Zoom;
+            PictureBoxMain.TabIndex = 7;
             PictureBoxMain.TabStop = false;
             // 
             // FormUserLogin
             // 
-            AutoScaleMode = AutoScaleMode.Inherit;
-            ClientSize = new Size(379, 127);
+            AutoScaleDimensions = new SizeF(96F, 96F);
+            AutoScaleMode = AutoScaleMode.Dpi;
+            AutoSize = true;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            ClientSize = new Size(385, 120);
             ControlBox = false;
+            Controls.Add(tableLayoutPanel2);
             Controls.Add(ToolStripMain);
-            Controls.Add(TextBoxPassword);
-            Controls.Add(TextBoxNombre);
-            Controls.Add(LabelPassword);
-            Controls.Add(LabelNombre);
-            Controls.Add(PictureBoxMain);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             KeyPreview = true;
             Margin = new Padding(4, 3, 4, 3);
@@ -149,6 +205,10 @@
             KeyPress += This_KeyPress;
             ToolStripMain.ResumeLayout(false);
             ToolStripMain.PerformLayout();
+            tableLayoutPanel2.ResumeLayout(false);
+            tableLayoutPanel2.PerformLayout();
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)PictureBoxMain).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -159,10 +219,12 @@
         internal System.Windows.Forms.ToolStrip ToolStripMain;
         internal System.Windows.Forms.ToolStripButton ButtonCancelar;
         internal System.Windows.Forms.ToolStripButton ButtonAceptar;
-        internal System.Windows.Forms.TextBox TextBoxPassword;
-        internal System.Windows.Forms.TextBox TextBoxNombre;
-        internal System.Windows.Forms.Label LabelPassword;
-        internal System.Windows.Forms.Label LabelNombre;
-        internal System.Windows.Forms.PictureBox PictureBoxMain;
+        private TableLayoutPanel tableLayoutPanel2;
+        internal PictureBox PictureBoxMain;
+        private TableLayoutPanel tableLayoutPanel1;
+        internal TextBox TextBoxPassword;
+        internal Label LabelPassword;
+        internal TextBox TextBoxNombre;
+        internal Label LabelNombre;
     }
 }

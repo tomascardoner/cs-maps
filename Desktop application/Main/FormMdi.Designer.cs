@@ -303,7 +303,8 @@
             // 
             // FormMdi
             // 
-            AutoScaleMode = AutoScaleMode.Inherit;
+            AutoScaleDimensions = new SizeF(96F, 96F);
+            AutoScaleMode = AutoScaleMode.Dpi;
             ClientSize = new Size(737, 400);
             Controls.Add(ToolStripMain);
             Controls.Add(MenuStripMain);
