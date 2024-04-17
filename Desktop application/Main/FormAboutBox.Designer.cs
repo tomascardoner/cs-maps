@@ -129,12 +129,12 @@
             // ColumnName
             // 
             ColumnName.Text = "Propiedad";
-            ColumnName.Width = 95;
+            ColumnName.Width = 100;
             // 
             // ColumnValue
             // 
             ColumnValue.Text = "Valor";
-            ColumnValue.Width = 350;
+            ColumnValue.Width = 100;
             // 
             // ButtonOk
             // 
@@ -150,7 +150,10 @@
             // 
             // FormAboutBox
             // 
-            AutoScaleMode = AutoScaleMode.Inherit;
+            AutoScaleDimensions = new SizeF(96F, 96F);
+            AutoScaleMode = AutoScaleMode.Dpi;
+            AutoSize = true;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ClientSize = new Size(516, 348);
             Controls.Add(PictureBoxCompanyLogo);
             Controls.Add(LabelLicense);
@@ -170,6 +173,8 @@
             StartPosition = FormStartPosition.CenterParent;
             Text = "FormAboutBox";
             Load += This_Load;
+            DpiChanged += This_DpiChanged;
+            Resize += This_Resize;
             ((System.ComponentModel.ISupportInitialize)PictureBoxCompanyLogo).EndInit();
             ((System.ComponentModel.ISupportInitialize)PictureBoxIcon).EndInit();
             ResumeLayout(false);

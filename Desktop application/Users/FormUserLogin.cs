@@ -19,13 +19,7 @@ namespace CSMaps.Users
         public FormUserLogin()
         {
             InitializeComponent();
-            SetApperance();
             InitializeFormAndControls();
-        }
-
-        private void SetApperance()
-        {
-            Forms.SetFont(this, Program.AppearanceConfig.Font);
         }
 
         private void InitializeFormAndControls()

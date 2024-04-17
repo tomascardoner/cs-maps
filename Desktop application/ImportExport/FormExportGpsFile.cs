@@ -43,8 +43,6 @@ namespace CSMaps.General
         private void SetAppearance()
         {
             this.Icon = CardonerSistemas.Framework.Base.Graphics.GetIconFromBitmap(Properties.Resources.ImageExport32);
-            Forms.SetFont(this, Program.AppearanceConfig.Font);
-
             ShowControls();
         }
 
@@ -411,7 +409,8 @@ namespace CSMaps.General
                 return;
             }
 
-            string tempFilePath = Path.Combine(Path.GetTempPath(), DefaultFileName);
+            string tempPath = Path.GetTempPath();
+            string tempFilePath = Path.Combine(tempPath, DefaultFileName);
             if (!ExportSaveToFile(destinationIsDevice, destinationIsDevice ? tempFilePath : fileFullPath, gpsData))
             {
                 this.Cursor = Cursors.Default;
@@ -422,6 +421,19 @@ namespace CSMaps.General
             {
                 this.Cursor = Cursors.Default;
                 return;
+            }
+
+            try
+            {
+                if (destinationIsDevice)
+                {
+                    File.Delete(tempFilePath);
+                    Directory.Delete(tempPath);
+                }
+            }
+            catch (Exception)
+            {
+                // Ignore the exception because if the file or directory delete fails, doesn't matter because is a temp file
             }
 
             this.Cursor = Cursors.Default;

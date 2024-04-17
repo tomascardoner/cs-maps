@@ -31,16 +31,16 @@
             ToolStripMain = new ToolStrip();
             ButtonCancelar = new ToolStripButton();
             ButtonAceptar = new ToolStripButton();
-            tableLayoutPanel2 = new TableLayoutPanel();
-            tableLayoutPanel1 = new TableLayoutPanel();
+            TableLayoutPanelMain = new TableLayoutPanel();
+            tableLayoutPanelData = new TableLayoutPanel();
             TextBoxPassword = new TextBox();
             LabelPassword = new Label();
             TextBoxNombre = new TextBox();
             LabelNombre = new Label();
             PictureBoxMain = new PictureBox();
             ToolStripMain.SuspendLayout();
-            tableLayoutPanel2.SuspendLayout();
-            tableLayoutPanel1.SuspendLayout();
+            TableLayoutPanelMain.SuspendLayout();
+            tableLayoutPanelData.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PictureBoxMain).BeginInit();
             SuspendLayout();
             // 
@@ -75,51 +75,51 @@
             ButtonAceptar.Text = "Aceptar";
             ButtonAceptar.Click += Aceptar_Click;
             // 
-            // tableLayoutPanel2
+            // TableLayoutPanelMain
             // 
-            tableLayoutPanel2.AutoSize = true;
-            tableLayoutPanel2.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            tableLayoutPanel2.ColumnCount = 5;
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 8F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 8F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 80F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 8F));
-            tableLayoutPanel2.Controls.Add(tableLayoutPanel1, 3, 1);
-            tableLayoutPanel2.Controls.Add(PictureBoxMain, 1, 1);
-            tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.GrowStyle = TableLayoutPanelGrowStyle.FixedSize;
-            tableLayoutPanel2.Location = new Point(0, 39);
-            tableLayoutPanel2.Name = "tableLayoutPanel2";
-            tableLayoutPanel2.RowCount = 3;
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 8F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 8F));
-            tableLayoutPanel2.Size = new Size(385, 81);
-            tableLayoutPanel2.TabIndex = 8;
+            TableLayoutPanelMain.AutoSize = true;
+            TableLayoutPanelMain.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            TableLayoutPanelMain.ColumnCount = 5;
+            TableLayoutPanelMain.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 8F));
+            TableLayoutPanelMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+            TableLayoutPanelMain.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 8F));
+            TableLayoutPanelMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 80F));
+            TableLayoutPanelMain.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 8F));
+            TableLayoutPanelMain.Controls.Add(tableLayoutPanelData, 3, 1);
+            TableLayoutPanelMain.Controls.Add(PictureBoxMain, 1, 1);
+            TableLayoutPanelMain.Dock = DockStyle.Fill;
+            TableLayoutPanelMain.GrowStyle = TableLayoutPanelGrowStyle.FixedSize;
+            TableLayoutPanelMain.Location = new Point(0, 39);
+            TableLayoutPanelMain.Name = "TableLayoutPanelMain";
+            TableLayoutPanelMain.RowCount = 3;
+            TableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 8F));
+            TableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            TableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 8F));
+            TableLayoutPanelMain.Size = new Size(385, 81);
+            TableLayoutPanelMain.TabIndex = 8;
             // 
-            // tableLayoutPanel1
+            // tableLayoutPanelData
             // 
-            tableLayoutPanel1.AutoSize = true;
-            tableLayoutPanel1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            tableLayoutPanel1.ColumnCount = 2;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Controls.Add(TextBoxPassword, 1, 2);
-            tableLayoutPanel1.Controls.Add(LabelPassword, 0, 2);
-            tableLayoutPanel1.Controls.Add(TextBoxNombre, 1, 0);
-            tableLayoutPanel1.Controls.Add(LabelNombre, 0, 0);
-            tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.GrowStyle = TableLayoutPanelGrowStyle.FixedSize;
-            tableLayoutPanel1.Location = new Point(88, 8);
-            tableLayoutPanel1.Margin = new Padding(0);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 3;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle());
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle());
-            tableLayoutPanel1.Size = new Size(288, 65);
-            tableLayoutPanel1.TabIndex = 8;
+            tableLayoutPanelData.AutoSize = true;
+            tableLayoutPanelData.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            tableLayoutPanelData.ColumnCount = 2;
+            tableLayoutPanelData.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanelData.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanelData.Controls.Add(TextBoxPassword, 1, 2);
+            tableLayoutPanelData.Controls.Add(LabelPassword, 0, 2);
+            tableLayoutPanelData.Controls.Add(TextBoxNombre, 1, 0);
+            tableLayoutPanelData.Controls.Add(LabelNombre, 0, 0);
+            tableLayoutPanelData.Dock = DockStyle.Fill;
+            tableLayoutPanelData.GrowStyle = TableLayoutPanelGrowStyle.FixedSize;
+            tableLayoutPanelData.Location = new Point(88, 8);
+            tableLayoutPanelData.Margin = new Padding(0);
+            tableLayoutPanelData.Name = "tableLayoutPanelData";
+            tableLayoutPanelData.RowCount = 3;
+            tableLayoutPanelData.RowStyles.Add(new RowStyle());
+            tableLayoutPanelData.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanelData.RowStyles.Add(new RowStyle());
+            tableLayoutPanelData.Size = new Size(288, 65);
+            tableLayoutPanelData.TabIndex = 8;
             // 
             // TextBoxPassword
             // 
@@ -189,7 +189,7 @@
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ClientSize = new Size(385, 120);
             ControlBox = false;
-            Controls.Add(tableLayoutPanel2);
+            Controls.Add(TableLayoutPanelMain);
             Controls.Add(ToolStripMain);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             KeyPreview = true;
@@ -205,10 +205,10 @@
             KeyPress += This_KeyPress;
             ToolStripMain.ResumeLayout(false);
             ToolStripMain.PerformLayout();
-            tableLayoutPanel2.ResumeLayout(false);
-            tableLayoutPanel2.PerformLayout();
-            tableLayoutPanel1.ResumeLayout(false);
-            tableLayoutPanel1.PerformLayout();
+            TableLayoutPanelMain.ResumeLayout(false);
+            TableLayoutPanelMain.PerformLayout();
+            tableLayoutPanelData.ResumeLayout(false);
+            tableLayoutPanelData.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)PictureBoxMain).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -219,9 +219,9 @@
         internal System.Windows.Forms.ToolStrip ToolStripMain;
         internal System.Windows.Forms.ToolStripButton ButtonCancelar;
         internal System.Windows.Forms.ToolStripButton ButtonAceptar;
-        private TableLayoutPanel tableLayoutPanel2;
+        private TableLayoutPanel TableLayoutPanelMain;
         internal PictureBox PictureBoxMain;
-        private TableLayoutPanel tableLayoutPanel1;
+        private TableLayoutPanel tableLayoutPanelData;
         internal TextBox TextBoxPassword;
         internal Label LabelPassword;
         internal TextBox TextBoxNombre;

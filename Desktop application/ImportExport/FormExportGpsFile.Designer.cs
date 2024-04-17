@@ -37,15 +37,19 @@
             GroupBoxSummary = new GroupBox();
             LabelSummary = new Label();
             GroupBoxStep2 = new GroupBox();
+            tableLayoutPanel1 = new TableLayoutPanel();
             ListViewDevices = new ListView();
             ColumnHeaderDescription = new ColumnHeader();
             ColumnHeaderDriveLetter = new ColumnHeader();
-            LabelFile = new Label();
-            TextBoxFile = new TextBox();
+            tableLayoutPanel2 = new TableLayoutPanel();
             ButtonFile = new Button();
+            TextBoxFile = new TextBox();
+            LabelFile = new Label();
             GroupBoxStep1.SuspendLayout();
             GroupBoxSummary.SuspendLayout();
             GroupBoxStep2.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
             SuspendLayout();
             // 
             // RadioButtonPointsAll
@@ -137,10 +141,8 @@
             // GroupBoxStep2
             // 
             GroupBoxStep2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            GroupBoxStep2.Controls.Add(ListViewDevices);
-            GroupBoxStep2.Controls.Add(LabelFile);
-            GroupBoxStep2.Controls.Add(TextBoxFile);
-            GroupBoxStep2.Controls.Add(ButtonFile);
+            GroupBoxStep2.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            GroupBoxStep2.Controls.Add(tableLayoutPanel1);
             GroupBoxStep2.Location = new Point(12, 12);
             GroupBoxStep2.Name = "GroupBoxStep2";
             GroupBoxStep2.Size = new Size(484, 185);
@@ -148,21 +150,39 @@
             GroupBoxStep2.TabStop = false;
             GroupBoxStep2.Text = "Paso 2 - seleccione el dispositivo de destino:";
             // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.AutoSize = true;
+            tableLayoutPanel1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            tableLayoutPanel1.ColumnCount = 1;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 0, 1);
+            tableLayoutPanel1.Controls.Add(ListViewDevices, 0, 0);
+            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.Location = new Point(3, 19);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 2;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle());
+            tableLayoutPanel1.Size = new Size(478, 163);
+            tableLayoutPanel1.TabIndex = 4;
+            // 
             // ListViewDevices
             // 
-            ListViewDevices.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             ListViewDevices.Columns.AddRange(new ColumnHeader[] { ColumnHeaderDescription, ColumnHeaderDriveLetter });
+            ListViewDevices.Dock = DockStyle.Fill;
             ListViewDevices.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             ListViewDevices.FullRowSelect = true;
             ListViewDevices.GridLines = true;
             ListViewDevices.HeaderStyle = ColumnHeaderStyle.Nonclickable;
             ListViewDevices.LabelWrap = false;
-            ListViewDevices.Location = new Point(6, 22);
+            ListViewDevices.Location = new Point(3, 3);
             ListViewDevices.MultiSelect = false;
             ListViewDevices.Name = "ListViewDevices";
             ListViewDevices.ShowGroups = false;
-            ListViewDevices.Size = new Size(472, 127);
-            ListViewDevices.TabIndex = 0;
+            ListViewDevices.Size = new Size(472, 122);
+            ListViewDevices.TabIndex = 1;
             ListViewDevices.TileSize = new Size(250, 50);
             ListViewDevices.UseCompatibleStateImageBehavior = false;
             ListViewDevices.View = View.Details;
@@ -177,38 +197,61 @@
             ColumnHeaderDriveLetter.Text = "Unidad";
             ColumnHeaderDriveLetter.Width = 110;
             // 
-            // LabelFile
+            // tableLayoutPanel2
             // 
-            LabelFile.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            LabelFile.AutoSize = true;
-            LabelFile.Location = new Point(6, 159);
-            LabelFile.Name = "LabelFile";
-            LabelFile.Size = new Size(136, 15);
-            LabelFile.TabIndex = 1;
-            LabelFile.Text = "O especifique el archivo:";
-            // 
-            // TextBoxFile
-            // 
-            TextBoxFile.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            TextBoxFile.Location = new Point(148, 156);
-            TextBoxFile.Name = "TextBoxFile";
-            TextBoxFile.Size = new Size(294, 23);
-            TextBoxFile.TabIndex = 2;
+            tableLayoutPanel2.AutoSize = true;
+            tableLayoutPanel2.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            tableLayoutPanel2.ColumnCount = 3;
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel2.Controls.Add(ButtonFile, 2, 0);
+            tableLayoutPanel2.Controls.Add(TextBoxFile, 1, 0);
+            tableLayoutPanel2.Controls.Add(LabelFile, 0, 0);
+            tableLayoutPanel2.Dock = DockStyle.Fill;
+            tableLayoutPanel2.Location = new Point(3, 131);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RowCount = 1;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle());
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel2.Size = new Size(472, 29);
+            tableLayoutPanel2.TabIndex = 6;
             // 
             // ButtonFile
             // 
             ButtonFile.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            ButtonFile.Location = new Point(448, 155);
+            ButtonFile.Location = new Point(439, 3);
             ButtonFile.Name = "ButtonFile";
             ButtonFile.Size = new Size(30, 23);
-            ButtonFile.TabIndex = 3;
+            ButtonFile.TabIndex = 4;
             ButtonFile.Text = "...";
             ButtonFile.UseVisualStyleBackColor = true;
-            ButtonFile.Click += ButtonFile_Click;
+            // 
+            // TextBoxFile
+            // 
+            TextBoxFile.Dock = DockStyle.Fill;
+            TextBoxFile.Location = new Point(145, 3);
+            TextBoxFile.Name = "TextBoxFile";
+            TextBoxFile.Size = new Size(288, 23);
+            TextBoxFile.TabIndex = 3;
+            // 
+            // LabelFile
+            // 
+            LabelFile.AutoSize = true;
+            LabelFile.Dock = DockStyle.Fill;
+            LabelFile.Location = new Point(3, 0);
+            LabelFile.Name = "LabelFile";
+            LabelFile.Size = new Size(136, 29);
+            LabelFile.TabIndex = 2;
+            LabelFile.Text = "O especifique el archivo:";
+            LabelFile.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // FormExportGpsFile
             // 
-            AutoScaleMode = AutoScaleMode.Inherit;
+            AutoScaleDimensions = new SizeF(96F, 96F);
+            AutoScaleMode = AutoScaleMode.Dpi;
+            AutoSize = true;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ClientSize = new Size(508, 245);
             Controls.Add(GroupBoxStep2);
             Controls.Add(ButtonPrevious);
@@ -229,6 +272,10 @@
             GroupBoxSummary.ResumeLayout(false);
             GroupBoxStep2.ResumeLayout(false);
             GroupBoxStep2.PerformLayout();
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
+            tableLayoutPanel2.ResumeLayout(false);
+            tableLayoutPanel2.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -241,12 +288,14 @@
         private Button ButtonPrevious;
         private GroupBox GroupBoxSummary;
         private GroupBox GroupBoxStep2;
-        private ListView ListViewDevices;
-        private TextBox TextBoxFile;
-        private Label LabelFile;
-        private Button ButtonFile;
         private Label LabelSummary;
+        private TableLayoutPanel tableLayoutPanel1;
+        private ListView ListViewDevices;
         private ColumnHeader ColumnHeaderDescription;
         private ColumnHeader ColumnHeaderDriveLetter;
+        private TableLayoutPanel tableLayoutPanel2;
+        private Button ButtonFile;
+        private TextBox TextBoxFile;
+        private Label LabelFile;
     }
 }

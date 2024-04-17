@@ -84,7 +84,7 @@
             labelAppTitle.Location = new Point(13, 12);
             labelAppTitle.Margin = new Padding(4, 0, 4, 0);
             labelAppTitle.Name = "labelAppTitle";
-            labelAppTitle.Size = new Size(311, 77);
+            labelAppTitle.Size = new Size(240, 62);
             labelAppTitle.TabIndex = 6;
             labelAppTitle.Text = "Title";
             // 
@@ -102,7 +102,8 @@
             // 
             // FormSplash
             // 
-            AutoScaleMode = AutoScaleMode.None;
+            AutoScaleDimensions = new SizeF(96F, 96F);
+            AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = Color.FromArgb(192, 192, 0);
             BackgroundImage = Properties.Resources.ImageSplash;
             BackgroundImageLayout = ImageLayout.Stretch;

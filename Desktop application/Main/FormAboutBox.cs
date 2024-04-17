@@ -4,9 +4,14 @@ namespace CSMaps
 {
     public partial class FormAboutBox : Form
     {
+        private const string ItemDBServer = "DB - Server";
+        private const string ItemDBDatabase = "DB - Database";
+        private const string ItemReportsPath = "Reports path";
+
         public FormAboutBox()
         {
             InitializeComponent();
+            LayoutControls();
         }
 
         private void This_Load(object sender, EventArgs e)
@@ -19,24 +24,31 @@ namespace CSMaps
             LabelLicense.Text = Program.LicensedCompany;
 
             // Propiedades
-            ListViewItem newItem;
+            ListViewData.Items.Add(new ListViewItem(new string[] { ItemDBServer, Program.DatabaseConfig.Server }));
+            ListViewData.Items.Add(new ListViewItem(new string[] { ItemDBDatabase, Program.DatabaseConfig.Database }));
+            ListViewData.Items.Add(new ListViewItem(new string[] { ItemReportsPath, Program.GeneralConfig.ReportsPath }));
+        }
 
-            newItem = new() { Text = "DB - Server" };
-            newItem.SubItems.Add(Program.DatabaseConfig.Server);
-            ListViewData.Items.Add(newItem);
+        private void This_Resize(object sender, EventArgs e)
+        {
+            //LayoutControls();
+        }
 
-            newItem = new() { Text = "DB - Database" };
-            newItem.SubItems.Add(Program.DatabaseConfig.Database);
-            ListViewData.Items.Add(newItem);
-
-            newItem = new() { Text = "Reports path" };
-            newItem.SubItems.Add(Program.GeneralConfig.ReportsPath);
-            ListViewData.Items.Add(newItem);
+        private void This_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            LayoutControls();
         }
 
         private void ButtonOk_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
+        private void LayoutControls()
+        {
+            ListViewData.Columns[0].Width = CardonerSistemas.Framework.Base.String.GetExtends(ItemDBDatabase, this.CreateGraphics(), this.Font) + SystemInformation.BorderSize.Width;
+            ListViewData.Columns[1].Width = ListViewData.ClientSize.Width - ListViewData.Columns[0].Width - SystemInformation.BorderSize.Width - SystemInformation.VerticalScrollBarWidth;
+        }
+
     }
 }
