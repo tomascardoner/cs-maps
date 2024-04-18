@@ -1,13 +1,23 @@
 using System.Diagnostics;
+using System.Reflection;
 
 namespace CSMaps
 {
     internal static class Program
     {
-        internal const string ApplicationTitle = "CS-Maps";
-        internal const string Copyright = "Copyright © 2024 Cardoner Sistemas";
-
 #pragma warning disable S2223 // Non-constant static fields should not be visible
+        internal static CardonerSistemas.Framework.Base.Application.Info Info = new()
+        {
+            Title = "CS-Maps",
+            Copyright = "Copyright © 2024 Cardoner Sistemas. Todos los derechos reservados.",
+            ProductName = "CS-Maps",
+            CompanyName = "Cardoner Sistemas",
+            Author = "Tomás A. Cardoner",
+            Trademark = "® CS-Maps",
+            Description = "Sistema de gestión de puntos y datos de mapas.",
+            FileDateTime = File.GetLastWriteTime(Assembly.GetExecutingAssembly().Location)
+        };
+
         internal static AppearanceConfig AppearanceConfig;
         internal static GeneralConfig GeneralConfig;
         internal static CardonerSistemas.Framework.Database.EFCore.ConnectionProperties DatabaseConfig;
@@ -54,7 +64,7 @@ namespace CSMaps
             CardonerSistemas.Framework.Database.EFCore.ConnectionStringBuilder connectionStringBuilder = new(DatabaseConfig);
             if (!connectionStringBuilder.PasswordUnencrypt(Constants.PublicEncryptionPassword, out string resultMessage))
             {
-                MessageBox.Show(string.Format(Properties.Resources.StringDatabasePasswordUnencryptionError, resultMessage), Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format(Properties.Resources.StringDatabasePasswordUnencryptionError, resultMessage), Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 formSplash.Close();
                 TerminateApplication();
                 return;
@@ -75,7 +85,7 @@ namespace CSMaps
             // Verifico que la Base de Datos corresponda a esta Aplicación a través del GUID guardado en los Parámetros
             if (Parameters.GetText(Parameters.ParametersId.ApplicationDatabaseGuid) != Constants.ApplicationDatabaseGuid)
             {
-                MessageBox.Show("La base de datos especificada en la configuración del sistema no pertenece a esta aplicación.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("La base de datos especificada en la configuración del sistema no pertenece a esta aplicación.", Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 formSplash.Close();
                 TerminateApplication();
                 return;
@@ -84,7 +94,7 @@ namespace CSMaps
             // Obtengo el nombre de la compañía licenciada y lo muestro
             if (!CardonerSistemas.Framework.Cryptography.StringCipher.Decrypt(Parameters.GetText(Parameters.ParametersId.LicensedCompany), Constants.ApplicationLicensePassword, out LicensedCompany))
             {
-                MessageBox.Show("La información de la licencia es incorrecta.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("La información de la licencia es incorrecta.", Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 formSplash.Close();
                 TerminateApplication();
                 return;

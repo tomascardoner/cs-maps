@@ -18,7 +18,7 @@
     <Company>Cardoner Sistemas</Company>
     <Product>CS-Maps</Product>
     <Description>Sistema de gestión de puntos y datos de mapas.</Description>
-    <Copyright>Copyright © 2024 Cardoner Sistemas. All rights reserved.</Copyright>
+    <Copyright>Copyright © 2024 Cardoner Sistemas. Todos los derechos reservados.</Copyright>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

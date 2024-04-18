@@ -35,12 +35,12 @@ namespace CSMaps.General
         {
             if (string.IsNullOrWhiteSpace(TextBoxNombre.Text))
             {
-                MessageBox.Show("Debe ingresar el nombre a buscar.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Debe ingresar el nombre a buscar.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             if (TextBoxNombre.Text.Trim().Length < 3)
             {
-                MessageBox.Show("El nombre a buscar debe tener al menos 3 caracteres.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("El nombre a buscar debe tener al menos 3 caracteres.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -56,7 +56,7 @@ namespace CSMaps.General
             }
             if (puntosFiltrados.Count == 0)
             {
-                MessageBox.Show("No se encontraron puntos que coincidan con la búsqueda.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("No se encontraron puntos que coincidan con la búsqueda.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             DataGridViewMain.AutoGenerateColumns = false;
@@ -67,7 +67,7 @@ namespace CSMaps.General
         {
             if (DataGridViewMain.CurrentRow == null)
             {
-                MessageBox.Show(string.Format(Properties.Resources.StringActionNoneMale, "punto", Properties.Resources.StringActionSelect), Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(string.Format(Properties.Resources.StringActionNoneMale, "punto", Properties.Resources.StringActionSelect), Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 

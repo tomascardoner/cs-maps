@@ -23,7 +23,7 @@ namespace CSMaps.Common
                     OtherUpdateException(ex, entityNameSingle, entityIsFemale, actionName);
                     return;
             }
-            MessageBox.Show(message, Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(message, Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         internal static void OtherUpdateException(Exception ex, string entityNameSingle, bool entityIsFemale, string actionName)

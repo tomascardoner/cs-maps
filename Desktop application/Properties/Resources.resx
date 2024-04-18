@@ -208,6 +208,18 @@
   <data name="ImageWindowCloseAll" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Misc\ImageWindowCloseAll.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="StringAbout" xml:space="preserve">
+    <value>Acerca de {0}</value>
+  </data>
+  <data name="StringAboutItemDBDatabase" xml:space="preserve">
+    <value>Base de datos</value>
+  </data>
+  <data name="StringAboutItemDBServer" xml:space="preserve">
+    <value>Servidor</value>
+  </data>
+  <data name="StringAboutItemReportsPath" xml:space="preserve">
+    <value>Ubicación de los reportes</value>
+  </data>
   <data name="StringActionAdd" xml:space="preserve">
     <value>agregar</value>
   </data>
@@ -242,6 +254,12 @@
   </data>
   <data name="StringActionView" xml:space="preserve">
     <value>ver</value>
+  </data>
+  <data name="StringApplicationVersion" xml:space="preserve">
+    <value>Versión {0}</value>
+  </data>
+  <data name="StringApplicationVersionWithDate" xml:space="preserve">
+    <value>Versión {0} - {1}</value>
   </data>
   <data name="StringDatabaseError" xml:space="preserve">
     <value>Error al acceder a la base de datos.</value>

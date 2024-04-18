@@ -295,7 +295,7 @@ namespace CSMaps.Users
             if (TextBoxNombre.Text.Length < usuarioNombreLongitudMinima)
             {
                 TabControlMain.SelectedTab = TabPageGeneral;
-                MessageBox.Show($"El nombre debe tener al menos {usuarioNombreLongitudMinima} caracteres.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"El nombre debe tener al menos {usuarioNombreLongitudMinima} caracteres.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 TextBoxNombre.Focus();
                 return false;
             }
@@ -317,7 +317,7 @@ namespace CSMaps.Users
             if (TextBoxPassword.Text.Trim().Length < usuarioPasswordLongitudMinima)
             {
                 TabControlMain.SelectedTab = TabPageGeneral;
-                MessageBox.Show($"La contraseña debe tener al menos {usuarioPasswordLongitudMinima} caracteres.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"La contraseña debe tener al menos {usuarioPasswordLongitudMinima} caracteres.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 TextBoxPassword.Focus();
                 return false;
             }

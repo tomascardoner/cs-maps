@@ -68,12 +68,12 @@ namespace CSMaps.General
         {
             if (string.IsNullOrWhiteSpace(TextBoxFile.Text))
             {
-                MessageBox.Show(Properties.Resources.StringImportFileNotSpecified, Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(Properties.Resources.StringImportFileNotSpecified, Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
             if (!Path.Exists(TextBoxFile.Text.Trim()))
             {
-                MessageBox.Show(Properties.Resources.StringFileNotFound, Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(Properties.Resources.StringFileNotFound, Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
@@ -120,7 +120,7 @@ namespace CSMaps.General
                 }
                 else
                 {
-                    MessageBox.Show(Properties.Resources.StringImportUnknownFileInvalidContent, Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(Properties.Resources.StringImportUnknownFileInvalidContent, Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
@@ -174,7 +174,7 @@ namespace CSMaps.General
             if (rootElement == null)
             {
                 this.Cursor = Cursors.Default;
-                MessageBox.Show(Properties.Resources.StringKmlFileInvalidContent, Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Properties.Resources.StringKmlFileInvalidContent, Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -246,7 +246,7 @@ namespace CSMaps.General
             this.Cursor = Cursors.Default;
             if (idPuntoNuevo - idPuntoUltimo > 0)
             {
-                MessageBox.Show(string.Format(Properties.Resources.StringImportFileSuccesful, idPuntoNuevo - idPuntoUltimo), Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(string.Format(Properties.Resources.StringImportFileSuccesful, idPuntoNuevo - idPuntoUltimo), Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

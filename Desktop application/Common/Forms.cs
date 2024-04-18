@@ -55,7 +55,7 @@
             {
                 if (textBox.Text.Trim().Length < minimumLenght)
                 {
-                    MessageBox.Show(string.Format(Properties.Resources.StringTextFilterMinimumLenght, minimumLenght), Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(string.Format(Properties.Resources.StringTextFilterMinimumLenght, minimumLenght), Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     textBox.Focus();
                 }
                 else
@@ -69,7 +69,7 @@
 
         internal static bool ButtonCancel_Click(Models.CSMapsContext context)
         {
-            if (context.ChangeTracker.HasChanges() && MessageBox.Show(Properties.Resources.StringEntityCancelChanges, Program.ApplicationTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
+            if (context.ChangeTracker.HasChanges() && MessageBox.Show(Properties.Resources.StringEntityCancelChanges, Program.Info.Title, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
             {
                 return false;
             }
@@ -105,7 +105,7 @@
                     message = Properties.Resources.StringEntityDataVerificationMaleFieldRequiredMale;
                 }
             }
-            MessageBox.Show(string.Format(message, entityName, fieldName), Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(string.Format(message, entityName, fieldName), Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         #endregion

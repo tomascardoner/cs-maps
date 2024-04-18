@@ -361,6 +361,42 @@ namespace CSMaps.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Acerca de {0}.
+        /// </summary>
+        internal static string StringAbout {
+            get {
+                return ResourceManager.GetString("StringAbout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Base de datos.
+        /// </summary>
+        internal static string StringAboutItemDBDatabase {
+            get {
+                return ResourceManager.GetString("StringAboutItemDBDatabase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Servidor.
+        /// </summary>
+        internal static string StringAboutItemDBServer {
+            get {
+                return ResourceManager.GetString("StringAboutItemDBServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ubicación de los reportes.
+        /// </summary>
+        internal static string StringAboutItemReportsPath {
+            get {
+                return ResourceManager.GetString("StringAboutItemReportsPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to agregar.
         /// </summary>
         internal static string StringActionAdd {
@@ -446,6 +482,24 @@ namespace CSMaps.Properties {
         internal static string StringActionView {
             get {
                 return ResourceManager.GetString("StringActionView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Versión {0}.
+        /// </summary>
+        internal static string StringApplicationVersion {
+            get {
+                return ResourceManager.GetString("StringApplicationVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Versión {0} - {1}.
+        /// </summary>
+        internal static string StringApplicationVersionWithDate {
+            get {
+                return ResourceManager.GetString("StringApplicationVersionWithDate", resourceCulture);
             }
         }
         

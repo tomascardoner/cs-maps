@@ -1,7 +1,4 @@
-﻿using CardonerSistemas.Framework.Base;
-using CSMaps.General;
-
-namespace CSMaps.Main
+﻿namespace CSMaps.Main
 {
     public partial class FormMdi : Form
     {
@@ -16,8 +13,8 @@ namespace CSMaps.Main
         private void SetAppearance()
         {
             this.Icon = Properties.Resources.IconApplication;
-            this.Text = $"{Program.ApplicationTitle} - Licenciado a: {Program.LicensedCompany.ToUpper()}";
-            ToolStripMenuItemHelpAbout.Text = $"&Acerca de {Program.ApplicationTitle}...";
+            this.Text =  $"{Program.Info.Title} - Licenciado a: {Program.LicensedCompany.ToUpper()}";
+            ToolStripMenuItemHelpAbout.Text = string.Format(Properties.Resources.StringAbout, Program.Info.Title);
         }
 
         private void This_Load(object sender, EventArgs e)
@@ -30,7 +27,7 @@ namespace CSMaps.Main
             if (!(e.CloseReason == CloseReason.ApplicationExitCall || e.CloseReason == CloseReason.TaskManagerClosing || e.CloseReason == CloseReason.WindowsShutDown))
             {
 #pragma warning disable S1066 // If statement merge
-                if (MessageBox.Show("¿Desea salir de la aplicación?", Program.ApplicationTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.No)
+                if (MessageBox.Show("¿Desea salir de la aplicación?", Program.Info.Title, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.No)
                 {
                     e.Cancel = true;
                     return;

@@ -306,7 +306,7 @@ namespace CSMaps.General
                 if (context.PuntoEventos.Any(pe => pe.IdPunto == rowData.IdPunto))
                 {
                     this.Cursor = Cursors.Default;
-                    MessageBox.Show("Para poder borrar los datos de este punto, primero deberá borrar los eventos del mismo.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("Para poder borrar los datos de este punto, primero deberá borrar los eventos del mismo.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                 }
                 Models.PuntoDato puntoDato = context.PuntoDatos.Find(rowData.IdPunto);
@@ -331,7 +331,7 @@ namespace CSMaps.General
         {
             if (DataGridViewMain.CurrentRow == null)
             {
-                MessageBox.Show($"No hay ningún {entityNameSingle} para agregar un evento.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"No hay ningún {entityNameSingle} para agregar un evento.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             if (!Users.Permissions.Verify(Users.Permissions.Actions.PointEventAdd))
@@ -346,7 +346,7 @@ namespace CSMaps.General
         {
             if (DataGridViewMain.CurrentRow == null)
             {
-                MessageBox.Show($"No hay ningún {entityNameSingle} para ver sus eventos.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"No hay ningún {entityNameSingle} para ver sus eventos.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             FormPointEvents ??= new(((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto);

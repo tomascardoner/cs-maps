@@ -21,7 +21,7 @@ namespace CSMaps.Common
         {
             if (dataGridView.CurrentRow == null)
             {
-                MessageBox.Show(string.Format(entityIsFemale ? Properties.Resources.StringActionNoneFemale : Properties.Resources.StringActionNoneMale, entityNameSingle, Properties.Resources.StringActionView), Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(string.Format(entityIsFemale ? Properties.Resources.StringActionNoneFemale : Properties.Resources.StringActionNoneMale, entityNameSingle, Properties.Resources.StringActionView), Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
             form.Cursor = Cursors.WaitCursor;
@@ -52,7 +52,7 @@ namespace CSMaps.Common
         {
             if (dataGridView.CurrentRow == null)
             {
-                MessageBox.Show(string.Format(entityIsFemale ? Properties.Resources.StringActionNoneFemale : Properties.Resources.StringActionNoneMale, entityNameSingle, Properties.Resources.StringActionEdit), Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(string.Format(entityIsFemale ? Properties.Resources.StringActionNoneFemale : Properties.Resources.StringActionNoneMale, entityNameSingle, Properties.Resources.StringActionEdit), Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
             if (permiso.HasValue && !Users.Permissions.Verify(permiso.Value))
@@ -72,7 +72,7 @@ namespace CSMaps.Common
         {
             if (dataGridView.CurrentRow == null)
             {
-                MessageBox.Show(string.Format(entityIsFemale ? Properties.Resources.StringActionNoneFemale : Properties.Resources.StringActionNoneMale, entityNameSingle, Properties.Resources.StringActionDelete), Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(string.Format(entityIsFemale ? Properties.Resources.StringActionNoneFemale : Properties.Resources.StringActionNoneMale, entityNameSingle, Properties.Resources.StringActionDelete), Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
             if (permiso.HasValue && !Users.Permissions.Verify(permiso.Value))
@@ -85,7 +85,7 @@ namespace CSMaps.Common
         internal static bool DeleteConfirm(string entityNameSingle, bool entityIsFemale, string entityData)
         {
             string mensaje = string.Format(entityIsFemale ? Properties.Resources.StringActionDeleteConfirmationFemale : Properties.Resources.StringActionDeleteConfirmationMale, entityNameSingle, entityData);
-            return MessageBox.Show(mensaje, Program.ApplicationTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes;
+            return MessageBox.Show(mensaje, Program.Info.Title, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes;
         }
 
         #endregion

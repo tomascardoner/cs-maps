@@ -100,7 +100,7 @@ namespace CSMaps.Users
                 {
                     if (showMessage)
                     {
-                        MessageBox.Show(Properties.Resources.StringNotPermission, Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show(Properties.Resources.StringNotPermission, Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                     return false;
                 }

@@ -174,7 +174,6 @@
             Text = "FormAboutBox";
             Load += This_Load;
             DpiChanged += This_DpiChanged;
-            Resize += This_Resize;
             ((System.ComponentModel.ISupportInitialize)PictureBoxCompanyLogo).EndInit();
             ((System.ComponentModel.ISupportInitialize)PictureBoxIcon).EndInit();
             ResumeLayout(false);

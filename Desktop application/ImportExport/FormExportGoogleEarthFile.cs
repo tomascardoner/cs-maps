@@ -118,16 +118,16 @@ namespace CSMaps.General
         {
             if (CheckedListBoxGrupos.CheckedItems.Count == 0)
             {
-                MessageBox.Show("Debe seleccionar al menos uno de los grupos.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Debe seleccionar al menos uno de los grupos.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 CheckedListBoxGrupos.Focus();
                 return;
             }
             if (string.IsNullOrWhiteSpace(TextBoxFile.Text))
             {
-                MessageBox.Show(Properties.Resources.StringExportDestinationNotSpecified, Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(Properties.Resources.StringExportDestinationNotSpecified, Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-            if (Path.Exists(TextBoxFile.Text.Trim()) && MessageBox.Show("El archivo de destino ya existe y será reemplazado por el nuevo.\n\n¿Desea continuar?", Program.ApplicationTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
+            if (Path.Exists(TextBoxFile.Text.Trim()) && MessageBox.Show("El archivo de destino ya existe y será reemplazado por el nuevo.\n\n¿Desea continuar?", Program.Info.Title, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
             {
                 return;
             }
@@ -183,7 +183,7 @@ namespace CSMaps.General
             }
 
             this.Cursor = Cursors.Default;
-            MessageBox.Show($"Se ha exportado correctamente la información al archivo de Google Earth especificado.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"Se ha exportado correctamente la información al archivo de Google Earth especificado.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private bool AddPlacemarks(short idGrupo, ref Folder folder)

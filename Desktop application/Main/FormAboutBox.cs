@@ -4,10 +4,6 @@ namespace CSMaps
 {
     public partial class FormAboutBox : Form
     {
-        private const string ItemDBServer = "DB - Server";
-        private const string ItemDBDatabase = "DB - Database";
-        private const string ItemReportsPath = "Reports path";
-
         public FormAboutBox()
         {
             InitializeComponent();
@@ -16,22 +12,17 @@ namespace CSMaps
 
         private void This_Load(object sender, EventArgs e)
         {
-            this.Text = $"Acerca de {Program.ApplicationTitle}";
+            this.Text = string.Format(Properties.Resources.StringAbout, Program.Info.Title);
 
-            LabelApplicationTitle.Text = Program.ApplicationTitle;
-            LabelVersion.Text = $"Versión {CardonerSistemas.Framework.Base.Application.Info.Version} - ({File.GetLastWriteTime(Assembly.GetExecutingAssembly().Location):yyyyMMdd})";
-            LabelCopyright.Text = Program.Copyright;
+            LabelApplicationTitle.Text = Program.Info.Title;
+            LabelVersion.Text = string.Format(Properties.Resources.StringApplicationVersionWithDate, Program.Info.Version, Program.Info.FileDateTime.ToString("yyyyMMdd"));
+            LabelCopyright.Text = Program.Info.Copyright;
             LabelLicense.Text = Program.LicensedCompany;
 
             // Propiedades
-            ListViewData.Items.Add(new ListViewItem(new string[] { ItemDBServer, Program.DatabaseConfig.Server }));
-            ListViewData.Items.Add(new ListViewItem(new string[] { ItemDBDatabase, Program.DatabaseConfig.Database }));
-            ListViewData.Items.Add(new ListViewItem(new string[] { ItemReportsPath, Program.GeneralConfig.ReportsPath }));
-        }
-
-        private void This_Resize(object sender, EventArgs e)
-        {
-            //LayoutControls();
+            ListViewData.Items.Add(new ListViewItem(new string[] { Properties.Resources.StringAboutItemDBServer, Program.DatabaseConfig.Server }));
+            ListViewData.Items.Add(new ListViewItem(new string[] { Properties.Resources.StringAboutItemDBDatabase, Program.DatabaseConfig.Database }));
+            ListViewData.Items.Add(new ListViewItem(new string[] { Properties.Resources.StringAboutItemReportsPath, Program.GeneralConfig.ReportsPath }));
         }
 
         private void This_DpiChanged(object sender, DpiChangedEventArgs e)
@@ -46,7 +37,9 @@ namespace CSMaps
 
         private void LayoutControls()
         {
-            ListViewData.Columns[0].Width = CardonerSistemas.Framework.Base.String.GetExtends(ItemDBDatabase, this.CreateGraphics(), this.Font) + SystemInformation.BorderSize.Width;
+            using Graphics graphics = this.CreateGraphics();
+            int itemMaxExtends = CardonerSistemas.Framework.Base.String.GetMaxExtends([ Properties.Resources.StringAboutItemDBServer, Properties.Resources.StringAboutItemDBDatabase, Properties.Resources.StringAboutItemReportsPath ], graphics, this.Font);
+            ListViewData.Columns[0].Width = itemMaxExtends + SystemInformation.BorderSize.Width;
             ListViewData.Columns[1].Width = ListViewData.ClientSize.Width - ListViewData.Columns[0].Width - SystemInformation.BorderSize.Width - SystemInformation.VerticalScrollBarWidth;
         }
 

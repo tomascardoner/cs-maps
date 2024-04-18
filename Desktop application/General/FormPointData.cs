@@ -278,7 +278,7 @@ namespace CSMaps.General
             }
             if (IntegerTextBoxChapaNumero.IntegerValue < ChapaNumeroMinimo)
             {
-                MessageBox.Show($"El nº de chapa debe ser mayor o igual a {ChapaNumeroMinimo}", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"El nº de chapa debe ser mayor o igual a {ChapaNumeroMinimo}", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 TabControlMain.SelectedTab = TabPageGeneral;
                 IntegerTextBoxChapaNumero.Focus();
                 return false;

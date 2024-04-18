@@ -7,11 +7,11 @@
             InitializeComponent();
 
             this.Icon = Properties.Resources.IconApplication;
-            this.Text = Program.ApplicationTitle;
-            labelAppTitle.Text = Program.ApplicationTitle;
+            this.Text = Program.Info.Title;
+            labelAppTitle.Text = Program.Info.Title;
             labelLicensedTo.Text = string.Empty;
             labelStatus.Text = "Iniciando...";
-            labelCopyright.Text = Program.Copyright;
+            labelCopyright.Text = Program.Info.Copyright;
         }
     }
 }

@@ -81,14 +81,14 @@ namespace CSMaps.Users
             TextBoxNombre.Text = TextBoxNombre.Text.Trim().RemoveSpaces();
             if (string.IsNullOrWhiteSpace(TextBoxNombre.Text))
             {
-                MessageBox.Show("Debe ingresar el nombre de usuario.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Debe ingresar el nombre de usuario.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 TextBoxNombre.Focus();
                 return;
             }
             byte usuarioNombreLongitudMinima = Parameters.GetIntegerAsByte(Parameters.ParametersId.UsuarioNombreLongitudMinima, 5).Value;
             if (TextBoxNombre.Text.Length < usuarioNombreLongitudMinima)
             {
-                MessageBox.Show($"El nombre de usuario debe contener al menos {usuarioNombreLongitudMinima} caracteres.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show($"El nombre de usuario debe contener al menos {usuarioNombreLongitudMinima} caracteres.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 TextBoxNombre.Focus();
                 return;
             }
@@ -96,14 +96,14 @@ namespace CSMaps.Users
             // Verifico la contraseña ingresada
             if (string.IsNullOrWhiteSpace(TextBoxPassword.Text))
             {
-                MessageBox.Show("Debe ingresar la contraseña.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Debe ingresar la contraseña.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 TextBoxPassword.Focus();
                 return;
             }
             byte usuarioPasswordLongitudMinima = Parameters.GetIntegerAsByte(Parameters.ParametersId.UsuarioPasswordLongitudMinima, 8).Value;
             if (TextBoxPassword.Text.Trim().Length < usuarioPasswordLongitudMinima)
             {
-                MessageBox.Show($"La contraseña debe contener al menos {usuarioPasswordLongitudMinima} caracteres.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show($"La contraseña debe contener al menos {usuarioPasswordLongitudMinima} caracteres.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 TextBoxPassword.Focus();
                 return;
             }
@@ -126,7 +126,7 @@ namespace CSMaps.Users
             // Verifico que el usuario exista
             if (usuario == null)
             {
-                MessageBox.Show("No se encontró un usuario con ese nombre.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("No se encontró un usuario con ese nombre.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 TextBoxNombre.SelectAll();
                 TextBoxNombre.Focus();
                 usuario = null;
@@ -144,12 +144,12 @@ namespace CSMaps.Users
             {
                 usuario = null;
                 this.Cursor = Cursors.Default;
-                MessageBox.Show($"No se ha podido desencriptar la contraseña del usuario en la base de datos.\n\n{decryptionResultMessage}", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show($"No se ha podido desencriptar la contraseña del usuario en la base de datos.\n\n{decryptionResultMessage}", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
             if (string.Compare(TextBoxPassword.Text, decryptedPassword, false) != 0)
             {
-                MessageBox.Show("La contraseña ingresada es incorrecta.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("La contraseña ingresada es incorrecta.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 TextBoxPassword.SelectAll();
                 TextBoxPassword.Focus();
                 usuario = null;

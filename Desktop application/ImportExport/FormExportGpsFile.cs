@@ -159,7 +159,7 @@ namespace CSMaps.General
             }
 
             this.Cursor = Cursors.Default;
-            MessageBox.Show("No se encontraron dispositivos o unidades de almacenamiento correspondientes a un GPS.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            MessageBox.Show("No se encontraron dispositivos o unidades de almacenamiento correspondientes a un GPS.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
 
 
@@ -316,7 +316,7 @@ namespace CSMaps.General
                 case 1:
                     if (!RadioButtonPointsWithData.Checked && !RadioButtonPointsAll.Checked)
                     {
-                        MessageBox.Show("Debe especificar qué puntos quiere incluir en el archivo a exportar.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("Debe especificar qué puntos quiere incluir en el archivo a exportar.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         return false;
                     }
                     else
@@ -334,13 +334,13 @@ namespace CSMaps.General
         {
             if (ListViewDevices.SelectedItems.Count == 0 && TextBoxFile.Text.Trim().IsNullOrEmpty())
             {
-                MessageBox.Show(Properties.Resources.StringExportDestinationNotSpecified, Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(Properties.Resources.StringExportDestinationNotSpecified, Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
 
             if (!TextBoxFile.Text.Trim().IsNullOrEmpty() && !Path.Exists(FileSystem.GetPathWithoutFileName(TextBoxFile.Text)))
             {
-                MessageBox.Show("La ubicación del archivo de destino a exportar no existe.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("La ubicación del archivo de destino a exportar no existe.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
 
@@ -437,7 +437,7 @@ namespace CSMaps.General
             }
 
             this.Cursor = Cursors.Default;
-            MessageBox.Show($"Se ha exportado correctamente la información de {puntos.Count:N0} puntos al destino especificado.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"Se ha exportado correctamente la información de {puntos.Count:N0} puntos al destino especificado.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
         }
 
@@ -449,7 +449,7 @@ namespace CSMaps.General
                 {
                     using MediaDevice mediaDevice = mediaDevices[ListViewDevices.SelectedItems[0].Index];
                     mediaDevice.Connect();
-                    if (mediaDevice.FileExists(fileFullPath) && MessageBox.Show(string.Format(Properties.Resources.StringFileDestinationConfirmOverwrite, Environment.NewLine), Program.ApplicationTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
+                    if (mediaDevice.FileExists(fileFullPath) && MessageBox.Show(string.Format(Properties.Resources.StringFileDestinationConfirmOverwrite, Environment.NewLine), Program.Info.Title, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
                     {
                         mediaDevice.Disconnect();
                         return false;
@@ -462,7 +462,7 @@ namespace CSMaps.General
                     return false;
                 }
             }
-            else if (Path.Exists(fileFullPath) && MessageBox.Show(Properties.Resources.StringFileDestinationConfirmOverwrite, Program.ApplicationTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
+            else if (Path.Exists(fileFullPath) && MessageBox.Show(Properties.Resources.StringFileDestinationConfirmOverwrite, Program.Info.Title, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
             {
                 return false;
             }

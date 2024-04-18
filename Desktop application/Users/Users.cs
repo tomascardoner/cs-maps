@@ -34,7 +34,7 @@ namespace CSMaps.Users
 
         static internal void LogOut()
         {
-            if (MessageBox.Show("¿Desea cerrar la sesión del usuario actual?", Program.ApplicationTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show("¿Desea cerrar la sesión del usuario actual?", Program.Info.Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 Forms.CloseAll(Program.FormMdi.Name);
                 Program.FormMdi.ToolStripLabelUser.Image = null;

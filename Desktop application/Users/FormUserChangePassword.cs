@@ -73,14 +73,14 @@ namespace CSMaps.Users
             // Verifico la contraseña anterior
             if (string.IsNullOrWhiteSpace(TextBoxPasswordAnterior.Text))
             {
-                MessageBox.Show("Debe ingresar la contraseña anterior.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Debe ingresar la contraseña anterior.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 TextBoxPasswordAnterior.Focus();
                 return;
             }
             byte usuarioPasswordLongitudMinima = Parameters.GetIntegerAsByte(Parameters.ParametersId.UsuarioPasswordLongitudMinima, 8).Value;
             if (TextBoxPasswordAnterior.Text.Trim().Length < usuarioPasswordLongitudMinima)
             {
-                MessageBox.Show($"La contraseña anterior debe contener al menos {usuarioPasswordLongitudMinima} caracteres.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show($"La contraseña anterior debe contener al menos {usuarioPasswordLongitudMinima} caracteres.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 TextBoxPasswordAnterior.Focus();
                 return;
             }
@@ -88,13 +88,13 @@ namespace CSMaps.Users
             // Verifico la contraseña nueva
             if (string.IsNullOrWhiteSpace(TextBoxPasswordNueva.Text))
             {
-                MessageBox.Show("Debe ingresar la contraseña nueva.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Debe ingresar la contraseña nueva.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 TextBoxPasswordNueva.Focus();
                 return;
             }
             if (TextBoxPasswordNueva.Text.Trim().Length < usuarioPasswordLongitudMinima)
             {
-                MessageBox.Show($"La contraseña nueva debe contener al menos {usuarioPasswordLongitudMinima} caracteres.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show($"La contraseña nueva debe contener al menos {usuarioPasswordLongitudMinima} caracteres.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 TextBoxPasswordNueva.Focus();
                 return;
             }
@@ -102,19 +102,19 @@ namespace CSMaps.Users
             // Verifico la confirmación de la contraseña nueva
             if (string.IsNullOrWhiteSpace(TextBoxPasswordConfirma.Text))
             {
-                MessageBox.Show("Debe ingresar la confirmación de la nueva contraseña.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Debe ingresar la confirmación de la nueva contraseña.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 TextBoxPasswordConfirma.Focus();
                 return;
             }
             if (TextBoxPasswordConfirma.Text.Trim().Length < usuarioPasswordLongitudMinima)
             {
-                MessageBox.Show($"La confirmación de la nueva contraseña debe contener al menos {usuarioPasswordLongitudMinima} caracteres.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show($"La confirmación de la nueva contraseña debe contener al menos {usuarioPasswordLongitudMinima} caracteres.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 TextBoxPasswordConfirma.Focus();
                 return;
             }
             if (string.Compare(TextBoxPasswordNueva.Text, TextBoxPasswordConfirma.Text, false) != 0)
             {
-                MessageBox.Show("La contraseña nueva es diferente a la confirmación.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("La contraseña nueva es diferente a la confirmación.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 TextBoxPasswordConfirma.Focus();
                 return;
             }
@@ -122,7 +122,7 @@ namespace CSMaps.Users
             // Verifico que la nueva contraseña sea diferente a la anterior
             if (string.Compare(TextBoxPasswordAnterior.Text, TextBoxPasswordNueva.Text, false) == 0)
             {
-                MessageBox.Show("La contraseña nueva debe ser diferente a la anterior.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("La contraseña nueva debe ser diferente a la anterior.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 TextBoxPasswordNueva.Focus();
                 return;
             }
@@ -135,7 +135,7 @@ namespace CSMaps.Users
             }
             if (string.Compare(TextBoxPasswordAnterior.Text, decryptedPassword, false) != 0)
             {
-                MessageBox.Show("La contraseña anterior ingresada es incorrecta.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("La contraseña anterior ingresada es incorrecta.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 TextBoxPasswordAnterior.SelectAll();
                 TextBoxPasswordAnterior.Focus();
                 this.Cursor = Cursors.Default;
@@ -155,7 +155,7 @@ namespace CSMaps.Users
                     context.Usuarios.Attach(Program.Usuario);
                     Program.Usuario.Password = encryptedPassword;
                     context.SaveChanges();
-                    MessageBox.Show("Se ha cambiado la contraseña del usuario.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Se ha cambiado la contraseña del usuario.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)

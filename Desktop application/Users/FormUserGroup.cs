@@ -256,7 +256,7 @@ namespace CSMaps.Users
             if (string.IsNullOrWhiteSpace(TextBoxNombre.Text))
             {
                 TabControlMain.SelectedTab = TabPageGeneral;
-                MessageBox.Show("Debe ingresar el Nombre del grupo de usuarios.", Program.ApplicationTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Debe ingresar el Nombre del grupo de usuarios.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 TextBoxNombre.Focus();
                 return false;
             }
