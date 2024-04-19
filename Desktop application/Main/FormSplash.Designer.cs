@@ -81,10 +81,10 @@
             labelAppTitle.BackColor = Color.Transparent;
             labelAppTitle.Font = new Font("Tahoma", 38.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelAppTitle.ForeColor = Color.DarkRed;
-            labelAppTitle.Location = new Point(13, 12);
+            labelAppTitle.Location = new Point(13, 103);
             labelAppTitle.Margin = new Padding(4, 0, 4, 0);
             labelAppTitle.Name = "labelAppTitle";
-            labelAppTitle.Size = new Size(240, 62);
+            labelAppTitle.Size = new Size(507, 72);
             labelAppTitle.TabIndex = 6;
             labelAppTitle.Text = "Title";
             // 
