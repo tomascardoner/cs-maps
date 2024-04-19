@@ -7,26 +7,31 @@
     <Nullable>disable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <AssemblyName>CSMaps</AssemblyName>
     <PlatformTarget>x64</PlatformTarget>
     <StartupObject>CSMaps.Program</StartupObject>
     <ApplicationDefaultFont>Segoe UI, 9pt</ApplicationDefaultFont>
     <ApplicationIcon>Resources\Application\IconApplication.ico</ApplicationIcon>
     <NeutralLanguage>es-AR</NeutralLanguage>
-    <Title>CS-Maps</Title>
-    <Authors>Tomás A. Cardoner</Authors>
+    <AssemblyName>CSMaps</AssemblyName>
+    <AssemblyTitle>CS-Maps 2024</AssemblyTitle>
     <Company>Cardoner Sistemas</Company>
     <Product>CS-Maps</Product>
     <Description>Sistema de gestión de puntos y datos de mapas.</Description>
     <Copyright>Copyright © 2024 Cardoner Sistemas. Todos los derechos reservados.</Copyright>
+    <Trademark>® CS-Maps</Trademark>
+    <Build>$([System.DateTime]::op_Subtraction($([System.DateTime]::get_Now().get_Date()),$([System.DateTime]::new(2000,1,1))).get_TotalDays())</Build>
+    <Revision>$([MSBuild]::Divide($([System.DateTime]::get_Now().get_TimeOfDay().get_TotalSeconds()), 2).ToString('F0'))</Revision>
+    <Version>1.0.$(Build).$(Revision)</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <IsPublishable>False</IsPublishable>
+    <Deterministic>False</Deterministic>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <IsPublishable>False</IsPublishable>
+    <Deterministic>False</Deterministic>
   </PropertyGroup>
 
   <ItemGroup>

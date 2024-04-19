@@ -6,18 +6,7 @@ namespace CSMaps
     internal static class Program
     {
 #pragma warning disable S2223 // Non-constant static fields should not be visible
-        internal static CardonerSistemas.Framework.Base.Application.Info Info = new()
-        {
-            Title = "CS-Maps",
-            Copyright = "Copyright © 2024 Cardoner Sistemas. Todos los derechos reservados.",
-            ProductName = "CS-Maps",
-            CompanyName = "Cardoner Sistemas",
-            Author = "Tomás A. Cardoner",
-            Trademark = "® CS-Maps",
-            Description = "Sistema de gestión de puntos y datos de mapas.",
-            FileDateTime = File.GetLastWriteTime(Assembly.GetExecutingAssembly().Location)
-        };
-
+        internal static CardonerSistemas.Framework.Base.Application.Info Info = new(Assembly.GetExecutingAssembly());
         internal static AppearanceConfig AppearanceConfig;
         internal static GeneralConfig GeneralConfig;
         internal static CardonerSistemas.Framework.Database.EFCore.ConnectionProperties DatabaseConfig;
