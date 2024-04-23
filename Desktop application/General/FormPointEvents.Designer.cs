@@ -130,7 +130,7 @@
             ToolStripDateFilter.Items.AddRange(new ToolStripItem[] { ToolStripLabelDateFilter, ToolStripComboBoxDateFilterPeriodType, ToolStripComboBoxDateFilterPeriodValue, ToolStripLabelDateFilterAnd });
             ToolStripDateFilter.Location = new Point(0, 0);
             ToolStripDateFilter.Name = "ToolStripDateFilter";
-            ToolStripDateFilter.Size = new Size(173, 25);
+            ToolStripDateFilter.Size = new Size(319, 25);
             ToolStripDateFilter.TabIndex = 1;
             // 
             // ToolStripLabelDateFilter

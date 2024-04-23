@@ -540,7 +540,7 @@ namespace CSMaps.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No se pudo desencriptar la contraseña de la conexión a la base de datos.\n\n{0}.
+        ///   Looks up a localized string similar to No se pudo desencriptar la contraseña de la conexión a la base de datos.{0}{0}{1}.
         /// </summary>
         internal static string StringDatabasePasswordUnencryptionError {
             get {

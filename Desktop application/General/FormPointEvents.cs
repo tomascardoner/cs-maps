@@ -218,12 +218,12 @@ namespace CSMaps.General
 
             // Date
             CardonerSistemas.Framework.Base.DateTime.GetDatesFromPeriodTypeAndValue((CardonerSistemas.Framework.Base.DateTime.PeriodTypes)ToolStripComboBoxDateFilterPeriodType.SelectedIndex, (byte)ToolStripComboBoxDateFilterPeriodValue.SelectedIndex, out System.DateTime fechaDesde, out System.DateTime fechaHasta, ((DateTimePicker)HostDateTimePickerDateFilterFrom.Control).Value, ((DateTimePicker)HostDateTimePickerDateFilterTo.Control).Value);
-            entitiesFiltered = [..entitiesAll.Where(pe => pe.FechaHora >= fechaDesde && pe.FechaHora <= fechaHasta)];
+            entitiesFiltered = [.. entitiesAll.Where(pe => pe.FechaHora >= fechaDesde && pe.FechaHora <= fechaHasta)];
 
             // Event type
             if ((byte)ToolStripComboBoxEventTypeFilter.ComboBox.SelectedValue != CardonerSistemas.Framework.Base.Constants.ByteFieldValueAll)
             {
-                entitiesFiltered = [..entitiesFiltered.Where(pe => pe.IdEventoTipo == (byte)ToolStripComboBoxEventTypeFilter.ComboBox.SelectedValue)];
+                entitiesFiltered = [.. entitiesFiltered.Where(pe => pe.IdEventoTipo == (byte)ToolStripComboBoxEventTypeFilter.ComboBox.SelectedValue)];
             }
 
             ToolStripLabelItemsCounter.Text = Common.DataGridViews.GetItemsCountText(entityNameSingle, entityNamePlural, entitiesFiltered.Count);

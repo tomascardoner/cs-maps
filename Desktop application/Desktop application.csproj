@@ -22,16 +22,20 @@
     <Build>$([System.DateTime]::op_Subtraction($([System.DateTime]::get_Now().get_Date()),$([System.DateTime]::new(2000,1,1))).get_TotalDays())</Build>
     <Revision>$([MSBuild]::Divide($([System.DateTime]::get_Now().get_TimeOfDay().get_TotalSeconds()), 2).ToString('F0'))</Revision>
     <Version>1.0.$(Build).$(Revision)</Version>
+    <Authors>Tomás A. Cardoner</Authors>
+    <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <IsPublishable>False</IsPublishable>
     <Deterministic>False</Deterministic>
+    <DebugType>full</DebugType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <IsPublishable>False</IsPublishable>
     <Deterministic>False</Deterministic>
+    <DebugType>full</DebugType>
   </PropertyGroup>
 
   <ItemGroup>
@@ -41,9 +45,9 @@
   <ItemGroup>
     <PackageReference Include="Geo" Version="1.0.1" />
     <PackageReference Include="MediaDevices" Version="1.10.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.3" />
-    <PackageReference Include="SharpKml.Core" Version="6.0.0" />
-    <PackageReference Include="Syncfusion.Shared.Base" Version="25.1.37" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.4" />
+    <PackageReference Include="SharpKml.Core" Version="6.1.0" />
+    <PackageReference Include="Syncfusion.Shared.Base" Version="25.1.40" />
   </ItemGroup>
 
   <ItemGroup>

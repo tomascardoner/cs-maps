@@ -274,7 +274,7 @@
     <value>Se muestra 1 {0}.</value>
   </data>
   <data name="StringDatabasePasswordUnencryptionError" xml:space="preserve">
-    <value>No se pudo desencriptar la contraseña de la conexión a la base de datos.\n\n{0}</value>
+    <value>No se pudo desencriptar la contraseña de la conexión a la base de datos.{0}{0}{1}</value>
   </data>
   <data name="StringDatabaseReadError" xml:space="preserve">
     <value>Error al leer los datos desde la base.</value>

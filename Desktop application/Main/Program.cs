@@ -6,20 +6,24 @@ namespace CSMaps
     internal static class Program
     {
 #pragma warning disable S2223 // Non-constant static fields should not be visible
+        // Application info
         internal static CardonerSistemas.Framework.Base.Application.Info Info = new(Assembly.GetExecutingAssembly());
+        internal static string LicensedCompany;
+
+        // Config files
         internal static AppearanceConfig AppearanceConfig;
         internal static GeneralConfig GeneralConfig;
         internal static CardonerSistemas.Framework.Database.EFCore.ConnectionProperties DatabaseConfig;
 
+        // Parameters
         internal static List<Models.Parametro> Parametros;
         internal static List<Models.UsuarioParametro> ParametrosUsuario;
-
-        internal static string LicensedCompany;
 
         // Usuarios
         internal static List<Models.UsuarioGrupoPermiso> Permisos;
         internal static Models.Usuario Usuario;
 
+        // Instancias
         internal static Main.FormMdi FormMdi;
 #pragma warning restore S2223 // Non-constant static fields should not be visible
 
@@ -29,6 +33,8 @@ namespace CSMaps
         [STAThread]
         static void Main()
         {
+            Cursor.Current = Cursors.AppStarting;
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
@@ -39,6 +45,7 @@ namespace CSMaps
             // Cargo los archivos de configuración de la aplicación
             if (!Configuration.LoadFiles())
             {
+                TerminateApplication();
                 return;
             }
 
@@ -53,7 +60,7 @@ namespace CSMaps
             CardonerSistemas.Framework.Database.EFCore.ConnectionStringBuilder connectionStringBuilder = new(DatabaseConfig);
             if (!connectionStringBuilder.PasswordUnencrypt(Constants.PublicEncryptionPassword, out string resultMessage))
             {
-                MessageBox.Show(string.Format(Properties.Resources.StringDatabasePasswordUnencryptionError, resultMessage), Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format(Properties.Resources.StringDatabasePasswordUnencryptionError, Environment.NewLine, resultMessage), Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 formSplash.Close();
                 TerminateApplication();
                 return;
