@@ -56,13 +56,6 @@ namespace CSMaps
         public string GridAlternateRowForeColorValue { get; set; }
         public string GridAlternateRowSelectionBackColorValue { get; set; }
         public string GridAlternateRowSelectionForeColorValue { get; set; }
-        public int WeightDisplayWidth { get; set; }
-        public int WeightDisplayHeight { get; set; }
-        public string WeightDisplayBackColorValue { get; set; }
-        public string WeightDisplayForeColorValue { get; set; }
-        public string WeightDisplayFontName { get; set; }
-        public Single WeightDisplayFontSize { get; set; }
-        public bool WeightDisplayFontBold { get; set; }
 
         #endregion
 

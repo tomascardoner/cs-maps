@@ -312,10 +312,10 @@
     <value>No se puede {1} el {0} porque ya existe uno con datos iguales.</value>
   </data>
   <data name="StringEntityNewValuesErrorFemale" xml:space="preserve">
-    <value>Error al obtener la valores iniciales para la nueva {0}.</value>
+    <value>Error al obtener los valores iniciales para la nueva {0}.</value>
   </data>
   <data name="StringEntityNewValuesErrorMale" xml:space="preserve">
-    <value>Error al obtener la valores iniciales para el nuevo {0}.</value>
+    <value>Error al obtener los valores iniciales para el nuevo {0}.</value>
   </data>
   <data name="StringEntityRelatedDataErrorFemale" xml:space="preserve">
     <value>No se puede {1} la {0} porque tiene datos relacionados.</value>

@@ -650,7 +650,7 @@ namespace CSMaps.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error al obtener la valores iniciales para la nueva {0}..
+        ///   Looks up a localized string similar to Error al obtener los valores iniciales para la nueva {0}..
         /// </summary>
         internal static string StringEntityNewValuesErrorFemale {
             get {
@@ -659,7 +659,7 @@ namespace CSMaps.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error al obtener la valores iniciales para el nuevo {0}..
+        ///   Looks up a localized string similar to Error al obtener los valores iniciales para el nuevo {0}..
         /// </summary>
         internal static string StringEntityNewValuesErrorMale {
             get {
