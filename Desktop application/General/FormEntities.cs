@@ -51,7 +51,7 @@ namespace CSMaps.General
 
         private void SetAppearance()
         {
-            this.Icon = CardonerSistemas.Framework.Base.Graphics.GetIconFromBitmap(Properties.Resources.ImageEntidad32);
+            this.Icon = CardonerSistemas.Framework.Base.Graphics.GetIcon(Properties.Resources.ImageEntidad32);
             this.Text = entityNamePlural.FirstCharToUpperCase();
             Forms.SetFont(this, Program.AppearanceConfig.Font);
             Common.Appearance.SetControlsDataGridViews(this.Controls, false);

@@ -60,7 +60,7 @@ namespace CSMaps.General
 
         private void SetAppearance()
         {
-            this.Icon = CardonerSistemas.Framework.Base.Graphics.GetIconFromBitmap(Properties.Resources.ImageEstablecimiento32);
+            this.Icon = CardonerSistemas.Framework.Base.Graphics.GetIcon(Properties.Resources.ImageEstablecimiento32);
             Forms.SetFont(this, Program.AppearanceConfig.Font);
             Common.Appearance.SetControlsDataGridViews(this.Controls, false);
         }

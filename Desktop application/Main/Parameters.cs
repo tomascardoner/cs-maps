@@ -21,7 +21,14 @@
             }
             catch (Exception ex)
             {
-                CardonerSistemas.Framework.Base.Error.ProcessException(ex, "Error al leer los parámetros desde la base de datos.");
+                if (ex.InnerException is not null && ex.InnerException.HResult == -2146232060)
+                {
+                    MessageBox.Show("No se encontró la base de datos.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    CardonerSistemas.Framework.Base.Error.ProcessException(ex, "Error al leer los parámetros desde la base de datos.");
+                }
                 return false;
             }
         }

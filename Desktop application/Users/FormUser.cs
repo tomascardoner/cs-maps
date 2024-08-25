@@ -118,7 +118,7 @@ namespace CSMaps.Users
                     TextBoxPassword.Text = string.Empty;
                 }
             }
-            Values.ToComboBox(ComboBoxGenero, usuario.Genero, CardonerSistemas.Framework.Controls.ComboBox.SelectedItemOptions.Value, Constants.GenderUnknown);
+            Values.ToComboBox(ComboBoxGenero, usuario.Genero, ComboBoxExtension.SelectedItemOptions.Value, Constants.GenderUnknown);
             Values.ToComboBox(ComboBoxUsuarioGrupo, usuario.IdUsuarioGrupo);
 
             // Notas y Auditoría
@@ -127,8 +127,8 @@ namespace CSMaps.Users
             Values.ToTextBox(TextBoxId, usuario.IdUsuario, true, entityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
             Values.ToTextBoxAsShortDateTime(TextBoxFechaHoraCreacion, usuario.FechaHoraCreacion);
             TextBoxUsuarioCreacion.Text = Users.GetDescription(context, usuario.IdUsuarioCreacion);
-            Values.ToTextBoxAsShortDateTime(TextBoxFechaHoraModificacion, usuario.FechaHoraUltimaModificacion);
-            TextBoxUsuarioModificacion.Text = Users.GetDescription(context, usuario.IdUsuarioUltimaModificacion);
+            Values.ToTextBoxAsShortDateTime(TextBoxFechaHoraUltimaModificacion, usuario.FechaHoraUltimaModificacion);
+            TextBoxUsuarioUltimaModificacion.Text = Users.GetDescription(context, usuario.IdUsuarioUltimaModificacion);
         }
 
         private void SetDataToEntityObject()
@@ -149,7 +149,7 @@ namespace CSMaps.Users
 
             // Notas y Auditoría
             usuario.Notas = Values.TextBoxToString(TextBoxNotas);
-            usuario.EsActivo = Values.CheckBoxToBoolean(CheckBoxEsActivo).Value;
+            usuario.EsActivo = Values.CheckBoxToBoolean(CheckBoxEsActivo);
         }
 
         #endregion

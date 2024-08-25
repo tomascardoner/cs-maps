@@ -32,49 +32,71 @@ namespace CSMaps.Users
             TreeViewPermisos = new TreeView();
             ComboBoxUsuarioGrupo = new ComboBox();
             LabelUsuarioGrupo = new Label();
+            TableLayoutPanelMain = new TableLayoutPanel();
+            TableLayoutPanelMain.SuspendLayout();
             SuspendLayout();
             // 
             // TreeViewPermisos
             // 
-            TreeViewPermisos.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             TreeViewPermisos.CheckBoxes = true;
-            TreeViewPermisos.Location = new Point(14, 45);
+            TableLayoutPanelMain.SetColumnSpan(TreeViewPermisos, 2);
+            TreeViewPermisos.Dock = DockStyle.Fill;
+            TreeViewPermisos.Location = new Point(4, 37);
             TreeViewPermisos.Margin = new Padding(4, 3, 4, 3);
             TreeViewPermisos.Name = "TreeViewPermisos";
-            TreeViewPermisos.Size = new Size(902, 460);
+            TreeViewPermisos.Size = new Size(821, 644);
             TreeViewPermisos.TabIndex = 2;
             TreeViewPermisos.BeforeCheck += TreeviewPermisos_BeforeCheck;
             TreeViewPermisos.AfterCheck += TreeviewPermisos_AfterCheck;
             // 
             // ComboBoxUsuarioGrupo
             // 
-            ComboBoxUsuarioGrupo.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            ComboBoxUsuarioGrupo.Dock = DockStyle.Fill;
             ComboBoxUsuarioGrupo.DropDownStyle = ComboBoxStyle.DropDownList;
             ComboBoxUsuarioGrupo.FormattingEnabled = true;
-            ComboBoxUsuarioGrupo.Location = new Point(156, 14);
+            ComboBoxUsuarioGrupo.Location = new Point(146, 3);
             ComboBoxUsuarioGrupo.Margin = new Padding(4, 3, 4, 3);
             ComboBoxUsuarioGrupo.Name = "ComboBoxUsuarioGrupo";
-            ComboBoxUsuarioGrupo.Size = new Size(760, 23);
+            ComboBoxUsuarioGrupo.Size = new Size(679, 28);
             ComboBoxUsuarioGrupo.TabIndex = 1;
             ComboBoxUsuarioGrupo.SelectedIndexChanged += ComboboxUsuarioGrupo_SelectedIndexChanged;
             // 
             // LabelUsuarioGrupo
             // 
             LabelUsuarioGrupo.AutoSize = true;
-            LabelUsuarioGrupo.Location = new Point(14, 17);
+            LabelUsuarioGrupo.Dock = DockStyle.Fill;
+            LabelUsuarioGrupo.Location = new Point(4, 0);
             LabelUsuarioGrupo.Margin = new Padding(4, 0, 4, 0);
             LabelUsuarioGrupo.Name = "LabelUsuarioGrupo";
-            LabelUsuarioGrupo.Size = new Size(107, 15);
+            LabelUsuarioGrupo.Size = new Size(134, 34);
             LabelUsuarioGrupo.TabIndex = 0;
             LabelUsuarioGrupo.Text = "Grupo de Usuarios:";
+            LabelUsuarioGrupo.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // TableLayoutPanelMain
+            // 
+            TableLayoutPanelMain.AutoSize = true;
+            TableLayoutPanelMain.ColumnCount = 2;
+            TableLayoutPanelMain.ColumnStyles.Add(new ColumnStyle());
+            TableLayoutPanelMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            TableLayoutPanelMain.Controls.Add(LabelUsuarioGrupo, 0, 0);
+            TableLayoutPanelMain.Controls.Add(ComboBoxUsuarioGrupo, 1, 0);
+            TableLayoutPanelMain.Controls.Add(TreeViewPermisos, 0, 1);
+            TableLayoutPanelMain.Dock = DockStyle.Fill;
+            TableLayoutPanelMain.GrowStyle = TableLayoutPanelGrowStyle.FixedSize;
+            TableLayoutPanelMain.Location = new Point(0, 0);
+            TableLayoutPanelMain.Name = "TableLayoutPanelMain";
+            TableLayoutPanelMain.RowCount = 2;
+            TableLayoutPanelMain.RowStyles.Add(new RowStyle());
+            TableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            TableLayoutPanelMain.Size = new Size(829, 684);
+            TableLayoutPanelMain.TabIndex = 3;
             // 
             // FormUsersGroupsPermissions
             // 
             AutoScaleMode = AutoScaleMode.Inherit;
-            ClientSize = new Size(931, 519);
-            Controls.Add(TreeViewPermisos);
-            Controls.Add(ComboBoxUsuarioGrupo);
-            Controls.Add(LabelUsuarioGrupo);
+            ClientSize = new Size(829, 684);
+            Controls.Add(TableLayoutPanelMain);
             Margin = new Padding(4, 3, 4, 3);
             MaximizeBox = false;
             MinimizeBox = false;
@@ -82,6 +104,8 @@ namespace CSMaps.Users
             StartPosition = FormStartPosition.Manual;
             Text = "Permisos por grupo de usuarios";
             FormClosed += This_FormClosed;
+            TableLayoutPanelMain.ResumeLayout(false);
+            TableLayoutPanelMain.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -91,5 +115,6 @@ namespace CSMaps.Users
         internal System.Windows.Forms.TreeView TreeViewPermisos;
         internal System.Windows.Forms.ComboBox ComboBoxUsuarioGrupo;
         internal System.Windows.Forms.Label LabelUsuarioGrupo;
+        private TableLayoutPanel TableLayoutPanelMain;
     }
 }

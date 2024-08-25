@@ -45,26 +45,26 @@
   <ItemGroup>
     <PackageReference Include="Geo" Version="1.0.1" />
     <PackageReference Include="MediaDevices" Version="1.10.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.8" />
     <PackageReference Include="SharpKml.Core" Version="6.1.0" />
-    <PackageReference Include="Syncfusion.Shared.Base" Version="25.1.40" />
+    <PackageReference Include="Syncfusion.Shared.Base" Version="26.2.10" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="CardonerSistemas.Framework.Base">
-      <HintPath>..\..\..\CS-Framework.Net\CardonerSistemas.Framework.Base\bin\Debug\net8.0-windows\CardonerSistemas.Framework.Base.dll</HintPath>
+      <HintPath>..\..\CS-Framework.Net\CardonerSistemas.Framework.Base\bin\Debug\net8.0-windows\CardonerSistemas.Framework.Base.dll</HintPath>
     </Reference>
     <Reference Include="CardonerSistemas.Framework.Controls">
-      <HintPath>..\..\..\CS-Framework.Net\CardonerSistemas.Framework.Controls\bin\Debug\net8.0-windows\CardonerSistemas.Framework.Controls.dll</HintPath>
+      <HintPath>..\..\CS-Framework.Net\CardonerSistemas.Framework.Controls\bin\Debug\net8.0-windows\CardonerSistemas.Framework.Controls.dll</HintPath>
     </Reference>
     <Reference Include="CardonerSistemas.Framework.Controls.Syncfusion">
-      <HintPath>..\..\..\CS-Framework.Net\CardonerSistemas.Framework.Controls.Syncfusion\bin\Debug\net8.0-windows\CardonerSistemas.Framework.Controls.Syncfusion.dll</HintPath>
+      <HintPath>..\..\CS-Framework.Net\CardonerSistemas.Framework.Controls.Syncfusion\bin\Debug\net8.0-windows\CardonerSistemas.Framework.Controls.Syncfusion.dll</HintPath>
     </Reference>
     <Reference Include="CardonerSistemas.Framework.Cryptography">
-      <HintPath>..\..\..\CS-Framework.Net\CardonerSistemas.Framework.Cryptography\bin\Debug\net8.0-windows\CardonerSistemas.Framework.Cryptography.dll</HintPath>
+      <HintPath>..\..\CS-Framework.Net\CardonerSistemas.Framework.Cryptography\bin\Debug\net8.0-windows\CardonerSistemas.Framework.Cryptography.dll</HintPath>
     </Reference>
     <Reference Include="CardonerSistemas.Framework.Database.EFCore">
-      <HintPath>..\..\..\CS-Framework.Net\CardonerSistemas.Framework.Database.EFCore\bin\Debug\net8.0-windows\CardonerSistemas.Framework.Database.EFCore.dll</HintPath>
+      <HintPath>..\..\CS-Framework.Net\CardonerSistemas.Framework.Database.EFCore\bin\Debug\net8.0-windows\CardonerSistemas.Framework.Database.EFCore.dll</HintPath>
     </Reference>
   </ItemGroup>
 

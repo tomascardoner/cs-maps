@@ -81,7 +81,7 @@ namespace CSMaps.Users
 
         private void SetAppearance()
         {
-            this.Icon = CardonerSistemas.Framework.Base.Graphics.GetIconFromBitmap(Properties.Resources.ImageTablas32);
+            this.Icon = CardonerSistemas.Framework.Base.Graphics.GetIcon(Properties.Resources.ImageTablas32);
             this.Text = entidadNombreSingular.FirstCharToUpperCase();
             Forms.SetFont(this, Program.AppearanceConfig.Font);
         }
@@ -109,8 +109,8 @@ namespace CSMaps.Users
             Values.ToTextBox(TextBoxId, usuarioGrupo.IdUsuarioGrupo, true, entidadFemenina ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
             Values.ToTextBoxAsShortDateTime(TextBoxFechaHoraCreacion, usuarioGrupo.FechaHoraCreacion);
             TextBoxUsuarioCreacion.Text = Users.GetDescription(context, usuarioGrupo.IdUsuarioCreacion);
-            Values.ToTextBoxAsShortDateTime(TextBoxFechaHoraModificacion, usuarioGrupo.FechaHoraUltimaModificacion);
-            TextBoxUsuarioModificacion.Text = Users.GetDescription(context, usuarioGrupo.IdUsuarioUltimaModificacion);
+            Values.ToTextBoxAsShortDateTime(TextBoxUsuarioUltimaModificacion, usuarioGrupo.FechaHoraUltimaModificacion);
+            TextBoxUsuarioUltimaModificacion.Text = Users.GetDescription(context, usuarioGrupo.IdUsuarioUltimaModificacion);
         }
 
         private void SetDataToEntityObject()
@@ -120,7 +120,7 @@ namespace CSMaps.Users
 
             // Notas y Auditoría
             usuarioGrupo.Notas = Values.TextBoxToString(TextBoxNotas);
-            usuarioGrupo.EsActivo = Values.CheckBoxToBoolean(CheckBoxEsActivo).Value;
+            usuarioGrupo.EsActivo = Values.CheckBoxToBoolean(CheckBoxEsActivo);
         }
 
         #endregion

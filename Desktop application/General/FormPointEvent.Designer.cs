@@ -45,47 +45,32 @@
             TextBoxNotas = new TextBox();
             LabelNotas = new Label();
             TabPageAuditoria = new TabPage();
+            TableLayoutPanelAuditoria = new TableLayoutPanel();
             LabelId = new Label();
             TextBoxId = new TextBox();
             TextBoxFechaHoraCreacion = new TextBox();
             TextBoxUsuarioCreacion = new TextBox();
             TextBoxFechaHoraUltimaModificacion = new TextBox();
             TextBoxUsuarioUltimaModificacion = new TextBox();
+            TableLayoutPanelGeneral = new TableLayoutPanel();
             LabelCreacion = new Label();
             LabelModificacion = new Label();
             ToolStripMain.SuspendLayout();
             TabControlMain.SuspendLayout();
             TabPageGeneral.SuspendLayout();
             TabPageAuditoria.SuspendLayout();
+            TableLayoutPanelAuditoria.SuspendLayout();
+            TableLayoutPanelGeneral.SuspendLayout();
             SuspendLayout();
-            // 
-            // LabelCreacion
-            // 
-            LabelCreacion.AutoSize = true;
-            LabelCreacion.Location = new Point(7, 38);
-            LabelCreacion.Margin = new Padding(4, 0, 4, 0);
-            LabelCreacion.Name = "LabelCreacion";
-            LabelCreacion.Size = new Size(57, 15);
-            LabelCreacion.TabIndex = 2;
-            LabelCreacion.Text = "Creación:";
-            // 
-            // LabelModificacion
-            // 
-            LabelModificacion.AutoSize = true;
-            LabelModificacion.Location = new Point(7, 67);
-            LabelModificacion.Margin = new Padding(4, 0, 4, 0);
-            LabelModificacion.Name = "LabelModificacion";
-            LabelModificacion.Size = new Size(118, 15);
-            LabelModificacion.TabIndex = 5;
-            LabelModificacion.Text = "Última modificación:";
             // 
             // ToolStripMain
             // 
             ToolStripMain.GripStyle = ToolStripGripStyle.Hidden;
+            ToolStripMain.ImageScalingSize = new Size(20, 20);
             ToolStripMain.Items.AddRange(new ToolStripItem[] { ToolStripButtonClose, ToolStripButtonEdit, ToolStripButtonCancel, ToolStripButtonSave });
             ToolStripMain.Location = new Point(0, 0);
             ToolStripMain.Name = "ToolStripMain";
-            ToolStripMain.Size = new Size(517, 39);
+            ToolStripMain.Size = new Size(619, 39);
             ToolStripMain.TabIndex = 0;
             // 
             // ToolStripButtonClose
@@ -95,7 +80,7 @@
             ToolStripButtonClose.ImageScaling = ToolStripItemImageScaling.None;
             ToolStripButtonClose.ImageTransparentColor = Color.Magenta;
             ToolStripButtonClose.Name = "ToolStripButtonClose";
-            ToolStripButtonClose.Size = new Size(75, 36);
+            ToolStripButtonClose.Size = new Size(85, 36);
             ToolStripButtonClose.Text = "Cerrar";
             ToolStripButtonClose.Click += ToolStripButtonClose_Click;
             // 
@@ -106,7 +91,7 @@
             ToolStripButtonEdit.ImageScaling = ToolStripItemImageScaling.None;
             ToolStripButtonEdit.ImageTransparentColor = Color.Magenta;
             ToolStripButtonEdit.Name = "ToolStripButtonEdit";
-            ToolStripButtonEdit.Size = new Size(73, 36);
+            ToolStripButtonEdit.Size = new Size(84, 36);
             ToolStripButtonEdit.Text = "Editar";
             ToolStripButtonEdit.Click += ToolStripButtonEdit_Click;
             // 
@@ -117,7 +102,7 @@
             ToolStripButtonCancel.ImageScaling = ToolStripItemImageScaling.None;
             ToolStripButtonCancel.ImageTransparentColor = Color.Magenta;
             ToolStripButtonCancel.Name = "ToolStripButtonCancel";
-            ToolStripButtonCancel.Size = new Size(89, 36);
+            ToolStripButtonCancel.Size = new Size(102, 36);
             ToolStripButtonCancel.Text = "Cancelar";
             ToolStripButtonCancel.Click += ToolStripButtonCancel_Click;
             // 
@@ -128,55 +113,60 @@
             ToolStripButtonSave.ImageScaling = ToolStripItemImageScaling.None;
             ToolStripButtonSave.ImageTransparentColor = Color.Magenta;
             ToolStripButtonSave.Name = "ToolStripButtonSave";
-            ToolStripButtonSave.Size = new Size(85, 36);
+            ToolStripButtonSave.Size = new Size(98, 36);
             ToolStripButtonSave.Text = "Guardar";
             ToolStripButtonSave.Click += ToolStripButtonSave_Click;
             // 
             // LabelEventoTipo
             // 
             LabelEventoTipo.AutoSize = true;
-            LabelEventoTipo.Location = new Point(6, 9);
+            LabelEventoTipo.Dock = DockStyle.Fill;
+            LabelEventoTipo.Location = new Point(3, 0);
             LabelEventoTipo.Name = "LabelEventoTipo";
-            LabelEventoTipo.Size = new Size(33, 15);
+            LabelEventoTipo.Size = new Size(86, 34);
             LabelEventoTipo.TabIndex = 0;
             LabelEventoTipo.Text = "Tipo:";
+            LabelEventoTipo.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // ComboBoxEventoTipo
             // 
-            ComboBoxEventoTipo.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            TableLayoutPanelGeneral.SetColumnSpan(ComboBoxEventoTipo, 2);
+            ComboBoxEventoTipo.Dock = DockStyle.Fill;
             ComboBoxEventoTipo.DropDownStyle = ComboBoxStyle.DropDownList;
             ComboBoxEventoTipo.FormattingEnabled = true;
-            ComboBoxEventoTipo.Location = new Point(114, 6);
+            ComboBoxEventoTipo.Location = new Point(95, 3);
             ComboBoxEventoTipo.Name = "ComboBoxEventoTipo";
-            ComboBoxEventoTipo.Size = new Size(389, 23);
+            ComboBoxEventoTipo.Size = new Size(507, 28);
             ComboBoxEventoTipo.TabIndex = 1;
             // 
             // LabelFechaHora
             // 
             LabelFechaHora.AutoSize = true;
-            LabelFechaHora.Location = new Point(6, 38);
+            LabelFechaHora.Dock = DockStyle.Fill;
+            LabelFechaHora.Location = new Point(3, 34);
             LabelFechaHora.Name = "LabelFechaHora";
-            LabelFechaHora.Size = new Size(70, 15);
+            LabelFechaHora.Size = new Size(86, 33);
             LabelFechaHora.TabIndex = 2;
             LabelFechaHora.Text = "Fecha-hora:";
+            LabelFechaHora.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // DateTimePickerFecha
             // 
             DateTimePickerFecha.Format = DateTimePickerFormat.Short;
-            DateTimePickerFecha.Location = new Point(114, 35);
+            DateTimePickerFecha.Location = new Point(95, 37);
             DateTimePickerFecha.MaxDate = new DateTime(2099, 12, 31, 0, 0, 0, 0);
             DateTimePickerFecha.MinDate = new DateTime(2023, 1, 1, 0, 0, 0, 0);
             DateTimePickerFecha.Name = "DateTimePickerFecha";
-            DateTimePickerFecha.Size = new Size(126, 23);
+            DateTimePickerFecha.Size = new Size(126, 27);
             DateTimePickerFecha.TabIndex = 3;
             // 
             // DateTimePickerHora
             // 
             DateTimePickerHora.Format = DateTimePickerFormat.Time;
-            DateTimePickerHora.Location = new Point(246, 35);
+            DateTimePickerHora.Location = new Point(227, 37);
             DateTimePickerHora.Name = "DateTimePickerHora";
             DateTimePickerHora.ShowUpDown = true;
-            DateTimePickerHora.Size = new Size(87, 23);
+            DateTimePickerHora.Size = new Size(87, 27);
             DateTimePickerHora.TabIndex = 4;
             // 
             // TabControlMain
@@ -188,138 +178,205 @@
             TabControlMain.Location = new Point(0, 39);
             TabControlMain.Name = "TabControlMain";
             TabControlMain.SelectedIndex = 0;
-            TabControlMain.Size = new Size(517, 200);
+            TabControlMain.Size = new Size(619, 263);
             TabControlMain.TabIndex = 1;
             // 
             // TabPageGeneral
             // 
-            TabPageGeneral.Controls.Add(TextBoxNotas);
-            TabPageGeneral.Controls.Add(LabelNotas);
-            TabPageGeneral.Controls.Add(LabelEventoTipo);
-            TabPageGeneral.Controls.Add(ComboBoxEventoTipo);
-            TabPageGeneral.Controls.Add(LabelFechaHora);
-            TabPageGeneral.Controls.Add(DateTimePickerFecha);
-            TabPageGeneral.Controls.Add(DateTimePickerHora);
-            TabPageGeneral.Location = new Point(4, 27);
+            TabPageGeneral.Controls.Add(TableLayoutPanelGeneral);
+            TabPageGeneral.Location = new Point(4, 32);
             TabPageGeneral.Name = "TabPageGeneral";
             TabPageGeneral.Padding = new Padding(3);
-            TabPageGeneral.Size = new Size(509, 169);
+            TabPageGeneral.Size = new Size(611, 227);
             TabPageGeneral.TabIndex = 0;
             TabPageGeneral.Text = "General";
             TabPageGeneral.UseVisualStyleBackColor = true;
             // 
             // TextBoxNotas
             // 
-            TextBoxNotas.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            TextBoxNotas.Location = new Point(114, 64);
+            TableLayoutPanelGeneral.SetColumnSpan(TextBoxNotas, 2);
+            TextBoxNotas.Dock = DockStyle.Fill;
+            TextBoxNotas.Location = new Point(96, 70);
             TextBoxNotas.Margin = new Padding(4, 3, 4, 3);
             TextBoxNotas.MaxLength = 0;
             TextBoxNotas.Multiline = true;
             TextBoxNotas.Name = "TextBoxNotas";
             TextBoxNotas.ScrollBars = ScrollBars.Vertical;
-            TextBoxNotas.Size = new Size(388, 99);
+            TextBoxNotas.Size = new Size(505, 148);
             TextBoxNotas.TabIndex = 6;
             // 
             // LabelNotas
             // 
             LabelNotas.AutoSize = true;
-            LabelNotas.Location = new Point(7, 67);
+            LabelNotas.Dock = DockStyle.Fill;
+            LabelNotas.Location = new Point(4, 67);
             LabelNotas.Margin = new Padding(4, 0, 4, 0);
             LabelNotas.Name = "LabelNotas";
-            LabelNotas.Size = new Size(41, 15);
+            LabelNotas.Size = new Size(84, 154);
             LabelNotas.TabIndex = 5;
             LabelNotas.Text = "Notas:";
             // 
             // TabPageAuditoria
             // 
-            TabPageAuditoria.Controls.Add(LabelId);
-            TabPageAuditoria.Controls.Add(TextBoxId);
-            TabPageAuditoria.Controls.Add(LabelCreacion);
-            TabPageAuditoria.Controls.Add(TextBoxFechaHoraCreacion);
-            TabPageAuditoria.Controls.Add(TextBoxUsuarioCreacion);
-            TabPageAuditoria.Controls.Add(LabelModificacion);
-            TabPageAuditoria.Controls.Add(TextBoxFechaHoraUltimaModificacion);
-            TabPageAuditoria.Controls.Add(TextBoxUsuarioUltimaModificacion);
-            TabPageAuditoria.Location = new Point(4, 27);
+            TabPageAuditoria.Controls.Add(TableLayoutPanelAuditoria);
+            TabPageAuditoria.Location = new Point(4, 32);
             TabPageAuditoria.Name = "TabPageAuditoria";
             TabPageAuditoria.Padding = new Padding(3);
-            TabPageAuditoria.Size = new Size(509, 169);
+            TabPageAuditoria.Size = new Size(611, 227);
             TabPageAuditoria.TabIndex = 1;
             TabPageAuditoria.Text = "Auditoría";
             TabPageAuditoria.UseVisualStyleBackColor = true;
             // 
+            // TableLayoutPanelAuditoria
+            // 
+            TableLayoutPanelAuditoria.AutoSize = true;
+            TableLayoutPanelAuditoria.ColumnCount = 3;
+            TableLayoutPanelAuditoria.ColumnStyles.Add(new ColumnStyle());
+            TableLayoutPanelAuditoria.ColumnStyles.Add(new ColumnStyle());
+            TableLayoutPanelAuditoria.ColumnStyles.Add(new ColumnStyle());
+            TableLayoutPanelAuditoria.Controls.Add(LabelId, 0, 0);
+            TableLayoutPanelAuditoria.Controls.Add(TextBoxId, 1, 0);
+            TableLayoutPanelAuditoria.Controls.Add(LabelCreacion, 0, 1);
+            TableLayoutPanelAuditoria.Controls.Add(TextBoxFechaHoraCreacion, 1, 1);
+            TableLayoutPanelAuditoria.Controls.Add(TextBoxUsuarioCreacion, 2, 1);
+            TableLayoutPanelAuditoria.Controls.Add(LabelModificacion, 0, 2);
+            TableLayoutPanelAuditoria.Controls.Add(TextBoxFechaHoraUltimaModificacion, 1, 2);
+            TableLayoutPanelAuditoria.Controls.Add(TextBoxUsuarioUltimaModificacion, 2, 2);
+            TableLayoutPanelAuditoria.Dock = DockStyle.Fill;
+            TableLayoutPanelAuditoria.GrowStyle = TableLayoutPanelGrowStyle.FixedSize;
+            TableLayoutPanelAuditoria.Location = new Point(3, 3);
+            TableLayoutPanelAuditoria.Name = "TableLayoutPanelAuditoria";
+            TableLayoutPanelAuditoria.RowCount = 4;
+            TableLayoutPanelAuditoria.RowStyles.Add(new RowStyle());
+            TableLayoutPanelAuditoria.RowStyles.Add(new RowStyle());
+            TableLayoutPanelAuditoria.RowStyles.Add(new RowStyle());
+            TableLayoutPanelAuditoria.RowStyles.Add(new RowStyle());
+            TableLayoutPanelAuditoria.Size = new Size(605, 221);
+            TableLayoutPanelAuditoria.TabIndex = 9;
+            // 
             // LabelId
             // 
             LabelId.AutoSize = true;
-            LabelId.Location = new Point(7, 9);
+            LabelId.Dock = DockStyle.Fill;
+            LabelId.Location = new Point(4, 0);
             LabelId.Margin = new Padding(4, 0, 4, 0);
             LabelId.Name = "LabelId";
-            LabelId.Size = new Size(20, 15);
+            LabelId.Size = new Size(147, 33);
             LabelId.TabIndex = 0;
             LabelId.Text = "Id:";
+            LabelId.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // TextBoxId
             // 
-            TextBoxId.Location = new Point(133, 6);
+            TextBoxId.Location = new Point(159, 3);
             TextBoxId.Margin = new Padding(4, 3, 4, 3);
             TextBoxId.MaxLength = 10;
             TextBoxId.Name = "TextBoxId";
             TextBoxId.ReadOnly = true;
-            TextBoxId.Size = new Size(83, 23);
+            TextBoxId.Size = new Size(83, 27);
             TextBoxId.TabIndex = 1;
             TextBoxId.TabStop = false;
             TextBoxId.TextAlign = HorizontalAlignment.Center;
             // 
+            // LabelCreacion
+            // 
+            LabelCreacion.AutoSize = true;
+            LabelCreacion.Dock = DockStyle.Fill;
+            LabelCreacion.Location = new Point(4, 33);
+            LabelCreacion.Margin = new Padding(4, 0, 4, 0);
+            LabelCreacion.Name = "LabelCreacion";
+            LabelCreacion.Size = new Size(147, 33);
+            LabelCreacion.TabIndex = 2;
+            LabelCreacion.Text = "Creación:";
+            LabelCreacion.TextAlign = ContentAlignment.MiddleLeft;
+            // 
             // TextBoxFechaHoraCreacion
             // 
-            TextBoxFechaHoraCreacion.Location = new Point(133, 35);
+            TextBoxFechaHoraCreacion.Location = new Point(159, 36);
             TextBoxFechaHoraCreacion.Margin = new Padding(4, 3, 4, 3);
             TextBoxFechaHoraCreacion.MaxLength = 0;
             TextBoxFechaHoraCreacion.Name = "TextBoxFechaHoraCreacion";
             TextBoxFechaHoraCreacion.ReadOnly = true;
-            TextBoxFechaHoraCreacion.Size = new Size(140, 23);
+            TextBoxFechaHoraCreacion.Size = new Size(140, 27);
             TextBoxFechaHoraCreacion.TabIndex = 3;
             TextBoxFechaHoraCreacion.TabStop = false;
             // 
             // TextBoxUsuarioCreacion
             // 
-            TextBoxUsuarioCreacion.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            TextBoxUsuarioCreacion.Location = new Point(281, 35);
+            TextBoxUsuarioCreacion.Dock = DockStyle.Fill;
+            TextBoxUsuarioCreacion.Location = new Point(307, 36);
             TextBoxUsuarioCreacion.Margin = new Padding(4, 3, 4, 3);
             TextBoxUsuarioCreacion.MaxLength = 50;
             TextBoxUsuarioCreacion.Name = "TextBoxUsuarioCreacion";
             TextBoxUsuarioCreacion.ReadOnly = true;
-            TextBoxUsuarioCreacion.Size = new Size(221, 23);
+            TextBoxUsuarioCreacion.Size = new Size(294, 27);
             TextBoxUsuarioCreacion.TabIndex = 4;
             TextBoxUsuarioCreacion.TabStop = false;
             // 
+            // LabelModificacion
+            // 
+            LabelModificacion.AutoSize = true;
+            LabelModificacion.Dock = DockStyle.Fill;
+            LabelModificacion.Location = new Point(4, 66);
+            LabelModificacion.Margin = new Padding(4, 0, 4, 0);
+            LabelModificacion.Name = "LabelModificacion";
+            LabelModificacion.Size = new Size(147, 33);
+            LabelModificacion.TabIndex = 5;
+            LabelModificacion.Text = "Última modificación:";
+            LabelModificacion.TextAlign = ContentAlignment.MiddleLeft;
+            // 
             // TextBoxFechaHoraUltimaModificacion
             // 
-            TextBoxFechaHoraUltimaModificacion.Location = new Point(133, 64);
+            TextBoxFechaHoraUltimaModificacion.Location = new Point(159, 69);
             TextBoxFechaHoraUltimaModificacion.Margin = new Padding(4, 3, 4, 3);
             TextBoxFechaHoraUltimaModificacion.MaxLength = 0;
             TextBoxFechaHoraUltimaModificacion.Name = "TextBoxFechaHoraUltimaModificacion";
             TextBoxFechaHoraUltimaModificacion.ReadOnly = true;
-            TextBoxFechaHoraUltimaModificacion.Size = new Size(140, 23);
+            TextBoxFechaHoraUltimaModificacion.Size = new Size(140, 27);
             TextBoxFechaHoraUltimaModificacion.TabIndex = 6;
             TextBoxFechaHoraUltimaModificacion.TabStop = false;
             // 
             // TextBoxUsuarioUltimaModificacion
             // 
-            TextBoxUsuarioUltimaModificacion.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            TextBoxUsuarioUltimaModificacion.Location = new Point(281, 64);
+            TextBoxUsuarioUltimaModificacion.Dock = DockStyle.Fill;
+            TextBoxUsuarioUltimaModificacion.Location = new Point(307, 69);
             TextBoxUsuarioUltimaModificacion.Margin = new Padding(4, 3, 4, 3);
             TextBoxUsuarioUltimaModificacion.MaxLength = 50;
             TextBoxUsuarioUltimaModificacion.Name = "TextBoxUsuarioUltimaModificacion";
             TextBoxUsuarioUltimaModificacion.ReadOnly = true;
-            TextBoxUsuarioUltimaModificacion.Size = new Size(221, 23);
+            TextBoxUsuarioUltimaModificacion.Size = new Size(294, 27);
             TextBoxUsuarioUltimaModificacion.TabIndex = 7;
             TextBoxUsuarioUltimaModificacion.TabStop = false;
+            // 
+            // TableLayoutPanelGeneral
+            // 
+            TableLayoutPanelGeneral.AutoSize = true;
+            TableLayoutPanelGeneral.ColumnCount = 3;
+            TableLayoutPanelGeneral.ColumnStyles.Add(new ColumnStyle());
+            TableLayoutPanelGeneral.ColumnStyles.Add(new ColumnStyle());
+            TableLayoutPanelGeneral.ColumnStyles.Add(new ColumnStyle());
+            TableLayoutPanelGeneral.Controls.Add(LabelEventoTipo, 0, 0);
+            TableLayoutPanelGeneral.Controls.Add(ComboBoxEventoTipo, 1, 0);
+            TableLayoutPanelGeneral.Controls.Add(LabelFechaHora, 0, 1);
+            TableLayoutPanelGeneral.Controls.Add(DateTimePickerFecha, 1, 1);
+            TableLayoutPanelGeneral.Controls.Add(DateTimePickerHora, 2, 1);
+            TableLayoutPanelGeneral.Controls.Add(LabelNotas, 0, 2);
+            TableLayoutPanelGeneral.Controls.Add(TextBoxNotas, 1, 2);
+            TableLayoutPanelGeneral.Dock = DockStyle.Fill;
+            TableLayoutPanelGeneral.GrowStyle = TableLayoutPanelGrowStyle.FixedSize;
+            TableLayoutPanelGeneral.Location = new Point(3, 3);
+            TableLayoutPanelGeneral.Name = "TableLayoutPanelGeneral";
+            TableLayoutPanelGeneral.RowCount = 3;
+            TableLayoutPanelGeneral.RowStyles.Add(new RowStyle());
+            TableLayoutPanelGeneral.RowStyles.Add(new RowStyle());
+            TableLayoutPanelGeneral.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            TableLayoutPanelGeneral.Size = new Size(605, 221);
+            TableLayoutPanelGeneral.TabIndex = 7;
             // 
             // FormPointEvent
             // 
             AutoScaleMode = AutoScaleMode.Inherit;
-            ClientSize = new Size(517, 239);
+            ClientSize = new Size(619, 302);
             Controls.Add(TabControlMain);
             Controls.Add(ToolStripMain);
             FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -338,6 +395,10 @@
             TabPageGeneral.PerformLayout();
             TabPageAuditoria.ResumeLayout(false);
             TabPageAuditoria.PerformLayout();
+            TableLayoutPanelAuditoria.ResumeLayout(false);
+            TableLayoutPanelAuditoria.PerformLayout();
+            TableLayoutPanelGeneral.ResumeLayout(false);
+            TableLayoutPanelGeneral.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -357,13 +418,15 @@
         private TabControl TabControlMain;
         private TabPage TabPageGeneral;
         private TabPage TabPageAuditoria;
-        internal Label LabelId;
-        internal TextBox TextBoxId;
+        internal Label LabelNotas;
+        internal TextBox TextBoxNotas;
+        private TableLayoutPanel TableLayoutPanelGeneral;
+        private TableLayoutPanel TableLayoutPanelAuditoria;
+        private Label LabelId;
+        private TextBox TextBoxId;
         internal TextBox TextBoxFechaHoraCreacion;
         internal TextBox TextBoxUsuarioCreacion;
         internal TextBox TextBoxFechaHoraUltimaModificacion;
         internal TextBox TextBoxUsuarioUltimaModificacion;
-        internal Label LabelNotas;
-        internal TextBox TextBoxNotas;
     }
 }

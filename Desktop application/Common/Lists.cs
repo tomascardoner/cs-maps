@@ -55,6 +55,7 @@ namespace CSMaps.Common
                 comboBox.SelectedIndex = -1;
             }
         }
+		
         static internal void GetEntidades(ComboBox comboBox, Models.CSMapsContext context, bool showNotSpecified)
         {
             comboBox.ValueMember = "IdEntidad";
