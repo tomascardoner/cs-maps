@@ -121,7 +121,7 @@
         private const string FormNamePointsDataAndEvents = "FormPointsDataAndEvents";
         private const string FormNamePointEvents = "FormPointEvents";
         private const string FormNameImportGoogleEarthFile = "FormImportGoogleEarthFile";
-        private const string FormNameExportGpsFile = "FormExportGpsFile";
+        private const string FormNameExportGpsFile = "FormImportExportGpsFile";
         private const string FormNameExportGoogleEarthFile = "FormExportGoogleEarthFile";
 
         internal static Users.FormUsersGroups GetUsersGroups()
@@ -209,12 +209,22 @@
             return GetImportGoogleEarthFile() ?? new();
         }
 
-        internal static General.FormExportGpsFile GetExportGpsFile()
+        internal static ImportExport.FormImportGpsFile GetImportGpsFile()
         {
-            return (General.FormExportGpsFile)CardonerSistemas.Framework.Base.Forms.GetInstance(Program.FormMdi.MdiChildren, FormNameExportGpsFile);
+            return (ImportExport.FormImportGpsFile)CardonerSistemas.Framework.Base.Forms.GetInstance(Program.FormMdi.MdiChildren, FormNameExportGpsFile);
         }
 
-        internal static General.FormExportGpsFile GetExportGpsFileOrNew()
+        internal static ImportExport.FormImportGpsFile GetImportGpsFileOrNew()
+        {
+            return GetImportGpsFile() ?? new();
+        }
+
+        internal static ImportExport.FormExportGpsFile GetExportGpsFile()
+        {
+            return (ImportExport.FormExportGpsFile)CardonerSistemas.Framework.Base.Forms.GetInstance(Program.FormMdi.MdiChildren, FormNameExportGpsFile);
+        }
+
+        internal static ImportExport.FormExportGpsFile GetExportGpsFileOrNew()
         {
             return GetExportGpsFile() ?? new();
         }

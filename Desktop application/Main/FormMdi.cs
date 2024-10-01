@@ -13,7 +13,7 @@
         private void SetAppearance()
         {
             this.Icon = Properties.Resources.IconApplication;
-            this.Text =  $"{Program.Info.Title} - Licenciado a: {Program.LicensedCompany.ToUpper()}";
+            this.Text = $"{Program.Info.Title} - Licenciado a: {Program.LicensedCompany.ToUpper()}";
             ToolStripMenuItemHelpAbout.Text = string.Format(Properties.Resources.StringAbout, Program.Info.Title);
         }
 
@@ -143,9 +143,17 @@
             }
         }
 
-        private void ToolStripMenuItemImportGoogleEarthFile_Click(object sender, EventArgs e)
+        private void ToolStripMenuItemImportGpsFile_Click(object sender, EventArgs e)
         {
             if (Users.Permissions.Verify(Users.Permissions.Actions.PointImportFromGpsFile))
+            {
+                ShowMdiForm(Common.Forms.GetImportGpsFileOrNew(), false);
+            }
+        }
+
+        private void ToolStripMenuItemImportGoogleEarthFile_Click(object sender, EventArgs e)
+        {
+            if (Users.Permissions.Verify(Users.Permissions.Actions.PointImportFromGoogleEarthFile))
             {
                 ShowMdiForm(Common.Forms.GetImportGoogleEarthFileOrNew(), false);
             }

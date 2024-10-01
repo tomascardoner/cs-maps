@@ -7,7 +7,7 @@
         internal const string ApplicationLicensePassword = "-DxG*=H+Ql7B5#UV^dz~3PJS01u|Rsni";
 
         // Components - Syncfusion Essential Studio Enterprise Edition v25.x.x
-        internal const string SyncfusionLicenseKey = "MzM0MzE1NkAzMjM2MmUzMDJlMzBKQjRoNEwyckdyRDVVanV5UUtCN2M1N3Fkd2ZlVnRvK2YzY21WSzBDRTFjPQ==";
+        internal const string SyncfusionLicenseKey = "Ngo9BigBOggjHTQxAR8/V1NDaF5cWWtCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXZdcHVTR2ldWEF+WUY=";
 
         // Users
         internal const byte UserGroupAdministratorsId = 1;

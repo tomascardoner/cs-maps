@@ -704,7 +704,7 @@ namespace CSMaps.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Debe especificar el dispositivo o la ubicación del archivo al que desea exportar..
+        ///   Looks up a localized string similar to Debe especificar el dispositivo o la ubicación del archivo de destino..
         /// </summary>
         internal static string StringExportDestinationNotSpecified {
             get {
@@ -803,6 +803,15 @@ namespace CSMaps.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error al leer el archivo GPX.
+        /// </summary>
+        internal static string StringGpxFileReadError {
+            get {
+                return ResourceManager.GetString("StringGpxFileReadError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Debe especificar el archivo que desea importar..
         /// </summary>
         internal static string StringImportFileNotSpecified {
@@ -826,6 +835,15 @@ namespace CSMaps.Properties {
         internal static string StringImportGoogleEarthFileOpenDialogTitle {
             get {
                 return ResourceManager.GetString("StringImportGoogleEarthFileOpenDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Debe especificar el dispositivo o la ubicación del archivo de origen..
+        /// </summary>
+        internal static string StringImportSourceNotSpecified {
+            get {
+                return ResourceManager.GetString("StringImportSourceNotSpecified", resourceCulture);
             }
         }
         
@@ -929,7 +947,7 @@ namespace CSMaps.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to El contenido del archivo .kml no tiene el formato esperado..
+        ///   Looks up a localized string similar to El contenido del archivo KML no tiene el formato esperado..
         /// </summary>
         internal static string StringKmlFileInvalidContent {
             get {
@@ -938,7 +956,7 @@ namespace CSMaps.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to El contenido del archivo .kml no tiene el formato esperado en las etiquetas &apos;Placemark&apos;..
+        ///   Looks up a localized string similar to El contenido del archivo KML no tiene el formato esperado en las etiquetas &apos;Placemark&apos;..
         /// </summary>
         internal static string StringKmlFileInvalidContentPlacemark {
             get {
@@ -947,7 +965,7 @@ namespace CSMaps.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error al leer el archivo .kml.
+        ///   Looks up a localized string similar to Error al leer el archivo KML.
         /// </summary>
         internal static string StringKmlFileReadError {
             get {

@@ -46,6 +46,7 @@
             DoubleTextBoxAltitud = new Syncfusion.Windows.Forms.Tools.DoubleTextBox();
             TabControlMain = new TabControl();
             TabPageGeneral = new TabPage();
+            TableLayoutPanelGeneral = new TableLayoutPanel();
             TabPageAuditoria = new TabPage();
             TableLayoutPanelAuditoria = new TableLayoutPanel();
             LabelId = new Label();
@@ -54,7 +55,6 @@
             TextBoxUsuarioCreacion = new TextBox();
             TextBoxFechaHoraUltimaModificacion = new TextBox();
             TextBoxUsuarioUltimaModificacion = new TextBox();
-            TableLayoutPanelGeneral = new TableLayoutPanel();
             LabelCreacion = new Label();
             LabelModificacion = new Label();
             ToolStripMain.SuspendLayout();
@@ -63,10 +63,34 @@
             ((System.ComponentModel.ISupportInitialize)DoubleTextBoxAltitud).BeginInit();
             TabControlMain.SuspendLayout();
             TabPageGeneral.SuspendLayout();
+            TableLayoutPanelGeneral.SuspendLayout();
             TabPageAuditoria.SuspendLayout();
             TableLayoutPanelAuditoria.SuspendLayout();
-            TableLayoutPanelGeneral.SuspendLayout();
             SuspendLayout();
+            // 
+            // LabelCreacion
+            // 
+            LabelCreacion.AutoSize = true;
+            LabelCreacion.Dock = DockStyle.Fill;
+            LabelCreacion.Location = new Point(4, 33);
+            LabelCreacion.Margin = new Padding(4, 0, 4, 0);
+            LabelCreacion.Name = "LabelCreacion";
+            LabelCreacion.Size = new Size(147, 33);
+            LabelCreacion.TabIndex = 2;
+            LabelCreacion.Text = "Creación:";
+            LabelCreacion.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // LabelModificacion
+            // 
+            LabelModificacion.AutoSize = true;
+            LabelModificacion.Dock = DockStyle.Fill;
+            LabelModificacion.Location = new Point(4, 66);
+            LabelModificacion.Margin = new Padding(4, 0, 4, 0);
+            LabelModificacion.Name = "LabelModificacion";
+            LabelModificacion.Size = new Size(147, 33);
+            LabelModificacion.TabIndex = 5;
+            LabelModificacion.Text = "Última modificación:";
+            LabelModificacion.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // ToolStripMain
             // 
@@ -157,7 +181,7 @@
             // DoubleTextBoxLatitud
             // 
             DoubleTextBoxLatitud.AccessibilityEnabled = true;
-            DoubleTextBoxLatitud.BeforeTouchSize = new Size(61, 27);
+            DoubleTextBoxLatitud.BeforeTouchSize = new Size(70, 27);
             DoubleTextBoxLatitud.DoubleValue = 0D;
             DoubleTextBoxLatitud.Location = new Point(80, 36);
             DoubleTextBoxLatitud.MaxValue = 90D;
@@ -165,7 +189,7 @@
             DoubleTextBoxLatitud.Name = "DoubleTextBoxLatitud";
             DoubleTextBoxLatitud.NegativeColor = SystemColors.ControlText;
             DoubleTextBoxLatitud.NumberDecimalDigits = 6;
-            DoubleTextBoxLatitud.Size = new Size(74, 27);
+            DoubleTextBoxLatitud.Size = new Size(100, 27);
             DoubleTextBoxLatitud.TabIndex = 3;
             DoubleTextBoxLatitud.Text = "0,000000";
             DoubleTextBoxLatitud.TextAlign = HorizontalAlignment.Right;
@@ -173,7 +197,7 @@
             // DoubleTextBoxLongitud
             // 
             DoubleTextBoxLongitud.AccessibilityEnabled = true;
-            DoubleTextBoxLongitud.BeforeTouchSize = new Size(61, 27);
+            DoubleTextBoxLongitud.BeforeTouchSize = new Size(70, 27);
             DoubleTextBoxLongitud.DoubleValue = 0D;
             DoubleTextBoxLongitud.Location = new Point(80, 69);
             DoubleTextBoxLongitud.MaxValue = 180D;
@@ -181,7 +205,7 @@
             DoubleTextBoxLongitud.Name = "DoubleTextBoxLongitud";
             DoubleTextBoxLongitud.NegativeColor = SystemColors.ControlText;
             DoubleTextBoxLongitud.NumberDecimalDigits = 6;
-            DoubleTextBoxLongitud.Size = new Size(74, 27);
+            DoubleTextBoxLongitud.Size = new Size(100, 27);
             DoubleTextBoxLongitud.TabIndex = 5;
             DoubleTextBoxLongitud.Text = "0,000000";
             DoubleTextBoxLongitud.TextAlign = HorizontalAlignment.Right;
@@ -211,14 +235,14 @@
             // DoubleTextBoxAltitud
             // 
             DoubleTextBoxAltitud.AccessibilityEnabled = true;
-            DoubleTextBoxAltitud.BeforeTouchSize = new Size(61, 27);
+            DoubleTextBoxAltitud.BeforeTouchSize = new Size(70, 27);
             DoubleTextBoxAltitud.DoubleValue = 0D;
             DoubleTextBoxAltitud.Location = new Point(80, 102);
             DoubleTextBoxAltitud.MaxValue = 8849D;
             DoubleTextBoxAltitud.MinValue = -11036D;
             DoubleTextBoxAltitud.Name = "DoubleTextBoxAltitud";
             DoubleTextBoxAltitud.NegativeColor = SystemColors.ControlText;
-            DoubleTextBoxAltitud.Size = new Size(61, 27);
+            DoubleTextBoxAltitud.Size = new Size(70, 27);
             DoubleTextBoxAltitud.TabIndex = 7;
             DoubleTextBoxAltitud.Text = "0,00";
             DoubleTextBoxAltitud.TextAlign = HorizontalAlignment.Right;
@@ -245,6 +269,33 @@
             TabPageGeneral.TabIndex = 0;
             TabPageGeneral.Text = "General";
             TabPageGeneral.UseVisualStyleBackColor = true;
+            // 
+            // TableLayoutPanelGeneral
+            // 
+            TableLayoutPanelGeneral.AutoSize = true;
+            TableLayoutPanelGeneral.ColumnCount = 2;
+            TableLayoutPanelGeneral.ColumnStyles.Add(new ColumnStyle());
+            TableLayoutPanelGeneral.ColumnStyles.Add(new ColumnStyle());
+            TableLayoutPanelGeneral.Controls.Add(LabelNombre, 0, 0);
+            TableLayoutPanelGeneral.Controls.Add(TextBoxNombre, 1, 0);
+            TableLayoutPanelGeneral.Controls.Add(LabelLatitud, 0, 1);
+            TableLayoutPanelGeneral.Controls.Add(DoubleTextBoxLatitud, 1, 1);
+            TableLayoutPanelGeneral.Controls.Add(LabelLongitud, 0, 2);
+            TableLayoutPanelGeneral.Controls.Add(DoubleTextBoxLongitud, 1, 2);
+            TableLayoutPanelGeneral.Controls.Add(LabelAltitud, 0, 3);
+            TableLayoutPanelGeneral.Controls.Add(DoubleTextBoxAltitud, 1, 3);
+            TableLayoutPanelGeneral.Dock = DockStyle.Fill;
+            TableLayoutPanelGeneral.GrowStyle = TableLayoutPanelGrowStyle.FixedSize;
+            TableLayoutPanelGeneral.Location = new Point(3, 3);
+            TableLayoutPanelGeneral.Name = "TableLayoutPanelGeneral";
+            TableLayoutPanelGeneral.RowCount = 5;
+            TableLayoutPanelGeneral.RowStyles.Add(new RowStyle());
+            TableLayoutPanelGeneral.RowStyles.Add(new RowStyle());
+            TableLayoutPanelGeneral.RowStyles.Add(new RowStyle());
+            TableLayoutPanelGeneral.RowStyles.Add(new RowStyle());
+            TableLayoutPanelGeneral.RowStyles.Add(new RowStyle());
+            TableLayoutPanelGeneral.Size = new Size(591, 157);
+            TableLayoutPanelGeneral.TabIndex = 8;
             // 
             // TabPageAuditoria
             // 
@@ -308,18 +359,6 @@
             TextBoxId.TabStop = false;
             TextBoxId.TextAlign = HorizontalAlignment.Center;
             // 
-            // LabelCreacion
-            // 
-            LabelCreacion.AutoSize = true;
-            LabelCreacion.Dock = DockStyle.Fill;
-            LabelCreacion.Location = new Point(4, 33);
-            LabelCreacion.Margin = new Padding(4, 0, 4, 0);
-            LabelCreacion.Name = "LabelCreacion";
-            LabelCreacion.Size = new Size(147, 33);
-            LabelCreacion.TabIndex = 2;
-            LabelCreacion.Text = "Creación:";
-            LabelCreacion.TextAlign = ContentAlignment.MiddleLeft;
-            // 
             // TextBoxFechaHoraCreacion
             // 
             TextBoxFechaHoraCreacion.Location = new Point(159, 36);
@@ -342,18 +381,6 @@
             TextBoxUsuarioCreacion.Size = new Size(280, 27);
             TextBoxUsuarioCreacion.TabIndex = 4;
             TextBoxUsuarioCreacion.TabStop = false;
-            // 
-            // LabelModificacion
-            // 
-            LabelModificacion.AutoSize = true;
-            LabelModificacion.Dock = DockStyle.Fill;
-            LabelModificacion.Location = new Point(4, 66);
-            LabelModificacion.Margin = new Padding(4, 0, 4, 0);
-            LabelModificacion.Name = "LabelModificacion";
-            LabelModificacion.Size = new Size(147, 33);
-            LabelModificacion.TabIndex = 5;
-            LabelModificacion.Text = "Última modificación:";
-            LabelModificacion.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // TextBoxFechaHoraUltimaModificacion
             // 
@@ -378,33 +405,6 @@
             TextBoxUsuarioUltimaModificacion.TabIndex = 7;
             TextBoxUsuarioUltimaModificacion.TabStop = false;
             // 
-            // TableLayoutPanelGeneral
-            // 
-            TableLayoutPanelGeneral.AutoSize = true;
-            TableLayoutPanelGeneral.ColumnCount = 2;
-            TableLayoutPanelGeneral.ColumnStyles.Add(new ColumnStyle());
-            TableLayoutPanelGeneral.ColumnStyles.Add(new ColumnStyle());
-            TableLayoutPanelGeneral.Controls.Add(LabelNombre, 0, 0);
-            TableLayoutPanelGeneral.Controls.Add(TextBoxNombre, 1, 0);
-            TableLayoutPanelGeneral.Controls.Add(LabelLatitud, 0, 1);
-            TableLayoutPanelGeneral.Controls.Add(DoubleTextBoxLatitud, 1, 1);
-            TableLayoutPanelGeneral.Controls.Add(LabelLongitud, 0, 2);
-            TableLayoutPanelGeneral.Controls.Add(DoubleTextBoxLongitud, 1, 2);
-            TableLayoutPanelGeneral.Controls.Add(LabelAltitud, 0, 3);
-            TableLayoutPanelGeneral.Controls.Add(DoubleTextBoxAltitud, 1, 3);
-            TableLayoutPanelGeneral.Dock = DockStyle.Fill;
-            TableLayoutPanelGeneral.GrowStyle = TableLayoutPanelGrowStyle.FixedSize;
-            TableLayoutPanelGeneral.Location = new Point(3, 3);
-            TableLayoutPanelGeneral.Name = "TableLayoutPanelGeneral";
-            TableLayoutPanelGeneral.RowCount = 5;
-            TableLayoutPanelGeneral.RowStyles.Add(new RowStyle());
-            TableLayoutPanelGeneral.RowStyles.Add(new RowStyle());
-            TableLayoutPanelGeneral.RowStyles.Add(new RowStyle());
-            TableLayoutPanelGeneral.RowStyles.Add(new RowStyle());
-            TableLayoutPanelGeneral.RowStyles.Add(new RowStyle());
-            TableLayoutPanelGeneral.Size = new Size(591, 157);
-            TableLayoutPanelGeneral.TabIndex = 8;
-            // 
             // FormPoint
             // 
             AutoScaleMode = AutoScaleMode.Inherit;
@@ -428,12 +428,12 @@
             TabControlMain.ResumeLayout(false);
             TabPageGeneral.ResumeLayout(false);
             TabPageGeneral.PerformLayout();
+            TableLayoutPanelGeneral.ResumeLayout(false);
+            TableLayoutPanelGeneral.PerformLayout();
             TabPageAuditoria.ResumeLayout(false);
             TabPageAuditoria.PerformLayout();
             TableLayoutPanelAuditoria.ResumeLayout(false);
             TableLayoutPanelAuditoria.PerformLayout();
-            TableLayoutPanelGeneral.ResumeLayout(false);
-            TableLayoutPanelGeneral.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }

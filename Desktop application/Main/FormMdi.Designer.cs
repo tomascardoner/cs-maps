@@ -57,6 +57,7 @@
             ToolStripSeparatorWindowList = new ToolStripSeparator();
             ToolStripMenuItemHelp = new ToolStripMenuItem();
             ToolStripMenuItemHelpAbout = new ToolStripMenuItem();
+            ToolStripMenuItemImportGpsFile = new ToolStripMenuItem();
             ToolStripMain.SuspendLayout();
             MenuStripMain.SuspendLayout();
             SuspendLayout();
@@ -65,10 +66,11 @@
             // 
             ToolStripMain.Dock = DockStyle.Left;
             ToolStripMain.GripStyle = ToolStripGripStyle.Hidden;
+            ToolStripMain.ImageScalingSize = new Size(20, 20);
             ToolStripMain.Items.AddRange(new ToolStripItem[] { ToolStripDropDownButtonTables, ToolStripButtonEntities, ToolStripButtonSettlements, ToolStripButtonPuntos, ToolStripButtonPuntosDatosYEventos, ToolStripDropDownButtonImport, ToolStripLabelUser, ToolStripDropDownButtonExport });
-            ToolStripMain.Location = new Point(0, 24);
+            ToolStripMain.Location = new Point(0, 28);
             ToolStripMain.Name = "ToolStripMain";
-            ToolStripMain.Size = new Size(169, 376);
+            ToolStripMain.Size = new Size(200, 472);
             ToolStripMain.TabIndex = 1;
             // 
             // ToolStripDropDownButtonTables
@@ -79,47 +81,47 @@
             ToolStripDropDownButtonTables.ImageScaling = ToolStripItemImageScaling.None;
             ToolStripDropDownButtonTables.ImageTransparentColor = Color.Magenta;
             ToolStripDropDownButtonTables.Name = "ToolStripDropDownButtonTables";
-            ToolStripDropDownButtonTables.Size = new Size(166, 36);
+            ToolStripDropDownButtonTables.Size = new Size(197, 36);
             ToolStripDropDownButtonTables.Text = "Tablas";
             ToolStripDropDownButtonTables.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // ToolStripMenuItemTablesPointsGroups
             // 
             ToolStripMenuItemTablesPointsGroups.Name = "ToolStripMenuItemTablesPointsGroups";
-            ToolStripMenuItemTablesPointsGroups.Size = new Size(241, 22);
+            ToolStripMenuItemTablesPointsGroups.Size = new Size(300, 26);
             ToolStripMenuItemTablesPointsGroups.Text = "Grupos de puntos";
             ToolStripMenuItemTablesPointsGroups.Click += ToolStripMenuItemTablesPointsGroups_Click;
             // 
             // ToolStripMenuItemTablesEventsTypes
             // 
             ToolStripMenuItemTablesEventsTypes.Name = "ToolStripMenuItemTablesEventsTypes";
-            ToolStripMenuItemTablesEventsTypes.Size = new Size(241, 22);
+            ToolStripMenuItemTablesEventsTypes.Size = new Size(300, 26);
             ToolStripMenuItemTablesEventsTypes.Text = "Tipos de eventos";
             ToolStripMenuItemTablesEventsTypes.Click += ToolStripMenuItemTablesEventsTypes_Click;
             // 
             // ToolStripSeparatorTablesUsers
             // 
             ToolStripSeparatorTablesUsers.Name = "ToolStripSeparatorTablesUsers";
-            ToolStripSeparatorTablesUsers.Size = new Size(238, 6);
+            ToolStripSeparatorTablesUsers.Size = new Size(297, 6);
             // 
             // ToolStripMenuItemTablesUsersGroups
             // 
             ToolStripMenuItemTablesUsersGroups.Name = "ToolStripMenuItemTablesUsersGroups";
-            ToolStripMenuItemTablesUsersGroups.Size = new Size(241, 22);
+            ToolStripMenuItemTablesUsersGroups.Size = new Size(300, 26);
             ToolStripMenuItemTablesUsersGroups.Text = "Grupos de usuarios";
             ToolStripMenuItemTablesUsersGroups.Click += ToolStripMenuItemTablesUsersGroups_Click;
             // 
             // ToolStripMenuItemTablesUsersGroupsPermissions
             // 
             ToolStripMenuItemTablesUsersGroupsPermissions.Name = "ToolStripMenuItemTablesUsersGroupsPermissions";
-            ToolStripMenuItemTablesUsersGroupsPermissions.Size = new Size(241, 22);
+            ToolStripMenuItemTablesUsersGroupsPermissions.Size = new Size(300, 26);
             ToolStripMenuItemTablesUsersGroupsPermissions.Text = "Permisos de grupos de usuarios";
             ToolStripMenuItemTablesUsersGroupsPermissions.Click += ToolStripMenuItemTablesUsersGroupsPermissions_Click;
             // 
             // ToolStripMenuItemTablesUsers
             // 
             ToolStripMenuItemTablesUsers.Name = "ToolStripMenuItemTablesUsers";
-            ToolStripMenuItemTablesUsers.Size = new Size(241, 22);
+            ToolStripMenuItemTablesUsers.Size = new Size(300, 26);
             ToolStripMenuItemTablesUsers.Text = "Usuarios";
             ToolStripMenuItemTablesUsers.Click += ToolStripMenuItemTablesUsers_Click;
             // 
@@ -130,7 +132,7 @@
             ToolStripButtonEntities.ImageScaling = ToolStripItemImageScaling.None;
             ToolStripButtonEntities.ImageTransparentColor = Color.Magenta;
             ToolStripButtonEntities.Name = "ToolStripButtonEntities";
-            ToolStripButtonEntities.Size = new Size(166, 36);
+            ToolStripButtonEntities.Size = new Size(197, 36);
             ToolStripButtonEntities.Text = "Entidades";
             ToolStripButtonEntities.TextAlign = ContentAlignment.MiddleLeft;
             ToolStripButtonEntities.Click += ToolStripButtonEntities_Click;
@@ -142,7 +144,7 @@
             ToolStripButtonSettlements.ImageScaling = ToolStripItemImageScaling.None;
             ToolStripButtonSettlements.ImageTransparentColor = Color.Magenta;
             ToolStripButtonSettlements.Name = "ToolStripButtonSettlements";
-            ToolStripButtonSettlements.Size = new Size(166, 36);
+            ToolStripButtonSettlements.Size = new Size(197, 36);
             ToolStripButtonSettlements.Text = "Establecimientos";
             ToolStripButtonSettlements.TextAlign = ContentAlignment.MiddleLeft;
             ToolStripButtonSettlements.Click += ToolStripButtonSettlements_Click;
@@ -154,7 +156,7 @@
             ToolStripButtonPuntos.ImageScaling = ToolStripItemImageScaling.None;
             ToolStripButtonPuntos.ImageTransparentColor = Color.Magenta;
             ToolStripButtonPuntos.Name = "ToolStripButtonPuntos";
-            ToolStripButtonPuntos.Size = new Size(166, 36);
+            ToolStripButtonPuntos.Size = new Size(197, 36);
             ToolStripButtonPuntos.Text = "Puntos";
             ToolStripButtonPuntos.TextAlign = ContentAlignment.MiddleLeft;
             ToolStripButtonPuntos.Click += ToolStripButtonPuntos_Click;
@@ -166,27 +168,27 @@
             ToolStripButtonPuntosDatosYEventos.ImageScaling = ToolStripItemImageScaling.None;
             ToolStripButtonPuntosDatosYEventos.ImageTransparentColor = Color.Magenta;
             ToolStripButtonPuntosDatosYEventos.Name = "ToolStripButtonPuntosDatosYEventos";
-            ToolStripButtonPuntosDatosYEventos.Size = new Size(166, 36);
+            ToolStripButtonPuntosDatosYEventos.Size = new Size(197, 36);
             ToolStripButtonPuntosDatosYEventos.Text = "Puntos: datos y eventos";
             ToolStripButtonPuntosDatosYEventos.TextAlign = ContentAlignment.MiddleLeft;
             ToolStripButtonPuntosDatosYEventos.Click += ToolStripButtonPuntosDatosYEventos_Click;
             // 
             // ToolStripDropDownButtonImport
             // 
-            ToolStripDropDownButtonImport.DropDownItems.AddRange(new ToolStripItem[] { ToolStripMenuItemImportGoogleEarthFile });
+            ToolStripDropDownButtonImport.DropDownItems.AddRange(new ToolStripItem[] { ToolStripMenuItemImportGpsFile, ToolStripMenuItemImportGoogleEarthFile });
             ToolStripDropDownButtonImport.Image = Properties.Resources.ImageImport32;
             ToolStripDropDownButtonImport.ImageAlign = ContentAlignment.MiddleLeft;
             ToolStripDropDownButtonImport.ImageScaling = ToolStripItemImageScaling.None;
             ToolStripDropDownButtonImport.ImageTransparentColor = Color.Magenta;
             ToolStripDropDownButtonImport.Name = "ToolStripDropDownButtonImport";
-            ToolStripDropDownButtonImport.Size = new Size(166, 36);
+            ToolStripDropDownButtonImport.Size = new Size(197, 36);
             ToolStripDropDownButtonImport.Text = "Importar";
             ToolStripDropDownButtonImport.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // ToolStripMenuItemImportGoogleEarthFile
             // 
             ToolStripMenuItemImportGoogleEarthFile.Name = "ToolStripMenuItemImportGoogleEarthFile";
-            ToolStripMenuItemImportGoogleEarthFile.Size = new Size(202, 22);
+            ToolStripMenuItemImportGoogleEarthFile.Size = new Size(254, 26);
             ToolStripMenuItemImportGoogleEarthFile.Text = "Archivo de Google Earth";
             ToolStripMenuItemImportGoogleEarthFile.Click += ToolStripMenuItemImportGoogleEarthFile_Click;
             // 
@@ -195,7 +197,7 @@
             ToolStripLabelUser.Alignment = ToolStripItemAlignment.Right;
             ToolStripLabelUser.ImageAlign = ContentAlignment.MiddleLeft;
             ToolStripLabelUser.Name = "ToolStripLabelUser";
-            ToolStripLabelUser.Size = new Size(166, 0);
+            ToolStripLabelUser.Size = new Size(197, 0);
             ToolStripLabelUser.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // ToolStripDropDownButtonExport
@@ -206,31 +208,33 @@
             ToolStripDropDownButtonExport.ImageScaling = ToolStripItemImageScaling.None;
             ToolStripDropDownButtonExport.ImageTransparentColor = Color.Magenta;
             ToolStripDropDownButtonExport.Name = "ToolStripDropDownButtonExport";
-            ToolStripDropDownButtonExport.Size = new Size(166, 36);
+            ToolStripDropDownButtonExport.Size = new Size(197, 36);
             ToolStripDropDownButtonExport.Text = "Exportar";
             ToolStripDropDownButtonExport.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // ToolStripMenuItemExportGpsFile
             // 
             ToolStripMenuItemExportGpsFile.Name = "ToolStripMenuItemExportGpsFile";
-            ToolStripMenuItemExportGpsFile.Size = new Size(202, 22);
+            ToolStripMenuItemExportGpsFile.Size = new Size(254, 26);
             ToolStripMenuItemExportGpsFile.Text = "Archivo de GPS";
             ToolStripMenuItemExportGpsFile.Click += ToolStripMenuItemExportGpsFile_Click;
             // 
             // ToolStripMenuItemExportGoogleEarthFile
             // 
             ToolStripMenuItemExportGoogleEarthFile.Name = "ToolStripMenuItemExportGoogleEarthFile";
-            ToolStripMenuItemExportGoogleEarthFile.Size = new Size(202, 22);
+            ToolStripMenuItemExportGoogleEarthFile.Size = new Size(254, 26);
             ToolStripMenuItemExportGoogleEarthFile.Text = "Archivo de Google Earth";
             ToolStripMenuItemExportGoogleEarthFile.Click += ToolStripMenuItemExportGoogleEarthFile_Click;
             // 
             // MenuStripMain
             // 
+            MenuStripMain.ImageScalingSize = new Size(20, 20);
             MenuStripMain.Items.AddRange(new ToolStripItem[] { ToolStripMenuItemFile, ToolStripMenuItemWindow, ToolStripMenuItemHelp });
             MenuStripMain.Location = new Point(0, 0);
             MenuStripMain.MdiWindowListItem = ToolStripMenuItemWindow;
             MenuStripMain.Name = "MenuStripMain";
-            MenuStripMain.Size = new Size(737, 24);
+            MenuStripMain.Padding = new Padding(8, 2, 0, 2);
+            MenuStripMain.Size = new Size(921, 28);
             MenuStripMain.TabIndex = 3;
             // 
             // ToolStripMenuItemFile
@@ -238,33 +242,33 @@
             ToolStripMenuItemFile.DropDownItems.AddRange(new ToolStripItem[] { ToolStripMenuItemFileCloseUserSession, ToolStripMenuItemFileChangeUserPassword, ToolStripMenuItemFileSeparatorExit, ToolStripMenuItemFileExit });
             ToolStripMenuItemFile.ImageTransparentColor = SystemColors.ActiveBorder;
             ToolStripMenuItemFile.Name = "ToolStripMenuItemFile";
-            ToolStripMenuItemFile.Size = new Size(60, 20);
+            ToolStripMenuItemFile.Size = new Size(73, 24);
             ToolStripMenuItemFile.Text = "&Archivo";
             // 
             // ToolStripMenuItemFileCloseUserSession
             // 
             ToolStripMenuItemFileCloseUserSession.Name = "ToolStripMenuItemFileCloseUserSession";
             ToolStripMenuItemFileCloseUserSession.ShortcutKeys = Keys.Control | Keys.S;
-            ToolStripMenuItemFileCloseUserSession.Size = new Size(280, 22);
+            ToolStripMenuItemFileCloseUserSession.Size = new Size(351, 26);
             ToolStripMenuItemFileCloseUserSession.Text = "Cerrar sesión del usuario";
             ToolStripMenuItemFileCloseUserSession.Click += ToolStripMenuItemFileCloseUserSession_Click;
             // 
             // ToolStripMenuItemFileChangeUserPassword
             // 
             ToolStripMenuItemFileChangeUserPassword.Name = "ToolStripMenuItemFileChangeUserPassword";
-            ToolStripMenuItemFileChangeUserPassword.Size = new Size(280, 22);
+            ToolStripMenuItemFileChangeUserPassword.Size = new Size(351, 26);
             ToolStripMenuItemFileChangeUserPassword.Text = "Cambiar contraseña de inicio de sesión";
             ToolStripMenuItemFileChangeUserPassword.Click += ToolStripMenuItemFileChangeUserPassword_Click;
             // 
             // ToolStripMenuItemFileSeparatorExit
             // 
             ToolStripMenuItemFileSeparatorExit.Name = "ToolStripMenuItemFileSeparatorExit";
-            ToolStripMenuItemFileSeparatorExit.Size = new Size(277, 6);
+            ToolStripMenuItemFileSeparatorExit.Size = new Size(348, 6);
             // 
             // ToolStripMenuItemFileExit
             // 
             ToolStripMenuItemFileExit.Name = "ToolStripMenuItemFileExit";
-            ToolStripMenuItemFileExit.Size = new Size(280, 22);
+            ToolStripMenuItemFileExit.Size = new Size(351, 26);
             ToolStripMenuItemFileExit.Text = "&Salir";
             ToolStripMenuItemFileExit.Click += ToolStripMenuItemFileExit_Click;
             // 
@@ -272,45 +276,52 @@
             // 
             ToolStripMenuItemWindow.DropDownItems.AddRange(new ToolStripItem[] { ToolStripMenuItemWindowCloseAll, ToolStripSeparatorWindowList });
             ToolStripMenuItemWindow.Name = "ToolStripMenuItemWindow";
-            ToolStripMenuItemWindow.Size = new Size(61, 20);
+            ToolStripMenuItemWindow.Size = new Size(76, 24);
             ToolStripMenuItemWindow.Text = "&Ventana";
             // 
             // ToolStripMenuItemWindowCloseAll
             // 
             ToolStripMenuItemWindowCloseAll.Name = "ToolStripMenuItemWindowCloseAll";
-            ToolStripMenuItemWindowCloseAll.Size = new Size(138, 22);
+            ToolStripMenuItemWindowCloseAll.Size = new Size(173, 26);
             ToolStripMenuItemWindowCloseAll.Text = "Cerrar todas";
             ToolStripMenuItemWindowCloseAll.Click += ToolStripMenuItemWindowCloseAll_Click;
             // 
             // ToolStripSeparatorWindowList
             // 
             ToolStripSeparatorWindowList.Name = "ToolStripSeparatorWindowList";
-            ToolStripSeparatorWindowList.Size = new Size(135, 6);
+            ToolStripSeparatorWindowList.Size = new Size(170, 6);
             // 
             // ToolStripMenuItemHelp
             // 
             ToolStripMenuItemHelp.DropDownItems.AddRange(new ToolStripItem[] { ToolStripMenuItemHelpAbout });
             ToolStripMenuItemHelp.Name = "ToolStripMenuItemHelp";
-            ToolStripMenuItemHelp.Size = new Size(53, 20);
+            ToolStripMenuItemHelp.Size = new Size(65, 24);
             ToolStripMenuItemHelp.Text = "A&yuda";
             // 
             // ToolStripMenuItemHelpAbout
             // 
             ToolStripMenuItemHelpAbout.Name = "ToolStripMenuItemHelpAbout";
-            ToolStripMenuItemHelpAbout.Size = new Size(135, 22);
+            ToolStripMenuItemHelpAbout.Size = new Size(167, 26);
             ToolStripMenuItemHelpAbout.Text = "&Acerca de...";
             ToolStripMenuItemHelpAbout.Click += ToolStripMenuItemHelpAbout_Click;
             // 
+            // ToolStripMenuItemImportGpsFile
+            // 
+            ToolStripMenuItemImportGpsFile.Name = "ToolStripMenuItemImportGpsFile";
+            ToolStripMenuItemImportGpsFile.Size = new Size(254, 26);
+            ToolStripMenuItemImportGpsFile.Text = "Archivo de GPS";
+            ToolStripMenuItemImportGpsFile.Click += ToolStripMenuItemImportGpsFile_Click;
+            // 
             // FormMdi
             // 
-            AutoScaleDimensions = new SizeF(96F, 96F);
+            AutoScaleDimensions = new SizeF(120F, 120F);
             AutoScaleMode = AutoScaleMode.Dpi;
-            ClientSize = new Size(737, 400);
+            ClientSize = new Size(921, 500);
             Controls.Add(ToolStripMain);
             Controls.Add(MenuStripMain);
             IsMdiContainer = true;
             MainMenuStrip = MenuStripMain;
-            Margin = new Padding(4, 3, 4, 3);
+            Margin = new Padding(5, 4, 5, 4);
             Name = "FormMdi";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FormMdi";
@@ -356,6 +367,7 @@
         private ToolStripMenuItem ToolStripMenuItemImportGoogleEarthFile;
         private ToolStripButton ToolStripButtonPuntos;
         private ToolStripMenuItem ToolStripMenuItemExportGoogleEarthFile;
+        private ToolStripMenuItem ToolStripMenuItemImportGpsFile;
     }
 }
 

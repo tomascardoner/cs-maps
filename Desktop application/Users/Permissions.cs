@@ -47,8 +47,9 @@ namespace CSMaps.Users
             PointEdit = 21,
             PointDelete = 22,
             PointImportFromGpsFile = 31,
-            PointExportToGpsFile = 32,
-            PointExportToGoogleEarthFile = 33,
+            PointImportFromGoogleEarthFile = 32,
+            PointExportToGpsFile = 33,
+            PointExportToGoogleEarthFile = 34,
 
             // Points: data
             PointDataView = 23,

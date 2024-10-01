@@ -28,16 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             ToolStripMain = new ToolStrip();
             ToolStripButtonAdd = new ToolStripButton();
             ToolStripButtonView = new ToolStripButton();
             ToolStripButtonEdit = new ToolStripButton();
             ToolStripButtonDelete = new ToolStripButton();
             DataGridViewMain = new DataGridView();
-            DataGridViewColumnNombre = new DataGridViewTextBoxColumn();
-            DataGridViewColumnLatitud = new DataGridViewTextBoxColumn();
-            DataGridViewColumnLongitud = new DataGridViewTextBoxColumn();
-            DataGridViewColumnAltitud = new DataGridViewTextBoxColumn();
             FlowLayoutPanelToolbars = new FlowLayoutPanel();
             ToolStripNameFilter = new ToolStrip();
             ToolStripLabelNameFilter = new ToolStripLabel();
@@ -46,6 +45,10 @@
             ToolStripButtonNameFilterClear = new ToolStripButton();
             ToolStripItemsCounter = new ToolStrip();
             ToolStripLabelItemsCounter = new ToolStripLabel();
+            DataGridViewColumnNombre = new DataGridViewTextBoxColumn();
+            DataGridViewColumnLatitud = new DataGridViewTextBoxColumn();
+            DataGridViewColumnLongitud = new DataGridViewTextBoxColumn();
+            DataGridViewColumnAltitud = new DataGridViewTextBoxColumn();
             ToolStripMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DataGridViewMain).BeginInit();
             FlowLayoutPanelToolbars.SuspendLayout();
@@ -57,10 +60,11 @@
             // 
             ToolStripMain.Dock = DockStyle.Fill;
             ToolStripMain.GripStyle = ToolStripGripStyle.Hidden;
+            ToolStripMain.ImageScalingSize = new Size(20, 20);
             ToolStripMain.Items.AddRange(new ToolStripItem[] { ToolStripButtonAdd, ToolStripButtonView, ToolStripButtonEdit, ToolStripButtonDelete });
             ToolStripMain.Location = new Point(0, 0);
             ToolStripMain.Name = "ToolStripMain";
-            ToolStripMain.Size = new Size(295, 39);
+            ToolStripMain.Size = new Size(338, 39);
             ToolStripMain.TabIndex = 0;
             // 
             // ToolStripButtonAdd
@@ -69,7 +73,7 @@
             ToolStripButtonAdd.ImageScaling = ToolStripItemImageScaling.None;
             ToolStripButtonAdd.ImageTransparentColor = Color.Magenta;
             ToolStripButtonAdd.Name = "ToolStripButtonAdd";
-            ToolStripButtonAdd.Size = new Size(85, 36);
+            ToolStripButtonAdd.Size = new Size(99, 36);
             ToolStripButtonAdd.Text = "Agregar";
             ToolStripButtonAdd.Click += ToolStripButtonAdd_Click;
             // 
@@ -79,7 +83,7 @@
             ToolStripButtonView.ImageScaling = ToolStripItemImageScaling.None;
             ToolStripButtonView.ImageTransparentColor = Color.Magenta;
             ToolStripButtonView.Name = "ToolStripButtonView";
-            ToolStripButtonView.Size = new Size(59, 36);
+            ToolStripButtonView.Size = new Size(66, 36);
             ToolStripButtonView.Text = "Ver";
             ToolStripButtonView.Click += ToolStripButtonView_Click;
             // 
@@ -89,7 +93,7 @@
             ToolStripButtonEdit.ImageScaling = ToolStripItemImageScaling.None;
             ToolStripButtonEdit.ImageTransparentColor = Color.Magenta;
             ToolStripButtonEdit.Name = "ToolStripButtonEdit";
-            ToolStripButtonEdit.Size = new Size(73, 36);
+            ToolStripButtonEdit.Size = new Size(84, 36);
             ToolStripButtonEdit.Text = "Editar";
             ToolStripButtonEdit.Click += ToolStripButtonEdit_Click;
             // 
@@ -99,7 +103,7 @@
             ToolStripButtonDelete.ImageScaling = ToolStripItemImageScaling.None;
             ToolStripButtonDelete.ImageTransparentColor = Color.Magenta;
             ToolStripButtonDelete.Name = "ToolStripButtonDelete";
-            ToolStripButtonDelete.Size = new Size(75, 36);
+            ToolStripButtonDelete.Size = new Size(86, 36);
             ToolStripButtonDelete.Text = "Borrar";
             ToolStripButtonDelete.Click += ToolStripButtonDelete_Click;
             // 
@@ -110,6 +114,7 @@
             DataGridViewMain.AllowUserToResizeColumns = false;
             DataGridViewMain.AllowUserToResizeRows = false;
             DataGridViewMain.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            DataGridViewMain.ColumnHeadersHeight = 29;
             DataGridViewMain.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             DataGridViewMain.Columns.AddRange(new DataGridViewColumn[] { DataGridViewColumnNombre, DataGridViewColumnLatitud, DataGridViewColumnLongitud, DataGridViewColumnAltitud });
             DataGridViewMain.Dock = DockStyle.Fill;
@@ -119,6 +124,7 @@
             DataGridViewMain.Name = "DataGridViewMain";
             DataGridViewMain.ReadOnly = true;
             DataGridViewMain.RowHeadersVisible = false;
+            DataGridViewMain.RowHeadersWidth = 51;
             DataGridViewMain.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             DataGridViewMain.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             DataGridViewMain.Size = new Size(910, 294);
@@ -126,38 +132,6 @@
             DataGridViewMain.ColumnHeaderMouseClick += DataGridViewMain_ColumnHeaderMouseClick;
             DataGridViewMain.DoubleClick += ToolStripButtonView_Click;
             DataGridViewMain.KeyPress += DataGridViewMain_KeyPress;
-            // 
-            // DataGridViewColumnNombre
-            // 
-            DataGridViewColumnNombre.DataPropertyName = "Nombre";
-            DataGridViewColumnNombre.HeaderText = "Nombre";
-            DataGridViewColumnNombre.Name = "DataGridViewColumnNombre";
-            DataGridViewColumnNombre.ReadOnly = true;
-            DataGridViewColumnNombre.Width = 76;
-            // 
-            // DataGridViewColumnLatitud
-            // 
-            DataGridViewColumnLatitud.DataPropertyName = "Latitud";
-            DataGridViewColumnLatitud.HeaderText = "Latitud";
-            DataGridViewColumnLatitud.Name = "DataGridViewColumnLatitud";
-            DataGridViewColumnLatitud.ReadOnly = true;
-            DataGridViewColumnLatitud.Width = 69;
-            // 
-            // DataGridViewColumnLongitud
-            // 
-            DataGridViewColumnLongitud.DataPropertyName = "Longitud";
-            DataGridViewColumnLongitud.HeaderText = "Longitud";
-            DataGridViewColumnLongitud.Name = "DataGridViewColumnLongitud";
-            DataGridViewColumnLongitud.ReadOnly = true;
-            DataGridViewColumnLongitud.Width = 80;
-            // 
-            // DataGridViewColumnAltitud
-            // 
-            DataGridViewColumnAltitud.DataPropertyName = "Altitud";
-            DataGridViewColumnAltitud.HeaderText = "Altitud";
-            DataGridViewColumnAltitud.Name = "DataGridViewColumnAltitud";
-            DataGridViewColumnAltitud.ReadOnly = true;
-            DataGridViewColumnAltitud.Width = 68;
             // 
             // FlowLayoutPanelToolbars
             // 
@@ -177,16 +151,17 @@
             // 
             ToolStripNameFilter.Dock = DockStyle.Fill;
             ToolStripNameFilter.GripStyle = ToolStripGripStyle.Hidden;
+            ToolStripNameFilter.ImageScalingSize = new Size(20, 20);
             ToolStripNameFilter.Items.AddRange(new ToolStripItem[] { ToolStripLabelNameFilter, ToolStripComboBoxNameFilterType, ToolStripTextBoxNameFilter, ToolStripButtonNameFilterClear });
-            ToolStripNameFilter.Location = new Point(295, 0);
+            ToolStripNameFilter.Location = new Point(338, 0);
             ToolStripNameFilter.Name = "ToolStripNameFilter";
-            ToolStripNameFilter.Size = new Size(412, 39);
+            ToolStripNameFilter.Size = new Size(446, 39);
             ToolStripNameFilter.TabIndex = 1;
             // 
             // ToolStripLabelNameFilter
             // 
             ToolStripLabelNameFilter.Name = "ToolStripLabelNameFilter";
-            ToolStripLabelNameFilter.Size = new Size(111, 36);
+            ToolStripLabelNameFilter.Size = new Size(139, 36);
             ToolStripLabelNameFilter.Text = "Filtrar por nombres:";
             // 
             // ToolStripComboBoxNameFilterType
@@ -211,7 +186,7 @@
             ToolStripButtonNameFilterClear.ImageScaling = ToolStripItemImageScaling.None;
             ToolStripButtonNameFilterClear.ImageTransparentColor = Color.Magenta;
             ToolStripButtonNameFilterClear.Name = "ToolStripButtonNameFilterClear";
-            ToolStripButtonNameFilterClear.Size = new Size(23, 36);
+            ToolStripButtonNameFilterClear.Size = new Size(29, 36);
             ToolStripButtonNameFilterClear.ToolTipText = "Limpiar búsqueda";
             ToolStripButtonNameFilterClear.Click += ToolStripButtonSearchClear_Click;
             // 
@@ -220,8 +195,9 @@
             ToolStripItemsCounter.BackColor = Color.FromArgb(255, 224, 192);
             ToolStripItemsCounter.Dock = DockStyle.Fill;
             ToolStripItemsCounter.GripStyle = ToolStripGripStyle.Hidden;
+            ToolStripItemsCounter.ImageScalingSize = new Size(20, 20);
             ToolStripItemsCounter.Items.AddRange(new ToolStripItem[] { ToolStripLabelItemsCounter });
-            ToolStripItemsCounter.Location = new Point(707, 0);
+            ToolStripItemsCounter.Location = new Point(784, 0);
             ToolStripItemsCounter.Name = "ToolStripItemsCounter";
             ToolStripItemsCounter.Size = new Size(3, 39);
             ToolStripItemsCounter.TabIndex = 2;
@@ -231,6 +207,48 @@
             ToolStripLabelItemsCounter.Alignment = ToolStripItemAlignment.Right;
             ToolStripLabelItemsCounter.Name = "ToolStripLabelItemsCounter";
             ToolStripLabelItemsCounter.Size = new Size(0, 36);
+            // 
+            // DataGridViewColumnNombre
+            // 
+            DataGridViewColumnNombre.DataPropertyName = "Nombre";
+            DataGridViewColumnNombre.HeaderText = "Nombre";
+            DataGridViewColumnNombre.MinimumWidth = 6;
+            DataGridViewColumnNombre.Name = "DataGridViewColumnNombre";
+            DataGridViewColumnNombre.ReadOnly = true;
+            DataGridViewColumnNombre.Width = 93;
+            // 
+            // DataGridViewColumnLatitud
+            // 
+            DataGridViewColumnLatitud.DataPropertyName = "Latitud";
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleRight;
+            DataGridViewColumnLatitud.DefaultCellStyle = dataGridViewCellStyle1;
+            DataGridViewColumnLatitud.HeaderText = "Latitud";
+            DataGridViewColumnLatitud.MinimumWidth = 6;
+            DataGridViewColumnLatitud.Name = "DataGridViewColumnLatitud";
+            DataGridViewColumnLatitud.ReadOnly = true;
+            DataGridViewColumnLatitud.Width = 84;
+            // 
+            // DataGridViewColumnLongitud
+            // 
+            DataGridViewColumnLongitud.DataPropertyName = "Longitud";
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleRight;
+            DataGridViewColumnLongitud.DefaultCellStyle = dataGridViewCellStyle2;
+            DataGridViewColumnLongitud.HeaderText = "Longitud";
+            DataGridViewColumnLongitud.MinimumWidth = 6;
+            DataGridViewColumnLongitud.Name = "DataGridViewColumnLongitud";
+            DataGridViewColumnLongitud.ReadOnly = true;
+            DataGridViewColumnLongitud.Width = 97;
+            // 
+            // DataGridViewColumnAltitud
+            // 
+            DataGridViewColumnAltitud.DataPropertyName = "Altitud";
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleRight;
+            DataGridViewColumnAltitud.DefaultCellStyle = dataGridViewCellStyle3;
+            DataGridViewColumnAltitud.HeaderText = "Altitud";
+            DataGridViewColumnAltitud.MinimumWidth = 6;
+            DataGridViewColumnAltitud.Name = "DataGridViewColumnAltitud";
+            DataGridViewColumnAltitud.ReadOnly = true;
+            DataGridViewColumnAltitud.Width = 83;
             // 
             // FormPoints
             // 

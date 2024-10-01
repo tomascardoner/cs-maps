@@ -330,7 +330,10 @@
     <value>Error al actualizar los cambios de el {0} en la base de datos.</value>
   </data>
   <data name="StringExportDestinationNotSpecified" xml:space="preserve">
-    <value>Debe especificar el dispositivo o la ubicación del archivo al que desea exportar.</value>
+    <value>Debe especificar el dispositivo o la ubicación del archivo de destino.</value>
+  </data>
+  <data name="StringImportSourceNotSpecified" xml:space="preserve">
+    <value>Debe especificar el dispositivo o la ubicación del archivo de origen.</value>
   </data>
   <data name="StringExportFileTempWriteError" xml:space="preserve">
     <value>Error al guardar los datos en el archivo temporario.</value>
@@ -405,13 +408,13 @@
     <value>«</value>
   </data>
   <data name="StringKmlFileInvalidContent" xml:space="preserve">
-    <value>El contenido del archivo .kml no tiene el formato esperado.</value>
+    <value>El contenido del archivo KML no tiene el formato esperado.</value>
   </data>
   <data name="StringKmlFileInvalidContentPlacemark" xml:space="preserve">
-    <value>El contenido del archivo .kml no tiene el formato esperado en las etiquetas 'Placemark'.</value>
+    <value>El contenido del archivo KML no tiene el formato esperado en las etiquetas 'Placemark'.</value>
   </data>
   <data name="StringKmlFileReadError" xml:space="preserve">
-    <value>Error al leer el archivo .kml</value>
+    <value>Error al leer el archivo KML</value>
   </data>
   <data name="StringNewFemale" xml:space="preserve">
     <value>Nueva</value>
@@ -442,5 +445,8 @@
   </data>
   <data name="StringYes" xml:space="preserve">
     <value>Sí</value>
+  </data>
+  <data name="StringGpxFileReadError" xml:space="preserve">
+    <value>Error al leer el archivo GPX</value>
   </data>
 </root>
