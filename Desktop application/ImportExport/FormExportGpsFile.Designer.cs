@@ -79,7 +79,7 @@
             // ButtonFinish
             // 
             ButtonFinish.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            ButtonFinish.Location = new Point(498, 254);
+            ButtonFinish.Location = new Point(664, 346);
             ButtonFinish.Margin = new Padding(4);
             ButtonFinish.Name = "ButtonFinish";
             ButtonFinish.Size = new Size(122, 38);
@@ -97,7 +97,7 @@
             GroupBoxStep1.Margin = new Padding(4);
             GroupBoxStep1.Name = "GroupBoxStep1";
             GroupBoxStep1.Padding = new Padding(4);
-            GroupBoxStep1.Size = new Size(605, 231);
+            GroupBoxStep1.Size = new Size(771, 323);
             GroupBoxStep1.TabIndex = 0;
             GroupBoxStep1.TabStop = false;
             GroupBoxStep1.Text = "Paso 1: seleccione los puntos a incluir";
@@ -105,7 +105,7 @@
             // ButtonNext
             // 
             ButtonNext.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            ButtonNext.Location = new Point(498, 254);
+            ButtonNext.Location = new Point(664, 346);
             ButtonNext.Margin = new Padding(4);
             ButtonNext.Name = "ButtonNext";
             ButtonNext.Size = new Size(122, 38);
@@ -117,7 +117,7 @@
             // ButtonPrevious
             // 
             ButtonPrevious.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            ButtonPrevious.Location = new Point(368, 254);
+            ButtonPrevious.Location = new Point(534, 346);
             ButtonPrevious.Margin = new Padding(4);
             ButtonPrevious.Name = "ButtonPrevious";
             ButtonPrevious.Size = new Size(122, 38);
@@ -134,7 +134,7 @@
             GroupBoxSummary.Margin = new Padding(4);
             GroupBoxSummary.Name = "GroupBoxSummary";
             GroupBoxSummary.Padding = new Padding(4);
-            GroupBoxSummary.Size = new Size(605, 231);
+            GroupBoxSummary.Size = new Size(771, 323);
             GroupBoxSummary.TabIndex = 3;
             GroupBoxSummary.TabStop = false;
             GroupBoxSummary.Text = "Paso 3 - Resumen y finalización:";
@@ -145,7 +145,7 @@
             LabelSummary.Location = new Point(8, 28);
             LabelSummary.Margin = new Padding(4, 0, 4, 0);
             LabelSummary.Name = "LabelSummary";
-            LabelSummary.Size = new Size(590, 208);
+            LabelSummary.Size = new Size(756, 300);
             LabelSummary.TabIndex = 0;
             // 
             // GroupBoxStep2
@@ -157,7 +157,7 @@
             GroupBoxStep2.Margin = new Padding(4);
             GroupBoxStep2.Name = "GroupBoxStep2";
             GroupBoxStep2.Padding = new Padding(4);
-            GroupBoxStep2.Size = new Size(605, 231);
+            GroupBoxStep2.Size = new Size(771, 323);
             GroupBoxStep2.TabIndex = 1;
             GroupBoxStep2.TabStop = false;
             GroupBoxStep2.Text = "Paso 2 - seleccione el dispositivo de destino:";
@@ -178,7 +178,7 @@
             TableLayoutPanelDevice.RowCount = 2;
             TableLayoutPanelDevice.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             TableLayoutPanelDevice.RowStyles.Add(new RowStyle());
-            TableLayoutPanelDevice.Size = new Size(597, 203);
+            TableLayoutPanelDevice.Size = new Size(763, 295);
             TableLayoutPanelDevice.TabIndex = 4;
             // 
             // TableLayoutPanelFile
@@ -193,19 +193,19 @@
             TableLayoutPanelFile.Controls.Add(TextBoxFile, 1, 0);
             TableLayoutPanelFile.Controls.Add(LabelFile, 0, 0);
             TableLayoutPanelFile.Dock = DockStyle.Fill;
-            TableLayoutPanelFile.Location = new Point(4, 162);
+            TableLayoutPanelFile.Location = new Point(4, 254);
             TableLayoutPanelFile.Margin = new Padding(4);
             TableLayoutPanelFile.Name = "TableLayoutPanelFile";
             TableLayoutPanelFile.RowCount = 1;
             TableLayoutPanelFile.RowStyles.Add(new RowStyle());
             TableLayoutPanelFile.RowStyles.Add(new RowStyle(SizeType.Absolute, 41F));
-            TableLayoutPanelFile.Size = new Size(589, 37);
+            TableLayoutPanelFile.Size = new Size(755, 37);
             TableLayoutPanelFile.TabIndex = 6;
             // 
             // ButtonFile
             // 
             ButtonFile.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            ButtonFile.Location = new Point(547, 4);
+            ButtonFile.Location = new Point(713, 4);
             ButtonFile.Margin = new Padding(4);
             ButtonFile.Name = "ButtonFile";
             ButtonFile.Size = new Size(38, 29);
@@ -220,7 +220,7 @@
             TextBoxFile.Location = new Point(183, 4);
             TextBoxFile.Margin = new Padding(4);
             TextBoxFile.Name = "TextBoxFile";
-            TextBoxFile.Size = new Size(356, 27);
+            TextBoxFile.Size = new Size(522, 27);
             TextBoxFile.TabIndex = 3;
             TextBoxFile.Enter += TextBoxFile_Enter;
             // 
@@ -250,7 +250,7 @@
             ListViewDevices.MultiSelect = false;
             ListViewDevices.Name = "ListViewDevices";
             ListViewDevices.ShowGroups = false;
-            ListViewDevices.Size = new Size(589, 150);
+            ListViewDevices.Size = new Size(755, 242);
             ListViewDevices.TabIndex = 1;
             ListViewDevices.TileSize = new Size(250, 50);
             ListViewDevices.UseCompatibleStateImageBehavior = false;
@@ -264,7 +264,7 @@
             // ColumnHeaderDriveLetter
             // 
             ColumnHeaderDriveLetter.Text = "Unidad";
-            ColumnHeaderDriveLetter.Width = 110;
+            ColumnHeaderDriveLetter.Width = 300;
             // 
             // FormExportGpsFile
             // 
@@ -272,7 +272,7 @@
             AutoScaleMode = AutoScaleMode.Dpi;
             AutoSize = true;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            ClientSize = new Size(635, 306);
+            ClientSize = new Size(801, 398);
             Controls.Add(GroupBoxStep2);
             Controls.Add(ButtonPrevious);
             Controls.Add(ButtonNext);

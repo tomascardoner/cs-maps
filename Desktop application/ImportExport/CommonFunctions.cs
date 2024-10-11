@@ -25,6 +25,7 @@ namespace CSMaps.ImportExport
         {
             List<string> drivesBestCandidates = [];
             List<string> drivesOtherCandidates = [];
+            listView.Items.Clear();
 
             string gpsFilePath = string.Empty;
 
@@ -33,6 +34,7 @@ namespace CSMaps.ImportExport
             {
                 return;
             }
+            listView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
 
             // Gets list of possible drives
             if (!GetPossibleGpsDrives(ref drivesBestCandidates, ref drivesOtherCandidates))
@@ -54,7 +56,7 @@ namespace CSMaps.ImportExport
                 return;
             }
 
-            MessageBox.Show("No se encontraron dispositivos o unidades de almacenamiento correspondientes a un GPS.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //MessageBox.Show("No se encontraron dispositivos o unidades de almacenamiento correspondientes a un GPS.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
 
 
@@ -170,10 +172,6 @@ namespace CSMaps.ImportExport
                 if (File.Exists(tempFilePath))
                 {
                     File.Delete(tempFilePath);
-                }
-                if (tempPath is not null && Directory.Exists(tempPath))
-                {
-                    Directory.Delete(tempPath);
                 }
                 return true;
             }

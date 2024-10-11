@@ -40,7 +40,7 @@ namespace CSMaps.ImportExport
         string _FileFullPath;
 
         const byte StepNumberMax = 3;
-        byte stepNumber = 1;
+        byte _StepNumberCurrent = 1;
 
         #endregion
 
@@ -230,53 +230,53 @@ namespace CSMaps.ImportExport
 
         private void ShowControls()
         {
-            GroupBoxStep1.Visible = stepNumber == 1;
-            GroupBoxStep2.Visible = stepNumber == 2;
-            GroupBoxSummary.Visible = stepNumber == 3;
+            GroupBoxStep1.Visible = _StepNumberCurrent == 1;
+            GroupBoxStep2.Visible = _StepNumberCurrent == 2;
+            GroupBoxSummary.Visible = _StepNumberCurrent == 3;
 
-            if (stepNumber == 1)
+            if (_StepNumberCurrent == 1)
             {
                 this.Cursor = Cursors.WaitCursor;
                 CommonFunctions.GetGpsDevicesAndDrives(ref _MediaDevices, ListViewDevices, TextBoxFile);
                 this.Cursor = Cursors.Default;
             }
-            if (stepNumber == 2)
+            if (_StepNumberCurrent == 2)
             {
                 this.Cursor = Cursors.WaitCursor;
                 ReadGpxFile();
                 this.Cursor = Cursors.Default;
             }
-            if (stepNumber == 3)
+            if (_StepNumberCurrent == 3)
             {
                 ShowSummary();
             }
 
-            ButtonPrevious.Visible = stepNumber > 1;
-            ButtonNext.Visible = stepNumber < StepNumberMax;
-            ButtonFinish.Visible = stepNumber == StepNumberMax;
+            ButtonPrevious.Visible = _StepNumberCurrent > 1;
+            ButtonNext.Visible = _StepNumberCurrent < StepNumberMax;
+            ButtonFinish.Visible = _StepNumberCurrent == StepNumberMax;
         }
 
         private void StepPrevious()
         {
-            if (stepNumber > 1)
+            if (_StepNumberCurrent > 1)
             {
-                stepNumber--;
+                _StepNumberCurrent--;
                 ShowControls();
             }
         }
 
         private void StepNext()
         {
-            if (stepNumber < StepNumberMax && StepVerifyRequirements())
+            if (_StepNumberCurrent < StepNumberMax && StepVerifyRequirements())
             {
-                stepNumber++;
+                _StepNumberCurrent++;
                 ShowControls();
             }
         }
 
         private bool StepVerifyRequirements()
         {
-            return stepNumber switch
+            return _StepNumberCurrent switch
             {
                 1 => VerifySource(),
                 2 => VerifySelectedPoints(),
