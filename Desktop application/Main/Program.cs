@@ -58,6 +58,12 @@ namespace CSMaps
 
             // Obtengo el connection string para la conexión a la base de datos
             CardonerSistemas.Framework.Database.EFCore.ConnectionStringBuilder connectionStringBuilder = new(DatabaseConfig);
+            if (!connectionStringBuilder.DatasourceSelected)
+            {
+                formSplash.Close();
+                TerminateApplication();
+                return;
+            }
             if (!connectionStringBuilder.PasswordUnencrypt(Constants.PublicEncryptionPassword, out string resultMessage))
             {
                 MessageBox.Show(string.Format(Properties.Resources.StringDatabasePasswordUnencryptionError, Environment.NewLine, resultMessage), Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
