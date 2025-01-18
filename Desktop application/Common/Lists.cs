@@ -55,7 +55,7 @@ namespace CSMaps.Common
                 comboBox.SelectedIndex = -1;
             }
         }
-		
+
         static internal void GetEntidades(ComboBox comboBox, Models.CSMapsContext context, bool showNotSpecified)
         {
             comboBox.ValueMember = "IdEntidad";
@@ -170,7 +170,7 @@ namespace CSMaps.Common
 
         internal static void GetGroups(ListBox listBox, Models.CSMapsContext context)
         {
-            List<Models.Grupo> grupos = [..context.Grupos.Where(g => g.EsActivo).OrderBy(g => g.Nombre)];
+            List<Models.Grupo> grupos = [.. context.Grupos.Where(g => g.EsActivo).OrderBy(g => g.Nombre)];
 
             listBox.DataSource = grupos;
             listBox.ValueMember = "IdGrupo";

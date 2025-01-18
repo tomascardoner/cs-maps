@@ -101,26 +101,26 @@ namespace CSMaps.Users
         private void SetDataToUserInterface()
         {
             // General
-            Values.ToTextBox(TextBoxNombre, usuarioGrupo.Nombre);
+            Values.ToControl(TextBoxNombre, usuarioGrupo.Nombre);
 
             // Notas y Auditoría
-            Values.ToTextBox(TextBoxNotas, usuarioGrupo.Notas);
-            Values.ToCheckBox(CheckBoxEsActivo, usuarioGrupo.EsActivo);
-            Values.ToTextBox(TextBoxId, usuarioGrupo.IdUsuarioGrupo, true, entidadFemenina ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
-            Values.ToTextBoxAsShortDateTime(TextBoxFechaHoraCreacion, usuarioGrupo.FechaHoraCreacion);
+            Values.ToControl(TextBoxNotas, usuarioGrupo.Notas);
+            Values.ToControl(CheckBoxEsActivo, usuarioGrupo.EsActivo);
+            Values.ToControl(TextBoxId, usuarioGrupo.IdUsuarioGrupo, true, entidadFemenina ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
+            Values.ToControl(TextBoxFechaHoraCreacion, usuarioGrupo.FechaHoraCreacion, Values.DateTimeFormats.ShortDateTime);
             TextBoxUsuarioCreacion.Text = Users.GetDescription(context, usuarioGrupo.IdUsuarioCreacion);
-            Values.ToTextBoxAsShortDateTime(TextBoxUsuarioUltimaModificacion, usuarioGrupo.FechaHoraUltimaModificacion);
+            Values.ToControl(TextBoxUsuarioUltimaModificacion, usuarioGrupo.FechaHoraUltimaModificacion, Values.DateTimeFormats.ShortDateTime);
             TextBoxUsuarioUltimaModificacion.Text = Users.GetDescription(context, usuarioGrupo.IdUsuarioUltimaModificacion);
         }
 
         private void SetDataToEntityObject()
         {
             // General
-            usuarioGrupo.Nombre = Values.TextBoxToString(TextBoxNombre);
+            usuarioGrupo.Nombre = Values.ToString(TextBoxNombre);
 
             // Notas y Auditoría
-            usuarioGrupo.Notas = Values.TextBoxToString(TextBoxNotas);
-            usuarioGrupo.EsActivo = Values.CheckBoxToBoolean(CheckBoxEsActivo);
+            usuarioGrupo.Notas = Values.ToString(TextBoxNotas);
+            usuarioGrupo.EsActivo = Values.ToBoolean(CheckBoxEsActivo);
         }
 
         #endregion

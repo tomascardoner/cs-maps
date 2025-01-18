@@ -91,21 +91,21 @@ namespace CSMaps.General
         private void SetDataToUserInterface()
         {
             // General
-            Values.ToTextBox(TextBoxNombre, entidad.Nombre);
-            Values.ToTextBox(TextBoxTelefonoMovil, entidad.TelefonoMovil);
+            Values.ToControl(TextBoxNombre, entidad.Nombre);
+            Values.ToControl(TextBoxTelefonoMovil, entidad.TelefonoMovil);
 
             // Auditoría
-            Values.ToTextBox(TextBoxId, entidad.IdEntidad, true, entityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
-            Values.ToTextBoxAsShortDateTime(TextBoxFechaHoraCreacion, entidad.FechaHoraCreacion);
+            Values.ToControl(TextBoxId, entidad.IdEntidad, true, entityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
+            Values.ToControl(TextBoxFechaHoraCreacion, entidad.FechaHoraCreacion, Values.DateTimeFormats.ShortDateTime);
             TextBoxUsuarioCreacion.Text = Users.Users.GetDescription(context, entidad.IdUsuarioCreacion);
-            Values.ToTextBoxAsShortDateTime(TextBoxFechaHoraUltimaModificacion, entidad.FechaHoraUltimaModificacion);
+            Values.ToControl(TextBoxFechaHoraUltimaModificacion, entidad.FechaHoraUltimaModificacion, Values.DateTimeFormats.ShortDateTime);
             TextBoxUsuarioUltimaModificacion.Text = Users.Users.GetDescription(context, entidad.IdUsuarioUltimaModificacion);
         }
 
         private void SetDataToEntityObject()
         {
-            entidad.Nombre = Values.TextBoxToString(TextBoxNombre);
-            entidad.TelefonoMovil = Values.TextBoxToString(TextBoxTelefonoMovil);
+            entidad.Nombre = Values.ToString(TextBoxNombre);
+            entidad.TelefonoMovil = Values.ToString(TextBoxTelefonoMovil);
         }
 
         #endregion

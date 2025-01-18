@@ -9,7 +9,7 @@ namespace CSMaps.Users
 
         private Models.CSMapsContext context = new();
 
-        private int intentos = 0;
+        private int intentos;
 
         #endregion
 

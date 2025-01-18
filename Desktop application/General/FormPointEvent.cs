@@ -95,24 +95,24 @@ namespace CSMaps.General
         private void SetDataToUserInterface()
         {
             // General
-            Values.ToComboBox(ComboBoxEventoTipo, puntoEvento.IdEventoTipo);
-            Values.ToDateTimePicker(DateTimePickerFecha, puntoEvento.FechaHora);
-            Values.ToDateTimePicker(DateTimePickerHora, puntoEvento.FechaHora);
-            Values.ToTextBox(TextBoxNotas, puntoEvento.Notas);
+            Values.ToControl(ComboBoxEventoTipo, puntoEvento.IdEventoTipo);
+            Values.ToControl(DateTimePickerFecha, puntoEvento.FechaHora);
+            Values.ToControl(DateTimePickerHora, puntoEvento.FechaHora);
+            Values.ToControl(TextBoxNotas, puntoEvento.Notas);
 
             // Auditoría
-            Values.ToTextBox(TextBoxId, puntoEvento.IdEvento, true, entityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
-            Values.ToTextBoxAsShortDateTime(TextBoxFechaHoraCreacion, puntoEvento.FechaHoraCreacion);
+            Values.ToControl(TextBoxId, puntoEvento.IdEvento, true, entityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
+            Values.ToControl(TextBoxFechaHoraCreacion, puntoEvento.FechaHoraCreacion, Values.DateTimeFormats.ShortDateTime);
             TextBoxUsuarioCreacion.Text = Users.Users.GetDescription(context, puntoEvento.IdUsuarioCreacion);
-            Values.ToTextBoxAsShortDateTime(TextBoxFechaHoraUltimaModificacion, puntoEvento.FechaHoraUltimaModificacion);
+            Values.ToControl(TextBoxFechaHoraUltimaModificacion, puntoEvento.FechaHoraUltimaModificacion, Values.DateTimeFormats.ShortDateTime);
             TextBoxUsuarioUltimaModificacion.Text = Users.Users.GetDescription(context, puntoEvento.IdUsuarioUltimaModificacion);
         }
 
         private void SetDataToEntityObject()
         {
-            puntoEvento.IdEventoTipo = Values.ComboBoxToByte(ComboBoxEventoTipo).Value;
-            puntoEvento.FechaHora = Values.DateTimePickersToDateTime(DateTimePickerFecha, DateTimePickerHora).Value;
-            puntoEvento.Notas = Values.TextBoxToString(TextBoxNotas);
+            puntoEvento.IdEventoTipo = Values.ToByte(ComboBoxEventoTipo).Value;
+            puntoEvento.FechaHora = Values.ToDateTime(DateTimePickerFecha, DateTimePickerHora).Value;
+            puntoEvento.Notas = Values.ToString(TextBoxNotas);
         }
 
         #endregion

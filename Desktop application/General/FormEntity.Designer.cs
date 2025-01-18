@@ -229,7 +229,7 @@
             TabPageAuditoria.Location = new Point(4, 32);
             TabPageAuditoria.Name = "TabPageAuditoria";
             TabPageAuditoria.Padding = new Padding(3);
-            TabPageAuditoria.Size = new Size(530, 106);
+            TabPageAuditoria.Size = new Size(532, 106);
             TabPageAuditoria.TabIndex = 1;
             TabPageAuditoria.Text = "Auditoría";
             TabPageAuditoria.UseVisualStyleBackColor = true;
@@ -258,7 +258,7 @@
             TableLayoutPanelAuditoria.RowStyles.Add(new RowStyle());
             TableLayoutPanelAuditoria.RowStyles.Add(new RowStyle());
             TableLayoutPanelAuditoria.RowStyles.Add(new RowStyle());
-            TableLayoutPanelAuditoria.Size = new Size(524, 100);
+            TableLayoutPanelAuditoria.Size = new Size(526, 100);
             TableLayoutPanelAuditoria.TabIndex = 8;
             // 
             // LabelId
@@ -304,7 +304,7 @@
             TextBoxUsuarioCreacion.MaxLength = 50;
             TextBoxUsuarioCreacion.Name = "TextBoxUsuarioCreacion";
             TextBoxUsuarioCreacion.ReadOnly = true;
-            TextBoxUsuarioCreacion.Size = new Size(213, 27);
+            TextBoxUsuarioCreacion.Size = new Size(215, 27);
             TextBoxUsuarioCreacion.TabIndex = 4;
             TextBoxUsuarioCreacion.TabStop = false;
             // 
@@ -327,7 +327,7 @@
             TextBoxUsuarioUltimaModificacion.MaxLength = 50;
             TextBoxUsuarioUltimaModificacion.Name = "TextBoxUsuarioUltimaModificacion";
             TextBoxUsuarioUltimaModificacion.ReadOnly = true;
-            TextBoxUsuarioUltimaModificacion.Size = new Size(213, 27);
+            TextBoxUsuarioUltimaModificacion.Size = new Size(215, 27);
             TextBoxUsuarioUltimaModificacion.TabIndex = 7;
             TextBoxUsuarioUltimaModificacion.TabStop = false;
             // 
@@ -345,6 +345,7 @@
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "Entidad";
+            FormClosed += This_FormClosed;
             KeyPress += This_KeyPress;
             ToolStripMain.ResumeLayout(false);
             ToolStripMain.PerformLayout();

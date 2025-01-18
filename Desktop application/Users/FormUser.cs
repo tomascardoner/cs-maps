@@ -101,8 +101,8 @@ namespace CSMaps.Users
         private void SetDataToUserInterface()
         {
             // General
-            Values.ToTextBox(TextBoxNombre, usuario.Nombre);
-            Values.ToTextBox(TextBoxDescripcion, usuario.Descripcion);
+            Values.ToControl(TextBoxNombre, usuario.Nombre);
+            Values.ToControl(TextBoxDescripcion, usuario.Descripcion);
             if (string.IsNullOrWhiteSpace(usuario.Password))
             {
                 TextBoxPassword.Text = string.Empty;
@@ -118,24 +118,24 @@ namespace CSMaps.Users
                     TextBoxPassword.Text = string.Empty;
                 }
             }
-            Values.ToComboBox(ComboBoxGenero, usuario.Genero, ComboBoxExtension.SelectedItemOptions.Value, Constants.GenderUnknown);
-            Values.ToComboBox(ComboBoxUsuarioGrupo, usuario.IdUsuarioGrupo);
+            Values.ToControl(ComboBoxGenero, usuario.Genero, ComboBoxExtension.SelectedItemOptions.Value, Constants.GenderUnknown);
+            Values.ToControl(ComboBoxUsuarioGrupo, usuario.IdUsuarioGrupo);
 
             // Notas y Auditoría
-            Values.ToTextBox(TextBoxNotas, usuario.Notas);
-            Values.ToCheckBox(CheckBoxEsActivo, usuario.EsActivo);
-            Values.ToTextBox(TextBoxId, usuario.IdUsuario, true, entityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
-            Values.ToTextBoxAsShortDateTime(TextBoxFechaHoraCreacion, usuario.FechaHoraCreacion);
+            Values.ToControl(TextBoxNotas, usuario.Notas);
+            Values.ToControl(CheckBoxEsActivo, usuario.EsActivo);
+            Values.ToControl(TextBoxId, usuario.IdUsuario, true, entityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
+            Values.ToControl(TextBoxFechaHoraCreacion, usuario.FechaHoraCreacion, Values.DateTimeFormats.ShortDateTime);
             TextBoxUsuarioCreacion.Text = Users.GetDescription(context, usuario.IdUsuarioCreacion);
-            Values.ToTextBoxAsShortDateTime(TextBoxFechaHoraUltimaModificacion, usuario.FechaHoraUltimaModificacion);
+            Values.ToControl(TextBoxFechaHoraUltimaModificacion, usuario.FechaHoraUltimaModificacion, Values.DateTimeFormats.ShortDateTime);
             TextBoxUsuarioUltimaModificacion.Text = Users.GetDescription(context, usuario.IdUsuarioUltimaModificacion);
         }
 
         private void SetDataToEntityObject()
         {
             // General
-            usuario.Nombre = Values.TextBoxToString(TextBoxNombre);
-            usuario.Descripcion = Values.TextBoxToString(TextBoxDescripcion);
+            usuario.Nombre = Values.ToString(TextBoxNombre);
+            usuario.Descripcion = Values.ToString(TextBoxDescripcion);
             if (CardonerSistemas.Framework.Cryptography.StringCipher.Encrypt(TextBoxPassword.Text.Trim(), Constants.PublicEncryptionPassword, out string encryptedPassword))
             {
                 usuario.Password = encryptedPassword;
@@ -144,12 +144,12 @@ namespace CSMaps.Users
             {
                 usuario.Password = null;
             }
-            usuario.Genero = Values.ComboBoxToString(ComboBoxGenero, Constants.GenderUnknown);
-            usuario.IdUsuarioGrupo = Values.ComboBoxToByte(ComboBoxUsuarioGrupo).Value;
+            usuario.Genero = Values.ToString(ComboBoxGenero, Constants.GenderUnknown);
+            usuario.IdUsuarioGrupo = Values.ToByte(ComboBoxUsuarioGrupo).Value;
 
             // Notas y Auditoría
-            usuario.Notas = Values.TextBoxToString(TextBoxNotas);
-            usuario.EsActivo = Values.CheckBoxToBoolean(CheckBoxEsActivo);
+            usuario.Notas = Values.ToString(TextBoxNotas);
+            usuario.EsActivo = Values.ToBoolean(CheckBoxEsActivo);
         }
 
         #endregion

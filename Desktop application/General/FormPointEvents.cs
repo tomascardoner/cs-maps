@@ -155,7 +155,7 @@ namespace CSMaps.General
             {
                 TextBoxEstablecimiento.Text = string.Empty;
             }
-            Values.ToTextBox(TextBoxChapaNumero, puntoDato.ChapaNumero);
+            Values.ToControl(TextBoxChapaNumero, puntoDato.ChapaNumero);
         }
 
         internal void ReadData(short idEvento = 0, bool restoreCurrentPosition = false)
@@ -217,8 +217,8 @@ namespace CSMaps.General
 
 
             // Date
-            DateAndTime.GetDatesFromPeriodTypeAndValue((DateAndTime.PeriodTypes)ToolStripComboBoxDateFilterPeriodType.SelectedIndex, (byte)ToolStripComboBoxDateFilterPeriodValue.SelectedIndex, out System.DateTime fechaDesde, out System.DateTime fechaHasta, ((DateTimePicker)HostDateTimePickerDateFilterFrom.Control).Value, ((DateTimePicker)HostDateTimePickerDateFilterTo.Control).Value);
-            entitiesFiltered = [.. entitiesAll.Where(pe => pe.FechaHora >= fechaDesde && pe.FechaHora <= fechaHasta)];
+            DateAndTime.GetDatesFromPeriodTypeAndValue((DateAndTime.PeriodTypes)ToolStripComboBoxDateFilterPeriodType.SelectedIndex, (byte)ToolStripComboBoxDateFilterPeriodValue.SelectedIndex, DateOnly.FromDateTime(((DateTimePicker)HostDateTimePickerDateFilterFrom.Control).Value), DateOnly.FromDateTime(((DateTimePicker)HostDateTimePickerDateFilterTo.Control).Value), out DateOnly fechaDesde, out DateOnly fechaHasta);
+            entitiesFiltered = [.. entitiesAll.Where(pe => pe.FechaHora >= fechaDesde.ToDateTime(new()) && pe.FechaHora <= fechaHasta.ToDateTime(new(23, 59, 59)))];
 
             // Event type
             if ((byte)ToolStripComboBoxEventTypeFilter.ComboBox.SelectedValue != CardonerSistemas.Framework.Base.Constants.ByteFieldValueAll)
@@ -273,7 +273,7 @@ namespace CSMaps.General
         private void ToolStripComboBoxDateFilterPeriodValue_SelectedIndexChanged(object sender, EventArgs e)
         {
             HostDateTimePickerDateFilterFrom.Visible = (ToolStripComboBoxDateFilterPeriodType.SelectedIndex == (int)DateAndTime.PeriodTypes.Range);
-            ToolStripLabelDateFilterAnd.Visible = (ToolStripComboBoxDateFilterPeriodType.SelectedIndex == (int)DateAndTime.PeriodTypes.Range && ToolStripComboBoxDateFilterPeriodValue.SelectedIndex == (int)DateAndTime.PeriodRangeValues.Between);
+            ToolStripLabelDateFilterAnd.Visible = (ToolStripComboBoxDateFilterPeriodType.SelectedIndex == (int)DateAndTime.PeriodTypes.Range && ToolStripComboBoxDateFilterPeriodValue.SelectedIndex == (int)DateAndTime.PeriodDateRangeValues.Between);
             HostDateTimePickerDateFilterTo.Visible = ToolStripLabelDateFilterAnd.Visible;
             ReadData();
         }

@@ -1,6 +1,5 @@
 ﻿using CardonerSistemas.Framework.Base;
 using CardonerSistemas.Framework.Controls;
-using CSMaps.Models;
 
 namespace CSMaps.General
 {
@@ -93,23 +92,23 @@ namespace CSMaps.General
         private void SetDataToUserInterface()
         {
             // General
-            Values.ToTextBox(TextBoxNombre, establecimiento.Nombre);
-            Values.ToComboBox(ComboBoxEntidad, establecimiento.IdEntidad);
-            Values.ToTextBox(TextBoxTelefonoMovil, establecimiento.TelefonoMovil);
+            Values.ToControl(TextBoxNombre, establecimiento.Nombre);
+            Values.ToControl(ComboBoxEntidad, establecimiento.IdEntidad);
+            Values.ToControl(TextBoxTelefonoMovil, establecimiento.TelefonoMovil);
 
             // Auditoría
-            Values.ToTextBox(TextBoxId, establecimiento.IdEstablecimiento, true, entityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
-            Values.ToTextBoxAsShortDateTime(TextBoxFechaHoraCreacion, establecimiento.FechaHoraCreacion);
+            Values.ToControl(TextBoxId, establecimiento.IdEstablecimiento, true, entityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
+            Values.ToControl(TextBoxFechaHoraCreacion, establecimiento.FechaHoraCreacion, Values.DateTimeFormats.ShortDateTime);
             TextBoxUsuarioCreacion.Text = Users.Users.GetDescription(context, establecimiento.IdUsuarioCreacion);
-            Values.ToTextBoxAsShortDateTime(TextBoxFechaHoraUltimaModificacion, establecimiento.FechaHoraUltimaModificacion);
+            Values.ToControl(TextBoxFechaHoraUltimaModificacion, establecimiento.FechaHoraUltimaModificacion, Values.DateTimeFormats.ShortDateTime);
             TextBoxUsuarioUltimaModificacion.Text = Users.Users.GetDescription(context, establecimiento.IdUsuarioUltimaModificacion);
         }
 
         private void SetDataToEntityObject()
         {
-            establecimiento.Nombre = Values.TextBoxToString(TextBoxNombre);
-            establecimiento.IdEntidad = Values.ComboBoxToShort(ComboBoxEntidad);
-            establecimiento.TelefonoMovil = Values.TextBoxToString(TextBoxTelefonoMovil);
+            establecimiento.Nombre = Values.ToString(TextBoxNombre);
+            establecimiento.IdEntidad = Values.ToShort(ComboBoxEntidad);
+            establecimiento.TelefonoMovil = Values.ToString(TextBoxTelefonoMovil);
         }
 
         #endregion

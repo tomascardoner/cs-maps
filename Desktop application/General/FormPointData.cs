@@ -102,27 +102,27 @@ namespace CSMaps.General
         private void SetDataToUserInterface()
         {
             // General
-            Values.ToTextBox(TextBoxNombre, punto.Nombre);
-            CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDoubleTextBox(DoubleTextBoxLatitud, punto.Latitud);
-            CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDoubleTextBox(DoubleTextBoxLongitud, punto.Longitud);
-            Values.ToComboBox(ComboBoxEstablecimiento, puntoDato.IdEstablecimiento);
-            CardonerSistemas.Framework.Controls.Syncfusion.Values.ToIntegerTextBox(IntegerTextBoxChapaNumero, puntoDato.ChapaNumero);
-            Values.ToTextBox(TextBoxNotas, puntoDato.Notas);
+            Values.ToControl(TextBoxNombre, punto.Nombre);
+            CardonerSistemas.Framework.Controls.Syncfusion.Values.ToControl(DoubleTextBoxLatitud, punto.Latitud);
+            CardonerSistemas.Framework.Controls.Syncfusion.Values.ToControl(DoubleTextBoxLongitud, punto.Longitud);
+            Values.ToControl(ComboBoxEstablecimiento, puntoDato.IdEstablecimiento);
+            CardonerSistemas.Framework.Controls.Syncfusion.Values.ToControl(IntegerTextBoxChapaNumero, puntoDato.ChapaNumero);
+            Values.ToControl(TextBoxNotas, puntoDato.Notas);
 
             // Auditoría
-            Values.ToTextBox(TextBoxId, puntoDato.IdPunto, true, entityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
-            Values.ToTextBoxAsShortDateTime(TextBoxFechaHoraCreacion, puntoDato.FechaHoraCreacion);
+            Values.ToControl(TextBoxId, puntoDato.IdPunto, true, entityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
+            Values.ToControl(TextBoxFechaHoraCreacion, puntoDato.FechaHoraCreacion, Values.DateTimeFormats.ShortDateTime);
             TextBoxUsuarioCreacion.Text = Users.Users.GetDescription(context, puntoDato.IdUsuarioCreacion);
-            Values.ToTextBoxAsShortDateTime(TextBoxFechaHoraUltimaModificacion, puntoDato.FechaHoraUltimaModificacion);
+            Values.ToControl(TextBoxFechaHoraUltimaModificacion, puntoDato.FechaHoraUltimaModificacion, Values.DateTimeFormats.ShortDateTime);
             TextBoxUsuarioUltimaModificacion.Text = Users.Users.GetDescription(context, puntoDato.IdUsuarioUltimaModificacion);
         }
 
         private void SetDataToEntityObject()
         {
             puntoDato.IdPunto = punto.IdPunto;
-            puntoDato.IdEstablecimiento = Values.ComboBoxToShort(ComboBoxEstablecimiento);
-            puntoDato.ChapaNumero = CardonerSistemas.Framework.Controls.Syncfusion.Values.IntegerTextBoxToInt(IntegerTextBoxChapaNumero);
-            puntoDato.Notas = Values.TextBoxToString(TextBoxNotas);
+            puntoDato.IdEstablecimiento = Values.ToShort(ComboBoxEstablecimiento);
+            puntoDato.ChapaNumero = CardonerSistemas.Framework.Controls.Syncfusion.Values.ToInt(IntegerTextBoxChapaNumero);
+            puntoDato.Notas = Values.ToString(TextBoxNotas);
 
             if (isNew && CheckBoxEventoAgregar.Checked)
             {
@@ -156,9 +156,9 @@ namespace CSMaps.General
             if (formPointFind.ShowDialog(this) == DialogResult.OK)
             {
                 punto = (Models.Punto)formPointFind.DataGridViewMain.CurrentRow.DataBoundItem;
-                Values.ToTextBox(TextBoxNombre, punto.Nombre);
-                CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDoubleTextBox(DoubleTextBoxLatitud, punto.Latitud);
-                CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDoubleTextBox(DoubleTextBoxLongitud, punto.Longitud);
+                Values.ToControl(TextBoxNombre, punto.Nombre);
+                CardonerSistemas.Framework.Controls.Syncfusion.Values.ToControl(DoubleTextBoxLatitud, punto.Latitud);
+                CardonerSistemas.Framework.Controls.Syncfusion.Values.ToControl(DoubleTextBoxLongitud, punto.Longitud);
                 ButtonChapaNumeroObtenerDesdeNombre.PerformClick();
                 ComboBoxEstablecimiento.Focus();
             }

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewMain = new DataGridView();
             DataGridViewColumnFechaHora = new DataGridViewTextBoxColumn();
             DataGridViewColumnEventoTipo = new DataGridViewTextBoxColumn();
@@ -51,11 +51,11 @@
             TableLayoutPanelMain = new TableLayoutPanel();
             PanelPointEvents = new Panel();
             TableLayoutPanelPointEvents = new TableLayoutPanel();
-            TextBoxChapaNumero = new TextBox();
+            TableLayoutPanelEstablecimiento = new TableLayoutPanel();
+            LabelEstablecimiento = new Label();
             TextBoxEstablecimiento = new TextBox();
             LabelChapaNumero = new Label();
-            LabelEstablecimiento = new Label();
-            TableLayoutPanelEstablecimiento = new TableLayoutPanel();
+            TextBoxChapaNumero = new TextBox();
             ((System.ComponentModel.ISupportInitialize)DataGridViewMain).BeginInit();
             FlowLayoutPanelToolbars.SuspendLayout();
             ToolStripDateFilter.SuspendLayout();
@@ -90,14 +90,15 @@
             DataGridViewMain.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             DataGridViewMain.Size = new Size(508, 326);
             DataGridViewMain.TabIndex = 3;
+            DataGridViewMain.ColumnHeaderMouseClick += DataGridViewMain_ColumnHeaderMouseClick;
             DataGridViewMain.DoubleClick += ToolStripButtonView_Click;
             // 
             // DataGridViewColumnFechaHora
             // 
             DataGridViewColumnFechaHora.DataPropertyName = "FechaHora";
-            dataGridViewCellStyle4.Format = "g";
-            dataGridViewCellStyle4.NullValue = null;
-            DataGridViewColumnFechaHora.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Format = "g";
+            dataGridViewCellStyle1.NullValue = null;
+            DataGridViewColumnFechaHora.DefaultCellStyle = dataGridViewCellStyle1;
             DataGridViewColumnFechaHora.HeaderText = "Fecha y hora";
             DataGridViewColumnFechaHora.MinimumWidth = 6;
             DataGridViewColumnFechaHora.Name = "DataGridViewColumnFechaHora";
@@ -309,13 +310,35 @@
             TableLayoutPanelPointEvents.Size = new Size(614, 332);
             TableLayoutPanelPointEvents.TabIndex = 5;
             // 
-            // TextBoxChapaNumero
+            // TableLayoutPanelEstablecimiento
             // 
-            TextBoxChapaNumero.Location = new Point(127, 36);
-            TextBoxChapaNumero.Name = "TextBoxChapaNumero";
-            TextBoxChapaNumero.ReadOnly = true;
-            TextBoxChapaNumero.Size = new Size(58, 27);
-            TextBoxChapaNumero.TabIndex = 11;
+            TableLayoutPanelEstablecimiento.AutoSize = true;
+            TableLayoutPanelEstablecimiento.ColumnCount = 2;
+            TableLayoutPanelEstablecimiento.ColumnStyles.Add(new ColumnStyle());
+            TableLayoutPanelEstablecimiento.ColumnStyles.Add(new ColumnStyle());
+            TableLayoutPanelEstablecimiento.Controls.Add(LabelEstablecimiento, 0, 0);
+            TableLayoutPanelEstablecimiento.Controls.Add(TextBoxEstablecimiento, 1, 0);
+            TableLayoutPanelEstablecimiento.Controls.Add(LabelChapaNumero, 0, 1);
+            TableLayoutPanelEstablecimiento.Controls.Add(TextBoxChapaNumero, 1, 1);
+            TableLayoutPanelEstablecimiento.Dock = DockStyle.Fill;
+            TableLayoutPanelEstablecimiento.GrowStyle = TableLayoutPanelGrowStyle.FixedSize;
+            TableLayoutPanelEstablecimiento.Location = new Point(3, 3);
+            TableLayoutPanelEstablecimiento.Name = "TableLayoutPanelEstablecimiento";
+            TableLayoutPanelEstablecimiento.RowCount = 2;
+            TableLayoutPanelEstablecimiento.RowStyles.Add(new RowStyle());
+            TableLayoutPanelEstablecimiento.RowStyles.Add(new RowStyle());
+            TableLayoutPanelEstablecimiento.Size = new Size(614, 66);
+            TableLayoutPanelEstablecimiento.TabIndex = 6;
+            // 
+            // LabelEstablecimiento
+            // 
+            LabelEstablecimiento.Dock = DockStyle.Fill;
+            LabelEstablecimiento.Location = new Point(3, 0);
+            LabelEstablecimiento.Name = "LabelEstablecimiento";
+            LabelEstablecimiento.Size = new Size(118, 33);
+            LabelEstablecimiento.TabIndex = 6;
+            LabelEstablecimiento.Text = "Establecimiento:";
+            LabelEstablecimiento.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // TextBoxEstablecimiento
             // 
@@ -336,35 +359,13 @@
             LabelChapaNumero.Text = "Nº de chapa:";
             LabelChapaNumero.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // LabelEstablecimiento
+            // TextBoxChapaNumero
             // 
-            LabelEstablecimiento.Dock = DockStyle.Fill;
-            LabelEstablecimiento.Location = new Point(3, 0);
-            LabelEstablecimiento.Name = "LabelEstablecimiento";
-            LabelEstablecimiento.Size = new Size(118, 33);
-            LabelEstablecimiento.TabIndex = 6;
-            LabelEstablecimiento.Text = "Establecimiento:";
-            LabelEstablecimiento.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // TableLayoutPanelEstablecimiento
-            // 
-            TableLayoutPanelEstablecimiento.AutoSize = true;
-            TableLayoutPanelEstablecimiento.ColumnCount = 2;
-            TableLayoutPanelEstablecimiento.ColumnStyles.Add(new ColumnStyle());
-            TableLayoutPanelEstablecimiento.ColumnStyles.Add(new ColumnStyle());
-            TableLayoutPanelEstablecimiento.Controls.Add(LabelEstablecimiento, 0, 0);
-            TableLayoutPanelEstablecimiento.Controls.Add(TextBoxEstablecimiento, 1, 0);
-            TableLayoutPanelEstablecimiento.Controls.Add(LabelChapaNumero, 0, 1);
-            TableLayoutPanelEstablecimiento.Controls.Add(TextBoxChapaNumero, 1, 1);
-            TableLayoutPanelEstablecimiento.Dock = DockStyle.Fill;
-            TableLayoutPanelEstablecimiento.GrowStyle = TableLayoutPanelGrowStyle.FixedSize;
-            TableLayoutPanelEstablecimiento.Location = new Point(3, 3);
-            TableLayoutPanelEstablecimiento.Name = "TableLayoutPanelEstablecimiento";
-            TableLayoutPanelEstablecimiento.RowCount = 2;
-            TableLayoutPanelEstablecimiento.RowStyles.Add(new RowStyle());
-            TableLayoutPanelEstablecimiento.RowStyles.Add(new RowStyle());
-            TableLayoutPanelEstablecimiento.Size = new Size(614, 66);
-            TableLayoutPanelEstablecimiento.TabIndex = 6;
+            TextBoxChapaNumero.Location = new Point(127, 36);
+            TextBoxChapaNumero.Name = "TextBoxChapaNumero";
+            TextBoxChapaNumero.ReadOnly = true;
+            TextBoxChapaNumero.Size = new Size(58, 27);
+            TextBoxChapaNumero.TabIndex = 11;
             // 
             // FormPointEvents
             // 

@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-namespace CSMaps
+﻿namespace CSMaps
 {
     public partial class FormAboutBox : Form
     {
@@ -38,7 +36,7 @@ namespace CSMaps
         private void LayoutControls()
         {
             using Graphics graphics = this.CreateGraphics();
-            int itemMaxExtends = CardonerSistemas.Framework.Base.String.GetMaxExtends([ Properties.Resources.StringAboutItemDBServer, Properties.Resources.StringAboutItemDBDatabase, Properties.Resources.StringAboutItemReportsPath ], graphics, this.Font);
+            int itemMaxExtends = CardonerSistemas.Framework.Base.String.GetMaxExtends([Properties.Resources.StringAboutItemDBServer, Properties.Resources.StringAboutItemDBDatabase, Properties.Resources.StringAboutItemReportsPath], graphics, this.Font);
             ListViewData.Columns[0].Width = itemMaxExtends + SystemInformation.BorderSize.Width;
             ListViewData.Columns[1].Width = ListViewData.ClientSize.Width - ListViewData.Columns[0].Width - SystemInformation.BorderSize.Width - SystemInformation.VerticalScrollBarWidth;
         }

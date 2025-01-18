@@ -93,25 +93,25 @@ namespace CSMaps.General
         private void SetDataToUserInterface()
         {
             // General
-            Values.ToTextBox(TextBoxNombre, punto.Nombre);
-            CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDoubleTextBox(DoubleTextBoxLatitud, punto.Latitud);
-            CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDoubleTextBox(DoubleTextBoxLongitud, punto.Longitud);
-            CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDoubleTextBox(DoubleTextBoxAltitud, punto.Altitud);
+            Values.ToControl(TextBoxNombre, punto.Nombre);
+            CardonerSistemas.Framework.Controls.Syncfusion.Values.ToControl(DoubleTextBoxLatitud, punto.Latitud);
+            CardonerSistemas.Framework.Controls.Syncfusion.Values.ToControl(DoubleTextBoxLongitud, punto.Longitud);
+            CardonerSistemas.Framework.Controls.Syncfusion.Values.ToControl(DoubleTextBoxAltitud, punto.Altitud);
 
             // Auditoría
-            Values.ToTextBox(TextBoxId, punto.IdPunto, true, entityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
-            Values.ToTextBoxAsShortDateTime(TextBoxFechaHoraCreacion, punto.FechaHoraCreacion);
+            Values.ToControl(TextBoxId, punto.IdPunto, true, entityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
+            Values.ToControl(TextBoxFechaHoraCreacion, punto.FechaHoraCreacion, Values.DateTimeFormats.ShortDateTime);
             TextBoxUsuarioCreacion.Text = Users.Users.GetDescription(context, punto.IdUsuarioCreacion);
-            Values.ToTextBoxAsShortDateTime(TextBoxFechaHoraUltimaModificacion, punto.FechaHoraUltimaModificacion);
+            Values.ToControl(TextBoxFechaHoraUltimaModificacion, punto.FechaHoraUltimaModificacion, Values.DateTimeFormats.ShortDateTime);
             TextBoxUsuarioUltimaModificacion.Text = Users.Users.GetDescription(context, punto.IdUsuarioUltimaModificacion);
         }
 
         private void SetDataToEntityObject()
         {
-            punto.Nombre = Values.TextBoxToString(TextBoxNombre);
-            punto.Latitud = CardonerSistemas.Framework.Controls.Syncfusion.Values.DoubleTextBoxToDecimal(DoubleTextBoxLatitud).Value;
-            punto.Longitud = CardonerSistemas.Framework.Controls.Syncfusion.Values.DoubleTextBoxToDecimal(DoubleTextBoxLongitud).Value;
-            punto.Altitud = CardonerSistemas.Framework.Controls.Syncfusion.Values.DoubleTextBoxToDecimal(DoubleTextBoxAltitud).Value;
+            punto.Nombre = Values.ToString(TextBoxNombre);
+            punto.Latitud = CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDecimal(DoubleTextBoxLatitud).Value;
+            punto.Longitud = CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDecimal(DoubleTextBoxLongitud).Value;
+            punto.Altitud = CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDecimal(DoubleTextBoxAltitud).Value;
         }
 
         #endregion
@@ -246,6 +246,7 @@ namespace CSMaps.General
                 TextBoxNombre.Focus();
                 return false;
             }
+#pragma warning disable S1244 // Floating point numbers should not be tested for equality
             if (DoubleTextBoxLatitud.DoubleValue == 0)
             {
                 Common.Forms.ShowRequiredFieldMessageBox(entityIsFemale, entityNameSingular, true, "latitud");
@@ -260,6 +261,7 @@ namespace CSMaps.General
                 DoubleTextBoxLongitud.Focus();
                 return false;
             }
+#pragma warning restore S1244 // Floating point numbers should not be tested for equality
             return true;
         }
 

@@ -42,6 +42,7 @@
             DateTimePickerHora = new DateTimePicker();
             TabControlMain = new TabControl();
             TabPageGeneral = new TabPage();
+            TableLayoutPanelGeneral = new TableLayoutPanel();
             TextBoxNotas = new TextBox();
             LabelNotas = new Label();
             TabPageAuditoria = new TabPage();
@@ -52,16 +53,39 @@
             TextBoxUsuarioCreacion = new TextBox();
             TextBoxFechaHoraUltimaModificacion = new TextBox();
             TextBoxUsuarioUltimaModificacion = new TextBox();
-            TableLayoutPanelGeneral = new TableLayoutPanel();
             LabelCreacion = new Label();
             LabelModificacion = new Label();
             ToolStripMain.SuspendLayout();
             TabControlMain.SuspendLayout();
             TabPageGeneral.SuspendLayout();
+            TableLayoutPanelGeneral.SuspendLayout();
             TabPageAuditoria.SuspendLayout();
             TableLayoutPanelAuditoria.SuspendLayout();
-            TableLayoutPanelGeneral.SuspendLayout();
             SuspendLayout();
+            // 
+            // LabelCreacion
+            // 
+            LabelCreacion.AutoSize = true;
+            LabelCreacion.Dock = DockStyle.Fill;
+            LabelCreacion.Location = new Point(4, 33);
+            LabelCreacion.Margin = new Padding(4, 0, 4, 0);
+            LabelCreacion.Name = "LabelCreacion";
+            LabelCreacion.Size = new Size(147, 33);
+            LabelCreacion.TabIndex = 2;
+            LabelCreacion.Text = "Creación:";
+            LabelCreacion.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // LabelModificacion
+            // 
+            LabelModificacion.AutoSize = true;
+            LabelModificacion.Dock = DockStyle.Fill;
+            LabelModificacion.Location = new Point(4, 66);
+            LabelModificacion.Margin = new Padding(4, 0, 4, 0);
+            LabelModificacion.Name = "LabelModificacion";
+            LabelModificacion.Size = new Size(147, 33);
+            LabelModificacion.TabIndex = 5;
+            LabelModificacion.Text = "Última modificación:";
+            LabelModificacion.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // ToolStripMain
             // 
@@ -192,6 +216,31 @@
             TabPageGeneral.Text = "General";
             TabPageGeneral.UseVisualStyleBackColor = true;
             // 
+            // TableLayoutPanelGeneral
+            // 
+            TableLayoutPanelGeneral.AutoSize = true;
+            TableLayoutPanelGeneral.ColumnCount = 3;
+            TableLayoutPanelGeneral.ColumnStyles.Add(new ColumnStyle());
+            TableLayoutPanelGeneral.ColumnStyles.Add(new ColumnStyle());
+            TableLayoutPanelGeneral.ColumnStyles.Add(new ColumnStyle());
+            TableLayoutPanelGeneral.Controls.Add(LabelEventoTipo, 0, 0);
+            TableLayoutPanelGeneral.Controls.Add(ComboBoxEventoTipo, 1, 0);
+            TableLayoutPanelGeneral.Controls.Add(LabelFechaHora, 0, 1);
+            TableLayoutPanelGeneral.Controls.Add(DateTimePickerFecha, 1, 1);
+            TableLayoutPanelGeneral.Controls.Add(DateTimePickerHora, 2, 1);
+            TableLayoutPanelGeneral.Controls.Add(LabelNotas, 0, 2);
+            TableLayoutPanelGeneral.Controls.Add(TextBoxNotas, 1, 2);
+            TableLayoutPanelGeneral.Dock = DockStyle.Fill;
+            TableLayoutPanelGeneral.GrowStyle = TableLayoutPanelGrowStyle.FixedSize;
+            TableLayoutPanelGeneral.Location = new Point(3, 3);
+            TableLayoutPanelGeneral.Name = "TableLayoutPanelGeneral";
+            TableLayoutPanelGeneral.RowCount = 3;
+            TableLayoutPanelGeneral.RowStyles.Add(new RowStyle());
+            TableLayoutPanelGeneral.RowStyles.Add(new RowStyle());
+            TableLayoutPanelGeneral.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            TableLayoutPanelGeneral.Size = new Size(605, 221);
+            TableLayoutPanelGeneral.TabIndex = 7;
+            // 
             // TextBoxNotas
             // 
             TableLayoutPanelGeneral.SetColumnSpan(TextBoxNotas, 2);
@@ -204,6 +253,7 @@
             TextBoxNotas.ScrollBars = ScrollBars.Vertical;
             TextBoxNotas.Size = new Size(505, 148);
             TextBoxNotas.TabIndex = 6;
+            TextBoxNotas.Enter += TextBoxs_Enter;
             // 
             // LabelNotas
             // 
@@ -277,18 +327,7 @@
             TextBoxId.TabIndex = 1;
             TextBoxId.TabStop = false;
             TextBoxId.TextAlign = HorizontalAlignment.Center;
-            // 
-            // LabelCreacion
-            // 
-            LabelCreacion.AutoSize = true;
-            LabelCreacion.Dock = DockStyle.Fill;
-            LabelCreacion.Location = new Point(4, 33);
-            LabelCreacion.Margin = new Padding(4, 0, 4, 0);
-            LabelCreacion.Name = "LabelCreacion";
-            LabelCreacion.Size = new Size(147, 33);
-            LabelCreacion.TabIndex = 2;
-            LabelCreacion.Text = "Creación:";
-            LabelCreacion.TextAlign = ContentAlignment.MiddleLeft;
+            TextBoxId.Enter += TextBoxs_Enter;
             // 
             // TextBoxFechaHoraCreacion
             // 
@@ -300,6 +339,7 @@
             TextBoxFechaHoraCreacion.Size = new Size(140, 27);
             TextBoxFechaHoraCreacion.TabIndex = 3;
             TextBoxFechaHoraCreacion.TabStop = false;
+            TextBoxFechaHoraCreacion.Enter += TextBoxs_Enter;
             // 
             // TextBoxUsuarioCreacion
             // 
@@ -312,18 +352,7 @@
             TextBoxUsuarioCreacion.Size = new Size(294, 27);
             TextBoxUsuarioCreacion.TabIndex = 4;
             TextBoxUsuarioCreacion.TabStop = false;
-            // 
-            // LabelModificacion
-            // 
-            LabelModificacion.AutoSize = true;
-            LabelModificacion.Dock = DockStyle.Fill;
-            LabelModificacion.Location = new Point(4, 66);
-            LabelModificacion.Margin = new Padding(4, 0, 4, 0);
-            LabelModificacion.Name = "LabelModificacion";
-            LabelModificacion.Size = new Size(147, 33);
-            LabelModificacion.TabIndex = 5;
-            LabelModificacion.Text = "Última modificación:";
-            LabelModificacion.TextAlign = ContentAlignment.MiddleLeft;
+            TextBoxUsuarioCreacion.Enter += TextBoxs_Enter;
             // 
             // TextBoxFechaHoraUltimaModificacion
             // 
@@ -335,6 +364,7 @@
             TextBoxFechaHoraUltimaModificacion.Size = new Size(140, 27);
             TextBoxFechaHoraUltimaModificacion.TabIndex = 6;
             TextBoxFechaHoraUltimaModificacion.TabStop = false;
+            TextBoxFechaHoraUltimaModificacion.Enter += TextBoxs_Enter;
             // 
             // TextBoxUsuarioUltimaModificacion
             // 
@@ -347,31 +377,7 @@
             TextBoxUsuarioUltimaModificacion.Size = new Size(294, 27);
             TextBoxUsuarioUltimaModificacion.TabIndex = 7;
             TextBoxUsuarioUltimaModificacion.TabStop = false;
-            // 
-            // TableLayoutPanelGeneral
-            // 
-            TableLayoutPanelGeneral.AutoSize = true;
-            TableLayoutPanelGeneral.ColumnCount = 3;
-            TableLayoutPanelGeneral.ColumnStyles.Add(new ColumnStyle());
-            TableLayoutPanelGeneral.ColumnStyles.Add(new ColumnStyle());
-            TableLayoutPanelGeneral.ColumnStyles.Add(new ColumnStyle());
-            TableLayoutPanelGeneral.Controls.Add(LabelEventoTipo, 0, 0);
-            TableLayoutPanelGeneral.Controls.Add(ComboBoxEventoTipo, 1, 0);
-            TableLayoutPanelGeneral.Controls.Add(LabelFechaHora, 0, 1);
-            TableLayoutPanelGeneral.Controls.Add(DateTimePickerFecha, 1, 1);
-            TableLayoutPanelGeneral.Controls.Add(DateTimePickerHora, 2, 1);
-            TableLayoutPanelGeneral.Controls.Add(LabelNotas, 0, 2);
-            TableLayoutPanelGeneral.Controls.Add(TextBoxNotas, 1, 2);
-            TableLayoutPanelGeneral.Dock = DockStyle.Fill;
-            TableLayoutPanelGeneral.GrowStyle = TableLayoutPanelGrowStyle.FixedSize;
-            TableLayoutPanelGeneral.Location = new Point(3, 3);
-            TableLayoutPanelGeneral.Name = "TableLayoutPanelGeneral";
-            TableLayoutPanelGeneral.RowCount = 3;
-            TableLayoutPanelGeneral.RowStyles.Add(new RowStyle());
-            TableLayoutPanelGeneral.RowStyles.Add(new RowStyle());
-            TableLayoutPanelGeneral.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            TableLayoutPanelGeneral.Size = new Size(605, 221);
-            TableLayoutPanelGeneral.TabIndex = 7;
+            TextBoxUsuarioUltimaModificacion.Enter += TextBoxs_Enter;
             // 
             // FormPointEvent
             // 
@@ -387,18 +393,19 @@
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "Evento del punto";
+            FormClosed += This_FormClosed;
             KeyPress += This_KeyPress;
             ToolStripMain.ResumeLayout(false);
             ToolStripMain.PerformLayout();
             TabControlMain.ResumeLayout(false);
             TabPageGeneral.ResumeLayout(false);
             TabPageGeneral.PerformLayout();
+            TableLayoutPanelGeneral.ResumeLayout(false);
+            TableLayoutPanelGeneral.PerformLayout();
             TabPageAuditoria.ResumeLayout(false);
             TabPageAuditoria.PerformLayout();
             TableLayoutPanelAuditoria.ResumeLayout(false);
             TableLayoutPanelAuditoria.PerformLayout();
-            TableLayoutPanelGeneral.ResumeLayout(false);
-            TableLayoutPanelGeneral.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
