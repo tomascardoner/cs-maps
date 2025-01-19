@@ -44,6 +44,7 @@
 
   <ItemGroup>
     <PackageReference Include="Geo" Version="1.1.1" />
+    <PackageReference Include="GMap.NET.WinForms" Version="2.1.7" />
     <PackageReference Include="MediaDevices" Version="1.10.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.1" />
     <PackageReference Include="SharpKml.Core" Version="6.1.0" />

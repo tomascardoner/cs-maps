@@ -6,6 +6,8 @@
         internal const string PublicEncryptionPassword = "iRzV|&TUXJYLQ$Hk,b6h~yao38IMmqjl";
         internal const string ApplicationLicensePassword = "-DxG*=H+Ql7B5#UV^dz~3PJS01u|Rsni";
 
+        internal const string GoogleMapsApiKey = "AIzaSyDn8qjiDcnGHOriIrmCnbHs8RK4h_WoGpg"; // from Demo.Geocoding project
+
         // Components - Syncfusion Essential Studio Enterprise Edition v28.x.x
         internal const string SyncfusionLicenseKey = "Ngo9BigBOggjHTQxAR8/V1NMaF5cXmBCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWH1ceXVdRmZYVEZzXUE=";
 

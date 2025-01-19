@@ -275,6 +275,16 @@ namespace CSMaps.General
             }
         }
 
+        private void ToolStripButtonViewOnMap_Click(object sender, EventArgs e)
+        {
+            if (Common.DataGridViews.ViewVerify(this, DataGridViewMain, entityNameSingle, entityIsFemale))
+            {
+                Maps.FormViewer formViewer = new(((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).Latitud, ((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).Longitud);
+                Program.FormMdi.ShowMdiForm(formViewer, true);
+                Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
+            }
+        }
+
         private void ToolStripButtonEdit_Click(object sender, EventArgs e)
         {
             if (Common.DataGridViews.EditVerify(this, DataGridViewMain, editPermission, entityNameSingle, entityIsFemale))

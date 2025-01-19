@@ -55,6 +55,7 @@
             ToolStripComboBoxLastEventTypeFilter = new ToolStripComboBox();
             ToolStripItemsCounter = new ToolStrip();
             ToolStripLabelItemsCounter = new ToolStripLabel();
+            ToolStripButtonViewOnMap = new ToolStripButton();
             ToolStripMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DataGridViewMain).BeginInit();
             FlowLayoutPanelToolbars.SuspendLayout();
@@ -68,10 +69,10 @@
             ToolStripMain.Dock = DockStyle.Fill;
             ToolStripMain.GripStyle = ToolStripGripStyle.Hidden;
             ToolStripMain.ImageScalingSize = new Size(20, 20);
-            ToolStripMain.Items.AddRange(new ToolStripItem[] { ToolStripButtonAdd, ToolStripButtonView, ToolStripButtonEdit, ToolStripButtonDelete, ToolStripButtonPointEventAdd, ToolStripButtonPointEvents });
+            ToolStripMain.Items.AddRange(new ToolStripItem[] { ToolStripButtonAdd, ToolStripButtonView, ToolStripButtonViewOnMap, ToolStripButtonEdit, ToolStripButtonDelete, ToolStripButtonPointEventAdd, ToolStripButtonPointEvents });
             ToolStripMain.Location = new Point(0, 0);
             ToolStripMain.Name = "ToolStripMain";
-            ToolStripMain.Size = new Size(582, 39);
+            ToolStripMain.Size = new Size(749, 39);
             ToolStripMain.TabIndex = 0;
             // 
             // ToolStripButtonAdd
@@ -248,7 +249,7 @@
             ToolStripNameAndSettlementFilter.Items.AddRange(new ToolStripItem[] { ToolStripLabelNameAndSettlementFilter, ToolStripComboBoxNameAndSettlementFilterType, ToolStripTextBoxNameAndSettlementFilter, ToolStripButtonNameAndSettlementFilterClear });
             ToolStripNameAndSettlementFilter.Location = new Point(0, 39);
             ToolStripNameAndSettlementFilter.Name = "ToolStripNameAndSettlementFilter";
-            ToolStripNameAndSettlementFilter.Size = new Size(582, 28);
+            ToolStripNameAndSettlementFilter.Size = new Size(543, 28);
             ToolStripNameAndSettlementFilter.TabIndex = 1;
             // 
             // ToolStripLabelNameAndSettlementFilter
@@ -325,6 +326,16 @@
             ToolStripLabelItemsCounter.Name = "ToolStripLabelItemsCounter";
             ToolStripLabelItemsCounter.Size = new Size(0, 25);
             // 
+            // ToolStripButtonViewOnMap
+            // 
+            ToolStripButtonViewOnMap.Image = Properties.Resources.ImagePunto32;
+            ToolStripButtonViewOnMap.ImageScaling = ToolStripItemImageScaling.None;
+            ToolStripButtonViewOnMap.ImageTransparentColor = Color.Magenta;
+            ToolStripButtonViewOnMap.Name = "ToolStripButtonViewOnMap";
+            ToolStripButtonViewOnMap.Size = new Size(128, 36);
+            ToolStripButtonViewOnMap.Text = "Ver en mapa";
+            ToolStripButtonViewOnMap.Click += ToolStripButtonViewOnMap_Click;
+            // 
             // FormPointsDataAndEvents
             // 
             AutoScaleMode = AutoScaleMode.Inherit;
@@ -381,5 +392,6 @@
         private DataGridViewTextBoxColumn DataGridViewColumnFechaHora;
         private ToolStripButton ToolStripButtonPointEvents;
         private ToolStripButton ToolStripButtonPointEventAdd;
+        private ToolStripButton ToolStripButtonViewOnMap;
     }
 }

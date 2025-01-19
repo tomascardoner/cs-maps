@@ -179,7 +179,7 @@
 
         #region Extra stuff
 
-        private void ShowMdiForm(Form form, bool fitOnMdiClient)
+        internal void ShowMdiForm(Form form, bool fitOnMdiClient)
         {
             Application.UseWaitCursor = true;
             this.Cursor = Cursors.WaitCursor;
