@@ -274,7 +274,7 @@ namespace CSMaps.ImportExport
 
             if (destinationIsDevice)
             {
-                CommonFunctions.DeleteTempFileAndFolder(tempFilePath, tempPath);
+                CommonFunctions.DeleteTempFileAndFolder(tempFilePath);
             }
 
             this.Cursor = Cursors.Default;

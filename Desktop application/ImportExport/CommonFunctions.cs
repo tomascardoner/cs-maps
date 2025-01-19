@@ -55,8 +55,6 @@ namespace CSMaps.ImportExport
                 textBox.Text = gpsFilePath;
                 return;
             }
-
-            //MessageBox.Show("No se encontraron dispositivos o unidades de almacenamiento correspondientes a un GPS.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
 
 
@@ -165,7 +163,7 @@ namespace CSMaps.ImportExport
 
         #region Files
 
-        internal static bool DeleteTempFileAndFolder(string tempFilePath, string tempPath = null)
+        internal static bool DeleteTempFileAndFolder(string tempFilePath)
         {
             try
             {
