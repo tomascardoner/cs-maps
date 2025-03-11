@@ -43,8 +43,8 @@
             TabControlMain = new TabControl();
             TabPageGeneral = new TabPage();
             TableLayoutPanelGeneral = new TableLayoutPanel();
-            TextBoxNotas = new TextBox();
             LabelNotas = new Label();
+            TextBoxNotas = new TextBox();
             TabPageAuditoria = new TabPage();
             TableLayoutPanelAuditoria = new TableLayoutPanel();
             LabelId = new Label();
@@ -179,7 +179,7 @@
             DateTimePickerFecha.Format = DateTimePickerFormat.Short;
             DateTimePickerFecha.Location = new Point(95, 37);
             DateTimePickerFecha.MaxDate = new DateTime(2099, 12, 31, 0, 0, 0, 0);
-            DateTimePickerFecha.MinDate = new DateTime(2023, 1, 1, 0, 0, 0, 0);
+            DateTimePickerFecha.MinDate = new DateTime(2020, 1, 1, 0, 0, 0, 0);
             DateTimePickerFecha.Name = "DateTimePickerFecha";
             DateTimePickerFecha.Size = new Size(126, 27);
             DateTimePickerFecha.TabIndex = 3;
@@ -241,6 +241,17 @@
             TableLayoutPanelGeneral.Size = new Size(605, 221);
             TableLayoutPanelGeneral.TabIndex = 7;
             // 
+            // LabelNotas
+            // 
+            LabelNotas.AutoSize = true;
+            LabelNotas.Dock = DockStyle.Fill;
+            LabelNotas.Location = new Point(4, 67);
+            LabelNotas.Margin = new Padding(4, 0, 4, 0);
+            LabelNotas.Name = "LabelNotas";
+            LabelNotas.Size = new Size(84, 154);
+            LabelNotas.TabIndex = 5;
+            LabelNotas.Text = "Notas:";
+            // 
             // TextBoxNotas
             // 
             TableLayoutPanelGeneral.SetColumnSpan(TextBoxNotas, 2);
@@ -254,17 +265,6 @@
             TextBoxNotas.Size = new Size(505, 148);
             TextBoxNotas.TabIndex = 6;
             TextBoxNotas.Enter += TextBoxs_Enter;
-            // 
-            // LabelNotas
-            // 
-            LabelNotas.AutoSize = true;
-            LabelNotas.Dock = DockStyle.Fill;
-            LabelNotas.Location = new Point(4, 67);
-            LabelNotas.Margin = new Padding(4, 0, 4, 0);
-            LabelNotas.Name = "LabelNotas";
-            LabelNotas.Size = new Size(84, 154);
-            LabelNotas.TabIndex = 5;
-            LabelNotas.Text = "Notas:";
             // 
             // TabPageAuditoria
             // 
