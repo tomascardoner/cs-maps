@@ -8,8 +8,8 @@
 
         internal const string GoogleMapsApiKey = "AIzaSyDn8qjiDcnGHOriIrmCnbHs8RK4h_WoGpg"; // from Demo.Geocoding project
 
-        // Components - Syncfusion Essential Studio Enterprise Edition v28.x.x
-        internal const string SyncfusionLicenseKey = "Ngo9BigBOggjHTQxAR8/V1NMaF5cXmBCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWH1ceXVdRmZYVEZzXUE=";
+        // Components - Syncfusion Essential Studio Enterprise Edition v30.x.x
+        internal const string SyncfusionLicenseKey = "Ngo9BigBOggjHTQxAR8/V1JEaF5cXmtCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdmWXhecnVTRWFcVkJ0VkpWYEk=";
 
         // Users
         internal const byte UserGroupAdministratorsId = 1;

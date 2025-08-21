@@ -1,4 +1,6 @@
-﻿namespace CSMaps.Common
+﻿using System.Linq;
+
+namespace CSMaps.Common
 {
     internal static class Forms
     {
@@ -12,15 +14,11 @@
                 case (char)Keys.Return:
                     if (isEditMode)
                     {
-                        if (textBoxsToIgnore != null)
+                        if (textBoxsToIgnore != null && activeControl != null && (from TextBox textBox in textBoxsToIgnore
+                                                                                  where activeControl == textBox
+                                                                                  select textBox).Any())
                         {
-                            foreach (TextBox textBox in textBoxsToIgnore)
-                            {
-                                if (activeControl == textBox)
-                                {
-                                    return;
-                                }
-                            }
+                            return;
                         }
                         toolStripButtonSave.PerformClick();
                     }
@@ -112,21 +110,9 @@
 
         #region Instances
 
-        private const string FormNameUsersGroups = "FormUsersGroups";
-        private const string FormNameUsersGroupsPermissions = "FormUsersGroupsPermissions";
-        private const string FormNameUsers = "FormUsers";
-        private const string FormNameEntities = "FormEntities";
-        private const string FormNameSettlements = "FormSettlements";
-        private const string FormNamePoints = "FormPoints";
-        private const string FormNamePointsDataAndEvents = "FormPointsDataAndEvents";
-        private const string FormNamePointEvents = "FormPointEvents";
-        private const string FormNameImportGoogleEarthFile = "FormImportGoogleEarthFile";
-        private const string FormNameExportGpsFile = "FormImportExportGpsFile";
-        private const string FormNameExportGoogleEarthFile = "FormExportGoogleEarthFile";
-
         internal static Users.FormUsersGroups GetUsersGroups()
         {
-            return (Users.FormUsersGroups)CardonerSistemas.Framework.Base.Forms.GetInstance(Program.FormMdi.MdiChildren, FormNameUsersGroups);
+            return CardonerSistemas.Framework.Base.Forms.GetInstance<Users.FormUsersGroups>(Program.FormMdi.MdiChildren);
         }
 
         internal static Users.FormUsersGroups GetUsersGroupsOrNew()
@@ -136,7 +122,7 @@
 
         internal static Users.FormUsersGroupsPermissions GetUsersGroupsPermissions()
         {
-            return (Users.FormUsersGroupsPermissions)CardonerSistemas.Framework.Base.Forms.GetInstance(Program.FormMdi.MdiChildren, FormNameUsersGroupsPermissions);
+            return CardonerSistemas.Framework.Base.Forms.GetInstance<Users.FormUsersGroupsPermissions>(Program.FormMdi.MdiChildren);
         }
 
         internal static Users.FormUsersGroupsPermissions GetUsersGroupsPermissionsOrNew()
@@ -146,7 +132,7 @@
 
         internal static Users.FormUsers GetUsers()
         {
-            return (Users.FormUsers)CardonerSistemas.Framework.Base.Forms.GetInstance(Program.FormMdi.MdiChildren, FormNameUsers);
+            return CardonerSistemas.Framework.Base.Forms.GetInstance<Users.FormUsers>(Program.FormMdi.MdiChildren);
         }
 
         internal static Users.FormUsers GetUsersOrNew()
@@ -156,7 +142,7 @@
 
         internal static General.FormEntities GetEntities()
         {
-            return (General.FormEntities)CardonerSistemas.Framework.Base.Forms.GetInstance(Program.FormMdi.MdiChildren, FormNameEntities);
+            return CardonerSistemas.Framework.Base.Forms.GetInstance<General.FormEntities>(Program.FormMdi.MdiChildren);
         }
 
         internal static General.FormEntities GetEntitiesOrNew()
@@ -166,7 +152,7 @@
 
         internal static General.FormSettlements GetSettlements()
         {
-            return (General.FormSettlements)CardonerSistemas.Framework.Base.Forms.GetInstance(Program.FormMdi.MdiChildren, FormNameSettlements);
+            return CardonerSistemas.Framework.Base.Forms.GetInstance<General.FormSettlements>(Program.FormMdi.MdiChildren);
         }
 
         internal static General.FormSettlements GetSettlementsOrNew()
@@ -176,7 +162,7 @@
 
         internal static General.FormPoints GetPoints()
         {
-            return (General.FormPoints)CardonerSistemas.Framework.Base.Forms.GetInstance(Program.FormMdi.MdiChildren, FormNamePoints);
+            return CardonerSistemas.Framework.Base.Forms.GetInstance<General.FormPoints>(Program.FormMdi.MdiChildren);
         }
 
         internal static General.FormPoints GetPointsOrNew()
@@ -186,7 +172,7 @@
 
         internal static General.FormPointsDataAndEvents GetPointsDataAndEvents()
         {
-            return (General.FormPointsDataAndEvents)CardonerSistemas.Framework.Base.Forms.GetInstance(Program.FormMdi.MdiChildren, FormNamePointsDataAndEvents);
+            return CardonerSistemas.Framework.Base.Forms.GetInstance<General.FormPointsDataAndEvents>(Program.FormMdi.MdiChildren);
         }
 
         internal static General.FormPointsDataAndEvents GetPointsDataAndEventsOrNew()
@@ -196,12 +182,12 @@
 
         internal static General.FormPointEvents GetPointEvents()
         {
-            return (General.FormPointEvents)CardonerSistemas.Framework.Base.Forms.GetInstance(Program.FormMdi.MdiChildren, FormNamePointEvents);
+            return CardonerSistemas.Framework.Base.Forms.GetInstance<General.FormPointEvents>(Program.FormMdi.MdiChildren);
         }
 
         internal static General.FormImportGoogleEarthFile GetImportGoogleEarthFile()
         {
-            return (General.FormImportGoogleEarthFile)CardonerSistemas.Framework.Base.Forms.GetInstance(Program.FormMdi.MdiChildren, FormNameImportGoogleEarthFile);
+            return CardonerSistemas.Framework.Base.Forms.GetInstance<General.FormImportGoogleEarthFile>(Program.FormMdi.MdiChildren);
         }
 
         internal static General.FormImportGoogleEarthFile GetImportGoogleEarthFileOrNew()
@@ -211,7 +197,7 @@
 
         internal static ImportExport.FormImportGpsFile GetImportGpsFile()
         {
-            return (ImportExport.FormImportGpsFile)CardonerSistemas.Framework.Base.Forms.GetInstance(Program.FormMdi.MdiChildren, FormNameExportGpsFile);
+            return CardonerSistemas.Framework.Base.Forms.GetInstance<ImportExport.FormImportGpsFile>(Program.FormMdi.MdiChildren);
         }
 
         internal static ImportExport.FormImportGpsFile GetImportGpsFileOrNew()
@@ -221,7 +207,7 @@
 
         internal static ImportExport.FormExportGpsFile GetExportGpsFile()
         {
-            return (ImportExport.FormExportGpsFile)CardonerSistemas.Framework.Base.Forms.GetInstance(Program.FormMdi.MdiChildren, FormNameExportGpsFile);
+            return CardonerSistemas.Framework.Base.Forms.GetInstance<ImportExport.FormExportGpsFile>(Program.FormMdi.MdiChildren);
         }
 
         internal static ImportExport.FormExportGpsFile GetExportGpsFileOrNew()
@@ -231,7 +217,7 @@
 
         internal static General.FormExportGoogleEarthFile GetExportGoogleEarthFile()
         {
-            return (General.FormExportGoogleEarthFile)CardonerSistemas.Framework.Base.Forms.GetInstance(Program.FormMdi.MdiChildren, FormNameExportGoogleEarthFile);
+            return CardonerSistemas.Framework.Base.Forms.GetInstance<General.FormExportGoogleEarthFile>(Program.FormMdi.MdiChildren);
         }
 
         internal static General.FormExportGoogleEarthFile GetExportGoogleEarthFileOrNew()

@@ -295,6 +295,7 @@ namespace CSMaps.General
                 context.Establecimientos.Attach(establecimiento);
                 context.Establecimientos.Remove(establecimiento);
                 context.SaveChanges();
+                Common.RefreshLists.Settlements();
             }
             catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
             {
@@ -304,8 +305,6 @@ namespace CSMaps.General
             {
                 Common.DBErrors.OtherUpdateException(ex, entityNameSingle, entityIsFemale, Properties.Resources.StringActionDelete);
             }
-
-            Common.RefreshLists.Settlements();
             this.Cursor = Cursors.Default;
         }
 

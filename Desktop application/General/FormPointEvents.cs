@@ -352,6 +352,7 @@ namespace CSMaps.General
                 context.PuntoEventos.Attach(puntoEvento);
                 context.PuntoEventos.Remove(puntoEvento);
                 context.SaveChanges();
+                Common.RefreshLists.PointsEvents(idPunto);
             }
             catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
             {
@@ -361,7 +362,6 @@ namespace CSMaps.General
             {
                 Common.DBErrors.OtherUpdateException(ex, entityNameSingle, entityIsFemale, Properties.Resources.StringActionDelete);
             }
-            Common.RefreshLists.PointsEvents(idPunto);
             this.Cursor = Cursors.Default;
         }
 

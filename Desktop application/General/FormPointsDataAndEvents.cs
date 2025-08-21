@@ -323,6 +323,7 @@ namespace CSMaps.General
                 context.PuntoDatos.Attach(puntoDato);
                 context.PuntoDatos.Remove(puntoDato);
                 context.SaveChanges();
+                Common.RefreshLists.PointsData();
             }
             catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
             {
@@ -332,8 +333,6 @@ namespace CSMaps.General
             {
                 Common.DBErrors.OtherUpdateException(ex, entityNameSingle, entityIsFemale, Properties.Resources.StringActionDelete);
             }
-
-            Common.RefreshLists.PointsData();
             this.Cursor = Cursors.Default;
         }
 
