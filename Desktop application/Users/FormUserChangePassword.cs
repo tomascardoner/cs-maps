@@ -1,4 +1,5 @@
 ﻿using CardonerSistemas.Framework.Base;
+using CSMaps.Main;
 
 namespace CSMaps.Users
 {
@@ -128,7 +129,7 @@ namespace CSMaps.Users
             }
 
             // Comparo la contraseña anterior ingresada con la del usuario
-            if (!CardonerSistemas.Framework.Cryptography.StringCipher.Decrypt(Program.Usuario.Password, Constants.PublicEncryptionPassword, out string decryptedPassword))
+            if (!CardonerSistemas.Framework.Cryptography.StringCipher.Decrypt(Program.Usuario.Password, Main.Constants.PublicEncryptionPassword, out string decryptedPassword))
             {
                 this.Cursor = Cursors.Default;
                 return;
@@ -150,7 +151,7 @@ namespace CSMaps.Users
             // Están todos los datos bien así que los guardo
             try
             {
-                if (CardonerSistemas.Framework.Cryptography.StringCipher.Encrypt(TextBoxPasswordNueva.Text, Constants.PublicEncryptionPassword, out string encryptedPassword))
+                if (CardonerSistemas.Framework.Cryptography.StringCipher.Encrypt(TextBoxPasswordNueva.Text, Main.Constants.PublicEncryptionPassword, out string encryptedPassword))
                 {
                     context.Usuarios.Attach(Program.Usuario);
                     Program.Usuario.Password = encryptedPassword;
@@ -174,7 +175,7 @@ namespace CSMaps.Users
             this.DialogResult = DialogResult.Cancel;
         }
 
-        #endregion
+        #endregion Main toolbar
 
     }
 }
