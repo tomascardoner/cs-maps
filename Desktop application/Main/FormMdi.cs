@@ -1,4 +1,6 @@
-﻿namespace CSMaps.Main;
+﻿using System.Globalization;
+
+namespace CSMaps.Main;
 
 public partial class FormMdi : Form
 {
@@ -13,8 +15,8 @@ public partial class FormMdi : Form
     private void SetAppearance()
     {
         this.Icon = Properties.Resources.IconApplication;
-        this.Text = $"{Program.Info.Title} - Licenciado a: {Program.LicensedCompany.ToUpper()}";
-        ToolStripMenuItemHelpAbout.Text = string.Format(Properties.Resources.StringAbout, Program.Info.Title);
+        this.Text = $"{Program.Info.Title} - Licenciado a: {Program.LicensedCompany.ToUpper(CultureInfo.CurrentCulture)}";
+        ToolStripMenuItemHelpAbout.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.StringAbout, Program.Info.Title);
     }
 
     private void This_Load(object sender, EventArgs e)
@@ -24,7 +26,7 @@ public partial class FormMdi : Form
 
     private void This_Closing(object sender, FormClosingEventArgs e)
     {
-        if (!(e.CloseReason == CloseReason.ApplicationExitCall || e.CloseReason == CloseReason.TaskManagerClosing || e.CloseReason == CloseReason.WindowsShutDown))
+        if (e.CloseReason is not (CloseReason.ApplicationExitCall or CloseReason.TaskManagerClosing or CloseReason.WindowsShutDown))
         {
 #pragma warning disable S1066 // If statement merge
             if (MessageBox.Show("¿Desea salir de la aplicación?", Program.Info.Title, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.No)
@@ -34,10 +36,11 @@ public partial class FormMdi : Form
             }
 #pragma warning restore S1066 // If statement merge
         }
+
         Program.TerminateApplication();
     }
 
-    #endregion
+    #endregion Form stuff
 
     #region Menu commands
 
@@ -73,7 +76,7 @@ public partial class FormMdi : Form
         formAboutBox.Dispose();
     }
 
-    #endregion
+    #endregion Menu commands
 
     #region Toolbar commands
 
@@ -175,7 +178,7 @@ public partial class FormMdi : Form
         }
     }
 
-    #endregion
+    #endregion Menu commands
 
     #region Extra stuff
 
@@ -196,6 +199,6 @@ public partial class FormMdi : Form
         Application.DoEvents();
     }
 
-    #endregion
+    #endregion Extra stuff
 
 }

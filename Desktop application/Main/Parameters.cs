@@ -29,6 +29,7 @@ internal static class Parameters
             {
                 CardonerSistemas.Framework.Base.Error.ProcessException(ex, "Error al leer los parámetros desde la base de datos.");
             }
+
             return false;
         }
     }

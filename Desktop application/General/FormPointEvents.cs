@@ -132,6 +132,7 @@ public partial class FormPointEvents : Form
             HostDateTimePickerDateFilterFrom.Dispose();
             HostDateTimePickerDateFilterFrom = null;
         }
+
         if (HostDateTimePickerDateFilterTo != null)
         {
             HostDateTimePickerDateFilterTo.Control.Dispose();
@@ -156,6 +157,7 @@ public partial class FormPointEvents : Form
         {
             TextBoxEstablecimiento.Text = string.Empty;
         }
+
         Values.ToControl(TextBoxChapaNumero, puntoDato.ChapaNumero);
     }
 
@@ -255,6 +257,7 @@ public partial class FormPointEvents : Form
                 entitiesFiltered = [.. entitiesFiltered.OrderByDescending(pe => pe.EventoTipoNombre).ThenByDescending(pe => pe.FechaHora)];
             }
         }
+
         DataGridViewMain.AutoGenerateColumns = false;
         DataGridViewMain.DataSource = entitiesFiltered;
         sortedColumn.HeaderCell.SortGlyphDirection = sortOrder;
@@ -362,6 +365,7 @@ public partial class FormPointEvents : Form
         {
             Common.DBErrors.OtherUpdateException(ex, entityNameSingle, entityIsFemale, Properties.Resources.StringActionDelete);
         }
+
         this.Cursor = Cursors.Default;
     }
 

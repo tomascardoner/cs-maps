@@ -11,11 +11,11 @@ internal static class CommonFunctions
     internal const string GarminFileName = "Current.gpx";
     internal const string GarminFileExtension = "gpx";
 
-    const string ExpectedFileSystem = "FAT32";
-    readonly static string[] ManufacturerExpectedContains = ["Garmin"];
-    readonly static string[] FriendlyNameExpectedContains = ["Garmin"];
-    readonly static string[] DirectoriesExpected = ["GPX", "Garmin\\GPX"];
-    readonly static string[] VolumeNameExpectedContains = ["Garmin"];
+    private const string ExpectedFileSystem = "FAT32";
+    private static readonly string[] ManufacturerExpectedContains = ["Garmin"];
+    private static readonly string[] FriendlyNameExpectedContains = ["Garmin"];
+    private static readonly string[] DirectoriesExpected = ["GPX", "Garmin\\GPX"];
+    private static readonly string[] VolumeNameExpectedContains = ["Garmin"];
 
     #endregion Declarations
 
@@ -34,6 +34,7 @@ internal static class CommonFunctions
         {
             return;
         }
+
         listView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
 
         // Gets list of possible drives
@@ -57,14 +58,13 @@ internal static class CommonFunctions
         }
     }
 
-
     private static bool GetGpsDevices(ref List<MediaDevice> mediaDevices, ListView listView)
     {
         try
         {
             mediaDevices = [];
 #pragma warning disable CA1862 // Use the 'StringComparison' method overloads to perform case-insensitive string comparisons
-            foreach (var mediaDevice in MediaDevice.GetDevices().Where(md => Array.Exists(ManufacturerExpectedContains, m => md.Manufacturer.ToLowerInvariant().Contains(m.ToLowerInvariant())) || Array.Exists(FriendlyNameExpectedContains, fn => md.FriendlyName.ToLowerInvariant().Contains(fn.ToLowerInvariant()))))
+            foreach (var mediaDevice in MediaDevice.GetDevices().Where(md => Array.Exists(ManufacturerExpectedContains, m => md.Manufacturer.ToLowerInvariant().Contains(m.ToLowerInvariant(), StringComparison.OrdinalIgnoreCase)) || Array.Exists(FriendlyNameExpectedContains, fn => md.FriendlyName.ToLowerInvariant().Contains(fn.ToLowerInvariant(), StringComparison.OrdinalIgnoreCase))))
             {
                 mediaDevice.Connect();
                 if (mediaDevice.DeviceType == DeviceType.Generic && mediaDevice.FunctionalCategories().Any(fc => fc == FunctionalCategory.Storage))
@@ -80,15 +80,17 @@ internal static class CommonFunctions
                                 new ListViewItem([
                                     mediaDevice.Description.Trim(),
                                     mediaDriveInfo?.Name
-                                        .Replace(Path.DirectorySeparatorChar.ToString(), string.Empty)
-                                        .Replace(Path.AltDirectorySeparatorChar.ToString(), string.Empty)
+                                        .Replace(Path.DirectorySeparatorChar.ToString(), string.Empty, StringComparison.OrdinalIgnoreCase)
+                                        .Replace(Path.AltDirectorySeparatorChar.ToString(), string.Empty, StringComparison.OrdinalIgnoreCase)
                                     ])
                                 { Tag = mediaDirectoryInfo.FullName });
                         }
                     }
                 }
+
                 mediaDevice.Disconnect();
             }
+
             return mediaDevices.Count > 0;
 #pragma warning restore CA1862 // Use the 'StringComparison' method overloads to perform case-insensitive string comparisons
         }
@@ -103,17 +105,14 @@ internal static class CommonFunctions
     {
         char[] separators = [Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar];
         var firstDirectoryPart = directory.Split(separators, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)[0];
-        var targetMediaDirectoryInfo = mediaDirectoryInfo.EnumerateDirectories().FirstOrDefault(d => d.Name.Equals(firstDirectoryPart, StringComparison.InvariantCultureIgnoreCase));
+        var targetMediaDirectoryInfo = mediaDirectoryInfo.EnumerateDirectories().FirstOrDefault(d => d.Name.Equals(firstDirectoryPart, StringComparison.OrdinalIgnoreCase));
         if (targetMediaDirectoryInfo is null)
         {
             return false;
         }
+
         mediaDirectoryInfo = targetMediaDirectoryInfo;
-        if (directory.Length > firstDirectoryPart.Length)
-        {
-            return GpsDeviceDirectoryExists(directory[(firstDirectoryPart.Length + 1)..], ref mediaDirectoryInfo);
-        }
-        return true;
+        return directory.Length <= firstDirectoryPart.Length || GpsDeviceDirectoryExists(directory[(firstDirectoryPart.Length + 1)..], ref mediaDirectoryInfo);
     }
 
     private static bool GetPossibleGpsDrives(ref List<string> bestCandidates, ref List<string> otherCandidates)
@@ -123,7 +122,7 @@ internal static class CommonFunctions
             foreach (var driveInfo in DriveInfo.GetDrives().Where(di => di.DriveType == DriveType.Removable && di.IsReady && di.DriveFormat == ExpectedFileSystem))
             {
 #pragma warning disable CA1862 // Use the 'StringComparison' method overloads to perform case-insensitive string comparisons
-                if (Array.Exists(VolumeNameExpectedContains, vn => driveInfo.VolumeLabel.ToLowerInvariant().Contains(vn.ToLowerInvariant())))
+                if (Array.Exists(VolumeNameExpectedContains, vn => driveInfo.VolumeLabel.ToLowerInvariant().Contains(vn.ToLowerInvariant(), StringComparison.OrdinalIgnoreCase)))
                 {
                     bestCandidates.Add(driveInfo.RootDirectory.ToString());
                 }
@@ -133,6 +132,7 @@ internal static class CommonFunctions
                 }
 #pragma warning restore CA1862 // Use the 'StringComparison' method overloads to perform case-insensitive string comparisons
             }
+
             return true;
         }
         catch (Exception ex)
@@ -145,8 +145,8 @@ internal static class CommonFunctions
     private static bool FindGpsDirectory(string rootDirectory, ref string gpsFilePath)
     {
         var directoryName = (from de in DirectoriesExpected
-                                where Path.Exists(Path.Combine(rootDirectory, de))
-                                select de).FirstOrDefault();
+                             where Path.Exists(Path.Combine(rootDirectory, de))
+                             select de).FirstOrDefault();
         if (directoryName is null)
         {
             gpsFilePath = string.Empty;
@@ -159,7 +159,7 @@ internal static class CommonFunctions
         }
     }
 
-    #endregion
+    #endregion Find GPS devices and drives
 
     #region Files
 
@@ -171,6 +171,7 @@ internal static class CommonFunctions
             {
                 File.Delete(tempFilePath);
             }
+
             return true;
         }
         catch (Exception ex)

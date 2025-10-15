@@ -1,4 +1,5 @@
-﻿using CardonerSistemas.Framework.Base;
+﻿using System.Globalization;
+using CardonerSistemas.Framework.Base;
 using CardonerSistemas.Framework.Controls;
 using CSMaps.Users;
 
@@ -9,17 +10,17 @@ public partial class FormPoint : Form
 
     #region Declarations
 
-    private const string entityNameSingular = "punto";
-    private const bool entityIsFemale = false;
+    private const string EntityNameSingular = "punto";
+    private const bool EntityIsFemale = false;
 
-    private readonly bool isLoading;
-    private readonly bool isNew;
-    private bool isEditMode;
+    private readonly bool _isLoading;
+    private readonly bool _isNew;
+    private bool _isEditMode;
 
-    private Models.CSMapsContext context = new();
-    private Models.Punto punto;
+    private readonly Models.CSMapsContext _dbContext = new();
+    private readonly Models.Punto _punto;
 
-    #endregion
+    #endregion Declarations
 
     #region Form stuff
 
@@ -27,24 +28,24 @@ public partial class FormPoint : Form
     {
         InitializeComponent();
 
-        isLoading = true;
-        isNew = (idPunto == 0);
-        isEditMode = editMode;
+        _isLoading = true;
+        _isNew = (idPunto == 0);
+        _isEditMode = editMode;
 
-        if (isNew)
+        if (_isNew)
         {
-            punto = new();
+            _punto = new();
             InitializeNewObjectData();
-            context.Puntos.Add(punto);
+            _dbContext.Puntos.Add(_punto);
         }
         else
         {
-            punto = context.Puntos.Find(idPunto);
+            _punto = _dbContext.Puntos.Find(idPunto);
         }
 
         InitializeForm();
         SetDataToUserInterface();
-        isLoading = false;
+        _isLoading = false;
 
         ChangeEditMode();
     }
@@ -56,71 +57,69 @@ public partial class FormPoint : Form
 
     private void SetAppearance()
     {
-        this.Text = entityNameSingular.FirstCharToUpperCase();
+        this.Text = EntityNameSingular.FirstCharToUpperCase();
         Forms.SetFont(this, Program.AppearanceConfig.Font);
     }
 
     private void ChangeEditMode()
     {
-        if (isLoading)
+        if (_isLoading)
         {
             return;
         }
 
-        ToolStripButtonSave.Visible = isEditMode;
-        ToolStripButtonCancel.Visible = isEditMode;
-        ToolStripButtonEdit.Visible = !isEditMode;
-        ToolStripButtonClose.Visible = !isEditMode;
+        ToolStripButtonSave.Visible = _isEditMode;
+        ToolStripButtonCancel.Visible = _isEditMode;
+        ToolStripButtonEdit.Visible = !_isEditMode;
+        ToolStripButtonClose.Visible = !_isEditMode;
 
-        TextBoxNombre.ReadOnly = !isEditMode;
-        DoubleTextBoxLatitud.ReadOnly = !isEditMode;
-        DoubleTextBoxLongitud.ReadOnly = !isEditMode;
-        DoubleTextBoxAltitud.ReadOnly = !isEditMode;
+        TextBoxNombre.ReadOnly = !_isEditMode;
+        DoubleTextBoxLatitud.ReadOnly = !_isEditMode;
+        DoubleTextBoxLongitud.ReadOnly = !_isEditMode;
+        DoubleTextBoxAltitud.ReadOnly = !_isEditMode;
     }
 
-    private void This_FormClosed(object sender, FormClosedEventArgs e)
+    protected override void OnFormClosed(FormClosedEventArgs e)
     {
-        context.Dispose();
-        context = null;
-        punto = null;
-        this.Dispose();
+        base.OnFormClosed(e);
+        _dbContext?.Dispose();
     }
 
-    #endregion
+    #endregion Form stuff
 
     #region User interface data
 
     private void SetDataToUserInterface()
     {
         // General
-        Values.ToControl(TextBoxNombre, punto.Nombre);
-        CardonerSistemas.Framework.Controls.Syncfusion.Values.ToControl(DoubleTextBoxLatitud, punto.Latitud);
-        CardonerSistemas.Framework.Controls.Syncfusion.Values.ToControl(DoubleTextBoxLongitud, punto.Longitud);
-        CardonerSistemas.Framework.Controls.Syncfusion.Values.ToControl(DoubleTextBoxAltitud, punto.Altitud);
+        Values.ToControl(TextBoxNombre, _punto.Nombre);
+        CardonerSistemas.Framework.Controls.Syncfusion.Values.ToControl(DoubleTextBoxLatitud, _punto.Latitud);
+        CardonerSistemas.Framework.Controls.Syncfusion.Values.ToControl(DoubleTextBoxLongitud, _punto.Longitud);
+        CardonerSistemas.Framework.Controls.Syncfusion.Values.ToControl(DoubleTextBoxAltitud, _punto.Altitud);
 
         // Auditoría
-        Values.ToControl(TextBoxId, punto.IdPunto, true, entityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
-        Values.ToControl(TextBoxFechaHoraCreacion, punto.FechaHoraCreacion, Values.DateTimeFormats.ShortDateTime);
-        TextBoxUsuarioCreacion.Text = Users.Users.GetDescription(context, punto.IdUsuarioCreacion);
-        Values.ToControl(TextBoxFechaHoraUltimaModificacion, punto.FechaHoraUltimaModificacion, Values.DateTimeFormats.ShortDateTime);
-        TextBoxUsuarioUltimaModificacion.Text = Users.Users.GetDescription(context, punto.IdUsuarioUltimaModificacion);
+        Values.ToControl(TextBoxId, _punto.IdPunto, true, EntityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
+        Values.ToControl(TextBoxFechaHoraCreacion, _punto.FechaHoraCreacion, Values.DateTimeFormats.ShortDateTime);
+        TextBoxUsuarioCreacion.Text = Users.Users.GetDescription(_dbContext, _punto.IdUsuarioCreacion);
+        Values.ToControl(TextBoxFechaHoraUltimaModificacion, _punto.FechaHoraUltimaModificacion, Values.DateTimeFormats.ShortDateTime);
+        TextBoxUsuarioUltimaModificacion.Text = Users.Users.GetDescription(_dbContext, _punto.IdUsuarioUltimaModificacion);
     }
 
     private void SetDataToEntityObject()
     {
-        punto.Nombre = Values.ToString(TextBoxNombre);
-        punto.Latitud = CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDecimal(DoubleTextBoxLatitud).Value;
-        punto.Longitud = CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDecimal(DoubleTextBoxLongitud).Value;
-        punto.Altitud = CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDecimal(DoubleTextBoxAltitud).Value;
+        _punto.Nombre = Values.ToString(TextBoxNombre);
+        _punto.Latitud = CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDecimal(DoubleTextBoxLatitud).Value;
+        _punto.Longitud = CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDecimal(DoubleTextBoxLongitud).Value;
+        _punto.Altitud = CardonerSistemas.Framework.Controls.Syncfusion.Values.ToDecimal(DoubleTextBoxAltitud).Value;
     }
 
-    #endregion
+    #endregion User interface data
 
     #region Controls events
 
     private void This_KeyPress(object sender, KeyPressEventArgs e)
     {
-        Common.Forms.This_KeyPress(e, isEditMode, ActiveControl, ToolStripButtonClose, ToolStripButtonSave, ToolStripButtonCancel, null);
+        Common.Forms.This_KeyPress(e, _isEditMode, ActiveControl, ToolStripButtonClose, ToolStripButtonSave, ToolStripButtonCancel, null);
     }
 
     private void TextBoxs_Enter(object sender, EventArgs e)
@@ -128,7 +127,7 @@ public partial class FormPoint : Form
         ((TextBox)sender).SelectAll();
     }
 
-    #endregion
+    #endregion Controls events
 
     #region Main toolbar
 
@@ -146,25 +145,25 @@ public partial class FormPoint : Form
 
         SetDataToEntityObject();
 
-        if (context.ChangeTracker.HasChanges())
+        if (_dbContext.ChangeTracker.HasChanges())
         {
             this.Cursor = Cursors.WaitCursor;
-            punto.FechaHoraUltimaModificacion = DateTime.Now;
+            _punto.FechaHoraUltimaModificacion = DateTime.UtcNow;
             try
             {
-                context.SaveChanges();
-                Common.RefreshLists.Points(punto.IdPunto);
+                _dbContext.SaveChanges();
+                Common.RefreshLists.Points(_punto.IdPunto);
             }
             catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
             {
                 this.Cursor = Cursors.Default;
-                Common.DBErrors.DbUpdateException(dbUEx, entityNameSingular, entityIsFemale, isNew ? Properties.Resources.StringActionAdd : Properties.Resources.StringActionEdit);
+                Common.DBErrors.DbUpdateException(dbUEx, EntityNameSingular, EntityIsFemale, _isNew ? Properties.Resources.StringActionAdd : Properties.Resources.StringActionEdit);
                 return;
             }
             catch (Exception ex)
             {
                 this.Cursor = Cursors.Default;
-                Common.DBErrors.OtherUpdateException(ex, entityNameSingular, entityIsFemale, isNew ? Properties.Resources.StringActionAdd : Properties.Resources.StringActionEdit);
+                Common.DBErrors.OtherUpdateException(ex, EntityNameSingular, EntityIsFemale, _isNew ? Properties.Resources.StringActionAdd : Properties.Resources.StringActionEdit);
                 return;
             }
         }
@@ -174,7 +173,7 @@ public partial class FormPoint : Form
 
     private void ToolStripButtonCancel_Click(object sender, EventArgs e)
     {
-        if (Common.Forms.ButtonCancel_Click(context))
+        if (Common.Forms.ButtonCancel_Click(_dbContext))
         {
             this.Close();
         }
@@ -184,7 +183,7 @@ public partial class FormPoint : Form
     {
         if (Permissions.Verify(Permissions.Actions.PointEdit))
         {
-            isEditMode = true;
+            _isEditMode = true;
             ChangeEditMode();
         }
     }
@@ -194,21 +193,21 @@ public partial class FormPoint : Form
         this.Close();
     }
 
-    #endregion
+    #endregion Main toolbar
 
     #region New object initialization
 
     private void InitializeNewObjectData()
     {
-        punto.IdUsuarioCreacion = Program.Usuario.IdUsuario;
-        punto.FechaHoraCreacion = DateTime.Now;
-        punto.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
-        punto.FechaHoraUltimaModificacion = DateTime.Now;
+        _punto.IdUsuarioCreacion = Program.Usuario.IdUsuario;
+        _punto.FechaHoraCreacion = DateTime.UtcNow;
+        _punto.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
+        _punto.FechaHoraUltimaModificacion = DateTime.UtcNow;
     }
 
     private bool CompleteNewObjectData()
     {
-        if (!isNew)
+        if (!_isNew)
         {
             return true;
         }
@@ -216,24 +215,18 @@ public partial class FormPoint : Form
         try
         {
             using Models.CSMapsContext newIdContext = new();
-            if (newIdContext.Puntos.Any())
-            {
-                punto.IdPunto = (short)(newIdContext.Puntos.Max(e => e.IdPunto) + 1);
-            }
-            else
-            {
-                punto.IdPunto = 1;
-            }
+            _punto.IdPunto = newIdContext.Puntos.Any() ? (short)(newIdContext.Puntos.Max(e => e.IdPunto) + 1) : 1;
+
             return true;
         }
         catch (Exception ex)
         {
-            Error.ProcessException(ex, string.Format(entityIsFemale ? Properties.Resources.StringEntityNewValuesErrorFemale : Properties.Resources.StringEntityNewValuesErrorMale, entityNameSingular));
+            Error.ProcessException(ex, string.Format(CultureInfo.CurrentCulture, EntityIsFemale ? Properties.Resources.StringEntityNewValuesErrorFemale : Properties.Resources.StringEntityNewValuesErrorMale, EntityNameSingular));
             return false;
         }
     }
 
-    #endregion
+    #endregion New object initialization
 
     #region Extra stuff
 
@@ -241,7 +234,7 @@ public partial class FormPoint : Form
     {
         if (string.IsNullOrWhiteSpace(TextBoxNombre.Text))
         {
-            Common.Forms.ShowRequiredFieldMessageBox(entityIsFemale, entityNameSingular, false, "nombre");
+            Common.Forms.ShowRequiredFieldMessageBox(EntityIsFemale, EntityNameSingular, false, "nombre");
             TabControlMain.SelectedTab = TabPageGeneral;
             TextBoxNombre.Focus();
             return false;
@@ -249,14 +242,15 @@ public partial class FormPoint : Form
 #pragma warning disable S1244 // Floating point numbers should not be tested for equality
         if (DoubleTextBoxLatitud.DoubleValue == 0)
         {
-            Common.Forms.ShowRequiredFieldMessageBox(entityIsFemale, entityNameSingular, true, "latitud");
+            Common.Forms.ShowRequiredFieldMessageBox(EntityIsFemale, EntityNameSingular, true, "latitud");
             TabControlMain.SelectedTab = TabPageGeneral;
             DoubleTextBoxLatitud.Focus();
             return false;
         }
+
         if (DoubleTextBoxLongitud.DoubleValue == 0)
         {
-            Common.Forms.ShowRequiredFieldMessageBox(entityIsFemale, entityNameSingular, true, "longitud");
+            Common.Forms.ShowRequiredFieldMessageBox(EntityIsFemale, EntityNameSingular, true, "longitud");
             TabControlMain.SelectedTab = TabPageGeneral;
             DoubleTextBoxLongitud.Focus();
             return false;
@@ -265,6 +259,6 @@ public partial class FormPoint : Form
         return true;
     }
 
-    #endregion
+    #endregion Extra stuff
 
 }

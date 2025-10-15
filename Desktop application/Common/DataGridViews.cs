@@ -1,4 +1,5 @@
-﻿using CardonerSistemas.Framework.Base;
+﻿using System.Globalization;
+using CardonerSistemas.Framework.Base;
 
 namespace CSMaps.Common;
 
@@ -13,7 +14,7 @@ internal static class DataGridViews
         dataGridView.Enabled = true;
     }
 
-    #endregion
+    #endregion Common
 
     #region View
 
@@ -21,15 +22,16 @@ internal static class DataGridViews
     {
         if (dataGridView.CurrentRow == null)
         {
-            MessageBox.Show(string.Format(entityIsFemale ? Properties.Resources.StringActionNoneFemale : Properties.Resources.StringActionNoneMale, entityNameSingle, Properties.Resources.StringActionView), Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(string.Format(CultureInfo.CurrentCulture, entityIsFemale ? Properties.Resources.StringActionNoneFemale : Properties.Resources.StringActionNoneMale, entityNameSingle, Properties.Resources.StringActionView), Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
             return false;
         }
+
         form.Cursor = Cursors.WaitCursor;
         dataGridView.Enabled = false;
         return true;
     }
 
-    #endregion
+    #endregion View
 
     #region Add
 
@@ -39,12 +41,13 @@ internal static class DataGridViews
         {
             return false;
         }
+
         form.Cursor = Cursors.WaitCursor;
         dataGridView.Enabled = false;
         return true;
     }
 
-    #endregion
+    #endregion Add
 
     #region Edit
 
@@ -52,19 +55,21 @@ internal static class DataGridViews
     {
         if (dataGridView.CurrentRow == null)
         {
-            MessageBox.Show(string.Format(entityIsFemale ? Properties.Resources.StringActionNoneFemale : Properties.Resources.StringActionNoneMale, entityNameSingle, Properties.Resources.StringActionEdit), Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(string.Format(CultureInfo.CurrentCulture, entityIsFemale ? Properties.Resources.StringActionNoneFemale : Properties.Resources.StringActionNoneMale, entityNameSingle, Properties.Resources.StringActionEdit), Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
             return false;
         }
+
         if (permiso.HasValue && !Users.Permissions.Verify(permiso.Value))
         {
             return false;
         }
+
         form.Cursor = Cursors.WaitCursor;
         dataGridView.Enabled = false;
         return true;
     }
 
-    #endregion
+    #endregion Edit
 
     #region Delete
 
@@ -72,23 +77,20 @@ internal static class DataGridViews
     {
         if (dataGridView.CurrentRow == null)
         {
-            MessageBox.Show(string.Format(entityIsFemale ? Properties.Resources.StringActionNoneFemale : Properties.Resources.StringActionNoneMale, entityNameSingle, Properties.Resources.StringActionDelete), Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(string.Format(CultureInfo.CurrentCulture, entityIsFemale ? Properties.Resources.StringActionNoneFemale : Properties.Resources.StringActionNoneMale, entityNameSingle, Properties.Resources.StringActionDelete), Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
             return false;
         }
-        if (permiso.HasValue && !Users.Permissions.Verify(permiso.Value))
-        {
-            return false;
-        }
-        return true;
+
+        return !permiso.HasValue || Users.Permissions.Verify(permiso.Value);
     }
 
     internal static bool DeleteConfirm(string entityNameSingle, bool entityIsFemale, string entityData)
     {
-        var mensaje = string.Format(entityIsFemale ? Properties.Resources.StringActionDeleteConfirmationFemale : Properties.Resources.StringActionDeleteConfirmationMale, entityNameSingle, entityData);
+        var mensaje = string.Format(CultureInfo.CurrentCulture, entityIsFemale ? Properties.Resources.StringActionDeleteConfirmationFemale : Properties.Resources.StringActionDeleteConfirmationMale, entityNameSingle, entityData);
         return MessageBox.Show(mensaje, Program.Info.Title, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes;
     }
 
-    #endregion
+    #endregion Delete
 
     #region Sort by column
 
@@ -99,17 +101,11 @@ internal static class DataGridViews
         {
             return false;
         }
+
         if (column == sortedColumn)
         {
             // Clicked column is the sorted one, so invert sort order
-            if (sortOrder == SortOrder.Ascending)
-            {
-                sortOrder = SortOrder.Descending;
-            }
-            else
-            {
-                sortOrder = SortOrder.Ascending;
-            }
+            sortOrder = sortOrder == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
         }
         else
         {
@@ -118,21 +114,23 @@ internal static class DataGridViews
             {
                 sortedColumn.HeaderCell.SortGlyphDirection = SortOrder.None;
             }
+
             sortedColumn = column;
             sortOrder = SortOrder.Ascending;
         }
+
         return true;
     }
 
-    #endregion
+    #endregion Sort by column
 
     #region Search row by first key letter pressed
 
     private static void SearchByKeyPressFirstOccurrence(KeyPressEventArgs e, DataGridView dataGridView, DataGridViewColumn dataGridViewColumn)
     {
         var row = (from DataGridViewRow r in dataGridView.Rows
-                               where r.Cells[dataGridViewColumn.Name].Value.ToString().ReplaceDiacritics().StartsWith(e.KeyChar.ToString(), StringComparison.CurrentCultureIgnoreCase)
-                               select r).FirstOrDefault();
+                   where r.Cells[dataGridViewColumn.Name].Value.ToString().ReplaceDiacritics().StartsWith(e.KeyChar.ToString(), StringComparison.CurrentCultureIgnoreCase)
+                   select r).FirstOrDefault();
         if (row != null)
         {
             row.Cells[dataGridViewColumn.Name].Selected = true;
@@ -179,7 +177,7 @@ internal static class DataGridViews
         }
     }
 
-    #endregion
+    #endregion Search row by first key letter pressed
 
     #region Items count text
 
@@ -189,14 +187,14 @@ internal static class DataGridViews
 
         var itemsCountText = itemsCount switch
         {
-            0 => string.Format(Properties.Resources.StringDatabaseItemsCountNone, entitiesName),
-            1 => string.Format(Properties.Resources.StringDatabaseItemsCountOne, entityName),
-            _ => string.Format(Properties.Resources.StringDatabaseItemsCountMany, entitiesName, itemsCount.ToString("N0")),
+            0 => string.Format(CultureInfo.CurrentCulture, Properties.Resources.StringDatabaseItemsCountNone, entitiesName),
+            1 => string.Format(CultureInfo.CurrentCulture, Properties.Resources.StringDatabaseItemsCountOne, entityName),
+            _ => string.Format(CultureInfo.CurrentCulture, Properties.Resources.StringDatabaseItemsCountMany, entitiesName, itemsCount.ToString("N0", CultureInfo.CurrentCulture)),
         };
 
         return new string(' ', spaces) + itemsCountText + new string(' ', spaces);
     }
 
-    #endregion
+    #endregion Items count text
 
 }

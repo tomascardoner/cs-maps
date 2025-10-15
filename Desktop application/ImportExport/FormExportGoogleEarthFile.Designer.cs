@@ -144,7 +144,6 @@
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "Exportar datos a archivo de Google Earth";
-            FormClosed += This_FormClosed;
             ResumeLayout(false);
             PerformLayout();
         }

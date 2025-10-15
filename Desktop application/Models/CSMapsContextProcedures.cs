@@ -35,11 +35,11 @@ namespace CSMaps.Models
 
     public partial class CSMapsContextProcedures : ICSMapsContextProcedures
     {
-        private readonly CSMapsContext _context;
+        private readonly CSMapsContext _dbContext;
 
         public CSMapsContextProcedures(CSMapsContext context)
         {
-            _context = context;
+            _dbContext = context;
         }
 
         public virtual async Task<List<ObtenerPuntosDatosYEventosResult>> ObtenerPuntosDatosYEventosAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
@@ -55,7 +55,7 @@ namespace CSMaps.Models
             {
                 parameterreturnValue,
             };
-            var _ = await _context.SqlQueryAsync<ObtenerPuntosDatosYEventosResult>("EXEC @returnValue = [dbo].[ObtenerPuntosDatosYEventos]", sqlParameters, cancellationToken);
+            var _ = await _dbContext.SqlQueryAsync<ObtenerPuntosDatosYEventosResult>("EXEC @returnValue = [dbo].[ObtenerPuntosDatosYEventos]", sqlParameters, cancellationToken);
 
             returnValue?.SetValue(parameterreturnValue.Value);
 

@@ -58,6 +58,7 @@ public partial class FormUsersGroupsPermissions : Form
         {
             return;
         }
+
         this.Cursor = Cursors.WaitCursor;
         Permissions.ShowEstablishedPermissions(context, TreeViewPermisos, (byte)ComboBoxUsuarioGrupo.SelectedValue);
         this.Cursor = Cursors.Default;
@@ -78,6 +79,7 @@ public partial class FormUsersGroupsPermissions : Form
         {
             return;
         }
+
         if (e.Node.Level == 0)
         {
             return;

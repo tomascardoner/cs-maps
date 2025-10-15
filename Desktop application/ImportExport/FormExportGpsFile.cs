@@ -1,4 +1,5 @@
-﻿using CardonerSistemas.Framework.Base;
+﻿using System.Globalization;
+using CardonerSistemas.Framework.Base;
 using Geo.Gps;
 using MediaDevices;
 using Microsoft.EntityFrameworkCore;
@@ -11,15 +12,17 @@ public partial class FormExportGpsFile : Form
 
     #region Declarations
 
-    const string DefaultFileNameExport = "CSMaps.gpx";
+    private const string DefaultFileNameExport = "CSMaps.gpx";
 
-    Models.CSMapsContext _DbContext = new();
-    List<MediaDevice> _MediaDevices;
+#pragma warning disable CA2213 // Disposable fields should be disposed
+    private readonly Models.CSMapsContext _dbContext = new();
+#pragma warning restore CA2213 // Disposable fields should be disposed
+    private List<MediaDevice> _mediaDevices;
 
-    const byte StepNumberMax = 3;
-    byte _StepNumberCurrent = 1;
+    private const byte StepNumberMax = 3;
+    private byte _stepNumberCurrent = 1;
 
-    #endregion
+    #endregion Declarations
 
     #region Form stuff
 
@@ -40,15 +43,13 @@ public partial class FormExportGpsFile : Form
         ShowControls();
     }
 
-    private void This_FormClosed(object sender, FormClosedEventArgs e)
+    protected override void OnFormClosed(FormClosedEventArgs e)
     {
-        _DbContext.Dispose();
-        _DbContext = null;
-        _MediaDevices = null;
-        this.Dispose();
+        base.OnFormClosed(e);
+        _dbContext?.Dispose();
     }
 
-    #endregion
+    #endregion Form stuff
 
     #region Controls events
 
@@ -78,15 +79,11 @@ public partial class FormExportGpsFile : Form
         else
         {
             var pathWithoutFileName = FileSystem.GetPathWithoutFileName(TextBoxFile.Text);
-            if (!string.IsNullOrWhiteSpace(pathWithoutFileName) && Path.Exists(pathWithoutFileName))
-            {
-                saveFileDialog.InitialDirectory = pathWithoutFileName;
-            }
-            else
-            {
-                saveFileDialog.InitialDirectory = Application.StartupPath;
-            }
+            saveFileDialog.InitialDirectory = !string.IsNullOrWhiteSpace(pathWithoutFileName) && Path.Exists(pathWithoutFileName)
+                ? pathWithoutFileName
+                : Application.StartupPath;
         }
+
         if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
         {
             TextBoxFile.Text = saveFileDialog.FileName;
@@ -109,58 +106,60 @@ public partial class FormExportGpsFile : Form
         ExportGpxFile();
     }
 
-    #endregion
+    #endregion Controls events
 
     #region Steps methods
 
     private void ShowControls()
     {
-        GroupBoxStep1.Visible = _StepNumberCurrent == 1;
-        GroupBoxStep2.Visible = _StepNumberCurrent == 2;
-        GroupBoxSummary.Visible = _StepNumberCurrent == 3;
+        GroupBoxStep1.Visible = _stepNumberCurrent == 1;
+        GroupBoxStep2.Visible = _stepNumberCurrent == 2;
+        GroupBoxSummary.Visible = _stepNumberCurrent == 3;
 
-        if (_StepNumberCurrent == 1)
+        if (_stepNumberCurrent == 1)
         {
-            RadioButtonPointsWithData.Text = $"Sólo los que tienen datos asociados ({_DbContext.PuntoDatos.Count():N0} puntos).";
-            RadioButtonPointsAll.Text = $"Todos ({_DbContext.Puntos.Count():N0} puntos).";
+            RadioButtonPointsWithData.Text = $"Sólo los que tienen datos asociados ({_dbContext.PuntoDatos.Count():N0} puntos).";
+            RadioButtonPointsAll.Text = $"Todos ({_dbContext.Puntos.Count():N0} puntos).";
         }
-        if (_StepNumberCurrent == 2)
+
+        if (_stepNumberCurrent == 2)
         {
             this.Cursor = Cursors.WaitCursor;
-            CommonFunctions.GetGpsDevicesAndDrives(ref _MediaDevices, ListViewDevices, TextBoxFile);
+            CommonFunctions.GetGpsDevicesAndDrives(ref _mediaDevices, ListViewDevices, TextBoxFile);
             this.Cursor = Cursors.Default;
         }
-        if (_StepNumberCurrent == 3)
+
+        if (_stepNumberCurrent == 3)
         {
             ShowSummary();
         }
 
-        ButtonPrevious.Visible = _StepNumberCurrent > 1;
-        ButtonNext.Visible = _StepNumberCurrent < StepNumberMax;
-        ButtonFinish.Visible = _StepNumberCurrent == StepNumberMax;
+        ButtonPrevious.Visible = _stepNumberCurrent > 1;
+        ButtonNext.Visible = _stepNumberCurrent < StepNumberMax;
+        ButtonFinish.Visible = _stepNumberCurrent == StepNumberMax;
     }
 
     private void StepPrevious()
     {
-        if (_StepNumberCurrent > 1)
+        if (_stepNumberCurrent > 1)
         {
-            _StepNumberCurrent--;
+            _stepNumberCurrent--;
             ShowControls();
         }
     }
 
     private void StepNext()
     {
-        if (_StepNumberCurrent < StepNumberMax && StepVerifyRequirements())
+        if (_stepNumberCurrent < StepNumberMax && StepVerifyRequirements())
         {
-            _StepNumberCurrent++;
+            _stepNumberCurrent++;
             ShowControls();
         }
     }
 
     private bool StepVerifyRequirements()
     {
-        switch (_StepNumberCurrent)
+        switch (_stepNumberCurrent)
         {
             case 1:
                 if (!RadioButtonPointsWithData.Checked && !RadioButtonPointsAll.Checked)
@@ -198,15 +197,10 @@ public partial class FormExportGpsFile : Form
 
     private void ShowSummary()
     {
-        string summary;
-        if (RadioButtonPointsAll.Checked)
-        {
-            summary = $"Se exportarán todos los puntos del sistema (cantidad: {_DbContext.Puntos.Count():N0}).\n\n";
-        }
-        else
-        {
-            summary = $"Se exportarán sólo los puntos del sistema que tienen datos asociados (cantidad: {_DbContext.PuntoDatos.Count():N0}).\n\n";
-        }
+        var summary = RadioButtonPointsAll.Checked
+            ? $"Se exportarán todos los puntos del sistema (cantidad: {_dbContext.Puntos.Count():N0}).\n\n"
+            : $"Se exportarán sólo los puntos del sistema que tienen datos asociados (cantidad: {_dbContext.PuntoDatos.Count():N0}).\n\n";
+
         if (TextBoxFile.Text.IsNullOrEmpty())
         {
             summary += $"El dispositivo de destino es: {ListViewDevices.SelectedItems[0].Text} - unidad {ListViewDevices.SelectedItems[0].SubItems[1].Text}";
@@ -219,23 +213,16 @@ public partial class FormExportGpsFile : Form
         LabelSummary.Text = summary;
     }
 
-    #endregion
+    #endregion Steps methods
 
     #region Export GPX file
 
     private void ExportGpxFile()
     {
         var destinationIsDevice = TextBoxFile.Text.IsNullOrEmpty();
-        string fileFullPath;
-
-        if (destinationIsDevice)
-        {
-            fileFullPath = Path.Combine(ListViewDevices.SelectedItems[0].Tag.ToString(), DefaultFileNameExport);
-        }
-        else
-        {
-            fileFullPath = TextBoxFile.Text.Trim();
-        }
+        var fileFullPath = destinationIsDevice
+            ? Path.Combine(ListViewDevices.SelectedItems[0].Tag.ToString(), DefaultFileNameExport)
+            : TextBoxFile.Text.Trim();
 
         this.Cursor = Cursors.WaitCursor;
         if (!ExportVerifyDestination(destinationIsDevice, fileFullPath))
@@ -288,13 +275,14 @@ public partial class FormExportGpsFile : Form
         {
             try
             {
-                using var mediaDevice = _MediaDevices[ListViewDevices.SelectedItems[0].Index];
+                using var mediaDevice = _mediaDevices[ListViewDevices.SelectedItems[0].Index];
                 mediaDevice.Connect();
-                if (mediaDevice.FileExists(fileFullPath) && MessageBox.Show(string.Format(Properties.Resources.StringFileDestinationConfirmOverwrite, Environment.NewLine), Program.Info.Title, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
+                if (mediaDevice.FileExists(fileFullPath) && MessageBox.Show(string.Format(CultureInfo.CurrentCulture, Properties.Resources.StringFileDestinationConfirmOverwrite, Environment.NewLine), Program.Info.Title, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
                 {
                     mediaDevice.Disconnect();
                     return false;
                 }
+
                 mediaDevice.Disconnect();
             }
             catch (Exception ex)
@@ -307,6 +295,7 @@ public partial class FormExportGpsFile : Form
         {
             return false;
         }
+
         return true;
     }
 
@@ -314,23 +303,18 @@ public partial class FormExportGpsFile : Form
     {
         try
         {
-            if (RadioButtonPointsWithData.Checked)
-            {
-                return [.. _DbContext.Puntos
+            return RadioButtonPointsWithData.Checked
+                ? [.. _dbContext.Puntos
                             .Include(p => p.PuntoDato)
                             .ThenInclude(pd => pd.IdEstablecimientoNavigation)
                             .ThenInclude(e => e.IdEntidadNavigation)
                             .Where(p => p.PuntoDato != null)
-                            .OrderBy(p => p.Nombre)];
-            }
-            else
-            {
-                return [.. _DbContext.Puntos
+                            .OrderBy(p => p.Nombre)]
+                : [.. _dbContext.Puntos
                             .Include(p => p.PuntoDato)
                             .ThenInclude(pd => pd.IdEstablecimientoNavigation)
                             .ThenInclude(e => e.IdEntidadNavigation)
                             .OrderBy(p => p.Nombre)];
-            }
         }
         catch (Exception ex)
         {
@@ -348,6 +332,7 @@ public partial class FormExportGpsFile : Form
                 Geo.Geometries.Point point = new((double)punto.Latitud, (double)punto.Longitud, (double)punto.Altitud);
                 gpsData.Waypoints.Add(new(point, punto.NombreExportar, punto.ComentarioExportar, punto.DescripcionExportar));
             }
+
             return true;
         }
         catch (Exception ex)
@@ -378,12 +363,13 @@ public partial class FormExportGpsFile : Form
     {
         try
         {
-            using var mediaDevice = _MediaDevices[ListViewDevices.SelectedItems[0].Index];
+            using var mediaDevice = _mediaDevices[ListViewDevices.SelectedItems[0].Index];
             mediaDevice.Connect();
             if (mediaDevice.FileExists(fileFullPath))
             {
                 mediaDevice.DeleteFile(fileFullPath);
             }
+
             using var fileStream = File.OpenRead(tempFilePath);
             mediaDevice.UploadFile(fileStream, fileFullPath);
             mediaDevice.Disconnect();
@@ -397,6 +383,6 @@ public partial class FormExportGpsFile : Form
         }
     }
 
-    #endregion
+    #endregion Export GPX file
 
 }

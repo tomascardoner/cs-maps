@@ -266,7 +266,6 @@
             Name = "FormUsers";
             ShowInTaskbar = false;
             Text = "Usuarios";
-            FormClosed += This_FormClosed;
             Load += This_Load;
             FlowLayoutPanelToolbars.ResumeLayout(false);
             FlowLayoutPanelToolbars.PerformLayout();

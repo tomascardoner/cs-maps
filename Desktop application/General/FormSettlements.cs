@@ -188,6 +188,7 @@ public partial class FormSettlements : Form
                 entitiesFiltered = [.. entitiesFiltered.OrderByDescending(e => e.TelefonoMovil)];
             }
         }
+
         DataGridViewMain.AutoGenerateColumns = false;
         DataGridViewMain.DataSource = entitiesFiltered;
         sortedColumn.HeaderCell.SortGlyphDirection = sortOrder;
@@ -305,6 +306,7 @@ public partial class FormSettlements : Form
         {
             Common.DBErrors.OtherUpdateException(ex, entityNameSingle, entityIsFemale, Properties.Resources.StringActionDelete);
         }
+
         this.Cursor = Cursors.Default;
     }
 

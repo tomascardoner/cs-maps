@@ -1,3 +1,4 @@
+using System.Globalization;
 using CardonerSistemas.Framework.Base;
 using SharpKml.Dom;
 using SharpKml.Engine;
@@ -21,7 +22,7 @@ public partial class FormImportGoogleEarthFile : Form
         Forms.SetFont(this, Program.AppearanceConfig.Font);
     }
 
-    #endregion
+    #endregion Form stuff
 
     #region Controls events
 
@@ -48,15 +49,11 @@ public partial class FormImportGoogleEarthFile : Form
         else
         {
             var pathWithoutFileName = FileSystem.GetPathWithoutFileName(TextBoxFile.Text);
-            if (!string.IsNullOrWhiteSpace(pathWithoutFileName) && Path.Exists(pathWithoutFileName))
-            {
-                openFileDialog.InitialDirectory = pathWithoutFileName;
-            }
-            else
-            {
-                openFileDialog.InitialDirectory = Application.StartupPath;
-            }
+            openFileDialog.InitialDirectory = !string.IsNullOrWhiteSpace(pathWithoutFileName) && Path.Exists(pathWithoutFileName)
+                ? pathWithoutFileName
+                : Application.StartupPath;
         }
+
         if (openFileDialog.ShowDialog(this) == DialogResult.OK)
         {
             TextBoxFile.Text = openFileDialog.FileName;
@@ -71,6 +68,7 @@ public partial class FormImportGoogleEarthFile : Form
             MessageBox.Show(Properties.Resources.StringImportFileNotSpecified, Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             return;
         }
+
         if (!Path.Exists(TextBoxFile.Text.Trim()))
         {
             MessageBox.Show(Properties.Resources.StringFileNotFound, Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -80,7 +78,7 @@ public partial class FormImportGoogleEarthFile : Form
         ImportFile(TextBoxFile.Text.Trim());
     }
 
-    #endregion
+    #endregion Controls events
 
     #region Import functions
 
@@ -104,17 +102,17 @@ public partial class FormImportGoogleEarthFile : Form
     {
         try
         {
-            byte[] KmzFileHeader = [0x50, 0x4b, 0x03, 0x04, 0x14];
-            byte[] KmlFileHeader = [0x3c, 0x3f, 0x78, 0x6d, 0x6c];
+            byte[] kmzFileHeader = [0x50, 0x4b, 0x03, 0x04, 0x14];
+            byte[] kmlFileHeader = [0x3c, 0x3f, 0x78, 0x6d, 0x6c];
 
             Stream stream = File.OpenRead(filePath);
             var buffer = new byte[5];
             stream.ReadExactly(buffer, 0, 5);
-            if (buffer.SequenceEqual(KmzFileHeader))
+            if (buffer.SequenceEqual(kmzFileHeader))
             {
                 ImportKmzFile(filePath);
             }
-            else if (buffer.SequenceEqual(KmlFileHeader))
+            else if (buffer.SequenceEqual(kmlFileHeader))
             {
                 ImportKmlFile(filePath);
             }
@@ -184,14 +182,7 @@ public partial class FormImportGoogleEarthFile : Form
         int idPuntoNuevo;
         try
         {
-            if (context.Puntos.Any())
-            {
-                idPuntoUltimo = context.Puntos.Max(p => p.IdPunto);
-            }
-            else
-            {
-                idPuntoUltimo = 0;
-            }
+            idPuntoUltimo = context.Puntos.Any() ? context.Puntos.Max(p => p.IdPunto) : 0;
         }
         catch (Exception ex)
         {
@@ -204,6 +195,7 @@ public partial class FormImportGoogleEarthFile : Form
         {
             // Parseo la información del archivo y la agrego a la base de datos
             idPuntoNuevo = idPuntoUltimo;
+#pragma warning disable S3267 // Loops should be simplified with "LINQ" expressions
             foreach (var placemark in rootElement.Flatten().OfType<Placemark>())
             {
                 if (!context.Puntos.Any(p => p.Nombre == placemark.Name))
@@ -218,12 +210,13 @@ public partial class FormImportGoogleEarthFile : Form
                     punto.Longitud = (decimal)coordinates.Longitude;
                     punto.Altitud = (decimal)coordinates.Altitude;
                     punto.IdUsuarioCreacion = Program.Usuario.IdUsuario;
-                    punto.FechaHoraCreacion = DateTime.Now;
+                    punto.FechaHoraCreacion = DateTime.UtcNow;
                     punto.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
-                    punto.FechaHoraUltimaModificacion = DateTime.Now;
+                    punto.FechaHoraUltimaModificacion = DateTime.UtcNow;
                     context.Puntos.Add(punto);
                 }
             }
+#pragma warning restore S3267 // Loops should be simplified with "LINQ" expressions
         }
         catch (Exception ex)
         {
@@ -246,10 +239,10 @@ public partial class FormImportGoogleEarthFile : Form
         this.Cursor = Cursors.Default;
         if (idPuntoNuevo - idPuntoUltimo > 0)
         {
-            MessageBox.Show(string.Format(Properties.Resources.StringImportFileSuccesful, idPuntoNuevo - idPuntoUltimo), Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(string.Format(CultureInfo.CurrentCulture, Properties.Resources.StringImportFileSuccesful, idPuntoNuevo - idPuntoUltimo), Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 
-    #endregion
+    #endregion Import functions
 
 }

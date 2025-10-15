@@ -118,6 +118,7 @@ public partial class FormUser : Form
                 TextBoxPassword.Text = string.Empty;
             }
         }
+
         Values.ToControl(ComboBoxGenero, usuario.Genero, ComboBoxExtension.SelectedItemOptions.Value, Main.Constants.GenderUnknown);
         Values.ToControl(ComboBoxUsuarioGrupo, usuario.IdUsuarioGrupo);
 
@@ -144,6 +145,7 @@ public partial class FormUser : Form
         {
             usuario.Password = null;
         }
+
         usuario.Genero = Values.ToString(ComboBoxGenero, Main.Constants.GenderUnknown);
         usuario.IdUsuarioGrupo = Values.ToByte(ComboBoxUsuarioGrupo).Value;
 
@@ -212,6 +214,7 @@ public partial class FormUser : Form
                 return;
             }
         }
+
         this.Close();
     }
 
@@ -268,6 +271,7 @@ public partial class FormUser : Form
             {
                 usuario.IdUsuario = 1;
             }
+
             return true;
         }
         catch (Exception ex)
@@ -291,6 +295,7 @@ public partial class FormUser : Form
             TextBoxNombre.Focus();
             return false;
         }
+
         var usuarioNombreLongitudMinima = Parameters.GetIntegerAsByte(Parameters.ParametersId.UsuarioNombreLongitudMinima, 5).Value;
         if (TextBoxNombre.Text.Length < usuarioNombreLongitudMinima)
         {
@@ -299,6 +304,7 @@ public partial class FormUser : Form
             TextBoxNombre.Focus();
             return false;
         }
+
         if (string.IsNullOrWhiteSpace(TextBoxDescripcion.Text))
         {
             TabControlMain.SelectedTab = TabPageGeneral;
@@ -306,6 +312,7 @@ public partial class FormUser : Form
             TextBoxDescripcion.Focus();
             return false;
         }
+
         if (string.IsNullOrWhiteSpace(TextBoxPassword.Text))
         {
             TabControlMain.SelectedTab = TabPageGeneral;
@@ -313,6 +320,7 @@ public partial class FormUser : Form
             TextBoxPassword.Focus();
             return false;
         }
+
         var usuarioPasswordLongitudMinima = Parameters.GetIntegerAsByte(Parameters.ParametersId.UsuarioPasswordLongitudMinima, 8).Value;
         if (TextBoxPassword.Text.Trim().Length < usuarioPasswordLongitudMinima)
         {
@@ -321,6 +329,7 @@ public partial class FormUser : Form
             TextBoxPassword.Focus();
             return false;
         }
+
         if (ComboBoxGenero.SelectedIndex < 0)
         {
             TabControlMain.SelectedTab = TabPageGeneral;
@@ -328,6 +337,7 @@ public partial class FormUser : Form
             ComboBoxGenero.Focus();
             return false;
         }
+
         if (ComboBoxUsuarioGrupo.SelectedIndex < 0)
         {
             TabControlMain.SelectedTab = TabPageGeneral;

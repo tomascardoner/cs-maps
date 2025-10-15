@@ -10,7 +10,7 @@ public partial class FormUserLogin : Form
 
     private Models.CSMapsContext context = new();
 
-    int intentos;
+    private int intentos;
 
     #endregion
 
@@ -85,6 +85,7 @@ public partial class FormUserLogin : Form
             TextBoxNombre.Focus();
             return;
         }
+
         var usuarioNombreLongitudMinima = Parameters.GetIntegerAsByte(Parameters.ParametersId.UsuarioNombreLongitudMinima, 5).Value;
         if (TextBoxNombre.Text.Length < usuarioNombreLongitudMinima)
         {
@@ -100,6 +101,7 @@ public partial class FormUserLogin : Form
             TextBoxPassword.Focus();
             return;
         }
+
         var usuarioPasswordLongitudMinima = Parameters.GetIntegerAsByte(Parameters.ParametersId.UsuarioPasswordLongitudMinima, 8).Value;
         if (TextBoxPassword.Text.Trim().Length < usuarioPasswordLongitudMinima)
         {
@@ -136,6 +138,7 @@ public partial class FormUserLogin : Form
             {
                 this.DialogResult = DialogResult.Cancel;
             }
+
             return;
         }
 
@@ -147,6 +150,7 @@ public partial class FormUserLogin : Form
             MessageBox.Show($"No se ha podido desencriptar la contraseña del usuario en la base de datos.\n\n{decryptionResultMessage}", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             return;
         }
+
         if (string.Compare(TextBoxPassword.Text, decryptedPassword, false) != 0)
         {
             MessageBox.Show("La contraseña ingresada es incorrecta.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -159,6 +163,7 @@ public partial class FormUserLogin : Form
             {
                 this.DialogResult = DialogResult.Cancel;
             }
+
             return;
         }
 

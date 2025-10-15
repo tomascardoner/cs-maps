@@ -1035,7 +1035,6 @@
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "Importar datos desde GPS";
-            FormClosed += This_FormClosed;
             GroupBoxSummary.ResumeLayout(false);
             GroupBoxStep1.ResumeLayout(false);
             GroupBoxStep1.PerformLayout();

@@ -78,6 +78,7 @@ public partial class FormUserChangePassword : Form
             TextBoxPasswordAnterior.Focus();
             return;
         }
+
         var usuarioPasswordLongitudMinima = Parameters.GetIntegerAsByte(Parameters.ParametersId.UsuarioPasswordLongitudMinima, 8).Value;
         if (TextBoxPasswordAnterior.Text.Trim().Length < usuarioPasswordLongitudMinima)
         {
@@ -93,6 +94,7 @@ public partial class FormUserChangePassword : Form
             TextBoxPasswordNueva.Focus();
             return;
         }
+
         if (TextBoxPasswordNueva.Text.Trim().Length < usuarioPasswordLongitudMinima)
         {
             MessageBox.Show($"La contraseña nueva debe contener al menos {usuarioPasswordLongitudMinima} caracteres.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -107,12 +109,14 @@ public partial class FormUserChangePassword : Form
             TextBoxPasswordConfirma.Focus();
             return;
         }
+
         if (TextBoxPasswordConfirma.Text.Trim().Length < usuarioPasswordLongitudMinima)
         {
             MessageBox.Show($"La confirmación de la nueva contraseña debe contener al menos {usuarioPasswordLongitudMinima} caracteres.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             TextBoxPasswordConfirma.Focus();
             return;
         }
+
         if (string.Compare(TextBoxPasswordNueva.Text, TextBoxPasswordConfirma.Text, false) != 0)
         {
             MessageBox.Show("La contraseña nueva es diferente a la confirmación.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -134,6 +138,7 @@ public partial class FormUserChangePassword : Form
             this.Cursor = Cursors.Default;
             return;
         }
+
         if (string.Compare(TextBoxPasswordAnterior.Text, decryptedPassword, false) != 0)
         {
             MessageBox.Show("La contraseña anterior ingresada es incorrecta.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -145,6 +150,7 @@ public partial class FormUserChangePassword : Form
             {
                 this.DialogResult = DialogResult.Cancel;
             }
+
             return;
         }
 

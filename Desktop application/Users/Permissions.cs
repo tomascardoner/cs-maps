@@ -103,6 +103,7 @@ internal static class Permissions
                 {
                     MessageBox.Show(Properties.Resources.StringNotPermission, Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
+
                 return false;
             }
             else
@@ -157,6 +158,7 @@ internal static class Permissions
         {
             arbol.TopNode = arbol.Nodes[0];
         }
+
         arbol.ResumeLayout();
     }
 
@@ -186,6 +188,7 @@ internal static class Permissions
         {
             Error.ProcessException(ex, "Error al mostrar los permisos estabecidos en el árbol.");
         }
+
         arbol.ResumeLayout();
     }
 

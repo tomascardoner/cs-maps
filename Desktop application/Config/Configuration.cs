@@ -1,6 +1,6 @@
-﻿namespace CSMaps;
+﻿namespace CSMaps.config;
 
-static class Configuration
+internal static class Configuration
 {
     private const string ConfigSubFolder = "config";
 
@@ -8,21 +8,21 @@ static class Configuration
     private const string DatabaseFileName = "Database.json";
     private const string GeneralFileName = "General.json";
 
-    static internal bool LoadFiles()
+    internal static bool LoadFiles()
     {
-        string ConfigFolder;
+        var configFolder = Path.Combine(Application.StartupPath, ConfigSubFolder);
 
-        ConfigFolder = Path.Combine(Application.StartupPath, ConfigSubFolder);
-
-        if (!CardonerSistemas.Framework.Base.Configuration.Json.LoadFile(ConfigFolder, AppearanceFileName, ref Program.AppearanceConfig, true))
+        if (!CardonerSistemas.Framework.Base.Configuration.Json.LoadFile(configFolder, AppearanceFileName, ref Program.AppearanceConfig, true))
         {
             return false;
         }
-        if (!CardonerSistemas.Framework.Base.Configuration.Json.LoadFile(ConfigFolder, DatabaseFileName, ref Program.DatabaseConfig, true))
+
+        if (!CardonerSistemas.Framework.Base.Configuration.Json.LoadFile(configFolder, DatabaseFileName, ref Program.DatabaseConfig, true))
         {
             return false;
         }
-        if (!CardonerSistemas.Framework.Base.Configuration.Json.LoadFile(ConfigFolder, GeneralFileName, ref Program.GeneralConfig, true))
+
+        if (!CardonerSistemas.Framework.Base.Configuration.Json.LoadFile(configFolder, GeneralFileName, ref Program.GeneralConfig, true))
         {
             return false;
         }
@@ -31,12 +31,11 @@ static class Configuration
 
         return true;
     }
-    static internal bool SaveFileDatabase()
+
+    internal static bool SaveFileDatabase()
     {
-        string ConfigFolder;
+        var configFolder = Path.Combine(Application.StartupPath, ConfigSubFolder);
 
-        ConfigFolder = Path.Combine(Application.StartupPath, ConfigSubFolder);
-
-        return CardonerSistemas.Framework.Base.Configuration.Json.SaveFile(ConfigFolder, DatabaseFileName, ref Program.DatabaseConfig, true);
+        return CardonerSistemas.Framework.Base.Configuration.Json.SaveFile(configFolder, DatabaseFileName, ref Program.DatabaseConfig, true);
     }
 }

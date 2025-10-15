@@ -225,6 +225,7 @@ public partial class FormUserGroup : Form
         {
             return true;
         }
+
         try
         {
             // Obtengo el id
@@ -237,6 +238,7 @@ public partial class FormUserGroup : Form
             {
                 usuarioGrupo.IdUsuarioGrupo = 1;
             }
+
             return true;
         }
         catch (Exception ex)

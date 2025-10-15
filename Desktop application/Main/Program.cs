@@ -1,3 +1,4 @@
+using CSMaps.config;
 using CSMaps.Main;
 using System.Diagnostics;
 using System.Reflection;
@@ -32,7 +33,7 @@ internal static class Program
     ///  The main entry point for the application.
     /// </summary>
     [STAThread]
-    static void Main()
+    private static void Main()
     {
         Cursor.Current = Cursors.AppStarting;
 
@@ -65,6 +66,7 @@ internal static class Program
             TerminateApplication();
             return;
         }
+
         if (!connectionStringBuilder.PasswordUnencrypt(Constants.PublicEncryptionPassword, out var resultMessage))
         {
             MessageBox.Show(string.Format(Properties.Resources.StringDatabasePasswordUnencryptionError, Environment.NewLine, resultMessage), Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -72,6 +74,7 @@ internal static class Program
             TerminateApplication();
             return;
         }
+
         Models.CSMapsContext.ConnectionString = connectionStringBuilder.GetConnectionString();
 
         // Load parameters
@@ -102,6 +105,7 @@ internal static class Program
             TerminateApplication();
             return;
         }
+
         formSplash.labelLicensedTo.Text = LicensedCompany.ToUpper();
         formSplash.labelLicensedTo.Visible = true;
         Application.DoEvents();
@@ -124,6 +128,7 @@ internal static class Program
                 Application.DoEvents();
             }
         }
+
         formSplash.Close();
 
         if (CardonerSistemas.Framework.Base.Instance.IsRunningUnderIde())
@@ -150,6 +155,7 @@ internal static class Program
                 Application.Exit();
                 return;
             }
+
             formUserLogin.Close();
         }
 

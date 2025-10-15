@@ -1,4 +1,5 @@
-﻿using CardonerSistemas.Framework.Base;
+﻿using System.Globalization;
+using CardonerSistemas.Framework.Base;
 using Microsoft.EntityFrameworkCore;
 using SharpKml.Base;
 using SharpKml.Dom;
@@ -10,13 +11,15 @@ public partial class FormExportGoogleEarthFile : Form
 
     #region Declarations
 
-    const string DefaultFileName = "doc.kml";
-    const string MapName = "SOS Rural - tranquera segura";
-    const string StyleIdPrefix = "icon-";
+    private const string DefaultFileName = "doc.kml";
+    private const string MapName = "SOS Rural - tranquera segura";
+    private const string StyleIdPrefix = "icon-";
 
-    Models.CSMapsContext context = new();
+#pragma warning disable CA2213 // Disposable fields should be disposed
+    private readonly Models.CSMapsContext _dbContext = new();
+#pragma warning restore CA2213 // Disposable fields should be disposed
 
-    #endregion
+    #endregion Declarations
 
     #region Form stuff
 
@@ -29,7 +32,7 @@ public partial class FormExportGoogleEarthFile : Form
     private void InitializeForm()
     {
         SetAppearance();
-        Common.Lists.GetGroups(CheckedListBoxGrupos, context);
+        Common.Lists.GetGroups(CheckedListBoxGrupos, _dbContext);
     }
 
     private void SetAppearance()
@@ -38,14 +41,13 @@ public partial class FormExportGoogleEarthFile : Form
         Forms.SetFont(this, Program.AppearanceConfig.Font);
     }
 
-    private void This_FormClosed(object sender, FormClosedEventArgs e)
+    protected override void OnFormClosed(FormClosedEventArgs e)
     {
-        context.Dispose();
-        context = null;
-        this.Dispose();
+        base.OnFormClosed(e);
+        _dbContext?.Dispose();
     }
 
-    #endregion
+    #endregion Form stuff
 
     #region Controls events
 
@@ -98,15 +100,11 @@ public partial class FormExportGoogleEarthFile : Form
         else
         {
             var pathWithoutFileName = FileSystem.GetPathWithoutFileName(TextBoxFile.Text);
-            if (!string.IsNullOrWhiteSpace(pathWithoutFileName) && Path.Exists(pathWithoutFileName))
-            {
-                saveFileDialog.InitialDirectory = pathWithoutFileName;
-            }
-            else
-            {
-                saveFileDialog.InitialDirectory = Application.StartupPath;
-            }
+            saveFileDialog.InitialDirectory = !string.IsNullOrWhiteSpace(pathWithoutFileName) && Path.Exists(pathWithoutFileName)
+                ? pathWithoutFileName
+                : Application.StartupPath;
         }
+
         if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
         {
             TextBoxFile.Text = saveFileDialog.FileName;
@@ -122,11 +120,13 @@ public partial class FormExportGoogleEarthFile : Form
             CheckedListBoxGrupos.Focus();
             return;
         }
+
         if (string.IsNullOrWhiteSpace(TextBoxFile.Text))
         {
             MessageBox.Show(Properties.Resources.StringExportDestinationNotSpecified, Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             return;
         }
+
         if (Path.Exists(TextBoxFile.Text.Trim()) && MessageBox.Show("El archivo de destino ya existe y será reemplazado por el nuevo.\n\n¿Desea continuar?", Program.Info.Title, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
         {
             return;
@@ -135,7 +135,7 @@ public partial class FormExportGoogleEarthFile : Form
         CreatKmlFile(TextBoxFile.Text.Trim());
     }
 
-    #endregion
+    #endregion Controls events
 
     #region Export functions
 
@@ -170,7 +170,7 @@ public partial class FormExportGoogleEarthFile : Form
 
         try
         {
-            var serializer = new SharpKml.Base.Serializer();
+            var serializer = new Serializer();
             using FileStream fileStream = new(filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None);
             fileStream.SetLength(0);
             serializer.Serialize(kml, fileStream);
@@ -190,14 +190,15 @@ public partial class FormExportGoogleEarthFile : Form
     {
         try
         {
-            foreach (var punto in from p in context.Puntos.Include(p => p.PuntoDato).ThenInclude(pd => pd.IdEstablecimientoNavigation).ThenInclude(e => e.IdEntidadNavigation)
-                                           join gp in context.GrupoPuntos on p.IdPunto equals gp.IdPunto
-                                           where gp.IdGrupo == idGrupo
-                                           select p)
+            foreach (var punto in from p in _dbContext.Puntos.Include(p => p.PuntoDato).ThenInclude(pd => pd.IdEstablecimientoNavigation).ThenInclude(e => e.IdEntidadNavigation)
+                                  join gp in _dbContext.GrupoPuntos on p.IdPunto equals gp.IdPunto
+                                  where gp.IdGrupo == idGrupo
+                                  select p)
             {
 
                 folder.AddFeature(CreatePlacemark(punto, $"{StyleIdPrefix}{idGrupo}"));
             }
+
             return true;
         }
         catch (Exception ex)
@@ -226,6 +227,7 @@ public partial class FormExportGoogleEarthFile : Form
             {
                 style.Icon.Color = Color32.Parse(grupo.IconoMapaColor);
             }
+
             if (grupo.IconoMapaHotSpotX.HasValue && !string.IsNullOrWhiteSpace(grupo.IconoMapaHotSpotXunits) && grupo.IconoMapaHotSpotY.HasValue && !string.IsNullOrWhiteSpace(grupo.IconoMapaHotSpotYunits))
             {
                 style.Icon.Hotspot = new()
@@ -237,16 +239,18 @@ public partial class FormExportGoogleEarthFile : Form
                 };
             }
         }
+
         if (!string.IsNullOrWhiteSpace(grupo.IconoMapaLeyendaTexto))
         {
             style.Balloon = new() { Text = grupo.IconoMapaLeyendaTexto };
         }
+
         return style;
     }
 
     private static Unit GetUnit(char value)
     {
-        return char.ToLower(value) switch
+        return char.ToLower(value, CultureInfo.CurrentCulture) switch
         {
             'f' => Unit.Fraction,
             'p' => Unit.Pixel,
@@ -276,11 +280,11 @@ public partial class FormExportGoogleEarthFile : Form
     {
         return new()
         {
-            Coordinate = new SharpKml.Base.Vector((double)punto.Latitud, (double)punto.Longitud, (double)punto.Altitud)
+            Coordinate = new Vector((double)punto.Latitud, (double)punto.Longitud, (double)punto.Altitud)
         };
 
     }
 
-    #endregion
+    #endregion Export functions
 
 }

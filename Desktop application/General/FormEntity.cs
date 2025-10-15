@@ -1,4 +1,5 @@
-﻿using CardonerSistemas.Framework.Base;
+﻿using System.Globalization;
+using CardonerSistemas.Framework.Base;
 using CardonerSistemas.Framework.Controls;
 using CSMaps.Users;
 
@@ -9,17 +10,19 @@ public partial class FormEntity : Form
 
     #region Declarations
 
-    private const string entityNameSingular = "entidad";
-    private const bool entityIsFemale = true;
+    private const string EntityNameSingular = "entidad";
+    private const bool EntityIsFemale = true;
 
-    private readonly bool isLoading;
-    private readonly bool isNew;
-    private bool isEditMode;
+    private readonly bool _isLoading;
+    private readonly bool _isNew;
+    private bool _isEditMode;
 
-    private Models.CSMapsContext context = new();
-    private Models.Entidad entidad;
+#pragma warning disable CA2213 // Disposable fields should be disposed
+    private readonly Models.CSMapsContext _dbContext = new();
+#pragma warning restore CA2213 // Disposable fields should be disposed
+    private readonly Models.Entidad _entidad;
 
-    #endregion
+    #endregion Declarations
 
     #region Form stuff
 
@@ -27,24 +30,24 @@ public partial class FormEntity : Form
     {
         InitializeComponent();
 
-        isLoading = true;
-        isNew = (idEntidad == 0);
-        isEditMode = editMode;
+        _isLoading = true;
+        _isNew = (idEntidad == 0);
+        _isEditMode = editMode;
 
-        if (isNew)
+        if (_isNew)
         {
-            entidad = new();
+            _entidad = new();
             InitializeNewObjectData();
-            context.Entidades.Add(entidad);
+            _dbContext.Entidades.Add(_entidad);
         }
         else
         {
-            entidad = context.Entidades.Find(idEntidad);
+            _entidad = _dbContext.Entidades.Find(idEntidad);
         }
 
         InitializeForm();
         SetDataToUserInterface();
-        isLoading = false;
+        _isLoading = false;
 
         ChangeEditMode();
     }
@@ -56,65 +59,63 @@ public partial class FormEntity : Form
 
     private void SetAppearance()
     {
-        this.Text = entityNameSingular.FirstCharToUpperCase();
+        this.Text = EntityNameSingular.FirstCharToUpperCase();
         Forms.SetFont(this, Program.AppearanceConfig.Font);
     }
 
     private void ChangeEditMode()
     {
-        if (isLoading)
+        if (_isLoading)
         {
             return;
         }
 
-        ToolStripButtonSave.Visible = isEditMode;
-        ToolStripButtonCancel.Visible = isEditMode;
-        ToolStripButtonEdit.Visible = !isEditMode;
-        ToolStripButtonClose.Visible = !isEditMode;
+        ToolStripButtonSave.Visible = _isEditMode;
+        ToolStripButtonCancel.Visible = _isEditMode;
+        ToolStripButtonEdit.Visible = !_isEditMode;
+        ToolStripButtonClose.Visible = !_isEditMode;
 
-        TextBoxNombre.ReadOnly = !isEditMode;
-        TextBoxTelefonoMovil.ReadOnly = !isEditMode;
+        TextBoxNombre.ReadOnly = !_isEditMode;
+        TextBoxTelefonoMovil.ReadOnly = !_isEditMode;
     }
 
-    private void This_FormClosed(object sender, FormClosedEventArgs e)
+    protected override void OnFormClosed(FormClosedEventArgs e)
     {
-        context.Dispose();
-        context = null;
-        entidad = null;
-        this.Dispose();
+        base.OnFormClosed(e);
+        _dbContext?.Dispose();
     }
 
-    #endregion
+    #endregion Form stuff
 
     #region User interface data
 
     private void SetDataToUserInterface()
     {
         // General
-        Values.ToControl(TextBoxNombre, entidad.Nombre);
-        Values.ToControl(TextBoxTelefonoMovil, entidad.TelefonoMovil);
+        Values.ToControl(TextBoxNombre, _entidad.Nombre);
+        Values.ToControl(TextBoxTelefonoMovil, _entidad.TelefonoMovil);
 
         // Auditoría
-        Values.ToControl(TextBoxId, entidad.IdEntidad, true, entityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
-        Values.ToControl(TextBoxFechaHoraCreacion, entidad.FechaHoraCreacion, Values.DateTimeFormats.ShortDateTime);
-        TextBoxUsuarioCreacion.Text = Users.Users.GetDescription(context, entidad.IdUsuarioCreacion);
-        Values.ToControl(TextBoxFechaHoraUltimaModificacion, entidad.FechaHoraUltimaModificacion, Values.DateTimeFormats.ShortDateTime);
-        TextBoxUsuarioUltimaModificacion.Text = Users.Users.GetDescription(context, entidad.IdUsuarioUltimaModificacion);
+        Values.ToControl(TextBoxId, _entidad.IdEntidad, true, EntityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
+        Values.ToControl(TextBoxFechaHoraCreacion, _entidad.FechaHoraCreacion, Values.DateTimeFormats.ShortDateTime);
+        TextBoxUsuarioCreacion.Text = Users.Users.GetDescription(_dbContext, _entidad.IdUsuarioCreacion);
+        Values.ToControl(TextBoxFechaHoraUltimaModificacion, _entidad.FechaHoraUltimaModificacion, Values.DateTimeFormats.ShortDateTime);
+        TextBoxUsuarioUltimaModificacion.Text = Users.Users.GetDescription(_dbContext, _entidad.IdUsuarioUltimaModificacion);
     }
 
     private void SetDataToEntityObject()
     {
-        entidad.Nombre = Values.ToString(TextBoxNombre);
-        entidad.TelefonoMovil = Values.ToString(TextBoxTelefonoMovil);
+        _entidad.Nombre = Values.ToString(TextBoxNombre);
+        _entidad.TelefonoMovil = Values.ToString(TextBoxTelefonoMovil);
     }
 
-    #endregion
+    #endregion User interface data
 
     #region Controls events
 
     private void This_KeyPress(object sender, KeyPressEventArgs e)
     {
-        Common.Forms.This_KeyPress(e, isEditMode, ActiveControl, ToolStripButtonClose, ToolStripButtonSave, ToolStripButtonCancel, null);
+        Common.Forms.This_KeyPress(e, _isEditMode, ActiveControl, ToolStripButtonClose, ToolStripButtonSave, ToolStripButtonCancel, null);
     }
 
     private void TextBoxs_Enter(object sender, EventArgs e)
@@ -122,7 +123,7 @@ public partial class FormEntity : Form
         ((TextBox)sender).SelectAll();
     }
 
-    #endregion
+    #endregion Controls events
 
     #region Main toolbar
 
@@ -140,26 +141,26 @@ public partial class FormEntity : Form
 
         SetDataToEntityObject();
 
-        if (context.ChangeTracker.HasChanges())
+        if (_dbContext.ChangeTracker.HasChanges())
         {
             this.Cursor = Cursors.WaitCursor;
-            entidad.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
-            entidad.FechaHoraUltimaModificacion = DateTime.Now;
+            _entidad.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
+            _entidad.FechaHoraUltimaModificacion = DateTime.UtcNow;
             try
             {
-                context.SaveChanges();
-                Common.RefreshLists.Entities(entidad.IdEntidad);
+                _dbContext.SaveChanges();
+                Common.RefreshLists.Entities(_entidad.IdEntidad);
             }
             catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
             {
                 this.Cursor = Cursors.Default;
-                Common.DBErrors.DbUpdateException(dbUEx, entityNameSingular, entityIsFemale, isNew ? Properties.Resources.StringActionAdd : Properties.Resources.StringActionEdit);
+                Common.DBErrors.DbUpdateException(dbUEx, EntityNameSingular, EntityIsFemale, _isNew ? Properties.Resources.StringActionAdd : Properties.Resources.StringActionEdit);
                 return;
             }
             catch (Exception ex)
             {
                 this.Cursor = Cursors.Default;
-                Common.DBErrors.OtherUpdateException(ex, entityNameSingular, entityIsFemale, isNew ? Properties.Resources.StringActionAdd : Properties.Resources.StringActionEdit);
+                Common.DBErrors.OtherUpdateException(ex, EntityNameSingular, EntityIsFemale, _isNew ? Properties.Resources.StringActionAdd : Properties.Resources.StringActionEdit);
                 return;
             }
         }
@@ -169,7 +170,7 @@ public partial class FormEntity : Form
 
     private void ToolStripButtonCancel_Click(object sender, EventArgs e)
     {
-        if (Common.Forms.ButtonCancel_Click(context))
+        if (Common.Forms.ButtonCancel_Click(_dbContext))
         {
             this.Close();
         }
@@ -179,7 +180,7 @@ public partial class FormEntity : Form
     {
         if (Permissions.Verify(Permissions.Actions.EntityEdit))
         {
-            isEditMode = true;
+            _isEditMode = true;
             ChangeEditMode();
         }
     }
@@ -189,21 +190,21 @@ public partial class FormEntity : Form
         this.Close();
     }
 
-    #endregion
+    #endregion Main toolbar
 
     #region New object initialization
 
     private void InitializeNewObjectData()
     {
-        entidad.IdUsuarioCreacion = Program.Usuario.IdUsuario;
-        entidad.FechaHoraCreacion = DateTime.Now;
-        entidad.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
-        entidad.FechaHoraUltimaModificacion = DateTime.Now;
+        _entidad.IdUsuarioCreacion = Program.Usuario.IdUsuario;
+        _entidad.FechaHoraCreacion = DateTime.UtcNow;
+        _entidad.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
+        _entidad.FechaHoraUltimaModificacion = DateTime.UtcNow;
     }
 
     private bool CompleteNewObjectData()
     {
-        if (!isNew)
+        if (!_isNew)
         {
             return true;
         }
@@ -211,24 +212,18 @@ public partial class FormEntity : Form
         try
         {
             using Models.CSMapsContext newIdContext = new();
-            if (newIdContext.Entidades.Any())
-            {
-                entidad.IdEntidad = (short)(newIdContext.Entidades.Max(e => e.IdEntidad) + 1);
-            }
-            else
-            {
-                entidad.IdEntidad = 1;
-            }
+            _entidad.IdEntidad = newIdContext.Entidades.Any() ? (short)(newIdContext.Entidades.Max(e => e.IdEntidad) + 1) : (short)1;
+
             return true;
         }
         catch (Exception ex)
         {
-            Error.ProcessException(ex, string.Format(entityIsFemale ? Properties.Resources.StringEntityNewValuesErrorFemale : Properties.Resources.StringEntityNewValuesErrorMale, entityNameSingular));
+            Error.ProcessException(ex, string.Format(CultureInfo.CurrentCulture, EntityIsFemale ? Properties.Resources.StringEntityNewValuesErrorFemale : Properties.Resources.StringEntityNewValuesErrorMale, EntityNameSingular));
             return false;
         }
     }
 
-    #endregion
+    #endregion New object initialization
 
     #region Extra stuff
 
@@ -236,14 +231,15 @@ public partial class FormEntity : Form
     {
         if (string.IsNullOrWhiteSpace(TextBoxNombre.Text))
         {
-            Common.Forms.ShowRequiredFieldMessageBox(entityIsFemale, entityNameSingular, false, "nombre");
+            Common.Forms.ShowRequiredFieldMessageBox(EntityIsFemale, EntityNameSingular, false, "nombre");
             TabControlMain.SelectedTab = TabPageGeneral;
             TextBoxNombre.Focus();
             return false;
         }
+
         return true;
     }
 
-    #endregion
+    #endregion Extra stuff
 
 }

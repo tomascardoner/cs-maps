@@ -605,7 +605,6 @@
             this.ShowInTaskbar = false;
             this.StartPosition = FormStartPosition.CenterParent;
             this.Text = "Datos del punto";
-            this.FormClosed += this.This_FormClosed;
             this.KeyPress += this.This_KeyPress;
             this.ToolStripMain.ResumeLayout(false);
             this.ToolStripMain.PerformLayout();

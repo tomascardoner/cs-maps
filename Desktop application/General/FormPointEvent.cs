@@ -223,6 +223,7 @@ public partial class FormPointEvent : Form
             {
                 puntoEvento.IdEvento = 1;
             }
+
             return true;
         }
         catch (Exception ex)
@@ -245,6 +246,7 @@ public partial class FormPointEvent : Form
             ComboBoxEventoTipo.Focus();
             return false;
         }
+
         return true;
     }
 

@@ -1,6 +1,6 @@
 ﻿using CardonerSistemas.Framework.Base;
 
-namespace CSMaps;
+namespace CSMaps.Main;
 
 internal static class UsersParameters
 {
@@ -34,97 +34,48 @@ internal static class UsersParameters
     {
         var parametro = Get(idParametro);
 
-        if (parametro == null || parametro.Texto == null)
-        {
-            return defaultValue;
-        }
-        else
-        {
-            return parametro.Texto;
-        }
+        return parametro == null || parametro.Texto == null ? defaultValue : parametro.Texto;
     }
 
     internal static byte? GetIntegerAsByte(ParametersId idParametro, byte? defaultValue = null)
     {
         var parametro = Get(idParametro);
 
-        if (parametro == null || parametro.NumeroEntero == null)
-        {
-            return defaultValue;
-        }
-        else
-        {
-            return (byte)parametro.NumeroEntero;
-        }
+        return parametro == null || parametro.NumeroEntero == null ? defaultValue : (byte)parametro.NumeroEntero;
     }
 
     internal static short? GetIntegerAsShort(ParametersId idParametro, short? defaultValue = null)
     {
         var parametro = Get(idParametro);
 
-        if (parametro == null || parametro.NumeroEntero == null)
-        {
-            return defaultValue;
-        }
-        else
-        {
-            return (short)parametro.NumeroEntero;
-        }
+        return parametro == null || parametro.NumeroEntero == null ? defaultValue : (short)parametro.NumeroEntero;
     }
 
     internal static int? GetIntegerAsInt(ParametersId idParametro, int? defaultValue = null)
     {
         var parametro = Get(idParametro);
 
-        if (parametro == null || parametro.NumeroEntero == null)
-        {
-            return defaultValue;
-        }
-        else
-        {
-            return parametro.NumeroEntero;
-        }
+        return parametro == null || parametro.NumeroEntero == null ? defaultValue : parametro.NumeroEntero;
     }
 
     internal static decimal? GetDecimal(ParametersId idParametro, decimal? defaultValue = null)
     {
         var parametro = Get(idParametro);
 
-        if (parametro == null || parametro.NumeroDecimal == null)
-        {
-            return defaultValue;
-        }
-        else
-        {
-            return parametro.NumeroDecimal;
-        }
+        return parametro == null || parametro.NumeroDecimal == null ? defaultValue : parametro.NumeroDecimal;
     }
 
-    internal static System.DateTime? GetDateTime(ParametersId idParametro, System.DateTime? defaultValue = null)
+    internal static DateTime? GetDateTime(ParametersId idParametro, DateTime? defaultValue = null)
     {
         var parametro = Get(idParametro);
 
-        if (parametro == null || parametro.FechaHora == null)
-        {
-            return defaultValue;
-        }
-        else
-        {
-            return parametro.FechaHora;
-        }
+        return parametro == null || parametro.FechaHora == null ? defaultValue : parametro.FechaHora;
     }
 
     internal static bool? GetBool(ParametersId idParametro, bool? defaultValue = null)
     {
         var parametro = Get(idParametro);
 
-        if (parametro == null || parametro.SiNo == null)
-        {
-            return defaultValue;
-        }
-        else
-        {
-            return parametro.SiNo;
-        }
+        return parametro == null || parametro.SiNo == null ? defaultValue : parametro.SiNo;
     }
 }

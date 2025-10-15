@@ -1,4 +1,6 @@
-﻿namespace CSMaps;
+﻿using System.Globalization;
+
+namespace CSMaps;
 
 public partial class FormAboutBox : Form
 {
@@ -10,17 +12,17 @@ public partial class FormAboutBox : Form
 
     private void This_Load(object sender, EventArgs e)
     {
-        this.Text = string.Format(Properties.Resources.StringAbout, Program.Info.Title);
+        this.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.StringAbout, Program.Info.Title);
 
         LabelApplicationTitle.Text = Program.Info.Title;
-        LabelVersion.Text = string.Format(Properties.Resources.StringApplicationVersionWithDate, Program.Info.Version, Program.Info.FileDateTime.ToString("yyyyMMdd"));
+        LabelVersion.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.StringApplicationVersionWithDate, Program.Info.Version, Program.Info.FileDateTime.ToString("yyyyMMdd", CultureInfo.CurrentCulture));
         LabelCopyright.Text = Program.Info.Copyright;
         LabelLicense.Text = Program.LicensedCompany;
 
         // Propiedades
-        ListViewData.Items.Add(new ListViewItem(new string[] { Properties.Resources.StringAboutItemDBServer, Program.DatabaseConfig.Server }));
-        ListViewData.Items.Add(new ListViewItem(new string[] { Properties.Resources.StringAboutItemDBDatabase, Program.DatabaseConfig.Database }));
-        ListViewData.Items.Add(new ListViewItem(new string[] { Properties.Resources.StringAboutItemReportsPath, Program.GeneralConfig.ReportsPath }));
+        ListViewData.Items.Add(new ListViewItem([Properties.Resources.StringAboutItemDBServer, Program.DatabaseConfig.Server]));
+        ListViewData.Items.Add(new ListViewItem([Properties.Resources.StringAboutItemDBDatabase, Program.DatabaseConfig.Database]));
+        ListViewData.Items.Add(new ListViewItem([Properties.Resources.StringAboutItemReportsPath, Program.GeneralConfig.ReportsPath]));
     }
 
     private void This_DpiChanged(object sender, DpiChangedEventArgs e)
@@ -40,5 +42,4 @@ public partial class FormAboutBox : Form
         ListViewData.Columns[0].Width = itemMaxExtends + SystemInformation.BorderSize.Width;
         ListViewData.Columns[1].Width = ListViewData.ClientSize.Width - ListViewData.Columns[0].Width - SystemInformation.BorderSize.Width - SystemInformation.VerticalScrollBarWidth;
     }
-
 }

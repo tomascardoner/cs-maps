@@ -218,6 +218,7 @@ public partial class FormSettlement : Form
             {
                 establecimiento.IdEstablecimiento = 1;
             }
+
             return true;
         }
         catch (Exception ex)
@@ -240,6 +241,7 @@ public partial class FormSettlement : Form
             TextBoxNombre.Focus();
             return false;
         }
+
         if (ComboBoxEntidad.SelectedIndex == -1)
         {
             Common.Forms.ShowRequiredFieldMessageBox(entityIsFemale, entityNameSingular, true, "entidad");
@@ -247,6 +249,7 @@ public partial class FormSettlement : Form
             ComboBoxEntidad.Focus();
             return false;
         }
+
         return true;
     }
 

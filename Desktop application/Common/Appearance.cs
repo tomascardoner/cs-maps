@@ -10,6 +10,7 @@ internal static class Appearance
             {
                 SetDataGrid(dataGridView);
             }
+
             if (recursive && control.Controls.Count > 0)
             {
                 SetControlsDataGridViews(control.Controls, recursive);
@@ -25,6 +26,7 @@ internal static class Appearance
             {
                 SetTreeView(treeView);
             }
+
             if (recursive && control.Controls.Count > 0)
             {
                 SetControlsTreeViews(control.Controls, recursive);
@@ -40,10 +42,12 @@ internal static class Appearance
             {
                 SetDataGrid(dataGridView);
             }
+
             if (control is TreeView treeView)
             {
                 SetTreeView(treeView);
             }
+
             if (recursive && control.Controls.Count > 0)
             {
                 SetControls(control.Controls, recursive);
@@ -68,5 +72,4 @@ internal static class Appearance
     {
         treeView.Indent = (int)(Program.AppearanceConfig.Font.Size / 10 * 25);
     }
-
 }

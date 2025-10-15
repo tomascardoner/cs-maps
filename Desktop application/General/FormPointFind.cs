@@ -38,6 +38,7 @@ public partial class FormPointFind : Form
             MessageBox.Show("Debe ingresar el nombre a buscar.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
             return;
         }
+
         if (TextBoxNombre.Text.Trim().Length < 3)
         {
             MessageBox.Show("El nombre a buscar debe tener al menos 3 caracteres.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -54,11 +55,13 @@ public partial class FormPointFind : Form
         {
             puntosFiltrados = [.. puntos.Where(p => p.Nombre.ReplaceDiacritics().Contains(TextBoxNombre.Text.Trim().ReplaceDiacritics()))];
         }
+
         if (puntosFiltrados.Count == 0)
         {
             MessageBox.Show("No se encontraron puntos que coincidan con la búsqueda.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
             return;
         }
+
         DataGridViewMain.AutoGenerateColumns = false;
         DataGridViewMain.DataSource = puntosFiltrados;
     }

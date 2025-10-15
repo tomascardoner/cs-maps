@@ -11,8 +11,10 @@ public partial class FormImportGpsFile : Form
 
     #region Declarations
 
-    Models.CSMapsContext _DbContext = new();
-    List<MediaDevice> _MediaDevices;
+#pragma warning disable CA2213 // Disposable fields should be disposed
+    private readonly Models.CSMapsContext _dbContext = new();
+#pragma warning restore CA2213 // Disposable fields should be disposed
+    private List<MediaDevice> _mediaDevices;
 
     private sealed class PuntosGpsBD
     {
@@ -27,22 +29,22 @@ public partial class FormImportGpsFile : Form
         public decimal AltitudBD { get; set; }
     }
 
-    List<Models.Punto> _PuntosCoincidentes;
-    List<PuntosGpsBD> _PuntosCoincidentesCoordenadas;
-    List<PuntosGpsBD> _PuntosCoincidentesNombres;
-    List<Models.Punto> _PuntosNuevos;
+    private List<Models.Punto> _puntosCoincidentes;
+    private List<PuntosGpsBD> _puntosCoincidentesCoordenadas;
+    private List<PuntosGpsBD> _puntosCoincidentesNombres;
+    private List<Models.Punto> _puntosNuevos;
 
-    int _PuntosNuevosCount;
-    int _PuntosCoincidentesCoordenadasCount;
-    int _PuntosCoincidentesNombresCount;
+    private int _puntosNuevosCount;
+    private int _puntosCoincidentesCoordenadasCount;
+    private int _puntosCoincidentesNombresCount;
 
-    bool _SourceIsDevice;
-    string _FileFullPath;
+    private bool _sourceIsDevice;
+    private string _fileFullPath;
 
-    const byte StepNumberMax = 3;
-    byte _StepNumberCurrent = 1;
+    private const byte StepNumberMax = 3;
+    private byte _stepNumberCurrent = 1;
 
-    #endregion
+    #endregion Declarations
 
     #region Form stuff
 
@@ -109,15 +111,13 @@ public partial class FormImportGpsFile : Form
         dataGridViewExtension.BuildDualHeader(DataGridViewPuntosCoincidentesNombres);
     }
 
-    private void This_FormClosed(object sender, FormClosedEventArgs e)
+    protected override void OnFormClosed(FormClosedEventArgs e)
     {
-        _DbContext.Dispose();
-        _DbContext = null;
-        _MediaDevices = null;
-        this.Dispose();
+        base.OnFormClosed(e);
+        _dbContext?.Dispose();
     }
 
-    #endregion
+    #endregion Form stuff
 
     #region Controls events
 
@@ -145,15 +145,11 @@ public partial class FormImportGpsFile : Form
         else
         {
             var pathWithoutFileName = FileSystem.GetPathWithoutFileName(TextBoxFile.Text);
-            if (!string.IsNullOrWhiteSpace(pathWithoutFileName) && Path.Exists(pathWithoutFileName))
-            {
-                openFileDialog.InitialDirectory = pathWithoutFileName;
-            }
-            else
-            {
-                openFileDialog.InitialDirectory = Application.StartupPath;
-            }
+            openFileDialog.InitialDirectory = !string.IsNullOrWhiteSpace(pathWithoutFileName) && Path.Exists(pathWithoutFileName)
+                ? pathWithoutFileName
+                : Application.StartupPath;
         }
+
         if (openFileDialog.ShowDialog(this) == DialogResult.OK)
         {
             TextBoxFile.Text = openFileDialog.FileName;
@@ -224,59 +220,61 @@ public partial class FormImportGpsFile : Form
         }
     }
 
-    #endregion
+    #endregion Controls events
 
     #region Steps methods
 
     private void ShowControls()
     {
-        GroupBoxStep1.Visible = _StepNumberCurrent == 1;
-        GroupBoxStep2.Visible = _StepNumberCurrent == 2;
-        GroupBoxSummary.Visible = _StepNumberCurrent == 3;
+        GroupBoxStep1.Visible = _stepNumberCurrent == 1;
+        GroupBoxStep2.Visible = _stepNumberCurrent == 2;
+        GroupBoxSummary.Visible = _stepNumberCurrent == 3;
 
-        if (_StepNumberCurrent == 1)
+        if (_stepNumberCurrent == 1)
         {
             this.Cursor = Cursors.WaitCursor;
-            CommonFunctions.GetGpsDevicesAndDrives(ref _MediaDevices, ListViewDevices, TextBoxFile);
+            CommonFunctions.GetGpsDevicesAndDrives(ref _mediaDevices, ListViewDevices, TextBoxFile);
             this.Cursor = Cursors.Default;
         }
-        if (_StepNumberCurrent == 2)
+
+        if (_stepNumberCurrent == 2)
         {
             this.Cursor = Cursors.WaitCursor;
             ReadGpxFile();
             this.Cursor = Cursors.Default;
         }
-        if (_StepNumberCurrent == 3)
+
+        if (_stepNumberCurrent == 3)
         {
             ShowSummary();
         }
 
-        ButtonPrevious.Visible = _StepNumberCurrent > 1;
-        ButtonNext.Visible = _StepNumberCurrent < StepNumberMax;
-        ButtonFinish.Visible = _StepNumberCurrent == StepNumberMax;
+        ButtonPrevious.Visible = _stepNumberCurrent > 1;
+        ButtonNext.Visible = _stepNumberCurrent < StepNumberMax;
+        ButtonFinish.Visible = _stepNumberCurrent == StepNumberMax;
     }
 
     private void StepPrevious()
     {
-        if (_StepNumberCurrent > 1)
+        if (_stepNumberCurrent > 1)
         {
-            _StepNumberCurrent--;
+            _stepNumberCurrent--;
             ShowControls();
         }
     }
 
     private void StepNext()
     {
-        if (_StepNumberCurrent < StepNumberMax && StepVerifyRequirements())
+        if (_stepNumberCurrent < StepNumberMax && StepVerifyRequirements())
         {
-            _StepNumberCurrent++;
+            _stepNumberCurrent++;
             ShowControls();
         }
     }
 
     private bool StepVerifyRequirements()
     {
-        return _StepNumberCurrent switch
+        return _stepNumberCurrent switch
         {
             1 => VerifySource(),
             2 => VerifySelectedPoints(),
@@ -309,11 +307,11 @@ public partial class FormImportGpsFile : Form
 
     private bool VerifySelectedPoints()
     {
-        _PuntosNuevosCount = CountDataGridMarkedRows(DataGridViewPuntosNuevos, 0);
-        _PuntosCoincidentesCoordenadasCount = CountDataGridMarkedRows(DataGridViewPuntosCoincidentesCoordenadas, 2);
-        _PuntosCoincidentesNombresCount = CountDataGridMarkedRows(DataGridViewPuntosCoincidentesNombres, 1);
+        _puntosNuevosCount = CountDataGridMarkedRows(DataGridViewPuntosNuevos, 0);
+        _puntosCoincidentesCoordenadasCount = CountDataGridMarkedRows(DataGridViewPuntosCoincidentesCoordenadas, 2);
+        _puntosCoincidentesNombresCount = CountDataGridMarkedRows(DataGridViewPuntosCoincidentesNombres, 1);
 
-        if (_PuntosNuevosCount + _PuntosCoincidentesCoordenadasCount + _PuntosCoincidentesNombresCount == 0)
+        if (_puntosNuevosCount + _puntosCoincidentesCoordenadasCount + _puntosCoincidentesNombresCount == 0)
         {
             MessageBox.Show("No hay ningún punto seleccionado para importar.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             return false;
@@ -326,37 +324,37 @@ public partial class FormImportGpsFile : Form
     {
         string summary;
         summary = $"Se importarán los siguientes puntos desde el GPS:\n\n";
-        summary += $"Puntos nuevos: {_PuntosNuevosCount:N0}\n";
-        summary += $"Puntos coincidentes por coordenadas: {_PuntosCoincidentesCoordenadasCount:N0}\n";
-        summary += $"Puntos coincidentes por nombres: {_PuntosCoincidentesNombresCount:N0}\n\n";
-        summary += $"Puntos totales a importar: {_PuntosNuevosCount + _PuntosCoincidentesCoordenadasCount + _PuntosCoincidentesNombresCount:N0}\n\n";
-        if (_SourceIsDevice)
+        summary += $"Puntos nuevos: {_puntosNuevosCount:N0}\n";
+        summary += $"Puntos coincidentes por coordenadas: {_puntosCoincidentesCoordenadasCount:N0}\n";
+        summary += $"Puntos coincidentes por nombres: {_puntosCoincidentesNombresCount:N0}\n\n";
+        summary += $"Puntos totales a importar: {_puntosNuevosCount + _puntosCoincidentesCoordenadasCount + _puntosCoincidentesNombresCount:N0}\n\n";
+        if (_sourceIsDevice)
         {
             summary += $"El dispositivo de origen es: {ListViewDevices.SelectedItems[0].Text} - unidad {ListViewDevices.SelectedItems[0].SubItems[1].Text}";
         }
         else
         {
-            summary += $"El archivo de origen es: {_FileFullPath}";
+            summary += $"El archivo de origen es: {_fileFullPath}";
         }
 
         LabelSummary.Text = summary;
     }
 
-    #endregion
+    #endregion Steps methods
 
     #region Import GPX file
 
     private void ReadGpxFile()
     {
-        _SourceIsDevice = TextBoxFile.Text.IsNullOrEmpty();
+        _sourceIsDevice = TextBoxFile.Text.IsNullOrEmpty();
 
         this.Cursor = Cursors.WaitCursor;
 
-        if (_SourceIsDevice)
+        if (_sourceIsDevice)
         {
             // Descargo el archivo desde el dispositivo a la carpeta Temp
-            _FileFullPath = Path.Combine(Path.GetTempPath(), CommonFunctions.GarminFileName);
-            if (!ImportDownloadFileFromDevice(_FileFullPath, Path.Combine(ListViewDevices.SelectedItems[0].Tag.ToString(), CommonFunctions.GarminFileName)))
+            _fileFullPath = Path.Combine(Path.GetTempPath(), CommonFunctions.GarminFileName);
+            if (!ImportDownloadFileFromDevice(_fileFullPath, Path.Combine(ListViewDevices.SelectedItems[0].Tag.ToString(), CommonFunctions.GarminFileName)))
             {
                 this.Cursor = Cursors.Default;
                 return;
@@ -364,14 +362,15 @@ public partial class FormImportGpsFile : Form
         }
         else
         {
-            _FileFullPath = TextBoxFile.Text.Trim();
+            _fileFullPath = TextBoxFile.Text.Trim();
         }
 
-        if (!ImportGetGpsData(_FileFullPath))
+        if (!ImportGetGpsData(_fileFullPath))
         {
             this.Cursor = Cursors.Default;
             return;
         }
+
         this.Cursor = Cursors.Default;
     }
 
@@ -379,7 +378,7 @@ public partial class FormImportGpsFile : Form
     {
         try
         {
-            using var mediaDevice = _MediaDevices[ListViewDevices.SelectedItems[0].Index];
+            using var mediaDevice = _mediaDevices[ListViewDevices.SelectedItems[0].Index];
             mediaDevice.Connect();
             if (!mediaDevice.FileExists(sourceFilePath))
             {
@@ -387,12 +386,14 @@ public partial class FormImportGpsFile : Form
                 this.Cursor = Cursors.Default;
                 return false;
             }
+
             if (!CommonFunctions.DeleteTempFileAndFolder(destinationFilePath))
             {
                 mediaDevice.Disconnect();
                 this.Cursor = Cursors.Default;
                 return false;
             }
+
             mediaDevice.DownloadFile(sourceFilePath, destinationFilePath);
             mediaDevice.Disconnect();
             return true;
@@ -409,10 +410,10 @@ public partial class FormImportGpsFile : Form
     {
         try
         {
-            _PuntosCoincidentes = [];
-            _PuntosCoincidentesCoordenadas = [];
-            _PuntosCoincidentesNombres = [];
-            _PuntosNuevos = [];
+            _puntosCoincidentes = [];
+            _puntosCoincidentesCoordenadas = [];
+            _puntosCoincidentesNombres = [];
+            _puntosNuevos = [];
 
             GpsData gpsData;
             Geo.Gps.Serialization.Gpx11Serializer serializer = new();
@@ -420,6 +421,7 @@ public partial class FormImportGpsFile : Form
             Geo.Gps.Serialization.StreamWrapper streamWrapper = new(fileStream);
             gpsData = serializer.DeSerialize(streamWrapper);
             using Models.CSMapsContext dbContext = new();
+#pragma warning disable S3267 // Loops should be simplified with "LINQ" expressions
             foreach (var waypoint in gpsData.Waypoints)
             {
                 if (!ImportFindPointFromGpsWaypoint(dbContext, waypoint))
@@ -427,30 +429,31 @@ public partial class FormImportGpsFile : Form
                     return false;
                 }
             }
+#pragma warning restore S3267 // Loops should be simplified with "LINQ" expressions
 
-            _PuntosNuevos = [.. _PuntosNuevos.OrderBy(p => p.Nombre)];
+            _puntosNuevos = [.. _puntosNuevos.OrderBy(p => p.Nombre)];
             DataGridViewPuntosNuevos.AutoGenerateColumns = false;
-            DataGridViewPuntosNuevos.DataSource = _PuntosNuevos;
-            LabelPuntosNuevosCount.Text = Common.DataGridViews.GetItemsCountText("punto", "puntos", _PuntosNuevos.Count);
+            DataGridViewPuntosNuevos.DataSource = _puntosNuevos;
+            LabelPuntosNuevosCount.Text = Common.DataGridViews.GetItemsCountText("punto", "puntos", _puntosNuevos.Count);
 
-            _PuntosCoincidentesCoordenadas = [.. _PuntosCoincidentesCoordenadas.OrderBy(p => p.LatitudGps).ThenBy(p => p.LongitudGps)];
+            _puntosCoincidentesCoordenadas = [.. _puntosCoincidentesCoordenadas.OrderBy(p => p.LatitudGps).ThenBy(p => p.LongitudGps)];
             DataGridViewPuntosCoincidentesCoordenadas.AutoGenerateColumns = false;
-            DataGridViewPuntosCoincidentesCoordenadas.DataSource = _PuntosCoincidentesCoordenadas;
-            LabelPuntosCoincidentesCoordenadasCount.Text = Common.DataGridViews.GetItemsCountText("punto", "puntos", _PuntosCoincidentesCoordenadas.Count);
+            DataGridViewPuntosCoincidentesCoordenadas.DataSource = _puntosCoincidentesCoordenadas;
+            LabelPuntosCoincidentesCoordenadasCount.Text = Common.DataGridViews.GetItemsCountText("punto", "puntos", _puntosCoincidentesCoordenadas.Count);
 
-            _PuntosCoincidentesNombres = [.. _PuntosCoincidentesNombres.OrderBy(p => p.LatitudGps).ThenBy(p => p.LongitudGps)];
+            _puntosCoincidentesNombres = [.. _puntosCoincidentesNombres.OrderBy(p => p.LatitudGps).ThenBy(p => p.LongitudGps)];
             DataGridViewPuntosCoincidentesNombres.AutoGenerateColumns = false;
-            DataGridViewPuntosCoincidentesNombres.DataSource = _PuntosCoincidentesNombres;
-            LabelPuntosCoincidentesNombresCount.Text = Common.DataGridViews.GetItemsCountText("punto", "puntos", _PuntosCoincidentesNombres.Count);
+            DataGridViewPuntosCoincidentesNombres.DataSource = _puntosCoincidentesNombres;
+            LabelPuntosCoincidentesNombresCount.Text = Common.DataGridViews.GetItemsCountText("punto", "puntos", _puntosCoincidentesNombres.Count);
 
-            _PuntosCoincidentes = [.. _PuntosCoincidentes.OrderBy(p => p.Nombre)];
+            _puntosCoincidentes = [.. _puntosCoincidentes.OrderBy(p => p.Nombre)];
             DataGridViewPuntosCoincidentes.AutoGenerateColumns = false;
-            DataGridViewPuntosCoincidentes.DataSource = _PuntosCoincidentes;
-            LabelPuntosCoincidentesCount.Text = Common.DataGridViews.GetItemsCountText("punto", "puntos", _PuntosCoincidentes.Count);
+            DataGridViewPuntosCoincidentes.DataSource = _puntosCoincidentes;
+            LabelPuntosCoincidentesCount.Text = Common.DataGridViews.GetItemsCountText("punto", "puntos", _puntosCoincidentes.Count);
 
-            if (_SourceIsDevice)
+            if (_sourceIsDevice)
             {
-                CommonFunctions.DeleteTempFileAndFolder(_FileFullPath);
+                CommonFunctions.DeleteTempFileAndFolder(_fileFullPath);
             }
 
             return true;
@@ -474,11 +477,11 @@ public partial class FormImportGpsFile : Form
             {
                 if (punto.Nombre == waypoint.Name.Trim() && (waypoint.Coordinate.Is3D && punto.Altitud == (decimal)((CoordinateZ)waypoint.Coordinate).Elevation) || (!waypoint.Coordinate.Is3D && punto.Altitud == 0))
                 {
-                    _PuntosCoincidentes.Add(punto);
+                    _puntosCoincidentes.Add(punto);
                 }
                 else
                 {
-                    _PuntosCoincidentesCoordenadas.Add(new()
+                    _puntosCoincidentesCoordenadas.Add(new()
                     {
                         IdPunto = punto.IdPunto,
                         NombreGps = waypoint.Name.Trim(),
@@ -491,19 +494,21 @@ public partial class FormImportGpsFile : Form
                         AltitudBD = punto.Altitud
                     });
                 }
+
                 added = true;
             }
+
             if (added)
             {
                 return true;
             }
 
             // Busco por nombre
-            foreach (var punto in dbContext.Puntos.Where(p => !_PuntosCoincidentes.Contains(p) && p.Nombre == waypoint.Name.Trim()))
+            foreach (var punto in dbContext.Puntos.Where(p => !_puntosCoincidentes.Contains(p) && p.Nombre == waypoint.Name.Trim()))
             {
-                if (!_PuntosCoincidentesCoordenadas.Exists(p => p.LatitudGps != p.LatitudBD || p.LongitudGps != p.LongitudBD))
+                if (!_puntosCoincidentesCoordenadas.Exists(p => p.LatitudGps != p.LatitudBD || p.LongitudGps != p.LongitudBD))
                 {
-                    _PuntosCoincidentesNombres.Add(new()
+                    _puntosCoincidentesNombres.Add(new()
                     {
                         IdPunto = punto.IdPunto,
                         NombreGps = waypoint.Name.Trim(),
@@ -516,15 +521,17 @@ public partial class FormImportGpsFile : Form
                         AltitudBD = punto.Altitud
                     });
                 }
+
                 added = true;
             }
+
             if (added)
             {
                 return true;
             }
 
             // El waypoint es nuevo
-            _PuntosNuevos.Add(new()
+            _puntosNuevos.Add(new()
             {
                 Nombre = waypoint.Name.Trim(),
                 Latitud = (decimal)waypoint.Coordinate.Latitude,
@@ -549,13 +556,14 @@ public partial class FormImportGpsFile : Form
             using Models.CSMapsContext dbContext = new();
 
             // Puntos nuevos
-            if (_PuntosNuevosCount > 0)
+            if (_puntosNuevosCount > 0)
             {
                 var idPunto = 0;
                 if (dbContext.Puntos.Any())
                 {
                     idPunto = dbContext.Puntos.Max(p => p.IdPunto);
                 }
+
                 foreach (DataGridViewRow row in DataGridViewPuntosNuevos.Rows)
                 {
                     if (row.Cells[0].Value != null && (bool)row.Cells[0].Value)
@@ -564,7 +572,7 @@ public partial class FormImportGpsFile : Form
                         var puntoAdd = (Models.Punto)row.DataBoundItem;
                         puntoAdd.IdPunto = idPunto;
                         puntoAdd.IdUsuarioCreacion = Program.Usuario.IdUsuario;
-                        puntoAdd.FechaHoraCreacion = DateTime.Now;
+                        puntoAdd.FechaHoraCreacion = DateTime.UtcNow;
                         puntoAdd.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
                         puntoAdd.FechaHoraUltimaModificacion = puntoAdd.FechaHoraCreacion;
                         dbContext.Puntos.Add(puntoAdd);
@@ -573,7 +581,7 @@ public partial class FormImportGpsFile : Form
             }
 
             // Puntos coincidentes por coordenadas
-            if (_PuntosCoincidentesCoordenadasCount > 0)
+            if (_puntosCoincidentesCoordenadasCount > 0)
             {
                 foreach (DataGridViewRow row in DataGridViewPuntosCoincidentesCoordenadas.Rows)
                 {
@@ -587,19 +595,21 @@ public partial class FormImportGpsFile : Form
                             {
                                 puntoToUpdate.Nombre = puntoFromUpdate.NombreGps;
                             }
+
                             if (puntoFromUpdate.AltitudGps > 0 && puntoFromUpdate.AltitudGps != puntoFromUpdate.AltitudBD)
                             {
                                 puntoToUpdate.Altitud = puntoFromUpdate.AltitudGps;
                             }
+
                             puntoToUpdate.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
-                            puntoToUpdate.FechaHoraUltimaModificacion = DateTime.Now;
+                            puntoToUpdate.FechaHoraUltimaModificacion = DateTime.UtcNow;
                         }
                     }
                 }
             }
 
             // Puntos coincidentes por nombres
-            if (_PuntosCoincidentesNombresCount > 0)
+            if (_puntosCoincidentesNombresCount > 0)
             {
                 foreach (DataGridViewRow row in DataGridViewPuntosCoincidentesNombres.Rows)
                 {
@@ -613,16 +623,19 @@ public partial class FormImportGpsFile : Form
                             {
                                 puntoToUpdate.Latitud = puntoFromUpdate.LatitudGps;
                             }
+
                             if (puntoFromUpdate.LongitudGps != puntoFromUpdate.LongitudBD)
                             {
                                 puntoToUpdate.Longitud = puntoFromUpdate.LongitudGps;
                             }
+
                             if (puntoFromUpdate.AltitudGps > 0 && puntoFromUpdate.AltitudGps != puntoFromUpdate.AltitudBD)
                             {
                                 puntoToUpdate.Altitud = puntoFromUpdate.AltitudGps;
                             }
+
                             puntoToUpdate.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
-                            puntoToUpdate.FechaHoraUltimaModificacion = DateTime.Now;
+                            puntoToUpdate.FechaHoraUltimaModificacion = DateTime.UtcNow;
                         }
                     }
                 }
@@ -641,7 +654,7 @@ public partial class FormImportGpsFile : Form
         }
     }
 
-    #endregion
+    #endregion Import GPX file
 
     #region Extra stuff
 
@@ -663,6 +676,7 @@ public partial class FormImportGpsFile : Form
                 counter++;
             }
         }
+
         return counter;
     }
 

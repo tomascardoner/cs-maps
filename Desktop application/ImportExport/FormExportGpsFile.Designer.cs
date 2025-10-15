@@ -287,7 +287,6 @@
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "Exportar datos a GPS";
-            FormClosed += This_FormClosed;
             GroupBoxStep1.ResumeLayout(false);
             GroupBoxStep1.PerformLayout();
             GroupBoxSummary.ResumeLayout(false);

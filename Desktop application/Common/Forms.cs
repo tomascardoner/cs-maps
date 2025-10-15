@@ -20,12 +20,14 @@ internal static class Forms
                     {
                         return;
                     }
+
                     toolStripButtonSave.PerformClick();
                 }
                 else
                 {
                     toolStripButtonClose?.PerformClick();
                 }
+
                 break;
             case (char)Keys.Escape:
                 if (isEditMode)
@@ -36,6 +38,7 @@ internal static class Forms
                 {
                     toolStripButtonClose?.PerformClick();
                 }
+
                 break;
             default:
                 break;
@@ -60,8 +63,10 @@ internal static class Forms
             {
                 return true;
             }
+
             e.Handled = true;
         }
+
         return false;
     }
 
@@ -103,6 +108,7 @@ internal static class Forms
                 message = Properties.Resources.StringEntityDataVerificationMaleFieldRequiredMale;
             }
         }
+
         MessageBox.Show(string.Format(message, entityName, fieldName), Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
     }
 

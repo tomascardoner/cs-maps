@@ -225,7 +225,6 @@
             MinimizeBox = false;
             Name = "FormEntities";
             Text = "Entidades";
-            FormClosed += This_FormClosed;
             Load += This_Load;
             ToolStripMain.ResumeLayout(false);
             ToolStripMain.PerformLayout();

@@ -26,6 +26,7 @@ public partial class Punto
                         // Teléfono del establecimiento
                         value += $"\n{PuntoDato.IdEstablecimientoNavigation.TelefonoMovil}";
                     }
+
                     if (PuntoDato.IdEstablecimientoNavigation.IdEntidad.HasValue)
                     {
                         if (string.Compare(PuntoDato.IdEstablecimientoNavigation.Nombre, PuntoDato.IdEstablecimientoNavigation.IdEntidadNavigation.Nombre) != 0)
@@ -33,6 +34,7 @@ public partial class Punto
                             // Nombre de la entidad, si es diferente al del establecimiento
                             value += $"\n{PuntoDato.IdEstablecimientoNavigation.IdEntidadNavigation.Nombre}";
                         }
+
                         if (!string.IsNullOrWhiteSpace(PuntoDato.IdEstablecimientoNavigation.IdEntidadNavigation.TelefonoMovil) && string.Compare(PuntoDato.IdEstablecimientoNavigation.TelefonoMovil, PuntoDato.IdEstablecimientoNavigation.IdEntidadNavigation.TelefonoMovil) != 0)
                         {
                             // Teléfono de la entidad, si es diferente al del establecimiento
@@ -40,6 +42,7 @@ public partial class Punto
                         }
                     }
                 }
+
                 return value;
             }
         }
@@ -61,12 +64,14 @@ public partial class Punto
                         // Teléfono del establecimiento
                         return PuntoDato.IdEstablecimientoNavigation.TelefonoMovil;
                     }
+
                     if (PuntoDato.IdEstablecimientoNavigation.IdEntidad.HasValue && !string.IsNullOrWhiteSpace(PuntoDato.IdEstablecimientoNavigation.IdEntidadNavigation.TelefonoMovil))
                     {
                         // Teléfono de la entidad
                         return PuntoDato.IdEstablecimientoNavigation.IdEntidadNavigation.TelefonoMovil;
                     }
                 }
+
                 return string.Empty;
             }
         }
