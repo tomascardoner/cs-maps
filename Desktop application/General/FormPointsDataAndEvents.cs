@@ -251,7 +251,7 @@ public partial class FormPointsDataAndEvents : Form
     {
         if (Common.DataGridViews.ViewVerify(this, DataGridViewMain, EntityNameSingle, EntityIsFemale))
         {
-            CardonerSistemas.Framework.Base.Maps.OpenMap(Convert.ToDouble(((Models.Punto)DataGridViewMain.CurrentRow.DataBoundItem).Latitud), Convert.ToDouble(((Models.Punto)DataGridViewMain.CurrentRow.DataBoundItem).Longitud), CardonerSistemas.Framework.Base.Maps.MapProviders.GoogleMaps, CardonerSistemas.Framework.Base.Maps.MapActions.Search);
+            CardonerSistemas.Framework.Base.Maps.OpenMap(Convert.ToDouble(((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).Latitud), Convert.ToDouble(((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).Longitud), CardonerSistemas.Framework.Base.Maps.MapProviders.GoogleMaps, CardonerSistemas.Framework.Base.Maps.MapActions.Search);
             Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
         }
     }
