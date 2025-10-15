@@ -89,7 +89,7 @@ internal static class Permissions
 
     internal static bool Verify(Actions action, bool showMessage = true)
     {
-        byte IdUsuarioGrupo = Program.Usuario.IdUsuarioGrupo;
+        var IdUsuarioGrupo = Program.Usuario.IdUsuarioGrupo;
 
         if (IdUsuarioGrupo == Main.Constants.UserGroupAdministratorsId)
         {
@@ -127,7 +127,7 @@ internal static class Permissions
 
         try
         {
-            foreach (Models.PermisoGrupo permisoGrupo in context.PermisoGrupos
+            foreach (var permisoGrupo in context.PermisoGrupos
                                                             .Include(pg => pg.Permisos)
                                                             .ThenInclude(p => p.IdPermisoTipoNavigation)
                                                             .OrderBy(pg => pg.Orden)
@@ -136,7 +136,7 @@ internal static class Permissions
                 // Creo el nodo del grupo de permisos
                 treeNodeGroup = arbol.Nodes.Add(GroupPrefix + permisoGrupo.IdPermisoGrupo.ToString(), permisoGrupo.Nombre);
 
-                foreach (Models.Permiso permiso in permisoGrupo.Permisos
+                foreach (var permiso in permisoGrupo.Permisos
                                                         .Where(p => p.IdPermisoGrupo == permisoGrupo.IdPermisoGrupo)
                                                         .OrderBy(p => p.IdPermisoTipoNavigation.Orden)
                                                         .ThenBy(p => p.Orden)
@@ -177,7 +177,7 @@ internal static class Permissions
 
         try
         {
-            foreach (Models.UsuarioGrupoPermiso permiso in context.UsuarioGrupoPermisos.Where(ugp => ugp.IdUsuarioGrupo == idUserGroup))
+            foreach (var permiso in context.UsuarioGrupoPermisos.Where(ugp => ugp.IdUsuarioGrupo == idUserGroup))
             {
                 arbol.Nodes.Find(PermissionPrefix + permiso.IdPermiso.ToString(), true)[0].Checked = true;
             }

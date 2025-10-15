@@ -232,8 +232,8 @@ public partial class FormUsersGroups : Form
             return;
         }
 
-        Models.UsuarioGrupo rowData = (Models.UsuarioGrupo)DataGridViewMain.CurrentRow.DataBoundItem;
-        string entidadDatos = $"Nombre: {rowData.Nombre}";
+        var rowData = (Models.UsuarioGrupo)DataGridViewMain.CurrentRow.DataBoundItem;
+        var entidadDatos = $"Nombre: {rowData.Nombre}";
         if (!Common.DataGridViews.DeleteConfirm(entidadNombreSingular, entidadFemenina, entidadDatos))
         {
             return;
@@ -243,7 +243,7 @@ public partial class FormUsersGroups : Form
         try
         {
             using Models.CSMapsContext context = new();
-            Models.UsuarioGrupo usuario = context.UsuarioGrupos.Find(rowData.IdUsuarioGrupo);
+            var usuario = context.UsuarioGrupos.Find(rowData.IdUsuarioGrupo);
             context.UsuarioGrupos.Attach(usuario);
             context.UsuarioGrupos.Remove(usuario);
             context.SaveChanges();

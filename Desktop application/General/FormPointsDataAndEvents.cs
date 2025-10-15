@@ -1,368 +1,343 @@
-﻿using CardonerSistemas.Framework.Base;
+﻿using System.Globalization;
+using CardonerSistemas.Framework.Base;
 
-namespace CSMaps.General
+namespace CSMaps.General;
+
+public partial class FormPointsDataAndEvents : Form
 {
-    public partial class FormPointsDataAndEvents : Form
+
+    #region Declarations
+
+    internal FormPointEvents FormPointEvents;
+
+    private const string EntityNameSingle = "dato del punto";
+    private const string EntityNamePlural = "datos de los puntos";
+    private const bool EntityIsFemale = false;
+
+    private List<Models.ObtenerPuntosDatosYEventosResult> _entitiesAll;
+    private List<Models.ObtenerPuntosDatosYEventosResult> _entitiesFiltered;
+
+    private readonly Users.Permissions.Actions _addPermission = Users.Permissions.Actions.PointDataAdd;
+    private readonly Users.Permissions.Actions _editPermission = Users.Permissions.Actions.PointDataEdit;
+    private readonly Users.Permissions.Actions _deletePermission = Users.Permissions.Actions.PointDataDelete;
+
+    private DataGridViewColumn _sortedColumn;
+    private SortOrder _sortOrder;
+
+    private bool _skipFilterApply = true;
+
+    #endregion Declarations
+
+    #region Form stuff
+
+    public FormPointsDataAndEvents()
     {
+        InitializeComponent();
+        InitializeForm();
+    }
 
-        #region Declarations
+    private void InitializeForm()
+    {
+        SetAppearance();
 
-        internal FormPointEvents FormPointEvents;
+        ToolStripComboBoxNameAndSettlementFilterType.Items.AddRange([string.Format(CultureInfo.CurrentCulture, Properties.Resources.StringTextFilterTypeCompositeBegin, "establecimientos"), string.Format(CultureInfo.CurrentCulture, Properties.Resources.StringTextFilterTypeCompositeContains, "establecimientos"), string.Format(CultureInfo.CurrentCulture, Properties.Resources.StringTextFilterTypeCompositeBegin, "nombres"), string.Format(CultureInfo.CurrentCulture, Properties.Resources.StringTextFilterTypeCompositeContains, "nombres")]);
+        ToolStripComboBoxNameAndSettlementFilterType.SelectedIndex = 1;
+        using Models.CSMapsContext context = new();
+        Common.Lists.GetEventosTipos(ToolStripComboBoxLastEventTypeFilter.ComboBox, context, true, true, true);
 
-        private const string entityNameSingle = "dato del punto";
-        private const string entityNamePlural = "datos de los puntos";
-        private const bool entityIsFemale = false;
+        // Set the initial sorted column of the grid
+        _sortedColumn = DataGridViewColumnNombre;
+        _sortOrder = SortOrder.Ascending;
 
-        private List<Models.ObtenerPuntosDatosYEventosResult> entitiesAll;
-        private List<Models.ObtenerPuntosDatosYEventosResult> entitiesFiltered;
+        _skipFilterApply = false;
+        _ = ReadData();
+    }
 
-        private readonly Users.Permissions.Actions addPermission = Users.Permissions.Actions.PointDataAdd;
-        private readonly Users.Permissions.Actions editPermission = Users.Permissions.Actions.PointDataEdit;
-        private readonly Users.Permissions.Actions deletePermission = Users.Permissions.Actions.PointDataDelete;
+    private void SetAppearance()
+    {
+        this.Icon = CardonerSistemas.Framework.Base.Graphics.GetIcon(Properties.Resources.ImagePuntoDato32);
+        Forms.SetFont(this, Program.AppearanceConfig.Font);
+        Common.Appearance.SetControlsDataGridViews(this.Controls, false);
+    }
 
-        private DataGridViewColumn sortedColumn;
-        private SortOrder sortOrder;
+    private void This_Load(object sender, EventArgs e)
+    {
+        _sortedColumn.HeaderCell.SortGlyphDirection = _sortOrder;
+    }
 
-        private bool skipFilterApply = true;
+    private void This_FormClosed(object sender, FormClosedEventArgs e)
+    {
+        _entitiesAll = null;
+        _entitiesFiltered = null;
+    }
 
-        #endregion
+    #endregion Form stuff
 
-        #region Form stuff
+    #region User interface data
 
-        public FormPointsDataAndEvents()
+    internal async Task ReadData(int idPunto = 0, bool restoreCurrentPosition = false)
+    {
+        this.Cursor = Cursors.WaitCursor;
+        try
         {
-            InitializeComponent();
-            InitializeForm();
+            await using Models.CSMapsContext context = new();
+            Models.CSMapsContextProcedures procedures = new(context);
+            _entitiesAll = await procedures.ObtenerPuntosDatosYEventosAsync();
+        }
+        catch (Exception ex)
+        {
+            this.Cursor = Cursors.Default;
+            Error.ProcessException(ex, Properties.Resources.StringDatabaseReadError);
+            return;
         }
 
-        private void InitializeForm()
+        // Save position
+        if (restoreCurrentPosition)
         {
-            SetAppearance();
-
-            ToolStripComboBoxNameAndSettlementFilterType.Items.AddRange([string.Format(Properties.Resources.StringTextFilterTypeCompositeBegin, "establecimientos"), string.Format(Properties.Resources.StringTextFilterTypeCompositeContains, "establecimientos"), string.Format(Properties.Resources.StringTextFilterTypeCompositeBegin, "nombres"), string.Format(Properties.Resources.StringTextFilterTypeCompositeContains, "nombres")]);
-            ToolStripComboBoxNameAndSettlementFilterType.SelectedIndex = 1;
-            using Models.CSMapsContext context = new();
-            Common.Lists.GetEventosTipos(ToolStripComboBoxLastEventTypeFilter.ComboBox, context, true, true, true);
-
-            // Set the initial sorted column of the grid
-            sortedColumn = DataGridViewColumnNombre;
-            sortOrder = SortOrder.Ascending;
-
-            skipFilterApply = false;
-            _ = ReadData();
+            idPunto = DataGridViewMain.CurrentRow == null
+                ? 0
+                : ((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto;
         }
 
-        private void SetAppearance()
+        FilterData();
+
+        // Restore position
+        if (idPunto != 0)
         {
-            this.Icon = CardonerSistemas.Framework.Base.Graphics.GetIcon(Properties.Resources.ImagePuntoDato32);
-            Forms.SetFont(this, Program.AppearanceConfig.Font);
-            Common.Appearance.SetControlsDataGridViews(this.Controls, false);
-        }
-
-        private void This_Load(object sender, EventArgs e)
-        {
-            sortedColumn.HeaderCell.SortGlyphDirection = sortOrder;
-        }
-
-        private void This_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            entitiesAll = null;
-            entitiesFiltered = null;
-        }
-
-        #endregion
-
-        #region User interface data
-
-        internal async Task ReadData(int idPunto = 0, bool restoreCurrentPosition = false)
-        {
-            this.Cursor = Cursors.WaitCursor;
-            try
+            foreach (DataGridViewRow row in DataGridViewMain.Rows)
             {
-                using Models.CSMapsContext context = new();
-                Models.CSMapsContextProcedures procedures = new(context);
-                entitiesAll = await procedures.ObtenerPuntosDatosYEventosAsync();
-            }
-            catch (Exception ex)
-            {
-                this.Cursor = Cursors.Default;
-                Error.ProcessException(ex, Properties.Resources.StringDatabaseReadError);
-                return;
-            }
-
-            // Save position
-            if (restoreCurrentPosition)
-            {
-                if (DataGridViewMain.CurrentRow == null)
+                if (((Models.ObtenerPuntosDatosYEventosResult)row.DataBoundItem).IdPunto == idPunto)
                 {
-                    idPunto = 0;
-                }
-                else
-                {
-                    idPunto = ((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto;
-                }
-            }
-
-            FilterData();
-
-            // Restore position
-            if (idPunto != 0)
-            {
-                foreach (DataGridViewRow row in DataGridViewMain.Rows)
-                {
-                    if (((Models.ObtenerPuntosDatosYEventosResult)row.DataBoundItem).IdPunto == idPunto)
-                    {
-                        DataGridViewMain.CurrentCell = row.Cells[0];
-                        break;
-                    }
+                    DataGridViewMain.CurrentCell = row.Cells[0];
+                    break;
                 }
             }
         }
+    }
 
-        private void FilterData()
+    private void FilterData()
+    {
+        if (_skipFilterApply)
         {
-            if (skipFilterApply)
-            {
-                return;
-            }
+            return;
+        }
 
-            this.Cursor = Cursors.WaitCursor;
+        this.Cursor = Cursors.WaitCursor;
 
-            if (string.IsNullOrWhiteSpace(ToolStripTextBoxNameAndSettlementFilter.Text))
+        _entitiesFiltered = string.IsNullOrWhiteSpace(ToolStripTextBoxNameAndSettlementFilter.Text)
+            ? _entitiesAll
+            : ToolStripComboBoxNameAndSettlementFilterType.SelectedIndex switch
             {
-                entitiesFiltered = entitiesAll;
-            }
-            else
-            {
-                entitiesFiltered = ToolStripComboBoxNameAndSettlementFilterType.SelectedIndex switch
-                {
-                    0 => [.. entitiesAll.Where(p => p.EstablecimientoNombre.ToLower().ReplaceDiacritics().StartsWith(ToolStripTextBoxNameAndSettlementFilter.Text.ToLower().ReplaceDiacritics()))],
-                    1 => [.. entitiesAll.Where(p => p.EstablecimientoNombre.ToLower().ReplaceDiacritics().Contains(ToolStripTextBoxNameAndSettlementFilter.Text.ToLower().ReplaceDiacritics()))],
-                    2 => [.. entitiesAll.Where(p => p.PuntoNombre.ToLower().ReplaceDiacritics().StartsWith(ToolStripTextBoxNameAndSettlementFilter.Text.ToLower().ReplaceDiacritics()))],
-                    3 => [.. entitiesAll.Where(p => p.PuntoNombre.ToLower().ReplaceDiacritics().Contains(ToolStripTextBoxNameAndSettlementFilter.Text.ToLower().ReplaceDiacritics()))],
-                    _ => throw new NotImplementedException()
-                };
-            }
-
-            entitiesFiltered = ToolStripComboBoxLastEventTypeFilter.ComboBox.SelectedValue switch
-            {
-                CardonerSistemas.Framework.Base.Constants.ByteFieldValueAll => entitiesFiltered,
-                CardonerSistemas.Framework.Base.Constants.ByteFieldValueNotSpecified => [.. entitiesFiltered.Where(p => !p.IdEventoTipo.HasValue)],
-                CardonerSistemas.Framework.Base.Constants.ByteFieldValueOther => [.. entitiesFiltered.Where(p => p.IdEventoTipo.HasValue)],
-                _ => [.. entitiesFiltered.Where(p => p.IdEventoTipo == (byte)ToolStripComboBoxLastEventTypeFilter.ComboBox.SelectedValue)]
+                0 => [.. _entitiesAll.Where(p => p.EstablecimientoNombre.ToLower(CultureInfo.CurrentCulture).ReplaceDiacritics().StartsWith(ToolStripTextBoxNameAndSettlementFilter.Text.ToLower(CultureInfo.CurrentCulture).ReplaceDiacritics(), StringComparison.CurrentCulture))],
+                1 => [.. _entitiesAll.Where(p => p.EstablecimientoNombre.ToLower(CultureInfo.CurrentCulture).ReplaceDiacritics().Contains(ToolStripTextBoxNameAndSettlementFilter.Text.ToLower(CultureInfo.CurrentCulture).ReplaceDiacritics(), StringComparison.CurrentCulture))],
+                2 => [.. _entitiesAll.Where(p => p.PuntoNombre.ToLower(CultureInfo.CurrentCulture).ReplaceDiacritics().StartsWith(ToolStripTextBoxNameAndSettlementFilter.Text.ToLower(CultureInfo.CurrentCulture).ReplaceDiacritics(), StringComparison.CurrentCulture))],
+                3 => [.. _entitiesAll.Where(p => p.PuntoNombre.ToLower(CultureInfo.CurrentCulture).ReplaceDiacritics().Contains(ToolStripTextBoxNameAndSettlementFilter.Text.ToLower(CultureInfo.CurrentCulture).ReplaceDiacritics(), StringComparison.CurrentCulture))],
+                _ => throw new NotImplementedException()
             };
 
-            ToolStripLabelItemsCounter.Text = Common.DataGridViews.GetItemsCountText(entityNameSingle, entityNamePlural, entitiesFiltered.Count);
+        _entitiesFiltered = ToolStripComboBoxLastEventTypeFilter.ComboBox.SelectedValue switch
+        {
+            Constants.ByteFieldValueAll => _entitiesFiltered,
+            Constants.ByteFieldValueNotSpecified => [.. _entitiesFiltered.Where(p => !p.IdEventoTipo.HasValue)],
+            Constants.ByteFieldValueOther => [.. _entitiesFiltered.Where(p => p.IdEventoTipo.HasValue)],
+            _ => [.. _entitiesFiltered.Where(p => p.IdEventoTipo == (byte)ToolStripComboBoxLastEventTypeFilter.ComboBox.SelectedValue)]
+        };
 
+        ToolStripLabelItemsCounter.Text = Common.DataGridViews.GetItemsCountText(EntityNameSingle, EntityNamePlural, _entitiesFiltered.Count);
+
+        OrderData();
+    }
+
+    private void OrderData()
+    {
+        if (_sortedColumn == DataGridViewColumnNombre)
+        {
+            _entitiesFiltered = _sortOrder == SortOrder.Ascending
+                ? [.. _entitiesFiltered.OrderBy(e => e.PuntoNombre)]
+                : [.. _entitiesFiltered.OrderByDescending(e => e.PuntoNombre)];
+        }
+        else if (_sortedColumn == DataGridViewColumnEstablecimiento)
+        {
+            _entitiesFiltered = _sortOrder == SortOrder.Ascending
+                ? [.. _entitiesFiltered.OrderBy(e => e.EstablecimientoNombre).ThenBy(e => e.PuntoNombre)]
+                : [.. _entitiesFiltered.OrderByDescending(e => e.EstablecimientoNombre).ThenByDescending(e => e.PuntoNombre)];
+        }
+        else if (_sortedColumn == DataGridViewColumnChapaNumero)
+        {
+            _entitiesFiltered = _sortOrder == SortOrder.Ascending
+                ? [.. _entitiesFiltered.OrderBy(e => e.ChapaNumero)]
+                : [.. _entitiesFiltered.OrderByDescending(e => e.ChapaNumero)];
+        }
+        else if (_sortedColumn == DataGridViewColumnFechaHora)
+        {
+            _entitiesFiltered = _sortOrder == SortOrder.Ascending
+                ? [.. _entitiesFiltered.OrderBy(e => e.FechaHora).ThenBy(e => e.PuntoNombre)]
+                : [.. _entitiesFiltered.OrderByDescending(e => e.FechaHora).ThenByDescending(e => e.PuntoNombre)];
+        }
+
+        DataGridViewMain.AutoGenerateColumns = false;
+        DataGridViewMain.DataSource = _entitiesFiltered;
+        _sortedColumn.HeaderCell.SortGlyphDirection = _sortOrder;
+        this.Cursor = Cursors.Default;
+    }
+
+    #endregion User interface data
+
+    #region Controls events
+
+    private void ToolStripComboBoxNameAndSettlementFilterType_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        FilterData();
+    }
+
+    private void ToolStripTextBoxNameAndSettlementSearch_Enter(object sender, EventArgs e)
+    {
+        ToolStripTextBoxNameAndSettlementFilter.Select();
+    }
+
+    private void ToolStripTextBoxNameAndSettlementSearch_KeyPress(object sender, KeyPressEventArgs e)
+    {
+        if (Common.Forms.Filter_KeyPress(e, ToolStripTextBoxNameAndSettlementFilter.TextBox))
+        {
+            FilterData();
+            e.Handled = true;
+        }
+    }
+
+    private void ToolStripButtonNameAndSettlementSearchClear_Click(object sender, EventArgs e)
+    {
+        ToolStripTextBoxNameAndSettlementFilter.Clear();
+        FilterData();
+    }
+
+    private void ToolStripComboBoxLastEventTypeFilter_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        FilterData();
+    }
+
+    private void DataGridViewMain_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+    {
+        if (Common.DataGridViews.ColumnHeaderMouseClick(DataGridViewMain, e, ref _sortedColumn, ref _sortOrder, [DataGridViewColumnNombre, DataGridViewColumnEstablecimiento, DataGridViewColumnChapaNumero, DataGridViewColumnFechaHora]))
+        {
             OrderData();
         }
-
-        private void OrderData()
-        {
-            if (sortedColumn == DataGridViewColumnNombre)
-            {
-                if (sortOrder == SortOrder.Ascending)
-                {
-                    entitiesFiltered = [.. entitiesFiltered.OrderBy(e => e.PuntoNombre)];
-                }
-                else
-                {
-                    entitiesFiltered = [.. entitiesFiltered.OrderByDescending(e => e.PuntoNombre)];
-                }
-            }
-            else if (sortedColumn == DataGridViewColumnEstablecimiento)
-            {
-                if (sortOrder == SortOrder.Ascending)
-                {
-                    entitiesFiltered = [.. entitiesFiltered.OrderBy(e => e.EstablecimientoNombre).ThenBy(e => e.PuntoNombre)];
-                }
-                else
-                {
-                    entitiesFiltered = [.. entitiesFiltered.OrderByDescending(e => e.EstablecimientoNombre).ThenByDescending(e => e.PuntoNombre)];
-                }
-            }
-            else if (sortedColumn == DataGridViewColumnChapaNumero)
-            {
-                if (sortOrder == SortOrder.Ascending)
-                {
-                    entitiesFiltered = [.. entitiesFiltered.OrderBy(e => e.ChapaNumero)];
-                }
-                else
-                {
-                    entitiesFiltered = [.. entitiesFiltered.OrderByDescending(e => e.ChapaNumero)];
-                }
-            }
-            else if (sortedColumn == DataGridViewColumnFechaHora)
-            {
-                if (sortOrder == SortOrder.Ascending)
-                {
-                    entitiesFiltered = [.. entitiesFiltered.OrderBy(e => e.FechaHora).ThenBy(e => e.PuntoNombre)];
-                }
-                else
-                {
-                    entitiesFiltered = [.. entitiesFiltered.OrderByDescending(e => e.FechaHora).ThenByDescending(e => e.PuntoNombre)];
-                }
-            }
-            DataGridViewMain.AutoGenerateColumns = false;
-            DataGridViewMain.DataSource = entitiesFiltered;
-            sortedColumn.HeaderCell.SortGlyphDirection = sortOrder;
-            this.Cursor = Cursors.Default;
-        }
-
-        #endregion
-
-        #region Controls events
-
-        private void ToolStripComboBoxNameAndSettlementFilterType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            FilterData();
-        }
-
-        private void ToolStripTextBoxNameAndSettlementSearch_Enter(object sender, EventArgs e)
-        {
-            ToolStripTextBoxNameAndSettlementFilter.Select();
-        }
-
-        private void ToolStripTextBoxNameAndSettlementSearch_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (Common.Forms.Filter_KeyPress(e, ToolStripTextBoxNameAndSettlementFilter.TextBox))
-            {
-                FilterData();
-                e.Handled = true;
-            }
-        }
-
-        private void ToolStripButtonNameAndSettlementSearchClear_Click(object sender, EventArgs e)
-        {
-            ToolStripTextBoxNameAndSettlementFilter.Clear();
-            FilterData();
-        }
-
-        private void ToolStripComboBoxLastEventTypeFilter_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            FilterData();
-        }
-
-        private void DataGridViewMain_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            if (Common.DataGridViews.ColumnHeaderMouseClick(DataGridViewMain, e, ref sortedColumn, ref sortOrder, [DataGridViewColumnNombre, DataGridViewColumnEstablecimiento, DataGridViewColumnChapaNumero, DataGridViewColumnFechaHora]))
-            {
-                OrderData();
-            }
-        }
-
-        #endregion
-
-        #region Main toolbar
-
-        private void ToolStripButtonAdd_Click(object sender, EventArgs e)
-        {
-            if (Common.DataGridViews.AddVerify(this, DataGridViewMain, addPermission))
-            {
-                FormPointData formPointData = new(true, 0);
-                formPointData.ShowDialog(this);
-                Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
-            }
-        }
-
-        private void ToolStripButtonView_Click(object sender, EventArgs e)
-        {
-            if (Common.DataGridViews.ViewVerify(this, DataGridViewMain, entityNameSingle, entityIsFemale))
-            {
-                FormPointData formPointData = new(false, ((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto);
-                formPointData.ShowDialog(this);
-                Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
-            }
-        }
-
-        private void ToolStripButtonViewOnMap_Click(object sender, EventArgs e)
-        {
-            if (Common.DataGridViews.ViewVerify(this, DataGridViewMain, entityNameSingle, entityIsFemale))
-            {
-                Maps.FormViewer formViewer = new(((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).Latitud, ((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).Longitud);
-                Program.FormMdi.ShowMdiForm(formViewer, true);
-                Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
-            }
-        }
-
-        private void ToolStripButtonEdit_Click(object sender, EventArgs e)
-        {
-            if (Common.DataGridViews.EditVerify(this, DataGridViewMain, editPermission, entityNameSingle, entityIsFemale))
-            {
-                FormPointData formPointData = new(true, ((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto);
-                formPointData.ShowDialog(this);
-                Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
-            }
-        }
-
-        private void ToolStripButtonDelete_Click(object sender, EventArgs e)
-        {
-            if (!Common.DataGridViews.DeleteVerify(DataGridViewMain, deletePermission, entityNameSingle, entityIsFemale))
-            {
-                return;
-            }
-
-            Models.ObtenerPuntosDatosYEventosResult rowData = (Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem;
-            string entidadDatos = $"Nombre: {rowData.PuntoNombre}\nLatitud: {rowData.Latitud}\nLongitud: {rowData.Longitud}\nEstablecimiento: {rowData.EstablecimientoNombre}\nNº de chapa:: {rowData.ChapaNumero}";
-            if (!Common.DataGridViews.DeleteConfirm(entityNameSingle, entityIsFemale, entidadDatos))
-            {
-                return;
-            }
-
-            this.Cursor = Cursors.WaitCursor;
-            try
-            {
-                using Models.CSMapsContext context = new();
-                if (context.PuntoEventos.Any(pe => pe.IdPunto == rowData.IdPunto))
-                {
-                    this.Cursor = Cursors.Default;
-                    MessageBox.Show("Para poder borrar los datos de este punto, primero deberá borrar los eventos del mismo.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    return;
-                }
-                Models.PuntoDato puntoDato = context.PuntoDatos.Find(rowData.IdPunto);
-                context.PuntoDatos.Attach(puntoDato);
-                context.PuntoDatos.Remove(puntoDato);
-                context.SaveChanges();
-                Common.RefreshLists.PointsData();
-            }
-            catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
-            {
-                Common.DBErrors.DbUpdateException(dbUEx, entityNameSingle, entityIsFemale, Properties.Resources.StringActionDelete);
-            }
-            catch (Exception ex)
-            {
-                Common.DBErrors.OtherUpdateException(ex, entityNameSingle, entityIsFemale, Properties.Resources.StringActionDelete);
-            }
-            this.Cursor = Cursors.Default;
-        }
-
-        private void ToolStripButtonPointEventAdd_Click(object sender, EventArgs e)
-        {
-            if (DataGridViewMain.CurrentRow == null)
-            {
-                MessageBox.Show($"No hay ningún {entityNameSingle} para agregar un evento.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-            if (!Users.Permissions.Verify(Users.Permissions.Actions.PointEventAdd))
-            {
-                return;
-            }
-            FormPointEvent formPointEvent = new(true, ((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto, 0);
-            formPointEvent.ShowDialog(this);
-        }
-
-        private void ToolStripButtonPointEvents_Click(object sender, EventArgs e)
-        {
-            if (DataGridViewMain.CurrentRow == null)
-            {
-                MessageBox.Show($"No hay ningún {entityNameSingle} para ver sus eventos.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-            FormPointEvents ??= new(((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto);
-            FormPointEvents.ShowDialog(this);
-        }
-
-        #endregion
-
     }
+
+    #endregion Controls events
+
+    #region Main toolbar
+
+    private void ToolStripButtonAdd_Click(object sender, EventArgs e)
+    {
+        if (Common.DataGridViews.AddVerify(this, DataGridViewMain, _addPermission))
+        {
+            FormPointData formPointData = new(true, 0);
+            formPointData.ShowDialog(this);
+            Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
+        }
+    }
+
+    private void ToolStripButtonView_Click(object sender, EventArgs e)
+    {
+        if (Common.DataGridViews.ViewVerify(this, DataGridViewMain, EntityNameSingle, EntityIsFemale))
+        {
+            FormPointData formPointData = new(false, ((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto);
+            formPointData.ShowDialog(this);
+            Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
+        }
+    }
+
+    private void ToolStripButtonViewOnMap_Click(object sender, EventArgs e)
+    {
+        if (Common.DataGridViews.ViewVerify(this, DataGridViewMain, EntityNameSingle, EntityIsFemale))
+        {
+            CardonerSistemas.Framework.Base.Maps.OpenMap(Convert.ToDouble(((Models.Punto)DataGridViewMain.CurrentRow.DataBoundItem).Latitud), Convert.ToDouble(((Models.Punto)DataGridViewMain.CurrentRow.DataBoundItem).Longitud), CardonerSistemas.Framework.Base.Maps.MapProviders.GoogleMaps, CardonerSistemas.Framework.Base.Maps.MapActions.Search);
+            Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
+        }
+    }
+
+    private void ToolStripButtonEdit_Click(object sender, EventArgs e)
+    {
+        if (Common.DataGridViews.EditVerify(this, DataGridViewMain, _editPermission, EntityNameSingle, EntityIsFemale))
+        {
+            FormPointData formPointData = new(true, ((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto);
+            formPointData.ShowDialog(this);
+            Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
+        }
+    }
+
+    private void ToolStripButtonDelete_Click(object sender, EventArgs e)
+    {
+        if (!Common.DataGridViews.DeleteVerify(DataGridViewMain, _deletePermission, EntityNameSingle, EntityIsFemale))
+        {
+            return;
+        }
+
+        var rowData = (Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem;
+        var entidadDatos = $"Nombre: {rowData.PuntoNombre}\nLatitud: {rowData.Latitud}\nLongitud: {rowData.Longitud}\nEstablecimiento: {rowData.EstablecimientoNombre}\nNº de chapa:: {rowData.ChapaNumero}";
+        if (!Common.DataGridViews.DeleteConfirm(EntityNameSingle, EntityIsFemale, entidadDatos))
+        {
+            return;
+        }
+
+        this.Cursor = Cursors.WaitCursor;
+        try
+        {
+            using Models.CSMapsContext context = new();
+            if (context.PuntoEventos.Any(pe => pe.IdPunto == rowData.IdPunto))
+            {
+                this.Cursor = Cursors.Default;
+                MessageBox.Show("Para poder borrar los datos de este punto, primero deberá borrar los eventos del mismo.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            var puntoDato = context.PuntoDatos.Find(rowData.IdPunto);
+            context.PuntoDatos.Attach(puntoDato);
+            context.PuntoDatos.Remove(puntoDato);
+            context.SaveChanges();
+            Common.RefreshLists.PointsData();
+        }
+        catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
+        {
+            Common.DBErrors.DbUpdateException(dbUEx, EntityNameSingle, EntityIsFemale, Properties.Resources.StringActionDelete);
+        }
+        catch (Exception ex)
+        {
+            Common.DBErrors.OtherUpdateException(ex, EntityNameSingle, EntityIsFemale, Properties.Resources.StringActionDelete);
+        }
+
+        this.Cursor = Cursors.Default;
+    }
+
+    private void ToolStripButtonPointEventAdd_Click(object sender, EventArgs e)
+    {
+        if (DataGridViewMain.CurrentRow == null)
+        {
+            MessageBox.Show($"No hay ningún {EntityNameSingle} para agregar un evento.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return;
+        }
+
+        if (!Users.Permissions.Verify(Users.Permissions.Actions.PointEventAdd))
+        {
+            return;
+        }
+
+        FormPointEvent formPointEvent = new(true, ((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto, 0);
+        formPointEvent.ShowDialog(this);
+    }
+
+    private void ToolStripButtonPointEvents_Click(object sender, EventArgs e)
+    {
+        if (DataGridViewMain.CurrentRow == null)
+        {
+            MessageBox.Show($"No hay ningún {EntityNameSingle} para ver sus eventos.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return;
+        }
+
+        FormPointEvents ??= new(((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto);
+        FormPointEvents.ShowDialog(this);
+    }
+
+    #endregion Main toolbar
+
 }

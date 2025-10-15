@@ -85,7 +85,7 @@ public partial class FormPointEvents : Form
             Format = DateTimePickerFormat.Short,
             MinDate = new(2022, 1, 1),
             MaxDate = new(2099, 12, 31),
-            Value = System.DateTime.Now,
+            Value = DateTime.Now,
             Width = 100
         };
         DateTimePickerDateFilterFrom.ValueChanged += DateTimePickerDateFilter_ValueChanged;
@@ -103,7 +103,7 @@ public partial class FormPointEvents : Form
             Format = DateTimePickerFormat.Short,
             MinDate = new(2022, 1, 1),
             MaxDate = new(2099, 12, 31),
-            Value = System.DateTime.Now,
+            Value = DateTime.Now,
             Width = 100
         };
         DateTimePickerDateFilterTo.ValueChanged += DateTimePickerDateFilter_ValueChanged;
@@ -146,10 +146,10 @@ public partial class FormPointEvents : Form
 
     private void SetDataToUserInterface(Models.CSMapsContext context)
     {
-        Models.PuntoDato puntoDato = context.PuntoDatos.Find(idPunto);
+        var puntoDato = context.PuntoDatos.Find(idPunto);
         if (puntoDato.IdEstablecimiento.HasValue)
         {
-            Models.Establecimiento establecimiento = context.Establecimientos.Find(puntoDato.IdEstablecimiento);
+            var establecimiento = context.Establecimientos.Find(puntoDato.IdEstablecimiento);
             TextBoxEstablecimiento.Text = establecimiento.Nombre;
         }
         else
@@ -217,11 +217,11 @@ public partial class FormPointEvents : Form
         this.Cursor = Cursors.WaitCursor;
 
         // Date
-        (DateOnly fechaDesde, DateOnly fechaHasta) = DateAndTime.GetDatesFromPeriodTypeAndValue((DateAndTime.PeriodTypes)ToolStripComboBoxDateFilterPeriodType.SelectedIndex, (byte)ToolStripComboBoxDateFilterPeriodValue.SelectedIndex, DateOnly.FromDateTime(((DateTimePicker)HostDateTimePickerDateFilterFrom.Control).Value), DateOnly.FromDateTime(((DateTimePicker)HostDateTimePickerDateFilterTo.Control).Value));
+        (var fechaDesde, var fechaHasta) = DateAndTime.GetDatesFromPeriodTypeAndValue((DateAndTime.PeriodTypes)ToolStripComboBoxDateFilterPeriodType.SelectedIndex, (byte)ToolStripComboBoxDateFilterPeriodValue.SelectedIndex, DateOnly.FromDateTime(((DateTimePicker)HostDateTimePickerDateFilterFrom.Control).Value), DateOnly.FromDateTime(((DateTimePicker)HostDateTimePickerDateFilterTo.Control).Value));
         entitiesFiltered = [.. entitiesAll.Where(pe => pe.FechaHora >= fechaDesde.ToDateTime(new()) && pe.FechaHora <= fechaHasta.ToDateTime(new(23, 59, 59)))];
 
         // Event type
-        if ((byte)ToolStripComboBoxEventTypeFilter.ComboBox.SelectedValue != CardonerSistemas.Framework.Base.Constants.ByteFieldValueAll)
+        if ((byte)ToolStripComboBoxEventTypeFilter.ComboBox.SelectedValue != Constants.ByteFieldValueAll)
         {
             entitiesFiltered = [.. entitiesFiltered.Where(pe => pe.IdEventoTipo == (byte)ToolStripComboBoxEventTypeFilter.ComboBox.SelectedValue)];
         }
@@ -337,8 +337,8 @@ public partial class FormPointEvents : Form
             return;
         }
 
-        DataGridViewRowData rowData = (DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem;
-        string entidadDatos = $"Tipo: {rowData.EventoTipoNombre}\nFecha-hora: {rowData.FechaHora:g}";
+        var rowData = (DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem;
+        var entidadDatos = $"Tipo: {rowData.EventoTipoNombre}\nFecha-hora: {rowData.FechaHora:g}";
         if (!Common.DataGridViews.DeleteConfirm(entityNameSingle, entityIsFemale, entidadDatos))
         {
             return;
@@ -348,7 +348,7 @@ public partial class FormPointEvents : Form
         try
         {
             using Models.CSMapsContext context = new();
-            Models.PuntoEvento puntoEvento = context.PuntoEventos.Find(idPunto, rowData.IdEvento);
+            var puntoEvento = context.PuntoEventos.Find(idPunto, rowData.IdEvento);
             context.PuntoEventos.Attach(puntoEvento);
             context.PuntoEventos.Remove(puntoEvento);
             context.SaveChanges();

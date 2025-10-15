@@ -1,131 +1,130 @@
 ﻿using CardonerSistemas.Framework.Base;
 
-namespace CSMaps
+namespace CSMaps;
+
+internal static class UsersParameters
 {
-    internal static class UsersParameters
+    internal enum ParametersId : short
     {
-        internal enum ParametersId : short
+        // System parameters
+    }
+
+    internal static bool LoadFromDatabase()
+    {
+        try
         {
-            // System parameters
+            using Models.CSMapsContext context = new();
+            Program.ParametrosUsuario = [.. context.UsuarioParametros];
+            return true;
         }
-
-        internal static bool LoadFromDatabase()
+        catch (Exception ex)
         {
-            try
-            {
-                using Models.CSMapsContext context = new();
-                Program.ParametrosUsuario = [.. context.UsuarioParametros];
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Program.ParametrosUsuario = [];
-                Error.ProcessException(ex, "Error al leer los parámetros del usuario desde la base de datos.");
-                return false;
-            }
+            Program.ParametrosUsuario = [];
+            Error.ProcessException(ex, "Error al leer los parámetros del usuario desde la base de datos.");
+            return false;
         }
+    }
 
-        private static Models.UsuarioParametro Get(ParametersId idParametro)
+    private static Models.UsuarioParametro Get(ParametersId idParametro)
+    {
+        return Program.ParametrosUsuario.Find(p => p.IdParametro == (short)idParametro);
+    }
+
+    internal static string GetText(ParametersId idParametro, string defaultValue = null)
+    {
+        var parametro = Get(idParametro);
+
+        if (parametro == null || parametro.Texto == null)
         {
-            return Program.ParametrosUsuario.Find(p => p.IdParametro == (short)idParametro);
+            return defaultValue;
         }
-
-        internal static string GetText(ParametersId idParametro, string defaultValue = null)
+        else
         {
-            Models.UsuarioParametro parametro = Get(idParametro);
-
-            if (parametro == null || parametro.Texto == null)
-            {
-                return defaultValue;
-            }
-            else
-            {
-                return parametro.Texto;
-            }
+            return parametro.Texto;
         }
+    }
 
-        internal static byte? GetIntegerAsByte(ParametersId idParametro, byte? defaultValue = null)
+    internal static byte? GetIntegerAsByte(ParametersId idParametro, byte? defaultValue = null)
+    {
+        var parametro = Get(idParametro);
+
+        if (parametro == null || parametro.NumeroEntero == null)
         {
-            Models.UsuarioParametro parametro = Get(idParametro);
-
-            if (parametro == null || parametro.NumeroEntero == null)
-            {
-                return defaultValue;
-            }
-            else
-            {
-                return (byte)parametro.NumeroEntero;
-            }
+            return defaultValue;
         }
-
-        internal static short? GetIntegerAsShort(ParametersId idParametro, short? defaultValue = null)
+        else
         {
-            Models.UsuarioParametro parametro = Get(idParametro);
-
-            if (parametro == null || parametro.NumeroEntero == null)
-            {
-                return defaultValue;
-            }
-            else
-            {
-                return (short)parametro.NumeroEntero;
-            }
+            return (byte)parametro.NumeroEntero;
         }
+    }
 
-        internal static int? GetIntegerAsInt(ParametersId idParametro, int? defaultValue = null)
+    internal static short? GetIntegerAsShort(ParametersId idParametro, short? defaultValue = null)
+    {
+        var parametro = Get(idParametro);
+
+        if (parametro == null || parametro.NumeroEntero == null)
         {
-            Models.UsuarioParametro parametro = Get(idParametro);
-
-            if (parametro == null || parametro.NumeroEntero == null)
-            {
-                return defaultValue;
-            }
-            else
-            {
-                return parametro.NumeroEntero;
-            }
+            return defaultValue;
         }
-
-        internal static decimal? GetDecimal(ParametersId idParametro, decimal? defaultValue = null)
+        else
         {
-            Models.UsuarioParametro parametro = Get(idParametro);
-
-            if (parametro == null || parametro.NumeroDecimal == null)
-            {
-                return defaultValue;
-            }
-            else
-            {
-                return parametro.NumeroDecimal;
-            }
+            return (short)parametro.NumeroEntero;
         }
+    }
 
-        internal static System.DateTime? GetDateTime(ParametersId idParametro, System.DateTime? defaultValue = null)
+    internal static int? GetIntegerAsInt(ParametersId idParametro, int? defaultValue = null)
+    {
+        var parametro = Get(idParametro);
+
+        if (parametro == null || parametro.NumeroEntero == null)
         {
-            Models.UsuarioParametro parametro = Get(idParametro);
-
-            if (parametro == null || parametro.FechaHora == null)
-            {
-                return defaultValue;
-            }
-            else
-            {
-                return parametro.FechaHora;
-            }
+            return defaultValue;
         }
-
-        internal static bool? GetBool(ParametersId idParametro, bool? defaultValue = null)
+        else
         {
-            Models.UsuarioParametro parametro = Get(idParametro);
+            return parametro.NumeroEntero;
+        }
+    }
 
-            if (parametro == null || parametro.SiNo == null)
-            {
-                return defaultValue;
-            }
-            else
-            {
-                return parametro.SiNo;
-            }
+    internal static decimal? GetDecimal(ParametersId idParametro, decimal? defaultValue = null)
+    {
+        var parametro = Get(idParametro);
+
+        if (parametro == null || parametro.NumeroDecimal == null)
+        {
+            return defaultValue;
+        }
+        else
+        {
+            return parametro.NumeroDecimal;
+        }
+    }
+
+    internal static System.DateTime? GetDateTime(ParametersId idParametro, System.DateTime? defaultValue = null)
+    {
+        var parametro = Get(idParametro);
+
+        if (parametro == null || parametro.FechaHora == null)
+        {
+            return defaultValue;
+        }
+        else
+        {
+            return parametro.FechaHora;
+        }
+    }
+
+    internal static bool? GetBool(ParametersId idParametro, bool? defaultValue = null)
+    {
+        var parametro = Get(idParametro);
+
+        if (parametro == null || parametro.SiNo == null)
+        {
+            return defaultValue;
+        }
+        else
+        {
+            return parametro.SiNo;
         }
     }
 }

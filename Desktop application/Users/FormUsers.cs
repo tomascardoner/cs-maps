@@ -247,8 +247,8 @@ public partial class FormUsers : Form
             return;
         }
 
-        DataGridRowData rowData = (DataGridRowData)DataGridViewMain.CurrentRow.DataBoundItem;
-        string entidadDatos = $"Nombre: {rowData.Nombre}\nDescripción: {rowData.Descripcion}\nGrupo: {rowData.UsuarioGrupoNombre}";
+        var rowData = (DataGridRowData)DataGridViewMain.CurrentRow.DataBoundItem;
+        var entidadDatos = $"Nombre: {rowData.Nombre}\nDescripción: {rowData.Descripcion}\nGrupo: {rowData.UsuarioGrupoNombre}";
         if (!Common.DataGridViews.DeleteConfirm(entityNameSingle, entityIsFemale, entidadDatos))
         {
             return;
@@ -258,7 +258,7 @@ public partial class FormUsers : Form
         try
         {
             using Models.CSMapsContext context = new();
-            Models.Usuario usuario = context.Usuarios.Find(rowData.IdUsuario);
+            var usuario = context.Usuarios.Find(rowData.IdUsuario);
             context.Usuarios.Attach(usuario);
             context.Usuarios.Remove(usuario);
             context.SaveChanges();

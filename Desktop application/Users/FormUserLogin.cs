@@ -67,7 +67,7 @@ public partial class FormUserLogin : Form
 
     private void TextBoxs_Leave(object sender, EventArgs e)
     {
-        TextBox textBox = (TextBox)sender;
+        var textBox = (TextBox)sender;
         textBox.Text = textBox.Text.Trim();
     }
 
@@ -85,7 +85,7 @@ public partial class FormUserLogin : Form
             TextBoxNombre.Focus();
             return;
         }
-        byte usuarioNombreLongitudMinima = Parameters.GetIntegerAsByte(Parameters.ParametersId.UsuarioNombreLongitudMinima, 5).Value;
+        var usuarioNombreLongitudMinima = Parameters.GetIntegerAsByte(Parameters.ParametersId.UsuarioNombreLongitudMinima, 5).Value;
         if (TextBoxNombre.Text.Length < usuarioNombreLongitudMinima)
         {
             MessageBox.Show($"El nombre de usuario debe contener al menos {usuarioNombreLongitudMinima} caracteres.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -100,7 +100,7 @@ public partial class FormUserLogin : Form
             TextBoxPassword.Focus();
             return;
         }
-        byte usuarioPasswordLongitudMinima = Parameters.GetIntegerAsByte(Parameters.ParametersId.UsuarioPasswordLongitudMinima, 8).Value;
+        var usuarioPasswordLongitudMinima = Parameters.GetIntegerAsByte(Parameters.ParametersId.UsuarioPasswordLongitudMinima, 8).Value;
         if (TextBoxPassword.Text.Trim().Length < usuarioPasswordLongitudMinima)
         {
             MessageBox.Show($"La contraseña debe contener al menos {usuarioPasswordLongitudMinima} caracteres.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -140,7 +140,7 @@ public partial class FormUserLogin : Form
         }
 
         // Comparo la contraseña ingresada con la del usuario
-        if (!CardonerSistemas.Framework.Cryptography.StringCipher.Decrypt(usuario.Password, Main.Constants.PublicEncryptionPassword, out string decryptedPassword, out string decryptionResultMessage))
+        if (!CardonerSistemas.Framework.Cryptography.StringCipher.Decrypt(usuario.Password, Main.Constants.PublicEncryptionPassword, out var decryptedPassword, out var decryptionResultMessage))
         {
             usuario = null;
             this.Cursor = Cursors.Default;

@@ -1,203 +1,202 @@
 ﻿using CardonerSistemas.Framework.Base;
 
-namespace CSMaps.Common
+namespace CSMaps.Common;
+
+internal static class DataGridViews
 {
-    internal static class DataGridViews
+
+    #region Common
+
+    internal static void CommonActionFinalize(Form form, DataGridView dataGridView)
     {
+        form.Cursor = Cursors.Default;
+        dataGridView.Enabled = true;
+    }
 
-        #region Common
+    #endregion
 
-        internal static void CommonActionFinalize(Form form, DataGridView dataGridView)
+    #region View
+
+    internal static bool ViewVerify(Form form, DataGridView dataGridView, string entityNameSingle, bool entityIsFemale)
+    {
+        if (dataGridView.CurrentRow == null)
         {
-            form.Cursor = Cursors.Default;
-            dataGridView.Enabled = true;
+            MessageBox.Show(string.Format(entityIsFemale ? Properties.Resources.StringActionNoneFemale : Properties.Resources.StringActionNoneMale, entityNameSingle, Properties.Resources.StringActionView), Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return false;
         }
+        form.Cursor = Cursors.WaitCursor;
+        dataGridView.Enabled = false;
+        return true;
+    }
 
-        #endregion
+    #endregion
 
-        #region View
+    #region Add
 
-        internal static bool ViewVerify(Form form, DataGridView dataGridView, string entityNameSingle, bool entityIsFemale)
+    internal static bool AddVerify(Form form, DataGridView dataGridView, Users.Permissions.Actions? permiso)
+    {
+        if (permiso.HasValue && !Users.Permissions.Verify(permiso.Value))
         {
-            if (dataGridView.CurrentRow == null)
-            {
-                MessageBox.Show(string.Format(entityIsFemale ? Properties.Resources.StringActionNoneFemale : Properties.Resources.StringActionNoneMale, entityNameSingle, Properties.Resources.StringActionView), Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return false;
-            }
-            form.Cursor = Cursors.WaitCursor;
-            dataGridView.Enabled = false;
-            return true;
+            return false;
         }
+        form.Cursor = Cursors.WaitCursor;
+        dataGridView.Enabled = false;
+        return true;
+    }
 
-        #endregion
+    #endregion
 
-        #region Add
+    #region Edit
 
-        internal static bool AddVerify(Form form, DataGridView dataGridView, Users.Permissions.Actions? permiso)
+    internal static bool EditVerify(Form form, DataGridView dataGridView, Users.Permissions.Actions? permiso, string entityNameSingle, bool entityIsFemale)
+    {
+        if (dataGridView.CurrentRow == null)
         {
-            if (permiso.HasValue && !Users.Permissions.Verify(permiso.Value))
-            {
-                return false;
-            }
-            form.Cursor = Cursors.WaitCursor;
-            dataGridView.Enabled = false;
-            return true;
+            MessageBox.Show(string.Format(entityIsFemale ? Properties.Resources.StringActionNoneFemale : Properties.Resources.StringActionNoneMale, entityNameSingle, Properties.Resources.StringActionEdit), Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return false;
         }
-
-        #endregion
-
-        #region Edit
-
-        internal static bool EditVerify(Form form, DataGridView dataGridView, Users.Permissions.Actions? permiso, string entityNameSingle, bool entityIsFemale)
+        if (permiso.HasValue && !Users.Permissions.Verify(permiso.Value))
         {
-            if (dataGridView.CurrentRow == null)
-            {
-                MessageBox.Show(string.Format(entityIsFemale ? Properties.Resources.StringActionNoneFemale : Properties.Resources.StringActionNoneMale, entityNameSingle, Properties.Resources.StringActionEdit), Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return false;
-            }
-            if (permiso.HasValue && !Users.Permissions.Verify(permiso.Value))
-            {
-                return false;
-            }
-            form.Cursor = Cursors.WaitCursor;
-            dataGridView.Enabled = false;
-            return true;
+            return false;
         }
+        form.Cursor = Cursors.WaitCursor;
+        dataGridView.Enabled = false;
+        return true;
+    }
 
-        #endregion
+    #endregion
 
-        #region Delete
+    #region Delete
 
-        internal static bool DeleteVerify(DataGridView dataGridView, Users.Permissions.Actions? permiso, string entityNameSingle, bool entityIsFemale)
+    internal static bool DeleteVerify(DataGridView dataGridView, Users.Permissions.Actions? permiso, string entityNameSingle, bool entityIsFemale)
+    {
+        if (dataGridView.CurrentRow == null)
         {
-            if (dataGridView.CurrentRow == null)
-            {
-                MessageBox.Show(string.Format(entityIsFemale ? Properties.Resources.StringActionNoneFemale : Properties.Resources.StringActionNoneMale, entityNameSingle, Properties.Resources.StringActionDelete), Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return false;
-            }
-            if (permiso.HasValue && !Users.Permissions.Verify(permiso.Value))
-            {
-                return false;
-            }
-            return true;
+            MessageBox.Show(string.Format(entityIsFemale ? Properties.Resources.StringActionNoneFemale : Properties.Resources.StringActionNoneMale, entityNameSingle, Properties.Resources.StringActionDelete), Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return false;
         }
-
-        internal static bool DeleteConfirm(string entityNameSingle, bool entityIsFemale, string entityData)
+        if (permiso.HasValue && !Users.Permissions.Verify(permiso.Value))
         {
-            string mensaje = string.Format(entityIsFemale ? Properties.Resources.StringActionDeleteConfirmationFemale : Properties.Resources.StringActionDeleteConfirmationMale, entityNameSingle, entityData);
-            return MessageBox.Show(mensaje, Program.Info.Title, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes;
+            return false;
         }
+        return true;
+    }
 
-        #endregion
+    internal static bool DeleteConfirm(string entityNameSingle, bool entityIsFemale, string entityData)
+    {
+        var mensaje = string.Format(entityIsFemale ? Properties.Resources.StringActionDeleteConfirmationFemale : Properties.Resources.StringActionDeleteConfirmationMale, entityNameSingle, entityData);
+        return MessageBox.Show(mensaje, Program.Info.Title, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes;
+    }
 
-        #region Sort by column
+    #endregion
 
-        internal static bool ColumnHeaderMouseClick(DataGridView dataGridView, DataGridViewCellMouseEventArgs e, ref DataGridViewColumn sortedColumn, ref SortOrder sortOrder, DataGridViewColumn[] sorteableColumns)
+    #region Sort by column
+
+    internal static bool ColumnHeaderMouseClick(DataGridView dataGridView, DataGridViewCellMouseEventArgs e, ref DataGridViewColumn sortedColumn, ref SortOrder sortOrder, DataGridViewColumn[] sorteableColumns)
+    {
+        var column = dataGridView.Columns[e.ColumnIndex];
+        if (!sorteableColumns.Contains(column))
         {
-            DataGridViewColumn column = dataGridView.Columns[e.ColumnIndex];
-            if (!sorteableColumns.Contains(column))
+            return false;
+        }
+        if (column == sortedColumn)
+        {
+            // Clicked column is the sorted one, so invert sort order
+            if (sortOrder == SortOrder.Ascending)
             {
-                return false;
-            }
-            if (column == sortedColumn)
-            {
-                // Clicked column is the sorted one, so invert sort order
-                if (sortOrder == SortOrder.Ascending)
-                {
-                    sortOrder = SortOrder.Descending;
-                }
-                else
-                {
-                    sortOrder = SortOrder.Ascending;
-                }
+                sortOrder = SortOrder.Descending;
             }
             else
             {
-                // Clicked column is different from the previous one
-                if (sortedColumn != null)
-                {
-                    sortedColumn.HeaderCell.SortGlyphDirection = SortOrder.None;
-                }
-                sortedColumn = column;
                 sortOrder = SortOrder.Ascending;
             }
-            return true;
         }
-
-        #endregion
-
-        #region Search row by first key letter pressed
-
-        private static void SearchByKeyPressFirstOccurrence(KeyPressEventArgs e, DataGridView dataGridView, DataGridViewColumn dataGridViewColumn)
+        else
         {
-            DataGridViewRow row = (from DataGridViewRow r in dataGridView.Rows
-                                   where r.Cells[dataGridViewColumn.Name].Value.ToString().ReplaceDiacritics().StartsWith(e.KeyChar.ToString(), StringComparison.CurrentCultureIgnoreCase)
-                                   select r).FirstOrDefault();
-            if (row != null)
+            // Clicked column is different from the previous one
+            if (sortedColumn != null)
             {
-                row.Cells[dataGridViewColumn.Name].Selected = true;
+                sortedColumn.HeaderCell.SortGlyphDirection = SortOrder.None;
+            }
+            sortedColumn = column;
+            sortOrder = SortOrder.Ascending;
+        }
+        return true;
+    }
+
+    #endregion
+
+    #region Search row by first key letter pressed
+
+    private static void SearchByKeyPressFirstOccurrence(KeyPressEventArgs e, DataGridView dataGridView, DataGridViewColumn dataGridViewColumn)
+    {
+        var row = (from DataGridViewRow r in dataGridView.Rows
+                               where r.Cells[dataGridViewColumn.Name].Value.ToString().ReplaceDiacritics().StartsWith(e.KeyChar.ToString(), StringComparison.CurrentCultureIgnoreCase)
+                               select r).FirstOrDefault();
+        if (row != null)
+        {
+            row.Cells[dataGridViewColumn.Name].Selected = true;
+            e.Handled = true;
+            dataGridView.Focus();
+        }
+    }
+
+    private static void SearchByKeyPressNextOccurrences(KeyPressEventArgs e, DataGridView dataGridView, DataGridViewColumn dataGridViewColumn)
+    {
+        if (dataGridView.CurrentCell.RowIndex < dataGridView.RowCount - 1)
+        {
+            if (dataGridView.Rows[dataGridView.CurrentCell.RowIndex + 1].Cells[dataGridViewColumn.Name].Value.ToString().ReplaceDiacritics().StartsWith(e.KeyChar.ToString(), StringComparison.CurrentCultureIgnoreCase))
+            {
+                dataGridView.Rows[dataGridView.CurrentCell.RowIndex + 1].Cells[dataGridViewColumn.Name].Selected = true;
                 e.Handled = true;
                 dataGridView.Focus();
-            }
-        }
-
-        private static void SearchByKeyPressNextOccurrences(KeyPressEventArgs e, DataGridView dataGridView, DataGridViewColumn dataGridViewColumn)
-        {
-            if (dataGridView.CurrentCell.RowIndex < dataGridView.RowCount - 1)
-            {
-                if (dataGridView.Rows[dataGridView.CurrentCell.RowIndex + 1].Cells[dataGridViewColumn.Name].Value.ToString().ReplaceDiacritics().StartsWith(e.KeyChar.ToString(), StringComparison.CurrentCultureIgnoreCase))
-                {
-                    dataGridView.Rows[dataGridView.CurrentCell.RowIndex + 1].Cells[dataGridViewColumn.Name].Selected = true;
-                    e.Handled = true;
-                    dataGridView.Focus();
-                }
-                else
-                {
-                    SearchByKeyPressFirstOccurrence(e, dataGridView, dataGridViewColumn);
-                }
             }
             else
             {
                 SearchByKeyPressFirstOccurrence(e, dataGridView, dataGridViewColumn);
             }
         }
-
-        internal static void SearchByKeyPress(KeyPressEventArgs e, DataGridView dataGridView, DataGridViewColumn dataGridViewColumn)
+        else
         {
-            if (char.IsLetter(e.KeyChar))
+            SearchByKeyPressFirstOccurrence(e, dataGridView, dataGridViewColumn);
+        }
+    }
+
+    internal static void SearchByKeyPress(KeyPressEventArgs e, DataGridView dataGridView, DataGridViewColumn dataGridViewColumn)
+    {
+        if (char.IsLetter(e.KeyChar))
+        {
+            if (dataGridView.CurrentRow.Cells[dataGridViewColumn.Name].Value.ToString().ReplaceDiacritics().StartsWith(e.KeyChar.ToString(), StringComparison.CurrentCultureIgnoreCase))
             {
-                if (dataGridView.CurrentRow.Cells[dataGridViewColumn.Name].Value.ToString().ReplaceDiacritics().StartsWith(e.KeyChar.ToString(), StringComparison.CurrentCultureIgnoreCase))
-                {
-                    // It's the same key search, so iterate through items
-                    SearchByKeyPressNextOccurrences(e, dataGridView, dataGridViewColumn);
-                }
-                else
-                {
-                    // It's a new key search
-                    SearchByKeyPressFirstOccurrence(e, dataGridView, dataGridViewColumn);
-                }
+                // It's the same key search, so iterate through items
+                SearchByKeyPressNextOccurrences(e, dataGridView, dataGridViewColumn);
+            }
+            else
+            {
+                // It's a new key search
+                SearchByKeyPressFirstOccurrence(e, dataGridView, dataGridViewColumn);
             }
         }
-
-        #endregion
-
-        #region Items count text
-
-        internal static string GetItemsCountText(string entityName, string entitiesName, int itemsCount)
-        {
-            const int spaces = 5;
-
-            string itemsCountText = itemsCount switch
-            {
-                0 => string.Format(Properties.Resources.StringDatabaseItemsCountNone, entitiesName),
-                1 => string.Format(Properties.Resources.StringDatabaseItemsCountOne, entityName),
-                _ => string.Format(Properties.Resources.StringDatabaseItemsCountMany, entitiesName, itemsCount.ToString("N0")),
-            };
-
-            return new string(' ', spaces) + itemsCountText + new string(' ', spaces);
-        }
-
-        #endregion
-
     }
+
+    #endregion
+
+    #region Items count text
+
+    internal static string GetItemsCountText(string entityName, string entitiesName, int itemsCount)
+    {
+        const int spaces = 5;
+
+        var itemsCountText = itemsCount switch
+        {
+            0 => string.Format(Properties.Resources.StringDatabaseItemsCountNone, entitiesName),
+            1 => string.Format(Properties.Resources.StringDatabaseItemsCountOne, entityName),
+            _ => string.Format(Properties.Resources.StringDatabaseItemsCountMany, entitiesName, itemsCount.ToString("N0")),
+        };
+
+        return new string(' ', spaces) + itemsCountText + new string(' ', spaces);
+    }
+
+    #endregion
+
 }

@@ -1,43 +1,42 @@
-﻿namespace CSMaps
+﻿namespace CSMaps;
+
+static class Configuration
 {
-    static class Configuration
+    private const string ConfigSubFolder = "config";
+
+    private const string AppearanceFileName = "Appearance.json";
+    private const string DatabaseFileName = "Database.json";
+    private const string GeneralFileName = "General.json";
+
+    static internal bool LoadFiles()
     {
-        private const string ConfigSubFolder = "config";
+        string ConfigFolder;
 
-        private const string AppearanceFileName = "Appearance.json";
-        private const string DatabaseFileName = "Database.json";
-        private const string GeneralFileName = "General.json";
+        ConfigFolder = Path.Combine(Application.StartupPath, ConfigSubFolder);
 
-        static internal bool LoadFiles()
+        if (!CardonerSistemas.Framework.Base.Configuration.Json.LoadFile(ConfigFolder, AppearanceFileName, ref Program.AppearanceConfig, true))
         {
-            string ConfigFolder;
-
-            ConfigFolder = Path.Combine(Application.StartupPath, ConfigSubFolder);
-
-            if (!CardonerSistemas.Framework.Base.Configuration.Json.LoadFile(ConfigFolder, AppearanceFileName, ref Program.AppearanceConfig, true))
-            {
-                return false;
-            }
-            if (!CardonerSistemas.Framework.Base.Configuration.Json.LoadFile(ConfigFolder, DatabaseFileName, ref Program.DatabaseConfig, true))
-            {
-                return false;
-            }
-            if (!CardonerSistemas.Framework.Base.Configuration.Json.LoadFile(ConfigFolder, GeneralFileName, ref Program.GeneralConfig, true))
-            {
-                return false;
-            }
-
-            Program.GeneralConfig.ReportsPath = CardonerSistemas.Framework.Base.FileSystem.ProcessPath(Program.GeneralConfig.ReportsPath);
-
-            return true;
+            return false;
         }
-        static internal bool SaveFileDatabase()
+        if (!CardonerSistemas.Framework.Base.Configuration.Json.LoadFile(ConfigFolder, DatabaseFileName, ref Program.DatabaseConfig, true))
         {
-            string ConfigFolder;
-
-            ConfigFolder = Path.Combine(Application.StartupPath, ConfigSubFolder);
-
-            return CardonerSistemas.Framework.Base.Configuration.Json.SaveFile(ConfigFolder, DatabaseFileName, ref Program.DatabaseConfig, true);
+            return false;
         }
+        if (!CardonerSistemas.Framework.Base.Configuration.Json.LoadFile(ConfigFolder, GeneralFileName, ref Program.GeneralConfig, true))
+        {
+            return false;
+        }
+
+        Program.GeneralConfig.ReportsPath = CardonerSistemas.Framework.Base.FileSystem.ProcessPath(Program.GeneralConfig.ReportsPath);
+
+        return true;
+    }
+    static internal bool SaveFileDatabase()
+    {
+        string ConfigFolder;
+
+        ConfigFolder = Path.Combine(Application.StartupPath, ConfigSubFolder);
+
+        return CardonerSistemas.Framework.Base.Configuration.Json.SaveFile(ConfigFolder, DatabaseFileName, ref Program.DatabaseConfig, true);
     }
 }

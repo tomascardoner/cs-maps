@@ -28,60 +28,60 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.components = new System.ComponentModel.Container();
             Label LabelCreacion;
             Label LabelModificacion;
-            ToolStripMain = new ToolStrip();
-            ToolStripButtonClose = new ToolStripButton();
-            ToolStripButtonEdit = new ToolStripButton();
-            ToolStripButtonCancel = new ToolStripButton();
-            ToolStripButtonSave = new ToolStripButton();
-            ButtonBuscarPunto = new Button();
-            LabelLongitud = new Label();
-            DoubleTextBoxLongitud = new Syncfusion.Windows.Forms.Tools.DoubleTextBox();
-            DoubleTextBoxLatitud = new Syncfusion.Windows.Forms.Tools.DoubleTextBox();
-            LabelLatitud = new Label();
-            TextBoxNombre = new TextBox();
-            LabelNombre = new Label();
-            LabelEstablecimiento = new Label();
-            ComboBoxEstablecimiento = new ComboBox();
-            LabelChapaNumero = new Label();
-            IntegerTextBoxChapaNumero = new Syncfusion.Windows.Forms.Tools.IntegerTextBox();
-            ButtonChapaNumeroObtenerDesdeNombre = new Button();
-            GroupBoxAgregarEvento = new GroupBox();
-            ComboBoxEventoAgregar = new ComboBox();
-            CheckBoxEventoAgregar = new CheckBox();
-            TabControlMain = new TabControl();
-            TabPageGeneral = new TabPage();
-            TableLayoutPanelGeneral = new TableLayoutPanel();
-            TableLayoutPanelPunto = new TableLayoutPanel();
-            TableLayoutPanelDatos = new TableLayoutPanel();
-            LabelNotas = new Label();
-            TextBoxNotas = new TextBox();
-            TableLayoutPanelEventoAgregar = new TableLayoutPanel();
-            TabPageAuditoria = new TabPage();
-            TableLayoutPanelAuditoria = new TableLayoutPanel();
-            LabelId = new Label();
-            TextBoxId = new TextBox();
-            TextBoxFechaHoraCreacion = new TextBox();
-            TextBoxUsuarioCreacion = new TextBox();
-            TextBoxFechaHoraUltimaModificacion = new TextBox();
-            TextBoxUsuarioUltimaModificacion = new TextBox();
+            this.ToolStripMain = new ToolStrip();
+            this.ToolStripButtonClose = new ToolStripButton();
+            this.ToolStripButtonEdit = new ToolStripButton();
+            this.ToolStripButtonCancel = new ToolStripButton();
+            this.ToolStripButtonSave = new ToolStripButton();
+            this.ButtonBuscarPunto = new Button();
+            this.LabelLongitud = new Label();
+            this.DoubleTextBoxLongitud = new Syncfusion.Windows.Forms.Tools.DoubleTextBox();
+            this.DoubleTextBoxLatitud = new Syncfusion.Windows.Forms.Tools.DoubleTextBox();
+            this.LabelLatitud = new Label();
+            this.TextBoxNombre = new TextBox();
+            this.LabelNombre = new Label();
+            this.LabelEstablecimiento = new Label();
+            this.ComboBoxEstablecimiento = new ComboBox();
+            this.LabelChapaNumero = new Label();
+            this.IntegerTextBoxChapaNumero = new Syncfusion.Windows.Forms.Tools.IntegerTextBox();
+            this.ButtonChapaNumeroObtenerDesdeNombre = new Button();
+            this.GroupBoxAgregarEvento = new GroupBox();
+            this.ComboBoxEventoAgregar = new ComboBox();
+            this.CheckBoxEventoAgregar = new CheckBox();
+            this.TabControlMain = new TabControl();
+            this.TabPageGeneral = new TabPage();
+            this.TableLayoutPanelGeneral = new TableLayoutPanel();
+            this.TableLayoutPanelPunto = new TableLayoutPanel();
+            this.TableLayoutPanelDatos = new TableLayoutPanel();
+            this.LabelNotas = new Label();
+            this.TextBoxNotas = new TextBox();
+            this.TableLayoutPanelEventoAgregar = new TableLayoutPanel();
+            this.TabPageAuditoria = new TabPage();
+            this.TableLayoutPanelAuditoria = new TableLayoutPanel();
+            this.LabelId = new Label();
+            this.TextBoxId = new TextBox();
+            this.TextBoxFechaHoraCreacion = new TextBox();
+            this.TextBoxUsuarioCreacion = new TextBox();
+            this.TextBoxFechaHoraUltimaModificacion = new TextBox();
+            this.TextBoxUsuarioUltimaModificacion = new TextBox();
             LabelCreacion = new Label();
             LabelModificacion = new Label();
-            ToolStripMain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)DoubleTextBoxLongitud).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)DoubleTextBoxLatitud).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)IntegerTextBoxChapaNumero).BeginInit();
-            TabControlMain.SuspendLayout();
-            TabPageGeneral.SuspendLayout();
-            TableLayoutPanelGeneral.SuspendLayout();
-            TableLayoutPanelPunto.SuspendLayout();
-            TableLayoutPanelDatos.SuspendLayout();
-            TableLayoutPanelEventoAgregar.SuspendLayout();
-            TabPageAuditoria.SuspendLayout();
-            TableLayoutPanelAuditoria.SuspendLayout();
-            SuspendLayout();
+            this.ToolStripMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)this.DoubleTextBoxLongitud).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)this.DoubleTextBoxLatitud).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)this.IntegerTextBoxChapaNumero).BeginInit();
+            this.TabControlMain.SuspendLayout();
+            this.TabPageGeneral.SuspendLayout();
+            this.TableLayoutPanelGeneral.SuspendLayout();
+            this.TableLayoutPanelPunto.SuspendLayout();
+            this.TableLayoutPanelDatos.SuspendLayout();
+            this.TableLayoutPanelEventoAgregar.SuspendLayout();
+            this.TabPageAuditoria.SuspendLayout();
+            this.TableLayoutPanelAuditoria.SuspendLayout();
+            this.SuspendLayout();
             // 
             // LabelCreacion
             // 
@@ -109,524 +109,526 @@
             // 
             // ToolStripMain
             // 
-            ToolStripMain.GripStyle = ToolStripGripStyle.Hidden;
-            ToolStripMain.ImageScalingSize = new Size(20, 20);
-            ToolStripMain.Items.AddRange(new ToolStripItem[] { ToolStripButtonClose, ToolStripButtonEdit, ToolStripButtonCancel, ToolStripButtonSave });
-            ToolStripMain.Location = new Point(0, 0);
-            ToolStripMain.Name = "ToolStripMain";
-            ToolStripMain.Size = new Size(797, 39);
-            ToolStripMain.TabIndex = 0;
+            this.ToolStripMain.GripStyle = ToolStripGripStyle.Hidden;
+            this.ToolStripMain.ImageScalingSize = new Size(20, 20);
+            this.ToolStripMain.Items.AddRange(new ToolStripItem[] { this.ToolStripButtonClose, this.ToolStripButtonEdit, this.ToolStripButtonCancel, this.ToolStripButtonSave });
+            this.ToolStripMain.Location = new Point(0, 0);
+            this.ToolStripMain.Name = "ToolStripMain";
+            this.ToolStripMain.Size = new Size(797, 39);
+            this.ToolStripMain.TabIndex = 0;
             // 
             // ToolStripButtonClose
             // 
-            ToolStripButtonClose.Alignment = ToolStripItemAlignment.Right;
-            ToolStripButtonClose.Image = Properties.Resources.ImageClose32;
-            ToolStripButtonClose.ImageScaling = ToolStripItemImageScaling.None;
-            ToolStripButtonClose.ImageTransparentColor = Color.Magenta;
-            ToolStripButtonClose.Name = "ToolStripButtonClose";
-            ToolStripButtonClose.Size = new Size(85, 36);
-            ToolStripButtonClose.Text = "Cerrar";
-            ToolStripButtonClose.Click += ToolStripButtonClose_Click;
+            this.ToolStripButtonClose.Alignment = ToolStripItemAlignment.Right;
+            this.ToolStripButtonClose.Image = Properties.Resources.ImageClose32;
+            this.ToolStripButtonClose.ImageScaling = ToolStripItemImageScaling.None;
+            this.ToolStripButtonClose.ImageTransparentColor = Color.Magenta;
+            this.ToolStripButtonClose.Name = "ToolStripButtonClose";
+            this.ToolStripButtonClose.Size = new Size(85, 36);
+            this.ToolStripButtonClose.Text = "Cerrar";
+            this.ToolStripButtonClose.Click += this.ToolStripButtonClose_Click;
             // 
             // ToolStripButtonEdit
             // 
-            ToolStripButtonEdit.Alignment = ToolStripItemAlignment.Right;
-            ToolStripButtonEdit.Image = Properties.Resources.ImageItemEdit32;
-            ToolStripButtonEdit.ImageScaling = ToolStripItemImageScaling.None;
-            ToolStripButtonEdit.ImageTransparentColor = Color.Magenta;
-            ToolStripButtonEdit.Name = "ToolStripButtonEdit";
-            ToolStripButtonEdit.Size = new Size(84, 36);
-            ToolStripButtonEdit.Text = "Editar";
-            ToolStripButtonEdit.Click += ToolStripButtonEdit_Click;
+            this.ToolStripButtonEdit.Alignment = ToolStripItemAlignment.Right;
+            this.ToolStripButtonEdit.Image = Properties.Resources.ImageItemEdit32;
+            this.ToolStripButtonEdit.ImageScaling = ToolStripItemImageScaling.None;
+            this.ToolStripButtonEdit.ImageTransparentColor = Color.Magenta;
+            this.ToolStripButtonEdit.Name = "ToolStripButtonEdit";
+            this.ToolStripButtonEdit.Size = new Size(84, 36);
+            this.ToolStripButtonEdit.Text = "Editar";
+            this.ToolStripButtonEdit.Click += this.ToolStripButtonEdit_Click;
             // 
             // ToolStripButtonCancel
             // 
-            ToolStripButtonCancel.Alignment = ToolStripItemAlignment.Right;
-            ToolStripButtonCancel.Image = Properties.Resources.ImageCancel32;
-            ToolStripButtonCancel.ImageScaling = ToolStripItemImageScaling.None;
-            ToolStripButtonCancel.ImageTransparentColor = Color.Magenta;
-            ToolStripButtonCancel.Name = "ToolStripButtonCancel";
-            ToolStripButtonCancel.Size = new Size(102, 36);
-            ToolStripButtonCancel.Text = "Cancelar";
-            ToolStripButtonCancel.Click += ToolStripButtonCancel_Click;
+            this.ToolStripButtonCancel.Alignment = ToolStripItemAlignment.Right;
+            this.ToolStripButtonCancel.Image = Properties.Resources.ImageCancel32;
+            this.ToolStripButtonCancel.ImageScaling = ToolStripItemImageScaling.None;
+            this.ToolStripButtonCancel.ImageTransparentColor = Color.Magenta;
+            this.ToolStripButtonCancel.Name = "ToolStripButtonCancel";
+            this.ToolStripButtonCancel.Size = new Size(102, 36);
+            this.ToolStripButtonCancel.Text = "Cancelar";
+            this.ToolStripButtonCancel.Click += this.ToolStripButtonCancel_Click;
             // 
             // ToolStripButtonSave
             // 
-            ToolStripButtonSave.Alignment = ToolStripItemAlignment.Right;
-            ToolStripButtonSave.Image = Properties.Resources.ImageOk32;
-            ToolStripButtonSave.ImageScaling = ToolStripItemImageScaling.None;
-            ToolStripButtonSave.ImageTransparentColor = Color.Magenta;
-            ToolStripButtonSave.Name = "ToolStripButtonSave";
-            ToolStripButtonSave.Size = new Size(98, 36);
-            ToolStripButtonSave.Text = "Guardar";
-            ToolStripButtonSave.Click += ToolStripButtonSave_Click;
+            this.ToolStripButtonSave.Alignment = ToolStripItemAlignment.Right;
+            this.ToolStripButtonSave.Image = Properties.Resources.ImageOk32;
+            this.ToolStripButtonSave.ImageScaling = ToolStripItemImageScaling.None;
+            this.ToolStripButtonSave.ImageTransparentColor = Color.Magenta;
+            this.ToolStripButtonSave.Name = "ToolStripButtonSave";
+            this.ToolStripButtonSave.Size = new Size(98, 36);
+            this.ToolStripButtonSave.Text = "Guardar";
+            this.ToolStripButtonSave.Click += this.ToolStripButtonSave_Click;
             // 
             // ButtonBuscarPunto
             // 
-            ButtonBuscarPunto.AutoSize = true;
-            ButtonBuscarPunto.Dock = DockStyle.Fill;
-            ButtonBuscarPunto.Location = new Point(658, 3);
-            ButtonBuscarPunto.Name = "ButtonBuscarPunto";
-            ButtonBuscarPunto.Size = new Size(114, 30);
-            ButtonBuscarPunto.TabIndex = 2;
-            ButtonBuscarPunto.Text = "Buscar punto...";
-            ButtonBuscarPunto.UseVisualStyleBackColor = true;
-            ButtonBuscarPunto.Click += ButtonBuscarPunto_Click;
+            this.ButtonBuscarPunto.AutoSize = true;
+            this.ButtonBuscarPunto.Dock = DockStyle.Fill;
+            this.ButtonBuscarPunto.Location = new Point(658, 3);
+            this.ButtonBuscarPunto.Name = "ButtonBuscarPunto";
+            this.ButtonBuscarPunto.Size = new Size(114, 30);
+            this.ButtonBuscarPunto.TabIndex = 2;
+            this.ButtonBuscarPunto.Text = "Buscar punto...";
+            this.ButtonBuscarPunto.UseVisualStyleBackColor = true;
+            this.ButtonBuscarPunto.Click += this.ButtonBuscarPunto_Click;
             // 
             // LabelLongitud
             // 
-            LabelLongitud.AutoSize = true;
-            LabelLongitud.Dock = DockStyle.Fill;
-            LabelLongitud.Location = new Point(3, 69);
-            LabelLongitud.Name = "LabelLongitud";
-            LabelLongitud.Size = new Size(71, 33);
-            LabelLongitud.TabIndex = 5;
-            LabelLongitud.Text = "Longitud:";
-            LabelLongitud.TextAlign = ContentAlignment.MiddleLeft;
+            this.LabelLongitud.AutoSize = true;
+            this.LabelLongitud.Dock = DockStyle.Fill;
+            this.LabelLongitud.Location = new Point(3, 69);
+            this.LabelLongitud.Name = "LabelLongitud";
+            this.LabelLongitud.Size = new Size(71, 33);
+            this.LabelLongitud.TabIndex = 5;
+            this.LabelLongitud.Text = "Longitud:";
+            this.LabelLongitud.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // DoubleTextBoxLongitud
             // 
-            DoubleTextBoxLongitud.AccessibilityEnabled = true;
-            DoubleTextBoxLongitud.BeforeTouchSize = new Size(100, 27);
-            DoubleTextBoxLongitud.DoubleValue = 0D;
-            DoubleTextBoxLongitud.Location = new Point(80, 72);
-            DoubleTextBoxLongitud.MaxValue = 180D;
-            DoubleTextBoxLongitud.MinValue = -180D;
-            DoubleTextBoxLongitud.Name = "DoubleTextBoxLongitud";
-            DoubleTextBoxLongitud.NegativeColor = SystemColors.ControlText;
-            DoubleTextBoxLongitud.NumberDecimalDigits = 6;
-            DoubleTextBoxLongitud.ReadOnly = true;
-            DoubleTextBoxLongitud.Size = new Size(100, 27);
-            DoubleTextBoxLongitud.TabIndex = 6;
-            DoubleTextBoxLongitud.TabStop = false;
-            DoubleTextBoxLongitud.Text = "0,000000";
-            DoubleTextBoxLongitud.TextAlign = HorizontalAlignment.Right;
+            this.DoubleTextBoxLongitud.AccessibilityEnabled = true;
+            this.DoubleTextBoxLongitud.BeforeTouchSize = new Size(100, 27);
+            this.DoubleTextBoxLongitud.DoubleValue = 0D;
+            this.DoubleTextBoxLongitud.HideTrailingZeros = false;
+            this.DoubleTextBoxLongitud.Location = new Point(80, 72);
+            this.DoubleTextBoxLongitud.MaxValue = 180D;
+            this.DoubleTextBoxLongitud.MinValue = -180D;
+            this.DoubleTextBoxLongitud.Name = "DoubleTextBoxLongitud";
+            this.DoubleTextBoxLongitud.NegativeColor = SystemColors.ControlText;
+            this.DoubleTextBoxLongitud.NumberDecimalDigits = 6;
+            this.DoubleTextBoxLongitud.ReadOnly = true;
+            this.DoubleTextBoxLongitud.Size = new Size(100, 27);
+            this.DoubleTextBoxLongitud.TabIndex = 6;
+            this.DoubleTextBoxLongitud.TabStop = false;
+            this.DoubleTextBoxLongitud.Text = "0,000000";
+            this.DoubleTextBoxLongitud.TextAlign = HorizontalAlignment.Right;
             // 
             // DoubleTextBoxLatitud
             // 
-            DoubleTextBoxLatitud.AccessibilityEnabled = true;
-            DoubleTextBoxLatitud.BeforeTouchSize = new Size(100, 27);
-            DoubleTextBoxLatitud.DoubleValue = 0D;
-            DoubleTextBoxLatitud.Location = new Point(80, 39);
-            DoubleTextBoxLatitud.MaxValue = 90D;
-            DoubleTextBoxLatitud.MinValue = -90D;
-            DoubleTextBoxLatitud.Name = "DoubleTextBoxLatitud";
-            DoubleTextBoxLatitud.NegativeColor = SystemColors.ControlText;
-            DoubleTextBoxLatitud.NumberDecimalDigits = 6;
-            DoubleTextBoxLatitud.ReadOnly = true;
-            DoubleTextBoxLatitud.Size = new Size(100, 27);
-            DoubleTextBoxLatitud.TabIndex = 4;
-            DoubleTextBoxLatitud.TabStop = false;
-            DoubleTextBoxLatitud.Text = "0,000000";
-            DoubleTextBoxLatitud.TextAlign = HorizontalAlignment.Right;
+            this.DoubleTextBoxLatitud.AccessibilityEnabled = true;
+            this.DoubleTextBoxLatitud.BeforeTouchSize = new Size(100, 27);
+            this.DoubleTextBoxLatitud.DoubleValue = 0D;
+            this.DoubleTextBoxLatitud.HideTrailingZeros = false;
+            this.DoubleTextBoxLatitud.Location = new Point(80, 39);
+            this.DoubleTextBoxLatitud.MaxValue = 90D;
+            this.DoubleTextBoxLatitud.MinValue = -90D;
+            this.DoubleTextBoxLatitud.Name = "DoubleTextBoxLatitud";
+            this.DoubleTextBoxLatitud.NegativeColor = SystemColors.ControlText;
+            this.DoubleTextBoxLatitud.NumberDecimalDigits = 6;
+            this.DoubleTextBoxLatitud.ReadOnly = true;
+            this.DoubleTextBoxLatitud.Size = new Size(100, 27);
+            this.DoubleTextBoxLatitud.TabIndex = 4;
+            this.DoubleTextBoxLatitud.TabStop = false;
+            this.DoubleTextBoxLatitud.Text = "0,000000";
+            this.DoubleTextBoxLatitud.TextAlign = HorizontalAlignment.Right;
             // 
             // LabelLatitud
             // 
-            LabelLatitud.AutoSize = true;
-            LabelLatitud.Dock = DockStyle.Fill;
-            LabelLatitud.Location = new Point(3, 36);
-            LabelLatitud.Name = "LabelLatitud";
-            LabelLatitud.Size = new Size(71, 33);
-            LabelLatitud.TabIndex = 3;
-            LabelLatitud.Text = "Latitud:";
-            LabelLatitud.TextAlign = ContentAlignment.MiddleLeft;
+            this.LabelLatitud.AutoSize = true;
+            this.LabelLatitud.Dock = DockStyle.Fill;
+            this.LabelLatitud.Location = new Point(3, 36);
+            this.LabelLatitud.Name = "LabelLatitud";
+            this.LabelLatitud.Size = new Size(71, 33);
+            this.LabelLatitud.TabIndex = 3;
+            this.LabelLatitud.Text = "Latitud:";
+            this.LabelLatitud.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // TextBoxNombre
             // 
-            TextBoxNombre.Dock = DockStyle.Fill;
-            TextBoxNombre.Location = new Point(80, 3);
-            TextBoxNombre.MaxLength = 100;
-            TextBoxNombre.Name = "TextBoxNombre";
-            TextBoxNombre.ReadOnly = true;
-            TextBoxNombre.Size = new Size(572, 27);
-            TextBoxNombre.TabIndex = 1;
-            TextBoxNombre.TabStop = false;
-            TextBoxNombre.Enter += TextBoxs_Enter;
+            this.TextBoxNombre.Dock = DockStyle.Fill;
+            this.TextBoxNombre.Location = new Point(80, 3);
+            this.TextBoxNombre.MaxLength = 100;
+            this.TextBoxNombre.Name = "TextBoxNombre";
+            this.TextBoxNombre.ReadOnly = true;
+            this.TextBoxNombre.Size = new Size(572, 27);
+            this.TextBoxNombre.TabIndex = 1;
+            this.TextBoxNombre.TabStop = false;
+            this.TextBoxNombre.Enter += this.TextBoxs_Enter;
             // 
             // LabelNombre
             // 
-            LabelNombre.AutoSize = true;
-            LabelNombre.Dock = DockStyle.Fill;
-            LabelNombre.Location = new Point(3, 0);
-            LabelNombre.Name = "LabelNombre";
-            LabelNombre.Size = new Size(71, 36);
-            LabelNombre.TabIndex = 0;
-            LabelNombre.Text = "Nombre:";
-            LabelNombre.TextAlign = ContentAlignment.MiddleLeft;
+            this.LabelNombre.AutoSize = true;
+            this.LabelNombre.Dock = DockStyle.Fill;
+            this.LabelNombre.Location = new Point(3, 0);
+            this.LabelNombre.Name = "LabelNombre";
+            this.LabelNombre.Size = new Size(71, 36);
+            this.LabelNombre.TabIndex = 0;
+            this.LabelNombre.Text = "Nombre:";
+            this.LabelNombre.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // LabelEstablecimiento
             // 
-            LabelEstablecimiento.AutoSize = true;
-            LabelEstablecimiento.Dock = DockStyle.Fill;
-            LabelEstablecimiento.Location = new Point(3, 0);
-            LabelEstablecimiento.Name = "LabelEstablecimiento";
-            LabelEstablecimiento.Size = new Size(118, 34);
-            LabelEstablecimiento.TabIndex = 1;
-            LabelEstablecimiento.Text = "Establecimiento:";
-            LabelEstablecimiento.TextAlign = ContentAlignment.MiddleLeft;
+            this.LabelEstablecimiento.AutoSize = true;
+            this.LabelEstablecimiento.Dock = DockStyle.Fill;
+            this.LabelEstablecimiento.Location = new Point(3, 0);
+            this.LabelEstablecimiento.Name = "LabelEstablecimiento";
+            this.LabelEstablecimiento.Size = new Size(118, 34);
+            this.LabelEstablecimiento.TabIndex = 1;
+            this.LabelEstablecimiento.Text = "Establecimiento:";
+            this.LabelEstablecimiento.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // ComboBoxEstablecimiento
             // 
-            TableLayoutPanelDatos.SetColumnSpan(ComboBoxEstablecimiento, 2);
-            ComboBoxEstablecimiento.Dock = DockStyle.Fill;
-            ComboBoxEstablecimiento.DropDownStyle = ComboBoxStyle.DropDownList;
-            ComboBoxEstablecimiento.FormattingEnabled = true;
-            ComboBoxEstablecimiento.Location = new Point(127, 3);
-            ComboBoxEstablecimiento.Name = "ComboBoxEstablecimiento";
-            ComboBoxEstablecimiento.Size = new Size(645, 28);
-            ComboBoxEstablecimiento.TabIndex = 2;
+            this.TableLayoutPanelDatos.SetColumnSpan(this.ComboBoxEstablecimiento, 2);
+            this.ComboBoxEstablecimiento.Dock = DockStyle.Fill;
+            this.ComboBoxEstablecimiento.DropDownStyle = ComboBoxStyle.DropDownList;
+            this.ComboBoxEstablecimiento.FormattingEnabled = true;
+            this.ComboBoxEstablecimiento.Location = new Point(127, 3);
+            this.ComboBoxEstablecimiento.Name = "ComboBoxEstablecimiento";
+            this.ComboBoxEstablecimiento.Size = new Size(645, 28);
+            this.ComboBoxEstablecimiento.TabIndex = 2;
             // 
             // LabelChapaNumero
             // 
-            LabelChapaNumero.AutoSize = true;
-            LabelChapaNumero.Dock = DockStyle.Fill;
-            LabelChapaNumero.Location = new Point(3, 34);
-            LabelChapaNumero.Name = "LabelChapaNumero";
-            LabelChapaNumero.Size = new Size(118, 36);
-            LabelChapaNumero.TabIndex = 3;
-            LabelChapaNumero.Text = "Nº de chapa:";
-            LabelChapaNumero.TextAlign = ContentAlignment.MiddleLeft;
+            this.LabelChapaNumero.AutoSize = true;
+            this.LabelChapaNumero.Dock = DockStyle.Fill;
+            this.LabelChapaNumero.Location = new Point(3, 34);
+            this.LabelChapaNumero.Name = "LabelChapaNumero";
+            this.LabelChapaNumero.Size = new Size(118, 36);
+            this.LabelChapaNumero.TabIndex = 3;
+            this.LabelChapaNumero.Text = "Nº de chapa:";
+            this.LabelChapaNumero.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // IntegerTextBoxChapaNumero
             // 
-            IntegerTextBoxChapaNumero.AccessibilityEnabled = true;
-            IntegerTextBoxChapaNumero.AllowNull = true;
-            IntegerTextBoxChapaNumero.BeforeTouchSize = new Size(100, 27);
-            IntegerTextBoxChapaNumero.IntegerValue = 1L;
-            IntegerTextBoxChapaNumero.Location = new Point(127, 37);
-            IntegerTextBoxChapaNumero.MaxValue = 109999L;
-            IntegerTextBoxChapaNumero.MinValue = 1L;
-            IntegerTextBoxChapaNumero.Name = "IntegerTextBoxChapaNumero";
-            IntegerTextBoxChapaNumero.NegativeColor = SystemColors.ControlText;
-            IntegerTextBoxChapaNumero.Size = new Size(100, 27);
-            IntegerTextBoxChapaNumero.TabIndex = 4;
-            IntegerTextBoxChapaNumero.Text = "1";
-            IntegerTextBoxChapaNumero.TextAlign = HorizontalAlignment.Right;
+            this.IntegerTextBoxChapaNumero.AccessibilityEnabled = true;
+            this.IntegerTextBoxChapaNumero.AllowNull = true;
+            this.IntegerTextBoxChapaNumero.BeforeTouchSize = new Size(100, 27);
+            this.IntegerTextBoxChapaNumero.IntegerValue = 1L;
+            this.IntegerTextBoxChapaNumero.Location = new Point(127, 37);
+            this.IntegerTextBoxChapaNumero.MaxValue = 109999L;
+            this.IntegerTextBoxChapaNumero.MinValue = 1L;
+            this.IntegerTextBoxChapaNumero.Name = "IntegerTextBoxChapaNumero";
+            this.IntegerTextBoxChapaNumero.NegativeColor = SystemColors.ControlText;
+            this.IntegerTextBoxChapaNumero.Size = new Size(100, 27);
+            this.IntegerTextBoxChapaNumero.TabIndex = 4;
+            this.IntegerTextBoxChapaNumero.Text = "1";
+            this.IntegerTextBoxChapaNumero.TextAlign = HorizontalAlignment.Right;
             // 
             // ButtonChapaNumeroObtenerDesdeNombre
             // 
-            ButtonChapaNumeroObtenerDesdeNombre.AutoSize = true;
-            ButtonChapaNumeroObtenerDesdeNombre.Location = new Point(233, 37);
-            ButtonChapaNumeroObtenerDesdeNombre.Name = "ButtonChapaNumeroObtenerDesdeNombre";
-            ButtonChapaNumeroObtenerDesdeNombre.Size = new Size(207, 30);
-            ButtonChapaNumeroObtenerDesdeNombre.TabIndex = 5;
-            ButtonChapaNumeroObtenerDesdeNombre.Text = "<<< Obtener desde nombre";
-            ButtonChapaNumeroObtenerDesdeNombre.UseVisualStyleBackColor = true;
-            ButtonChapaNumeroObtenerDesdeNombre.Click += ButtonChapaNumeroObtenerDesdeNombre_Click;
+            this.ButtonChapaNumeroObtenerDesdeNombre.AutoSize = true;
+            this.ButtonChapaNumeroObtenerDesdeNombre.Location = new Point(233, 37);
+            this.ButtonChapaNumeroObtenerDesdeNombre.Name = "ButtonChapaNumeroObtenerDesdeNombre";
+            this.ButtonChapaNumeroObtenerDesdeNombre.Size = new Size(207, 30);
+            this.ButtonChapaNumeroObtenerDesdeNombre.TabIndex = 5;
+            this.ButtonChapaNumeroObtenerDesdeNombre.Text = "<<< Obtener desde nombre";
+            this.ButtonChapaNumeroObtenerDesdeNombre.UseVisualStyleBackColor = true;
+            this.ButtonChapaNumeroObtenerDesdeNombre.Click += this.ButtonChapaNumeroObtenerDesdeNombre_Click;
             // 
             // GroupBoxAgregarEvento
             // 
-            GroupBoxAgregarEvento.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            GroupBoxAgregarEvento.Location = new Point(6, 500);
-            GroupBoxAgregarEvento.Name = "GroupBoxAgregarEvento";
-            GroupBoxAgregarEvento.Size = new Size(777, 52);
-            GroupBoxAgregarEvento.TabIndex = 8;
-            GroupBoxAgregarEvento.TabStop = false;
+            this.GroupBoxAgregarEvento.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            this.GroupBoxAgregarEvento.Location = new Point(6, 500);
+            this.GroupBoxAgregarEvento.Name = "GroupBoxAgregarEvento";
+            this.GroupBoxAgregarEvento.Size = new Size(777, 52);
+            this.GroupBoxAgregarEvento.TabIndex = 8;
+            this.GroupBoxAgregarEvento.TabStop = false;
             // 
             // ComboBoxEventoAgregar
             // 
-            ComboBoxEventoAgregar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            ComboBoxEventoAgregar.DropDownStyle = ComboBoxStyle.DropDownList;
-            ComboBoxEventoAgregar.FormattingEnabled = true;
-            ComboBoxEventoAgregar.Location = new Point(146, 3);
-            ComboBoxEventoAgregar.Name = "ComboBoxEventoAgregar";
-            ComboBoxEventoAgregar.Size = new Size(626, 28);
-            ComboBoxEventoAgregar.TabIndex = 1;
+            this.ComboBoxEventoAgregar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            this.ComboBoxEventoAgregar.DropDownStyle = ComboBoxStyle.DropDownList;
+            this.ComboBoxEventoAgregar.FormattingEnabled = true;
+            this.ComboBoxEventoAgregar.Location = new Point(146, 3);
+            this.ComboBoxEventoAgregar.Name = "ComboBoxEventoAgregar";
+            this.ComboBoxEventoAgregar.Size = new Size(626, 28);
+            this.ComboBoxEventoAgregar.TabIndex = 1;
             // 
             // CheckBoxEventoAgregar
             // 
-            CheckBoxEventoAgregar.AutoSize = true;
-            CheckBoxEventoAgregar.Location = new Point(3, 3);
-            CheckBoxEventoAgregar.Name = "CheckBoxEventoAgregar";
-            CheckBoxEventoAgregar.Size = new Size(137, 24);
-            CheckBoxEventoAgregar.TabIndex = 0;
-            CheckBoxEventoAgregar.Text = "Agregar evento:";
-            CheckBoxEventoAgregar.UseVisualStyleBackColor = true;
-            CheckBoxEventoAgregar.CheckedChanged += CheckBoxEventoAgregar_CheckedChanged;
+            this.CheckBoxEventoAgregar.AutoSize = true;
+            this.CheckBoxEventoAgregar.Location = new Point(3, 3);
+            this.CheckBoxEventoAgregar.Name = "CheckBoxEventoAgregar";
+            this.CheckBoxEventoAgregar.Size = new Size(137, 24);
+            this.CheckBoxEventoAgregar.TabIndex = 0;
+            this.CheckBoxEventoAgregar.Text = "Agregar evento:";
+            this.CheckBoxEventoAgregar.UseVisualStyleBackColor = true;
+            this.CheckBoxEventoAgregar.CheckedChanged += this.CheckBoxEventoAgregar_CheckedChanged;
             // 
             // TabControlMain
             // 
-            TabControlMain.Appearance = TabAppearance.FlatButtons;
-            TabControlMain.Controls.Add(TabPageGeneral);
-            TabControlMain.Controls.Add(TabPageAuditoria);
-            TabControlMain.Dock = DockStyle.Fill;
-            TabControlMain.Location = new Point(0, 39);
-            TabControlMain.Name = "TabControlMain";
-            TabControlMain.SelectedIndex = 0;
-            TabControlMain.Size = new Size(797, 594);
-            TabControlMain.TabIndex = 1;
+            this.TabControlMain.Appearance = TabAppearance.FlatButtons;
+            this.TabControlMain.Controls.Add(this.TabPageGeneral);
+            this.TabControlMain.Controls.Add(this.TabPageAuditoria);
+            this.TabControlMain.Dock = DockStyle.Fill;
+            this.TabControlMain.Location = new Point(0, 39);
+            this.TabControlMain.Name = "TabControlMain";
+            this.TabControlMain.SelectedIndex = 0;
+            this.TabControlMain.Size = new Size(797, 594);
+            this.TabControlMain.TabIndex = 1;
             // 
             // TabPageGeneral
             // 
-            TabPageGeneral.Controls.Add(TableLayoutPanelGeneral);
-            TabPageGeneral.Controls.Add(GroupBoxAgregarEvento);
-            TabPageGeneral.Location = new Point(4, 32);
-            TabPageGeneral.Name = "TabPageGeneral";
-            TabPageGeneral.Padding = new Padding(3);
-            TabPageGeneral.Size = new Size(789, 558);
-            TabPageGeneral.TabIndex = 0;
-            TabPageGeneral.Text = "General";
-            TabPageGeneral.UseVisualStyleBackColor = true;
+            this.TabPageGeneral.Controls.Add(this.TableLayoutPanelGeneral);
+            this.TabPageGeneral.Controls.Add(this.GroupBoxAgregarEvento);
+            this.TabPageGeneral.Location = new Point(4, 32);
+            this.TabPageGeneral.Name = "TabPageGeneral";
+            this.TabPageGeneral.Padding = new Padding(3);
+            this.TabPageGeneral.Size = new Size(789, 558);
+            this.TabPageGeneral.TabIndex = 0;
+            this.TabPageGeneral.Text = "General";
+            this.TabPageGeneral.UseVisualStyleBackColor = true;
             // 
             // TableLayoutPanelGeneral
             // 
-            TableLayoutPanelGeneral.AutoSize = true;
-            TableLayoutPanelGeneral.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            TableLayoutPanelGeneral.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
-            TableLayoutPanelGeneral.ColumnCount = 1;
-            TableLayoutPanelGeneral.ColumnStyles.Add(new ColumnStyle());
-            TableLayoutPanelGeneral.Controls.Add(TableLayoutPanelPunto, 0, 0);
-            TableLayoutPanelGeneral.Controls.Add(TableLayoutPanelDatos, 0, 1);
-            TableLayoutPanelGeneral.Controls.Add(TableLayoutPanelEventoAgregar, 0, 2);
-            TableLayoutPanelGeneral.Dock = DockStyle.Fill;
-            TableLayoutPanelGeneral.GrowStyle = TableLayoutPanelGrowStyle.FixedSize;
-            TableLayoutPanelGeneral.Location = new Point(3, 3);
-            TableLayoutPanelGeneral.Name = "TableLayoutPanelGeneral";
-            TableLayoutPanelGeneral.RowCount = 3;
-            TableLayoutPanelGeneral.RowStyles.Add(new RowStyle());
-            TableLayoutPanelGeneral.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            TableLayoutPanelGeneral.RowStyles.Add(new RowStyle());
-            TableLayoutPanelGeneral.Size = new Size(783, 552);
-            TableLayoutPanelGeneral.TabIndex = 10;
+            this.TableLayoutPanelGeneral.AutoSize = true;
+            this.TableLayoutPanelGeneral.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            this.TableLayoutPanelGeneral.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
+            this.TableLayoutPanelGeneral.ColumnCount = 1;
+            this.TableLayoutPanelGeneral.ColumnStyles.Add(new ColumnStyle());
+            this.TableLayoutPanelGeneral.Controls.Add(this.TableLayoutPanelPunto, 0, 0);
+            this.TableLayoutPanelGeneral.Controls.Add(this.TableLayoutPanelDatos, 0, 1);
+            this.TableLayoutPanelGeneral.Controls.Add(this.TableLayoutPanelEventoAgregar, 0, 2);
+            this.TableLayoutPanelGeneral.Dock = DockStyle.Fill;
+            this.TableLayoutPanelGeneral.GrowStyle = TableLayoutPanelGrowStyle.FixedSize;
+            this.TableLayoutPanelGeneral.Location = new Point(3, 3);
+            this.TableLayoutPanelGeneral.Name = "TableLayoutPanelGeneral";
+            this.TableLayoutPanelGeneral.RowCount = 3;
+            this.TableLayoutPanelGeneral.RowStyles.Add(new RowStyle());
+            this.TableLayoutPanelGeneral.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            this.TableLayoutPanelGeneral.RowStyles.Add(new RowStyle());
+            this.TableLayoutPanelGeneral.Size = new Size(783, 552);
+            this.TableLayoutPanelGeneral.TabIndex = 10;
             // 
             // TableLayoutPanelPunto
             // 
-            TableLayoutPanelPunto.AutoSize = true;
-            TableLayoutPanelPunto.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            TableLayoutPanelPunto.ColumnCount = 3;
-            TableLayoutPanelPunto.ColumnStyles.Add(new ColumnStyle());
-            TableLayoutPanelPunto.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            TableLayoutPanelPunto.ColumnStyles.Add(new ColumnStyle());
-            TableLayoutPanelPunto.Controls.Add(LabelNombre, 0, 0);
-            TableLayoutPanelPunto.Controls.Add(TextBoxNombre, 1, 0);
-            TableLayoutPanelPunto.Controls.Add(ButtonBuscarPunto, 2, 0);
-            TableLayoutPanelPunto.Controls.Add(LabelLatitud, 0, 1);
-            TableLayoutPanelPunto.Controls.Add(DoubleTextBoxLatitud, 1, 1);
-            TableLayoutPanelPunto.Controls.Add(LabelLongitud, 0, 2);
-            TableLayoutPanelPunto.Controls.Add(DoubleTextBoxLongitud, 1, 2);
-            TableLayoutPanelPunto.Dock = DockStyle.Fill;
-            TableLayoutPanelPunto.GrowStyle = TableLayoutPanelGrowStyle.FixedSize;
-            TableLayoutPanelPunto.Location = new Point(4, 4);
-            TableLayoutPanelPunto.Name = "TableLayoutPanelPunto";
-            TableLayoutPanelPunto.RowCount = 3;
-            TableLayoutPanelPunto.RowStyles.Add(new RowStyle());
-            TableLayoutPanelPunto.RowStyles.Add(new RowStyle());
-            TableLayoutPanelPunto.RowStyles.Add(new RowStyle());
-            TableLayoutPanelPunto.Size = new Size(775, 102);
-            TableLayoutPanelPunto.TabIndex = 7;
+            this.TableLayoutPanelPunto.AutoSize = true;
+            this.TableLayoutPanelPunto.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            this.TableLayoutPanelPunto.ColumnCount = 3;
+            this.TableLayoutPanelPunto.ColumnStyles.Add(new ColumnStyle());
+            this.TableLayoutPanelPunto.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            this.TableLayoutPanelPunto.ColumnStyles.Add(new ColumnStyle());
+            this.TableLayoutPanelPunto.Controls.Add(this.LabelNombre, 0, 0);
+            this.TableLayoutPanelPunto.Controls.Add(this.TextBoxNombre, 1, 0);
+            this.TableLayoutPanelPunto.Controls.Add(this.ButtonBuscarPunto, 2, 0);
+            this.TableLayoutPanelPunto.Controls.Add(this.LabelLatitud, 0, 1);
+            this.TableLayoutPanelPunto.Controls.Add(this.DoubleTextBoxLatitud, 1, 1);
+            this.TableLayoutPanelPunto.Controls.Add(this.LabelLongitud, 0, 2);
+            this.TableLayoutPanelPunto.Controls.Add(this.DoubleTextBoxLongitud, 1, 2);
+            this.TableLayoutPanelPunto.Dock = DockStyle.Fill;
+            this.TableLayoutPanelPunto.GrowStyle = TableLayoutPanelGrowStyle.FixedSize;
+            this.TableLayoutPanelPunto.Location = new Point(4, 4);
+            this.TableLayoutPanelPunto.Name = "TableLayoutPanelPunto";
+            this.TableLayoutPanelPunto.RowCount = 3;
+            this.TableLayoutPanelPunto.RowStyles.Add(new RowStyle());
+            this.TableLayoutPanelPunto.RowStyles.Add(new RowStyle());
+            this.TableLayoutPanelPunto.RowStyles.Add(new RowStyle());
+            this.TableLayoutPanelPunto.Size = new Size(775, 102);
+            this.TableLayoutPanelPunto.TabIndex = 7;
             // 
             // TableLayoutPanelDatos
             // 
-            TableLayoutPanelDatos.ColumnCount = 3;
-            TableLayoutPanelDatos.ColumnStyles.Add(new ColumnStyle());
-            TableLayoutPanelDatos.ColumnStyles.Add(new ColumnStyle());
-            TableLayoutPanelDatos.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            TableLayoutPanelDatos.Controls.Add(LabelEstablecimiento, 0, 0);
-            TableLayoutPanelDatos.Controls.Add(ComboBoxEstablecimiento, 1, 0);
-            TableLayoutPanelDatos.Controls.Add(LabelChapaNumero, 0, 1);
-            TableLayoutPanelDatos.Controls.Add(IntegerTextBoxChapaNumero, 1, 1);
-            TableLayoutPanelDatos.Controls.Add(ButtonChapaNumeroObtenerDesdeNombre, 2, 1);
-            TableLayoutPanelDatos.Controls.Add(LabelNotas, 0, 2);
-            TableLayoutPanelDatos.Controls.Add(TextBoxNotas, 1, 2);
-            TableLayoutPanelDatos.Dock = DockStyle.Fill;
-            TableLayoutPanelDatos.GrowStyle = TableLayoutPanelGrowStyle.FixedSize;
-            TableLayoutPanelDatos.Location = new Point(4, 113);
-            TableLayoutPanelDatos.Name = "TableLayoutPanelDatos";
-            TableLayoutPanelDatos.RowCount = 3;
-            TableLayoutPanelDatos.RowStyles.Add(new RowStyle());
-            TableLayoutPanelDatos.RowStyles.Add(new RowStyle());
-            TableLayoutPanelDatos.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            TableLayoutPanelDatos.Size = new Size(775, 394);
-            TableLayoutPanelDatos.TabIndex = 9;
+            this.TableLayoutPanelDatos.ColumnCount = 3;
+            this.TableLayoutPanelDatos.ColumnStyles.Add(new ColumnStyle());
+            this.TableLayoutPanelDatos.ColumnStyles.Add(new ColumnStyle());
+            this.TableLayoutPanelDatos.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            this.TableLayoutPanelDatos.Controls.Add(this.LabelEstablecimiento, 0, 0);
+            this.TableLayoutPanelDatos.Controls.Add(this.ComboBoxEstablecimiento, 1, 0);
+            this.TableLayoutPanelDatos.Controls.Add(this.LabelChapaNumero, 0, 1);
+            this.TableLayoutPanelDatos.Controls.Add(this.IntegerTextBoxChapaNumero, 1, 1);
+            this.TableLayoutPanelDatos.Controls.Add(this.ButtonChapaNumeroObtenerDesdeNombre, 2, 1);
+            this.TableLayoutPanelDatos.Controls.Add(this.LabelNotas, 0, 2);
+            this.TableLayoutPanelDatos.Controls.Add(this.TextBoxNotas, 1, 2);
+            this.TableLayoutPanelDatos.Dock = DockStyle.Fill;
+            this.TableLayoutPanelDatos.GrowStyle = TableLayoutPanelGrowStyle.FixedSize;
+            this.TableLayoutPanelDatos.Location = new Point(4, 113);
+            this.TableLayoutPanelDatos.Name = "TableLayoutPanelDatos";
+            this.TableLayoutPanelDatos.RowCount = 3;
+            this.TableLayoutPanelDatos.RowStyles.Add(new RowStyle());
+            this.TableLayoutPanelDatos.RowStyles.Add(new RowStyle());
+            this.TableLayoutPanelDatos.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            this.TableLayoutPanelDatos.Size = new Size(775, 394);
+            this.TableLayoutPanelDatos.TabIndex = 9;
             // 
             // LabelNotas
             // 
-            LabelNotas.AutoSize = true;
-            LabelNotas.Dock = DockStyle.Fill;
-            LabelNotas.Location = new Point(4, 70);
-            LabelNotas.Margin = new Padding(4, 0, 4, 0);
-            LabelNotas.Name = "LabelNotas";
-            LabelNotas.Size = new Size(116, 324);
-            LabelNotas.TabIndex = 6;
-            LabelNotas.Text = "Notas:";
+            this.LabelNotas.AutoSize = true;
+            this.LabelNotas.Dock = DockStyle.Fill;
+            this.LabelNotas.Location = new Point(4, 70);
+            this.LabelNotas.Margin = new Padding(4, 0, 4, 0);
+            this.LabelNotas.Name = "LabelNotas";
+            this.LabelNotas.Size = new Size(116, 324);
+            this.LabelNotas.TabIndex = 6;
+            this.LabelNotas.Text = "Notas:";
             // 
             // TextBoxNotas
             // 
-            TableLayoutPanelDatos.SetColumnSpan(TextBoxNotas, 2);
-            TextBoxNotas.Dock = DockStyle.Fill;
-            TextBoxNotas.Location = new Point(128, 73);
-            TextBoxNotas.Margin = new Padding(4, 3, 4, 3);
-            TextBoxNotas.MaxLength = 0;
-            TextBoxNotas.Multiline = true;
-            TextBoxNotas.Name = "TextBoxNotas";
-            TextBoxNotas.ScrollBars = ScrollBars.Vertical;
-            TextBoxNotas.Size = new Size(643, 318);
-            TextBoxNotas.TabIndex = 7;
+            this.TableLayoutPanelDatos.SetColumnSpan(this.TextBoxNotas, 2);
+            this.TextBoxNotas.Dock = DockStyle.Fill;
+            this.TextBoxNotas.Location = new Point(128, 73);
+            this.TextBoxNotas.Margin = new Padding(4, 3, 4, 3);
+            this.TextBoxNotas.MaxLength = 0;
+            this.TextBoxNotas.Multiline = true;
+            this.TextBoxNotas.Name = "TextBoxNotas";
+            this.TextBoxNotas.ScrollBars = ScrollBars.Vertical;
+            this.TextBoxNotas.Size = new Size(643, 318);
+            this.TextBoxNotas.TabIndex = 7;
             // 
             // TableLayoutPanelEventoAgregar
             // 
-            TableLayoutPanelEventoAgregar.AutoSize = true;
-            TableLayoutPanelEventoAgregar.ColumnCount = 2;
-            TableLayoutPanelEventoAgregar.ColumnStyles.Add(new ColumnStyle());
-            TableLayoutPanelEventoAgregar.ColumnStyles.Add(new ColumnStyle());
-            TableLayoutPanelEventoAgregar.Controls.Add(CheckBoxEventoAgregar, 0, 0);
-            TableLayoutPanelEventoAgregar.Controls.Add(ComboBoxEventoAgregar, 1, 0);
-            TableLayoutPanelEventoAgregar.Dock = DockStyle.Fill;
-            TableLayoutPanelEventoAgregar.GrowStyle = TableLayoutPanelGrowStyle.FixedSize;
-            TableLayoutPanelEventoAgregar.Location = new Point(4, 514);
-            TableLayoutPanelEventoAgregar.Name = "TableLayoutPanelEventoAgregar";
-            TableLayoutPanelEventoAgregar.RowCount = 1;
-            TableLayoutPanelEventoAgregar.RowStyles.Add(new RowStyle());
-            TableLayoutPanelEventoAgregar.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            TableLayoutPanelEventoAgregar.Size = new Size(775, 34);
-            TableLayoutPanelEventoAgregar.TabIndex = 11;
+            this.TableLayoutPanelEventoAgregar.AutoSize = true;
+            this.TableLayoutPanelEventoAgregar.ColumnCount = 2;
+            this.TableLayoutPanelEventoAgregar.ColumnStyles.Add(new ColumnStyle());
+            this.TableLayoutPanelEventoAgregar.ColumnStyles.Add(new ColumnStyle());
+            this.TableLayoutPanelEventoAgregar.Controls.Add(this.CheckBoxEventoAgregar, 0, 0);
+            this.TableLayoutPanelEventoAgregar.Controls.Add(this.ComboBoxEventoAgregar, 1, 0);
+            this.TableLayoutPanelEventoAgregar.Dock = DockStyle.Fill;
+            this.TableLayoutPanelEventoAgregar.GrowStyle = TableLayoutPanelGrowStyle.FixedSize;
+            this.TableLayoutPanelEventoAgregar.Location = new Point(4, 514);
+            this.TableLayoutPanelEventoAgregar.Name = "TableLayoutPanelEventoAgregar";
+            this.TableLayoutPanelEventoAgregar.RowCount = 1;
+            this.TableLayoutPanelEventoAgregar.RowStyles.Add(new RowStyle());
+            this.TableLayoutPanelEventoAgregar.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            this.TableLayoutPanelEventoAgregar.Size = new Size(775, 34);
+            this.TableLayoutPanelEventoAgregar.TabIndex = 11;
             // 
             // TabPageAuditoria
             // 
-            TabPageAuditoria.Controls.Add(TableLayoutPanelAuditoria);
-            TabPageAuditoria.Location = new Point(4, 32);
-            TabPageAuditoria.Name = "TabPageAuditoria";
-            TabPageAuditoria.Padding = new Padding(3);
-            TabPageAuditoria.Size = new Size(789, 558);
-            TabPageAuditoria.TabIndex = 1;
-            TabPageAuditoria.Text = "Auditoría";
-            TabPageAuditoria.UseVisualStyleBackColor = true;
+            this.TabPageAuditoria.Controls.Add(this.TableLayoutPanelAuditoria);
+            this.TabPageAuditoria.Location = new Point(4, 32);
+            this.TabPageAuditoria.Name = "TabPageAuditoria";
+            this.TabPageAuditoria.Padding = new Padding(3);
+            this.TabPageAuditoria.Size = new Size(789, 558);
+            this.TabPageAuditoria.TabIndex = 1;
+            this.TabPageAuditoria.Text = "Auditoría";
+            this.TabPageAuditoria.UseVisualStyleBackColor = true;
             // 
             // TableLayoutPanelAuditoria
             // 
-            TableLayoutPanelAuditoria.AutoSize = true;
-            TableLayoutPanelAuditoria.ColumnCount = 3;
-            TableLayoutPanelAuditoria.ColumnStyles.Add(new ColumnStyle());
-            TableLayoutPanelAuditoria.ColumnStyles.Add(new ColumnStyle());
-            TableLayoutPanelAuditoria.ColumnStyles.Add(new ColumnStyle());
-            TableLayoutPanelAuditoria.Controls.Add(LabelId, 0, 0);
-            TableLayoutPanelAuditoria.Controls.Add(TextBoxId, 1, 0);
-            TableLayoutPanelAuditoria.Controls.Add(LabelCreacion, 0, 1);
-            TableLayoutPanelAuditoria.Controls.Add(TextBoxFechaHoraCreacion, 1, 1);
-            TableLayoutPanelAuditoria.Controls.Add(TextBoxUsuarioCreacion, 2, 1);
-            TableLayoutPanelAuditoria.Controls.Add(LabelModificacion, 0, 2);
-            TableLayoutPanelAuditoria.Controls.Add(TextBoxFechaHoraUltimaModificacion, 1, 2);
-            TableLayoutPanelAuditoria.Controls.Add(TextBoxUsuarioUltimaModificacion, 2, 2);
-            TableLayoutPanelAuditoria.Dock = DockStyle.Fill;
-            TableLayoutPanelAuditoria.GrowStyle = TableLayoutPanelGrowStyle.FixedSize;
-            TableLayoutPanelAuditoria.Location = new Point(3, 3);
-            TableLayoutPanelAuditoria.Name = "TableLayoutPanelAuditoria";
-            TableLayoutPanelAuditoria.RowCount = 4;
-            TableLayoutPanelAuditoria.RowStyles.Add(new RowStyle());
-            TableLayoutPanelAuditoria.RowStyles.Add(new RowStyle());
-            TableLayoutPanelAuditoria.RowStyles.Add(new RowStyle());
-            TableLayoutPanelAuditoria.RowStyles.Add(new RowStyle());
-            TableLayoutPanelAuditoria.Size = new Size(783, 552);
-            TableLayoutPanelAuditoria.TabIndex = 9;
+            this.TableLayoutPanelAuditoria.AutoSize = true;
+            this.TableLayoutPanelAuditoria.ColumnCount = 3;
+            this.TableLayoutPanelAuditoria.ColumnStyles.Add(new ColumnStyle());
+            this.TableLayoutPanelAuditoria.ColumnStyles.Add(new ColumnStyle());
+            this.TableLayoutPanelAuditoria.ColumnStyles.Add(new ColumnStyle());
+            this.TableLayoutPanelAuditoria.Controls.Add(this.LabelId, 0, 0);
+            this.TableLayoutPanelAuditoria.Controls.Add(this.TextBoxId, 1, 0);
+            this.TableLayoutPanelAuditoria.Controls.Add(LabelCreacion, 0, 1);
+            this.TableLayoutPanelAuditoria.Controls.Add(this.TextBoxFechaHoraCreacion, 1, 1);
+            this.TableLayoutPanelAuditoria.Controls.Add(this.TextBoxUsuarioCreacion, 2, 1);
+            this.TableLayoutPanelAuditoria.Controls.Add(LabelModificacion, 0, 2);
+            this.TableLayoutPanelAuditoria.Controls.Add(this.TextBoxFechaHoraUltimaModificacion, 1, 2);
+            this.TableLayoutPanelAuditoria.Controls.Add(this.TextBoxUsuarioUltimaModificacion, 2, 2);
+            this.TableLayoutPanelAuditoria.Dock = DockStyle.Fill;
+            this.TableLayoutPanelAuditoria.GrowStyle = TableLayoutPanelGrowStyle.FixedSize;
+            this.TableLayoutPanelAuditoria.Location = new Point(3, 3);
+            this.TableLayoutPanelAuditoria.Name = "TableLayoutPanelAuditoria";
+            this.TableLayoutPanelAuditoria.RowCount = 4;
+            this.TableLayoutPanelAuditoria.RowStyles.Add(new RowStyle());
+            this.TableLayoutPanelAuditoria.RowStyles.Add(new RowStyle());
+            this.TableLayoutPanelAuditoria.RowStyles.Add(new RowStyle());
+            this.TableLayoutPanelAuditoria.RowStyles.Add(new RowStyle());
+            this.TableLayoutPanelAuditoria.Size = new Size(783, 552);
+            this.TableLayoutPanelAuditoria.TabIndex = 9;
             // 
             // LabelId
             // 
-            LabelId.AutoSize = true;
-            LabelId.Dock = DockStyle.Fill;
-            LabelId.Location = new Point(4, 0);
-            LabelId.Margin = new Padding(4, 0, 4, 0);
-            LabelId.Name = "LabelId";
-            LabelId.Size = new Size(147, 33);
-            LabelId.TabIndex = 0;
-            LabelId.Text = "Id:";
-            LabelId.TextAlign = ContentAlignment.MiddleLeft;
+            this.LabelId.AutoSize = true;
+            this.LabelId.Dock = DockStyle.Fill;
+            this.LabelId.Location = new Point(4, 0);
+            this.LabelId.Margin = new Padding(4, 0, 4, 0);
+            this.LabelId.Name = "LabelId";
+            this.LabelId.Size = new Size(147, 33);
+            this.LabelId.TabIndex = 0;
+            this.LabelId.Text = "Id:";
+            this.LabelId.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // TextBoxId
             // 
-            TextBoxId.Location = new Point(159, 3);
-            TextBoxId.Margin = new Padding(4, 3, 4, 3);
-            TextBoxId.MaxLength = 10;
-            TextBoxId.Name = "TextBoxId";
-            TextBoxId.ReadOnly = true;
-            TextBoxId.Size = new Size(83, 27);
-            TextBoxId.TabIndex = 1;
-            TextBoxId.TabStop = false;
-            TextBoxId.TextAlign = HorizontalAlignment.Center;
+            this.TextBoxId.Location = new Point(159, 3);
+            this.TextBoxId.Margin = new Padding(4, 3, 4, 3);
+            this.TextBoxId.MaxLength = 10;
+            this.TextBoxId.Name = "TextBoxId";
+            this.TextBoxId.ReadOnly = true;
+            this.TextBoxId.Size = new Size(83, 27);
+            this.TextBoxId.TabIndex = 1;
+            this.TextBoxId.TabStop = false;
+            this.TextBoxId.TextAlign = HorizontalAlignment.Center;
             // 
             // TextBoxFechaHoraCreacion
             // 
-            TextBoxFechaHoraCreacion.Location = new Point(159, 36);
-            TextBoxFechaHoraCreacion.Margin = new Padding(4, 3, 4, 3);
-            TextBoxFechaHoraCreacion.MaxLength = 0;
-            TextBoxFechaHoraCreacion.Name = "TextBoxFechaHoraCreacion";
-            TextBoxFechaHoraCreacion.ReadOnly = true;
-            TextBoxFechaHoraCreacion.Size = new Size(140, 27);
-            TextBoxFechaHoraCreacion.TabIndex = 3;
-            TextBoxFechaHoraCreacion.TabStop = false;
+            this.TextBoxFechaHoraCreacion.Location = new Point(159, 36);
+            this.TextBoxFechaHoraCreacion.Margin = new Padding(4, 3, 4, 3);
+            this.TextBoxFechaHoraCreacion.MaxLength = 0;
+            this.TextBoxFechaHoraCreacion.Name = "TextBoxFechaHoraCreacion";
+            this.TextBoxFechaHoraCreacion.ReadOnly = true;
+            this.TextBoxFechaHoraCreacion.Size = new Size(140, 27);
+            this.TextBoxFechaHoraCreacion.TabIndex = 3;
+            this.TextBoxFechaHoraCreacion.TabStop = false;
             // 
             // TextBoxUsuarioCreacion
             // 
-            TextBoxUsuarioCreacion.Dock = DockStyle.Fill;
-            TextBoxUsuarioCreacion.Location = new Point(307, 36);
-            TextBoxUsuarioCreacion.Margin = new Padding(4, 3, 4, 3);
-            TextBoxUsuarioCreacion.MaxLength = 50;
-            TextBoxUsuarioCreacion.Name = "TextBoxUsuarioCreacion";
-            TextBoxUsuarioCreacion.ReadOnly = true;
-            TextBoxUsuarioCreacion.Size = new Size(472, 27);
-            TextBoxUsuarioCreacion.TabIndex = 4;
-            TextBoxUsuarioCreacion.TabStop = false;
+            this.TextBoxUsuarioCreacion.Dock = DockStyle.Fill;
+            this.TextBoxUsuarioCreacion.Location = new Point(307, 36);
+            this.TextBoxUsuarioCreacion.Margin = new Padding(4, 3, 4, 3);
+            this.TextBoxUsuarioCreacion.MaxLength = 50;
+            this.TextBoxUsuarioCreacion.Name = "TextBoxUsuarioCreacion";
+            this.TextBoxUsuarioCreacion.ReadOnly = true;
+            this.TextBoxUsuarioCreacion.Size = new Size(472, 27);
+            this.TextBoxUsuarioCreacion.TabIndex = 4;
+            this.TextBoxUsuarioCreacion.TabStop = false;
             // 
             // TextBoxFechaHoraUltimaModificacion
             // 
-            TextBoxFechaHoraUltimaModificacion.Location = new Point(159, 69);
-            TextBoxFechaHoraUltimaModificacion.Margin = new Padding(4, 3, 4, 3);
-            TextBoxFechaHoraUltimaModificacion.MaxLength = 0;
-            TextBoxFechaHoraUltimaModificacion.Name = "TextBoxFechaHoraUltimaModificacion";
-            TextBoxFechaHoraUltimaModificacion.ReadOnly = true;
-            TextBoxFechaHoraUltimaModificacion.Size = new Size(140, 27);
-            TextBoxFechaHoraUltimaModificacion.TabIndex = 6;
-            TextBoxFechaHoraUltimaModificacion.TabStop = false;
+            this.TextBoxFechaHoraUltimaModificacion.Location = new Point(159, 69);
+            this.TextBoxFechaHoraUltimaModificacion.Margin = new Padding(4, 3, 4, 3);
+            this.TextBoxFechaHoraUltimaModificacion.MaxLength = 0;
+            this.TextBoxFechaHoraUltimaModificacion.Name = "TextBoxFechaHoraUltimaModificacion";
+            this.TextBoxFechaHoraUltimaModificacion.ReadOnly = true;
+            this.TextBoxFechaHoraUltimaModificacion.Size = new Size(140, 27);
+            this.TextBoxFechaHoraUltimaModificacion.TabIndex = 6;
+            this.TextBoxFechaHoraUltimaModificacion.TabStop = false;
             // 
             // TextBoxUsuarioUltimaModificacion
             // 
-            TextBoxUsuarioUltimaModificacion.Dock = DockStyle.Fill;
-            TextBoxUsuarioUltimaModificacion.Location = new Point(307, 69);
-            TextBoxUsuarioUltimaModificacion.Margin = new Padding(4, 3, 4, 3);
-            TextBoxUsuarioUltimaModificacion.MaxLength = 50;
-            TextBoxUsuarioUltimaModificacion.Name = "TextBoxUsuarioUltimaModificacion";
-            TextBoxUsuarioUltimaModificacion.ReadOnly = true;
-            TextBoxUsuarioUltimaModificacion.Size = new Size(472, 27);
-            TextBoxUsuarioUltimaModificacion.TabIndex = 7;
-            TextBoxUsuarioUltimaModificacion.TabStop = false;
+            this.TextBoxUsuarioUltimaModificacion.Dock = DockStyle.Fill;
+            this.TextBoxUsuarioUltimaModificacion.Location = new Point(307, 69);
+            this.TextBoxUsuarioUltimaModificacion.Margin = new Padding(4, 3, 4, 3);
+            this.TextBoxUsuarioUltimaModificacion.MaxLength = 50;
+            this.TextBoxUsuarioUltimaModificacion.Name = "TextBoxUsuarioUltimaModificacion";
+            this.TextBoxUsuarioUltimaModificacion.ReadOnly = true;
+            this.TextBoxUsuarioUltimaModificacion.Size = new Size(472, 27);
+            this.TextBoxUsuarioUltimaModificacion.TabIndex = 7;
+            this.TextBoxUsuarioUltimaModificacion.TabStop = false;
             // 
             // FormPointData
             // 
-            AutoScaleMode = AutoScaleMode.Inherit;
-            ClientSize = new Size(797, 633);
-            Controls.Add(TabControlMain);
-            Controls.Add(ToolStripMain);
-            FormBorderStyle = FormBorderStyle.FixedDialog;
-            KeyPreview = true;
-            MaximizeBox = false;
-            MinimizeBox = false;
-            Name = "FormPointData";
-            ShowInTaskbar = false;
-            StartPosition = FormStartPosition.CenterParent;
-            Text = "Datos del punto";
-            FormClosed += This_FormClosed;
-            KeyPress += This_KeyPress;
-            ToolStripMain.ResumeLayout(false);
-            ToolStripMain.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)DoubleTextBoxLongitud).EndInit();
-            ((System.ComponentModel.ISupportInitialize)DoubleTextBoxLatitud).EndInit();
-            ((System.ComponentModel.ISupportInitialize)IntegerTextBoxChapaNumero).EndInit();
-            TabControlMain.ResumeLayout(false);
-            TabPageGeneral.ResumeLayout(false);
-            TabPageGeneral.PerformLayout();
-            TableLayoutPanelGeneral.ResumeLayout(false);
-            TableLayoutPanelGeneral.PerformLayout();
-            TableLayoutPanelPunto.ResumeLayout(false);
-            TableLayoutPanelPunto.PerformLayout();
-            TableLayoutPanelDatos.ResumeLayout(false);
-            TableLayoutPanelDatos.PerformLayout();
-            TableLayoutPanelEventoAgregar.ResumeLayout(false);
-            TableLayoutPanelEventoAgregar.PerformLayout();
-            TabPageAuditoria.ResumeLayout(false);
-            TabPageAuditoria.PerformLayout();
-            TableLayoutPanelAuditoria.ResumeLayout(false);
-            TableLayoutPanelAuditoria.PerformLayout();
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleMode = AutoScaleMode.Inherit;
+            this.ClientSize = new Size(797, 633);
+            this.Controls.Add(this.TabControlMain);
+            this.Controls.Add(this.ToolStripMain);
+            this.FormBorderStyle = FormBorderStyle.FixedDialog;
+            this.KeyPreview = true;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "FormPointData";
+            this.ShowInTaskbar = false;
+            this.StartPosition = FormStartPosition.CenterParent;
+            this.Text = "Datos del punto";
+            this.FormClosed += this.This_FormClosed;
+            this.KeyPress += this.This_KeyPress;
+            this.ToolStripMain.ResumeLayout(false);
+            this.ToolStripMain.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)this.DoubleTextBoxLongitud).EndInit();
+            ((System.ComponentModel.ISupportInitialize)this.DoubleTextBoxLatitud).EndInit();
+            ((System.ComponentModel.ISupportInitialize)this.IntegerTextBoxChapaNumero).EndInit();
+            this.TabControlMain.ResumeLayout(false);
+            this.TabPageGeneral.ResumeLayout(false);
+            this.TabPageGeneral.PerformLayout();
+            this.TableLayoutPanelGeneral.ResumeLayout(false);
+            this.TableLayoutPanelGeneral.PerformLayout();
+            this.TableLayoutPanelPunto.ResumeLayout(false);
+            this.TableLayoutPanelPunto.PerformLayout();
+            this.TableLayoutPanelDatos.ResumeLayout(false);
+            this.TableLayoutPanelDatos.PerformLayout();
+            this.TableLayoutPanelEventoAgregar.ResumeLayout(false);
+            this.TableLayoutPanelEventoAgregar.PerformLayout();
+            this.TabPageAuditoria.ResumeLayout(false);
+            this.TabPageAuditoria.PerformLayout();
+            this.TableLayoutPanelAuditoria.ResumeLayout(false);
+            this.TableLayoutPanelAuditoria.PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
         }
 
         #endregion

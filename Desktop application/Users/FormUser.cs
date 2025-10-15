@@ -109,7 +109,7 @@ public partial class FormUser : Form
         }
         else
         {
-            if (CardonerSistemas.Framework.Cryptography.StringCipher.Decrypt(usuario.Password, Main.Constants.PublicEncryptionPassword, out string decryptedPassword))
+            if (CardonerSistemas.Framework.Cryptography.StringCipher.Decrypt(usuario.Password, Main.Constants.PublicEncryptionPassword, out var decryptedPassword))
             {
                 TextBoxPassword.Text = decryptedPassword;
             }
@@ -136,7 +136,7 @@ public partial class FormUser : Form
         // General
         usuario.Nombre = Values.ToString(TextBoxNombre);
         usuario.Descripcion = Values.ToString(TextBoxDescripcion);
-        if (CardonerSistemas.Framework.Cryptography.StringCipher.Encrypt(TextBoxPassword.Text.Trim(), Main.Constants.PublicEncryptionPassword, out string encryptedPassword))
+        if (CardonerSistemas.Framework.Cryptography.StringCipher.Encrypt(TextBoxPassword.Text.Trim(), Main.Constants.PublicEncryptionPassword, out var encryptedPassword))
         {
             usuario.Password = encryptedPassword;
         }
@@ -193,7 +193,7 @@ public partial class FormUser : Form
         {
             this.Cursor = Cursors.WaitCursor;
             usuario.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
-            usuario.FechaHoraUltimaModificacion = System.DateTime.Now;
+            usuario.FechaHoraUltimaModificacion = DateTime.Now;
             try
             {
                 context.SaveChanges();
@@ -245,7 +245,7 @@ public partial class FormUser : Form
     {
         usuario.EsActivo = true;
         usuario.IdUsuarioCreacion = Program.Usuario.IdUsuario;
-        usuario.FechaHoraCreacion = System.DateTime.Now;
+        usuario.FechaHoraCreacion = DateTime.Now;
         usuario.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
         usuario.FechaHoraUltimaModificacion = usuario.FechaHoraCreacion;
     }
@@ -291,7 +291,7 @@ public partial class FormUser : Form
             TextBoxNombre.Focus();
             return false;
         }
-        byte usuarioNombreLongitudMinima = Parameters.GetIntegerAsByte(Parameters.ParametersId.UsuarioNombreLongitudMinima, 5).Value;
+        var usuarioNombreLongitudMinima = Parameters.GetIntegerAsByte(Parameters.ParametersId.UsuarioNombreLongitudMinima, 5).Value;
         if (TextBoxNombre.Text.Length < usuarioNombreLongitudMinima)
         {
             TabControlMain.SelectedTab = TabPageGeneral;
@@ -313,7 +313,7 @@ public partial class FormUser : Form
             TextBoxPassword.Focus();
             return false;
         }
-        byte usuarioPasswordLongitudMinima = Parameters.GetIntegerAsByte(Parameters.ParametersId.UsuarioPasswordLongitudMinima, 8).Value;
+        var usuarioPasswordLongitudMinima = Parameters.GetIntegerAsByte(Parameters.ParametersId.UsuarioPasswordLongitudMinima, 8).Value;
         if (TextBoxPassword.Text.Trim().Length < usuarioPasswordLongitudMinima)
         {
             TabControlMain.SelectedTab = TabPageGeneral;

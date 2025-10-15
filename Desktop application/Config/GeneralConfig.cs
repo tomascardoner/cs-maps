@@ -1,8 +1,7 @@
-﻿namespace CSMaps
+﻿namespace CSMaps;
+
+public class GeneralConfig
 {
-    public class GeneralConfig
-    {
-        public bool SingleInstanceApplication { get; set; }
-        public string ReportsPath { get; set; }
-    }
+    public bool SingleInstanceApplication { get; set; }
+    public string ReportsPath { get; set; }
 }

@@ -1,74 +1,73 @@
-﻿namespace CSMaps.Models
+﻿namespace CSMaps.Models;
+
+public partial class Punto
 {
-    public partial class Punto
-    {
-        public string NombreExportar => PuntoDato == null ? Nombre : PuntoDato.ChapaNumero.ToString();
+    public string NombreExportar => PuntoDato == null ? Nombre : PuntoDato.ChapaNumero.ToString();
 #pragma warning disable CA1822 // Mark members as static
-        public string ComentarioExportar => string.Empty;
+    public string ComentarioExportar => string.Empty;
 #pragma warning restore CA1822 // Mark members as static
-        public string DescripcionExportar
+    public string DescripcionExportar
+    {
+        get
         {
-            get
+            if (PuntoDato == null)
             {
-                if (PuntoDato == null)
+                return string.Empty;
+            }
+            else
+            {
+                var value = string.Empty;
+                if (PuntoDato.IdEstablecimiento.HasValue)
                 {
-                    return string.Empty;
-                }
-                else
-                {
-                    string value = string.Empty;
-                    if (PuntoDato.IdEstablecimiento.HasValue)
+                    // Nombre del establecimiento
+                    value = PuntoDato.IdEstablecimientoNavigation.Nombre;
+                    if (!string.IsNullOrWhiteSpace(PuntoDato.IdEstablecimientoNavigation.TelefonoMovil))
                     {
-                        // Nombre del establecimiento
-                        value = PuntoDato.IdEstablecimientoNavigation.Nombre;
-                        if (!string.IsNullOrWhiteSpace(PuntoDato.IdEstablecimientoNavigation.TelefonoMovil))
+                        // Teléfono del establecimiento
+                        value += $"\n{PuntoDato.IdEstablecimientoNavigation.TelefonoMovil}";
+                    }
+                    if (PuntoDato.IdEstablecimientoNavigation.IdEntidad.HasValue)
+                    {
+                        if (string.Compare(PuntoDato.IdEstablecimientoNavigation.Nombre, PuntoDato.IdEstablecimientoNavigation.IdEntidadNavigation.Nombre) != 0)
                         {
-                            // Teléfono del establecimiento
-                            value += $"\n{PuntoDato.IdEstablecimientoNavigation.TelefonoMovil}";
+                            // Nombre de la entidad, si es diferente al del establecimiento
+                            value += $"\n{PuntoDato.IdEstablecimientoNavigation.IdEntidadNavigation.Nombre}";
                         }
-                        if (PuntoDato.IdEstablecimientoNavigation.IdEntidad.HasValue)
+                        if (!string.IsNullOrWhiteSpace(PuntoDato.IdEstablecimientoNavigation.IdEntidadNavigation.TelefonoMovil) && string.Compare(PuntoDato.IdEstablecimientoNavigation.TelefonoMovil, PuntoDato.IdEstablecimientoNavigation.IdEntidadNavigation.TelefonoMovil) != 0)
                         {
-                            if (string.Compare(PuntoDato.IdEstablecimientoNavigation.Nombre, PuntoDato.IdEstablecimientoNavigation.IdEntidadNavigation.Nombre) != 0)
-                            {
-                                // Nombre de la entidad, si es diferente al del establecimiento
-                                value += $"\n{PuntoDato.IdEstablecimientoNavigation.IdEntidadNavigation.Nombre}";
-                            }
-                            if (!string.IsNullOrWhiteSpace(PuntoDato.IdEstablecimientoNavigation.IdEntidadNavigation.TelefonoMovil) && string.Compare(PuntoDato.IdEstablecimientoNavigation.TelefonoMovil, PuntoDato.IdEstablecimientoNavigation.IdEntidadNavigation.TelefonoMovil) != 0)
-                            {
-                                // Teléfono de la entidad, si es diferente al del establecimiento
-                                value += $"\n{PuntoDato.IdEstablecimientoNavigation.IdEntidadNavigation.TelefonoMovil}";
-                            }
+                            // Teléfono de la entidad, si es diferente al del establecimiento
+                            value += $"\n{PuntoDato.IdEstablecimientoNavigation.IdEntidadNavigation.TelefonoMovil}";
                         }
                     }
-                    return value;
                 }
+                return value;
             }
         }
-        public string TelefonoMovilExportar
+    }
+    public string TelefonoMovilExportar
+    {
+        get
         {
-            get
+            if (PuntoDato == null)
             {
-                if (PuntoDato == null)
+                return string.Empty;
+            }
+            else
+            {
+                if (PuntoDato.IdEstablecimiento.HasValue)
                 {
-                    return string.Empty;
-                }
-                else
-                {
-                    if (PuntoDato.IdEstablecimiento.HasValue)
+                    if (!string.IsNullOrWhiteSpace(PuntoDato.IdEstablecimientoNavigation.TelefonoMovil))
                     {
-                        if (!string.IsNullOrWhiteSpace(PuntoDato.IdEstablecimientoNavigation.TelefonoMovil))
-                        {
-                            // Teléfono del establecimiento
-                            return PuntoDato.IdEstablecimientoNavigation.TelefonoMovil;
-                        }
-                        if (PuntoDato.IdEstablecimientoNavigation.IdEntidad.HasValue && !string.IsNullOrWhiteSpace(PuntoDato.IdEstablecimientoNavigation.IdEntidadNavigation.TelefonoMovil))
-                        {
-                            // Teléfono de la entidad
-                            return PuntoDato.IdEstablecimientoNavigation.IdEntidadNavigation.TelefonoMovil;
-                        }
+                        // Teléfono del establecimiento
+                        return PuntoDato.IdEstablecimientoNavigation.TelefonoMovil;
                     }
-                    return string.Empty;
+                    if (PuntoDato.IdEstablecimientoNavigation.IdEntidad.HasValue && !string.IsNullOrWhiteSpace(PuntoDato.IdEstablecimientoNavigation.IdEntidadNavigation.TelefonoMovil))
+                    {
+                        // Teléfono de la entidad
+                        return PuntoDato.IdEstablecimientoNavigation.IdEntidadNavigation.TelefonoMovil;
+                    }
                 }
+                return string.Empty;
             }
         }
     }
