@@ -1,4 +1,6 @@
-﻿using CardonerSistemas.Framework.Base;
+﻿using System.Globalization;
+using CardonerSistemas.Framework.Base;
+using CSMaps.Main;
 using CSMaps.Users;
 
 namespace CSMaps.General;
@@ -8,21 +10,21 @@ public partial class FormSettlements : Form
 
     #region Declarations
 
-    private const string entityNameSingle = "establecimiento";
-    private const string entityNamePlural = "establecimientos";
-    private const bool entityIsFemale = false;
+    private const string EntityNameSingle = "establecimiento";
+    private const string EntityNamePlural = "establecimientos";
+    private const bool EntityIsFemale = false;
 
-    private List<DataGridViewRowData> entitiesAll;
-    private List<DataGridViewRowData> entitiesFiltered;
+    private List<DataGridViewRowData> _entitiesAll;
+    private List<DataGridViewRowData> _entitiesFiltered;
 
-    private readonly Permissions.Actions addPermission = Permissions.Actions.SettlementAdd;
-    private readonly Permissions.Actions editPermission = Permissions.Actions.SettlementEdit;
-    private readonly Permissions.Actions deletePermission = Permissions.Actions.SettlementDelete;
+    private readonly Permissions.Actions _addPermission = Permissions.Actions.SettlementAdd;
+    private readonly Permissions.Actions _editPermission = Permissions.Actions.SettlementEdit;
+    private readonly Permissions.Actions _deletePermission = Permissions.Actions.SettlementDelete;
 
-    private DataGridViewColumn sortedColumn;
-    private SortOrder sortOrder;
+    private DataGridViewColumn _sortedColumn;
+    private SortOrder _sortOrder;
 
-    private bool skipFilterApply = true;
+    private bool _skipFilterApply = true;
 
     public class DataGridViewRowData
     {
@@ -33,7 +35,7 @@ public partial class FormSettlements : Form
         public string TelefonoMovil { get; set; }
     }
 
-    #endregion
+    #endregion Declarations
 
     #region Form stuff
 
@@ -47,14 +49,17 @@ public partial class FormSettlements : Form
     {
         SetAppearance();
 
+        using Models.CSMapsContext dbContext = new();
+        Common.Lists.GetEntidades(ToolStripComboBoxEntityFilter.ComboBox, dbContext, true, true);
+
         ToolStripComboBoxNameFilterType.Items.AddRange([Properties.Resources.StringTextFilterTypeBegin, Properties.Resources.StringTextFilterTypeContains]);
         ToolStripComboBoxNameFilterType.SelectedIndex = 1;
 
         // Set the initial sorted column of the grid
-        sortedColumn = DataGridViewColumnNombre;
-        sortOrder = SortOrder.Ascending;
+        _sortedColumn = DataGridViewColumnNombre;
+        _sortOrder = SortOrder.Ascending;
 
-        skipFilterApply = false;
+        _skipFilterApply = false;
         ReadData();
     }
 
@@ -67,16 +72,16 @@ public partial class FormSettlements : Form
 
     private void This_Load(object sender, EventArgs e)
     {
-        sortedColumn.HeaderCell.SortGlyphDirection = sortOrder;
+        _sortedColumn.HeaderCell.SortGlyphDirection = _sortOrder;
     }
 
     private void This_FormClosed(object sender, FormClosedEventArgs e)
     {
-        entitiesAll = null;
-        entitiesFiltered = null;
+        _entitiesAll = null;
+        _entitiesFiltered = null;
     }
 
-    #endregion
+    #endregion Form stuff
 
     #region User interface data
 
@@ -86,8 +91,8 @@ public partial class FormSettlements : Form
         try
         {
             using Models.CSMapsContext context = new();
-            entitiesAll = [.. from es in context.Establecimientos
-                              join en in context.Entidades on es.IdEntidad equals en.IdEntidad into entidadesGrupo
+            _entitiesAll = [.. from es in context.Establecimiento
+                              join en in context.Entidad on es.IdEntidad equals en.IdEntidad into entidadesGrupo
                               from eg in entidadesGrupo.DefaultIfEmpty()
                               select new DataGridViewRowData { IdEstablecimiento = es.IdEstablecimiento, Nombre = es.Nombre, IdEntidad = es.IdEntidad, EntidadNombre = (eg == null ? string.Empty : eg.Nombre), TelefonoMovil = es.TelefonoMovil }];
         }
@@ -101,14 +106,7 @@ public partial class FormSettlements : Form
         // Save position
         if (restoreCurrentPosition)
         {
-            if (DataGridViewMain.CurrentRow == null)
-            {
-                idEstablecimiento = 0;
-            }
-            else
-            {
-                idEstablecimiento = ((DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem).IdEstablecimiento;
-            }
+            idEstablecimiento = DataGridViewMain.CurrentRow == null ? (short)0 : ((DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem).IdEstablecimiento;
         }
 
         FilterData();
@@ -129,87 +127,81 @@ public partial class FormSettlements : Form
 
     private void FilterData()
     {
-        if (skipFilterApply)
+        if (_skipFilterApply)
         {
             return;
         }
 
-        if (string.IsNullOrWhiteSpace(ToolStripTextBoxNameFilter.Text))
+        _entitiesFiltered = _entitiesAll;
+        if (ToolStripComboBoxEntityFilter.SelectedIndex > 0)
         {
-            entitiesFiltered = entitiesAll;
+            _entitiesFiltered = (short)ToolStripComboBoxEntityFilter.ComboBox.SelectedValue == CardonerSistemas.Framework.Base.Constants.ShortFieldValueNotSpecified
+                ? [.. _entitiesFiltered.Where(e => !e.IdEntidad.HasValue)]
+                : [.. _entitiesFiltered.Where(e => e.IdEntidad == (short)ToolStripComboBoxEntityFilter.ComboBox.SelectedValue)];
         }
-        else
+
+        if (!string.IsNullOrWhiteSpace(ToolStripTextBoxNameFilter.Text))
         {
-            entitiesFiltered = ToolStripComboBoxNameFilterType.SelectedIndex switch
+            _entitiesFiltered = ToolStripComboBoxNameFilterType.SelectedIndex switch
             {
-                0 => [.. entitiesAll.Where(e => e.Nombre.ToLower().ReplaceDiacritics().StartsWith(ToolStripTextBoxNameFilter.Text.ToLower().ReplaceDiacritics()))],
-                1 => [.. entitiesAll.Where(e => e.Nombre.ToLower().ReplaceDiacritics().Contains(ToolStripTextBoxNameFilter.Text.ToLower().ReplaceDiacritics()))],
+                0 => [.. _entitiesAll.Where(e => e.Nombre.ToLower(CultureInfo.CurrentCulture).ReplaceDiacritics().StartsWith(ToolStripTextBoxNameFilter.Text.ToLower(CultureInfo.CurrentCulture).ReplaceDiacritics(), StringComparison.CurrentCulture))],
+                1 => [.. _entitiesAll.Where(e => e.Nombre.ToLower(CultureInfo.CurrentCulture).ReplaceDiacritics().Contains(ToolStripTextBoxNameFilter.Text.ToLower(CultureInfo.CurrentCulture).ReplaceDiacritics(), StringComparison.CurrentCulture))],
                 _ => throw new NotImplementedException(),
             };
         }
 
-        ToolStripLabelItemsCounter.Text = Common.DataGridViews.GetItemsCountText(entityNameSingle, entityNamePlural, entitiesFiltered.Count);
+        ToolStripLabelItemsCounter.Text = Common.DataGridViews.GetItemsCountText(EntityNameSingle, EntityNamePlural, _entitiesFiltered.Count);
 
         OrderData();
     }
 
     private void OrderData()
     {
-        if (sortedColumn == DataGridViewColumnNombre)
+        if (_sortedColumn == DataGridViewColumnNombre)
         {
-            if (sortOrder == SortOrder.Ascending)
-            {
-                entitiesFiltered = [.. entitiesFiltered.OrderBy(e => e.Nombre)];
-            }
-            else
-            {
-                entitiesFiltered = [.. entitiesFiltered.OrderByDescending(e => e.Nombre)];
-            }
+            _entitiesFiltered = _sortOrder == SortOrder.Ascending
+                ? [.. _entitiesFiltered.OrderBy(e => e.Nombre)]
+                : [.. _entitiesFiltered.OrderByDescending(e => e.Nombre)];
         }
-        else if (sortedColumn == DataGridViewColumnEntidad)
+        else if (_sortedColumn == DataGridViewColumnEntidad)
         {
-            if (sortOrder == SortOrder.Ascending)
-            {
-                entitiesFiltered = [.. entitiesFiltered.OrderBy(e => e.EntidadNombre).ThenBy(e => e.Nombre)];
-            }
-            else
-            {
-                entitiesFiltered = [.. entitiesFiltered.OrderByDescending(e => e.EntidadNombre).ThenByDescending(e => e.Nombre)];
-            }
+            _entitiesFiltered = _sortOrder == SortOrder.Ascending
+                ? [.. _entitiesFiltered.OrderBy(e => e.EntidadNombre).ThenBy(e => e.Nombre)]
+                : [.. _entitiesFiltered.OrderByDescending(e => e.EntidadNombre).ThenByDescending(e => e.Nombre)];
         }
-        else if (sortedColumn == DataGridViewColumnTelefonoMovil)
+        else if (_sortedColumn == DataGridViewColumnTelefonoMovil)
         {
-            if (sortOrder == SortOrder.Ascending)
-            {
-                entitiesFiltered = [.. entitiesFiltered.OrderBy(e => e.TelefonoMovil)];
-            }
-            else
-            {
-                entitiesFiltered = [.. entitiesFiltered.OrderByDescending(e => e.TelefonoMovil)];
-            }
+            _entitiesFiltered = _sortOrder == SortOrder.Ascending
+                ? [.. _entitiesFiltered.OrderBy(e => e.TelefonoMovil)]
+                : [.. _entitiesFiltered.OrderByDescending(e => e.TelefonoMovil)];
         }
 
         DataGridViewMain.AutoGenerateColumns = false;
-        DataGridViewMain.DataSource = entitiesFiltered;
-        sortedColumn.HeaderCell.SortGlyphDirection = sortOrder;
+        DataGridViewMain.DataSource = _entitiesFiltered;
+        _sortedColumn.HeaderCell.SortGlyphDirection = _sortOrder;
         this.Cursor = Cursors.Default;
     }
 
-    #endregion
+    #endregion User interface data
 
     #region Controls events
 
-    private void ToolStripComboBoxFilterType_SelectedIndexChanged(object sender, EventArgs e)
+    private void ToolStripComboBoxEntityFilter_SelectedIndexChanged(object sender, EventArgs e)
     {
         FilterData();
     }
 
-    private void ToolStripTextBoxSearch_Enter(object sender, EventArgs e)
+    private void ToolStripComboBoxNameFilterType_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        FilterData();
+    }
+
+    private void ToolStripTextBoxNameFilter_Enter(object sender, EventArgs e)
     {
         ToolStripTextBoxNameFilter.Select();
     }
 
-    private void ToolStripTextBoxSearch_KeyPress(object sender, KeyPressEventArgs e)
+    private void ToolStripTextBoxNameFilter_KeyPress(object sender, KeyPressEventArgs e)
     {
         if (Common.Forms.Filter_KeyPress(e, ToolStripTextBoxNameFilter.TextBox))
         {
@@ -218,7 +210,7 @@ public partial class FormSettlements : Form
         }
     }
 
-    private void ToolStripButtonSearchClear_Click(object sender, EventArgs e)
+    private void ToolStripButtonNameFilterClear_Click(object sender, EventArgs e)
     {
         ToolStripTextBoxNameFilter.Clear();
         FilterData();
@@ -226,7 +218,7 @@ public partial class FormSettlements : Form
 
     private void DataGridViewMain_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
     {
-        if (Common.DataGridViews.ColumnHeaderMouseClick(DataGridViewMain, e, ref sortedColumn, ref sortOrder, [DataGridViewColumnNombre, DataGridViewColumnEntidad, DataGridViewColumnTelefonoMovil]))
+        if (Common.DataGridViews.ColumnHeaderMouseClick(DataGridViewMain, e, ref _sortedColumn, ref _sortOrder, [DataGridViewColumnNombre, DataGridViewColumnEntidad, DataGridViewColumnTelefonoMovil]))
         {
             OrderData();
         }
@@ -234,19 +226,19 @@ public partial class FormSettlements : Form
 
     private void DataGridViewMain_KeyPress(object sender, KeyPressEventArgs e)
     {
-        if (sortedColumn == DataGridViewColumnNombre)
+        if (_sortedColumn == DataGridViewColumnNombre)
         {
             Common.DataGridViews.SearchByKeyPress(e, DataGridViewMain, DataGridViewColumnNombre);
         }
     }
 
-    #endregion
+    #endregion Controls events
 
     #region Main toolbar
 
     private void ToolStripButtonAdd_Click(object sender, EventArgs e)
     {
-        if (Common.DataGridViews.AddVerify(this, DataGridViewMain, addPermission))
+        if (Common.DataGridViews.AddVerify(this, DataGridViewMain, _addPermission))
         {
             FormSettlement formSettlement = new(true, 0);
             formSettlement.ShowDialog(this);
@@ -256,7 +248,7 @@ public partial class FormSettlements : Form
 
     private void ToolStripButtonView_Click(object sender, EventArgs e)
     {
-        if (Common.DataGridViews.ViewVerify(this, DataGridViewMain, entityNameSingle, entityIsFemale))
+        if (Common.DataGridViews.ViewVerify(this, DataGridViewMain, EntityNameSingle, EntityIsFemale))
         {
             FormSettlement formSettlement = new(false, ((DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem).IdEstablecimiento);
             formSettlement.ShowDialog(this);
@@ -266,7 +258,7 @@ public partial class FormSettlements : Form
 
     private void ToolStripButtonEdit_Click(object sender, EventArgs e)
     {
-        if (Common.DataGridViews.EditVerify(this, DataGridViewMain, editPermission, entityNameSingle, entityIsFemale))
+        if (Common.DataGridViews.EditVerify(this, DataGridViewMain, _editPermission, EntityNameSingle, EntityIsFemale))
         {
             FormSettlement formSettlement = new(true, ((DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem).IdEstablecimiento);
             formSettlement.ShowDialog(this);
@@ -276,14 +268,14 @@ public partial class FormSettlements : Form
 
     private void ToolStripButtonDelete_Click(object sender, EventArgs e)
     {
-        if (!Common.DataGridViews.DeleteVerify(DataGridViewMain, deletePermission, entityNameSingle, entityIsFemale))
+        if (!Common.DataGridViews.DeleteVerify(DataGridViewMain, _deletePermission, EntityNameSingle, EntityIsFemale))
         {
             return;
         }
 
         var rowData = (DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem;
         var entidadDatos = $"Nombre: {rowData.Nombre}\nEntidad: {rowData.EntidadNombre}\nTeléfono móvil: {rowData.TelefonoMovil}";
-        if (!Common.DataGridViews.DeleteConfirm(entityNameSingle, entityIsFemale, entidadDatos))
+        if (!Common.DataGridViews.DeleteConfirm(EntityNameSingle, EntityIsFemale, entidadDatos))
         {
             return;
         }
@@ -292,24 +284,24 @@ public partial class FormSettlements : Form
         try
         {
             using Models.CSMapsContext context = new();
-            var establecimiento = context.Establecimientos.Find(rowData.IdEstablecimiento);
-            context.Establecimientos.Attach(establecimiento);
-            context.Establecimientos.Remove(establecimiento);
+            var establecimiento = context.Establecimiento.Find(rowData.IdEstablecimiento);
+            context.Establecimiento.Attach(establecimiento);
+            context.Establecimiento.Remove(establecimiento);
             context.SaveChanges();
             Common.RefreshLists.Settlements();
         }
         catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
         {
-            Common.DBErrors.DbUpdateException(dbUEx, entityNameSingle, entityIsFemale, Properties.Resources.StringActionDelete);
+            Common.DBErrors.DbUpdateException(dbUEx, EntityNameSingle, EntityIsFemale, Properties.Resources.StringActionDelete);
         }
         catch (Exception ex)
         {
-            Common.DBErrors.OtherUpdateException(ex, entityNameSingle, entityIsFemale, Properties.Resources.StringActionDelete);
+            Common.DBErrors.OtherUpdateException(ex, EntityNameSingle, EntityIsFemale, Properties.Resources.StringActionDelete);
         }
 
         this.Cursor = Cursors.Default;
     }
 
-    #endregion
+    #endregion Main toolbar
 
 }

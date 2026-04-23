@@ -27,5 +27,5 @@ public partial class EventoTipo
 
     public virtual Usuario IdUsuarioUltimaModificacionNavigation { get; set; }
 
-    public virtual ICollection<PuntoEvento> PuntoEventos { get; set; } = new List<PuntoEvento>();
+    public virtual ICollection<PuntoEvento> PuntoEvento { get; set; } = new List<PuntoEvento>();
 }

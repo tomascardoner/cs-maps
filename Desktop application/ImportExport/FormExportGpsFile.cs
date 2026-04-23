@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using CardonerSistemas.Framework.Base;
+using CSMaps.Main;
 using Geo.Gps;
 using MediaDevices;
 using Microsoft.EntityFrameworkCore;
@@ -118,8 +119,8 @@ public partial class FormExportGpsFile : Form
 
         if (_stepNumberCurrent == 1)
         {
-            RadioButtonPointsWithData.Text = $"Sólo los que tienen datos asociados ({_dbContext.PuntoDatos.Count():N0} puntos).";
-            RadioButtonPointsAll.Text = $"Todos ({_dbContext.Puntos.Count():N0} puntos).";
+            RadioButtonPointsWithData.Text = $"Sólo los que tienen datos asociados ({_dbContext.PuntoDato.Count():N0} puntos).";
+            RadioButtonPointsAll.Text = $"Todos ({_dbContext.Punto.Count():N0} puntos).";
         }
 
         if (_stepNumberCurrent == 2)
@@ -198,8 +199,8 @@ public partial class FormExportGpsFile : Form
     private void ShowSummary()
     {
         var summary = RadioButtonPointsAll.Checked
-            ? $"Se exportarán todos los puntos del sistema (cantidad: {_dbContext.Puntos.Count():N0}).\n\n"
-            : $"Se exportarán sólo los puntos del sistema que tienen datos asociados (cantidad: {_dbContext.PuntoDatos.Count():N0}).\n\n";
+            ? $"Se exportarán todos los puntos del sistema (cantidad: {_dbContext.Punto.Count():N0}).\n\n"
+            : $"Se exportarán sólo los puntos del sistema que tienen datos asociados (cantidad: {_dbContext.PuntoDato.Count():N0}).\n\n";
 
         if (TextBoxFile.Text.IsNullOrEmpty())
         {
@@ -304,13 +305,13 @@ public partial class FormExportGpsFile : Form
         try
         {
             return RadioButtonPointsWithData.Checked
-                ? [.. _dbContext.Puntos
+                ? [.. _dbContext.Punto
                             .Include(p => p.PuntoDato)
                             .ThenInclude(pd => pd.IdEstablecimientoNavigation)
                             .ThenInclude(e => e.IdEntidadNavigation)
                             .Where(p => p.PuntoDato != null)
                             .OrderBy(p => p.Nombre)]
-                : [.. _dbContext.Puntos
+                : [.. _dbContext.Punto
                             .Include(p => p.PuntoDato)
                             .ThenInclude(pd => pd.IdEstablecimientoNavigation)
                             .ThenInclude(e => e.IdEntidadNavigation)

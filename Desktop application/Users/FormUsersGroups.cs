@@ -1,31 +1,28 @@
 ﻿using CardonerSistemas.Framework.Base;
+using CSMaps.Main;
 
 namespace CSMaps.Users;
 
 public partial class FormUsersGroups : Form
 {
 
-    #region Declaraciones específicas
-
-    #endregion
-
     #region Declaraciones comunes
 
-    private List<Models.UsuarioGrupo> listaBase;
-    private List<Models.UsuarioGrupo> listaFiltradaYOrdenada;
+    private List<Models.UsuarioGrupo> _listaBase;
+    private List<Models.UsuarioGrupo> _listaFiltradaYOrdenada;
 
-    private readonly string entidadNombrePlural = "grupos de usuarios";
-    private readonly string entidadNombreSingular = "grupo de usuarios";
-    private readonly bool entidadFemenina = false;
+    private readonly string _entidadNombrePlural = "grupos de usuarios";
+    private readonly string _entidadNombreSingular = "grupo de usuarios";
+    private const bool EntidadFemenina = false;
 
-    private readonly Permissions.Actions permisoAgregar = Permissions.Actions.UserGroupAdd;
-    private readonly Permissions.Actions permisoEditar = Permissions.Actions.UserGroupEdit;
-    private readonly Permissions.Actions permisoBorrar = Permissions.Actions.UserGroupDelete;
+    private readonly Permissions.Actions _permisoAgregar = Permissions.Actions.UserGroupAdd;
+    private readonly Permissions.Actions _permisoEditar = Permissions.Actions.UserGroupEdit;
+    private readonly Permissions.Actions _permisoBorrar = Permissions.Actions.UserGroupDelete;
 
-    private readonly bool skipFilterData;
+    private readonly bool _skipFilterData;
 
-    private DataGridViewColumn ordenColumna;
-    private SortOrder ordenTipo;
+    private DataGridViewColumn _ordenColumna;
+    private SortOrder _ordenTipo;
 
     #endregion
 
@@ -37,14 +34,14 @@ public partial class FormUsersGroups : Form
 
         SetAppearance();
 
-        skipFilterData = true;
+        _skipFilterData = true;
 
         Common.Lists.GetAllYesNo(ToolStripComboBoxActiveFilter.ComboBox, 1);
 
-        skipFilterData = false;
+        _skipFilterData = false;
 
-        ordenColumna = DataGridViewColumnNombre;
-        ordenTipo = SortOrder.Ascending;
+        _ordenColumna = DataGridViewColumnNombre;
+        _ordenTipo = SortOrder.Ascending;
 
         ReadData();
     }
@@ -52,15 +49,9 @@ public partial class FormUsersGroups : Form
     private void SetAppearance()
     {
         this.Icon = CardonerSistemas.Framework.Base.Graphics.GetIcon(Properties.Resources.ImageTablas32);
-        this.Text = entidadNombrePlural.FirstCharToUpperCase();
+        this.Text = _entidadNombrePlural.FirstCharToUpperCase();
         Forms.SetFont(this, Program.AppearanceConfig.Font);
         Common.Appearance.SetControlsDataGridViews(this.Controls, false);
-    }
-
-    private void This_FormClosed(object sender, FormClosedEventArgs e)
-    {
-        listaBase = null;
-        listaFiltradaYOrdenada = null;
     }
 
     #endregion
@@ -74,7 +65,7 @@ public partial class FormUsersGroups : Form
         try
         {
             using Models.CSMapsContext context = new();
-            listaBase = [.. context.UsuarioGrupos.Where(ug => ug.IdUsuarioGrupo != Main.Constants.UserGroupAdministratorsId)];
+            _listaBase = [.. context.UsuarioGrupo.Where(ug => ug.IdUsuarioGrupo != Main.Constants.UserGroupAdministratorsId)];
         }
         catch (Exception ex)
         {
@@ -87,14 +78,7 @@ public partial class FormUsersGroups : Form
 
         if (restoreCurrentPosition)
         {
-            if (DataGridViewMain.CurrentRow == null)
-            {
-                positionIdUsuario = 0;
-            }
-            else
-            {
-                positionIdUsuario = ((Models.UsuarioGrupo)DataGridViewMain.SelectedRows[0].DataBoundItem).IdUsuarioGrupo;
-            }
+            positionIdUsuario = DataGridViewMain.CurrentRow == null ? (short)0 : ((Models.UsuarioGrupo)DataGridViewMain.SelectedRows[0].DataBoundItem).IdUsuarioGrupo;
         }
 
         FilterData();
@@ -114,13 +98,13 @@ public partial class FormUsersGroups : Form
 
     private void FilterData()
     {
-        if (!skipFilterData)
+        if (!_skipFilterData)
         {
             this.Cursor = Cursors.WaitCursor;
 
             try
             {
-                listaFiltradaYOrdenada = listaBase;
+                _listaFiltradaYOrdenada = _listaBase;
 
                 // Filtro por Activo
                 switch (ToolStripComboBoxActiveFilter.SelectedIndex)
@@ -128,16 +112,16 @@ public partial class FormUsersGroups : Form
                     case 0:     // Todos
                         break;
                     case 1:     // Sí
-                        listaFiltradaYOrdenada = listaFiltradaYOrdenada.Where(u => u.EsActivo).ToList();
+                        _listaFiltradaYOrdenada = [.. _listaFiltradaYOrdenada.Where(u => u.EsActivo)];
                         break;
                     case 2:     // No
-                        listaFiltradaYOrdenada = listaFiltradaYOrdenada.Where(u => !u.EsActivo).ToList();
+                        _listaFiltradaYOrdenada = [.. _listaFiltradaYOrdenada.Where(u => !u.EsActivo)];
                         break;
                     default:
                         break;
                 }
 
-                ToolStripLabelItemsCounter.Text = Common.DataGridViews.GetItemsCountText(entidadNombreSingular, entidadNombrePlural, listaFiltradaYOrdenada.Count);
+                ToolStripLabelItemsCounter.Text = Common.DataGridViews.GetItemsCountText(_entidadNombreSingular, _entidadNombrePlural, _listaFiltradaYOrdenada.Count);
 
             }
             catch (Exception ex)
@@ -155,23 +139,18 @@ public partial class FormUsersGroups : Form
 
     private void OrderData()
     {
-        if (ordenColumna.Name == DataGridViewColumnNombre.Name)
+        if (_ordenColumna.Name == DataGridViewColumnNombre.Name)
         {
-            if (ordenTipo == SortOrder.Ascending)
-            {
-                listaFiltradaYOrdenada = [.. listaFiltradaYOrdenada.OrderBy(u => u.Nombre)];
-            }
-            else
-            {
-                listaFiltradaYOrdenada = [.. listaFiltradaYOrdenada.OrderByDescending(u => u.Nombre)];
-            }
+            _listaFiltradaYOrdenada = _ordenTipo == SortOrder.Ascending
+                ? [.. _listaFiltradaYOrdenada.OrderBy(u => u.Nombre)]
+                : [.. _listaFiltradaYOrdenada.OrderByDescending(u => u.Nombre)];
         }
 
         DataGridViewMain.AutoGenerateColumns = false;
-        DataGridViewMain.DataSource = listaFiltradaYOrdenada;
+        DataGridViewMain.DataSource = _listaFiltradaYOrdenada;
 
         //  Muestro el ícono de orden en la columna correspondiente
-        ordenColumna.HeaderCell.SortGlyphDirection = ordenTipo;
+        _ordenColumna.HeaderCell.SortGlyphDirection = _ordenTipo;
     }
 
     #endregion
@@ -185,7 +164,7 @@ public partial class FormUsersGroups : Form
 
     private void Grid_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
     {
-        if (Common.DataGridViews.ColumnHeaderMouseClick(DataGridViewMain, e, ref ordenColumna, ref ordenTipo, [DataGridViewColumnNombre]))
+        if (Common.DataGridViews.ColumnHeaderMouseClick(DataGridViewMain, e, ref _ordenColumna, ref _ordenTipo, [DataGridViewColumnNombre]))
         {
             OrderData();
         }
@@ -197,7 +176,7 @@ public partial class FormUsersGroups : Form
 
     private void Agregar_Click(object sender, EventArgs e)
     {
-        if (Common.DataGridViews.AddVerify(this, DataGridViewMain, permisoAgregar))
+        if (Common.DataGridViews.AddVerify(this, DataGridViewMain, _permisoAgregar))
         {
             using FormUserGroup formUsuarioGrupo = new();
             formUsuarioGrupo.LoadAndShow(true, this, 0);
@@ -207,7 +186,7 @@ public partial class FormUsersGroups : Form
 
     private void Ver_Click(object sender, EventArgs e)
     {
-        if (Common.DataGridViews.ViewVerify(this, DataGridViewMain, entidadNombreSingular, entidadFemenina))
+        if (Common.DataGridViews.ViewVerify(this, DataGridViewMain, _entidadNombreSingular, EntidadFemenina))
         {
             using FormUserGroup formUsuarioGrupo = new();
             formUsuarioGrupo.LoadAndShow(false, this, ((Models.UsuarioGrupo)DataGridViewMain.CurrentRow.DataBoundItem).IdUsuarioGrupo);
@@ -217,7 +196,7 @@ public partial class FormUsersGroups : Form
 
     private void Editar_Click(object sender, EventArgs e)
     {
-        if (Common.DataGridViews.EditVerify(this, DataGridViewMain, permisoEditar, entidadNombreSingular, entidadFemenina))
+        if (Common.DataGridViews.EditVerify(this, DataGridViewMain, _permisoEditar, _entidadNombreSingular, EntidadFemenina))
         {
             using FormUserGroup formUsuarioGrupo = new();
             formUsuarioGrupo.LoadAndShow(true, this, ((Models.UsuarioGrupo)DataGridViewMain.CurrentRow.DataBoundItem).IdUsuarioGrupo);
@@ -227,14 +206,14 @@ public partial class FormUsersGroups : Form
 
     private void Borrar_Click(object sender, EventArgs e)
     {
-        if (!Common.DataGridViews.DeleteVerify(DataGridViewMain, permisoBorrar, entidadNombreSingular, entidadFemenina))
+        if (!Common.DataGridViews.DeleteVerify(DataGridViewMain, _permisoBorrar, _entidadNombreSingular, EntidadFemenina))
         {
             return;
         }
 
         var rowData = (Models.UsuarioGrupo)DataGridViewMain.CurrentRow.DataBoundItem;
         var entidadDatos = $"Nombre: {rowData.Nombre}";
-        if (!Common.DataGridViews.DeleteConfirm(entidadNombreSingular, entidadFemenina, entidadDatos))
+        if (!Common.DataGridViews.DeleteConfirm(_entidadNombreSingular, EntidadFemenina, entidadDatos))
         {
             return;
         }
@@ -243,18 +222,18 @@ public partial class FormUsersGroups : Form
         try
         {
             using Models.CSMapsContext context = new();
-            var usuario = context.UsuarioGrupos.Find(rowData.IdUsuarioGrupo);
-            context.UsuarioGrupos.Attach(usuario);
-            context.UsuarioGrupos.Remove(usuario);
+            var usuario = context.UsuarioGrupo.Find(rowData.IdUsuarioGrupo);
+            context.UsuarioGrupo.Attach(usuario);
+            context.UsuarioGrupo.Remove(usuario);
             context.SaveChanges();
         }
         catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
         {
-            Common.DBErrors.DbUpdateException(dbUEx, entidadNombreSingular, entidadFemenina, Properties.Resources.StringActionDelete);
+            Common.DBErrors.DbUpdateException(dbUEx, _entidadNombreSingular, EntidadFemenina, Properties.Resources.StringActionDelete);
         }
         catch (Exception ex)
         {
-            Common.DBErrors.OtherUpdateException(ex, entidadNombreSingular, entidadFemenina, Properties.Resources.StringActionDelete);
+            Common.DBErrors.OtherUpdateException(ex, _entidadNombreSingular, EntidadFemenina, Properties.Resources.StringActionDelete);
         }
 
         Common.RefreshLists.UsersGroups();

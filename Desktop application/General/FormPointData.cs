@@ -1,5 +1,6 @@
 ﻿using CardonerSistemas.Framework.Base;
 using CardonerSistemas.Framework.Controls;
+using CSMaps.Main;
 
 namespace CSMaps.General;
 
@@ -38,12 +39,12 @@ public partial class FormPointData : Form
             _punto = new();
             _puntoDato = new() { IdPunto = idPunto };
             InitializeNewObjectData();
-            _dbContext.PuntoDatos.Add(_puntoDato);
+            _dbContext.PuntoDato.Add(_puntoDato);
         }
         else
         {
-            _punto = _dbContext.Puntos.Find(idPunto);
-            _puntoDato = _dbContext.PuntoDatos.Find(idPunto);
+            _punto = _dbContext.Punto.Find(idPunto);
+            _puntoDato = _dbContext.PuntoDato.Find(idPunto);
         }
 
         InitializeForm();
@@ -56,7 +57,7 @@ public partial class FormPointData : Form
     private void InitializeForm()
     {
         SetAppearance();
-        Common.Lists.GetEstablecimientos(ComboBoxEstablecimiento, _dbContext, true);
+        Common.Lists.GetEstablecimientos(ComboBoxEstablecimiento, _dbContext, true, true);
         Common.Lists.GetEventosTipos(ComboBoxEventoAgregar, _dbContext, false, false, false);
     }
 
@@ -126,7 +127,7 @@ public partial class FormPointData : Form
 
         if (_isNew && CheckBoxEventoAgregar.Checked)
         {
-            _dbContext.PuntoEventos.Add(
+            _dbContext.PuntoEvento.Add(
                 new()
                 {
                     IdPunto = _punto.IdPunto,

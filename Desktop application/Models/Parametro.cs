@@ -31,5 +31,5 @@ public partial class Parametro
 
     public virtual ParametroTipo IdParametroTipoNavigation { get; set; }
 
-    public virtual ICollection<UsuarioParametro> UsuarioParametros { get; set; } = new List<UsuarioParametro>();
+    public virtual ICollection<UsuarioParametro> UsuarioParametro { get; set; } = new List<UsuarioParametro>();
 }

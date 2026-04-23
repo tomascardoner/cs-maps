@@ -1,5 +1,7 @@
-﻿using CardonerSistemas.Framework.Base;
+﻿using System.Globalization;
+using CardonerSistemas.Framework.Base;
 using CardonerSistemas.Framework.Controls;
+using CSMaps.Main;
 
 namespace CSMaps.Users;
 
@@ -8,15 +10,15 @@ public partial class FormUserGroup : Form
 
     #region Declaraciones
 
-    private Models.CSMapsContext context = new();
-    private Models.UsuarioGrupo usuarioGrupo;
+    private readonly Models.CSMapsContext _context = new();
+    private Models.UsuarioGrupo _usuarioGrupo;
 
-    private readonly string entidadNombreSingular = "grupo de usuarios";
-    private readonly bool entidadFemenina = false;
+    private readonly string _entidadNombreSingular = "grupo de usuarios";
+    private const bool EntidadFemenina = false;
 
-    private bool isLoading;
-    private bool isNew;
-    private bool isEditMode;
+    private bool _isLoading;
+    private bool _isNew;
+    private bool _isEditMode;
 
     #endregion
 
@@ -29,25 +31,25 @@ public partial class FormUserGroup : Form
 
     internal void LoadAndShow(bool editMode, Form parentForm, byte idUsuarioGrupo)
     {
-        isLoading = true;
-        isNew = (idUsuarioGrupo == 0);
-        isEditMode = editMode;
+        _isLoading = true;
+        _isNew = (idUsuarioGrupo == 0);
+        _isEditMode = editMode;
 
-        if (isNew)
+        if (_isNew)
         {
-            usuarioGrupo = new Models.UsuarioGrupo();
+            _usuarioGrupo = new Models.UsuarioGrupo();
             InicializarDatosObjetoNuevo();
-            context.UsuarioGrupos.Add(usuarioGrupo);
+            _context.UsuarioGrupo.Add(_usuarioGrupo);
         }
         else
         {
-            usuarioGrupo = context.UsuarioGrupos.Find(idUsuarioGrupo);
+            _usuarioGrupo = _context.UsuarioGrupo.Find(idUsuarioGrupo);
         }
 
         InitializeFormAndControls();
         SetDataToUserInterface();
 
-        isLoading = false;
+        _isLoading = false;
 
         ChangeEditMode();
 
@@ -56,22 +58,22 @@ public partial class FormUserGroup : Form
 
     private void ChangeEditMode()
     {
-        if (isLoading)
+        if (_isLoading)
         {
             return;
         }
 
-        ButtonGuardar.Visible = isEditMode;
-        ButtonCancelar.Visible = isEditMode;
-        ButtonEditar.Visible = !isEditMode;
-        ButtonCerrar.Visible = !isEditMode;
+        ButtonGuardar.Visible = _isEditMode;
+        ButtonCancelar.Visible = _isEditMode;
+        ButtonEditar.Visible = !_isEditMode;
+        ButtonCerrar.Visible = !_isEditMode;
 
         // General
-        TextBoxNombre.ReadOnly = !isEditMode;
+        TextBoxNombre.ReadOnly = !_isEditMode;
 
         // Notas y Auditoría
-        TextBoxNotas.ReadOnly = !isEditMode;
-        CheckBoxEsActivo.Enabled = isEditMode;
+        TextBoxNotas.ReadOnly = !_isEditMode;
+        CheckBoxEsActivo.Enabled = _isEditMode;
     }
 
     private void InitializeFormAndControls()
@@ -82,15 +84,20 @@ public partial class FormUserGroup : Form
     private void SetAppearance()
     {
         this.Icon = CardonerSistemas.Framework.Base.Graphics.GetIcon(Properties.Resources.ImageTablas32);
-        this.Text = entidadNombreSingular.FirstCharToUpperCase();
+        this.Text = _entidadNombreSingular.FirstCharToUpperCase();
         Forms.SetFont(this, Program.AppearanceConfig.Font);
     }
 
-    private void This_FormClosed(object sender, FormClosedEventArgs e)
+    protected override void OnKeyPress(KeyPressEventArgs e)
     {
-        context.Dispose();
-        context = null;
-        usuarioGrupo = null;
+        base.OnKeyPress(e);
+        Common.Forms.This_KeyPress(e, _isEditMode, this.ActiveControl, ButtonCerrar, ButtonGuardar, ButtonCancelar, [TextBoxNotas]);
+    }
+
+    protected override void OnFormClosed(FormClosedEventArgs e)
+    {
+        base.OnFormClosed(e);
+        _context?.Dispose();
         this.Dispose();
     }
 
@@ -101,36 +108,31 @@ public partial class FormUserGroup : Form
     private void SetDataToUserInterface()
     {
         // General
-        Values.ToControl(TextBoxNombre, usuarioGrupo.Nombre);
+        Values.ToControl(TextBoxNombre, _usuarioGrupo.Nombre);
 
         // Notas y Auditoría
-        Values.ToControl(TextBoxNotas, usuarioGrupo.Notas);
-        Values.ToControl(CheckBoxEsActivo, usuarioGrupo.EsActivo);
-        Values.ToControl(TextBoxId, usuarioGrupo.IdUsuarioGrupo, true, entidadFemenina ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
-        Values.ToControl(TextBoxFechaHoraCreacion, usuarioGrupo.FechaHoraCreacion, Values.DateTimeFormats.ShortDateTime);
-        TextBoxUsuarioCreacion.Text = Users.GetDescription(context, usuarioGrupo.IdUsuarioCreacion);
-        Values.ToControl(TextBoxUsuarioUltimaModificacion, usuarioGrupo.FechaHoraUltimaModificacion, Values.DateTimeFormats.ShortDateTime);
-        TextBoxUsuarioUltimaModificacion.Text = Users.GetDescription(context, usuarioGrupo.IdUsuarioUltimaModificacion);
+        Values.ToControl(TextBoxNotas, _usuarioGrupo.Notas);
+        Values.ToControl(CheckBoxEsActivo, _usuarioGrupo.EsActivo);
+        Values.ToControl(TextBoxId, _usuarioGrupo.IdUsuarioGrupo, true, EntidadFemenina ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
+        Values.ToControl(TextBoxFechaHoraCreacion, _usuarioGrupo.FechaHoraCreacion, Values.DateTimeFormats.ShortDateTime);
+        TextBoxUsuarioCreacion.Text = Users.GetDescription(_context, _usuarioGrupo.IdUsuarioCreacion);
+        Values.ToControl(TextBoxUsuarioUltimaModificacion, _usuarioGrupo.FechaHoraUltimaModificacion, Values.DateTimeFormats.ShortDateTime);
+        TextBoxUsuarioUltimaModificacion.Text = Users.GetDescription(_context, _usuarioGrupo.IdUsuarioUltimaModificacion);
     }
 
     private void SetDataToEntityObject()
     {
         // General
-        usuarioGrupo.Nombre = Values.ToString(TextBoxNombre);
+        _usuarioGrupo.Nombre = Values.ToString(TextBoxNombre);
 
         // Notas y Auditoría
-        usuarioGrupo.Notas = Values.ToString(TextBoxNotas);
-        usuarioGrupo.EsActivo = Values.ToBoolean(CheckBoxEsActivo);
+        _usuarioGrupo.Notas = Values.ToString(TextBoxNotas);
+        _usuarioGrupo.EsActivo = Values.ToBoolean(CheckBoxEsActivo);
     }
 
     #endregion
 
     #region Eventos de los controles
-
-    private void This_KeyPress(object sender, KeyPressEventArgs e)
-    {
-        Common.Forms.This_KeyPress(e, isEditMode, this.ActiveControl, ButtonCerrar, ButtonGuardar, ButtonCancelar, [TextBoxNotas]);
-    }
 
     private void TextBoxs_Enter(object sender, EventArgs e)
     {
@@ -145,7 +147,7 @@ public partial class FormUserGroup : Form
     {
         if (Permissions.Verify(Permissions.Actions.UserEdit))
         {
-            isEditMode = true;
+            _isEditMode = true;
             ChangeEditMode();
         }
     }
@@ -169,28 +171,28 @@ public partial class FormUserGroup : Form
 
         SetDataToEntityObject();
 
-        if (context.ChangeTracker.HasChanges())
+        if (_context.ChangeTracker.HasChanges())
         {
             this.Cursor = Cursors.WaitCursor;
 
-            usuarioGrupo.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
-            usuarioGrupo.FechaHoraUltimaModificacion = DateTime.Now;
+            _usuarioGrupo.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
+            _usuarioGrupo.FechaHoraUltimaModificacion = DateTime.UtcNow.ToLocalTime();
 
             try
             {
-                context.SaveChanges();
-                Common.RefreshLists.UsersGroups(usuarioGrupo.IdUsuarioGrupo);
+                _context.SaveChanges();
+                Common.RefreshLists.UsersGroups(_usuarioGrupo.IdUsuarioGrupo);
             }
             catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
             {
                 this.Cursor = Cursors.Default;
-                Common.DBErrors.DbUpdateException(dbUEx, entidadNombreSingular, entidadFemenina, isNew ? Properties.Resources.StringActionAdd : Properties.Resources.StringActionEdit);
+                Common.DBErrors.DbUpdateException(dbUEx, _entidadNombreSingular, EntidadFemenina, _isNew ? Properties.Resources.StringActionAdd : Properties.Resources.StringActionEdit);
                 return;
             }
             catch (Exception ex)
             {
                 this.Cursor = Cursors.Default;
-                Common.DBErrors.OtherUpdateException(ex, entidadNombreSingular, entidadFemenina, isNew ? Properties.Resources.StringActionAdd : Properties.Resources.StringActionEdit);
+                Common.DBErrors.OtherUpdateException(ex, _entidadNombreSingular, EntidadFemenina, _isNew ? Properties.Resources.StringActionAdd : Properties.Resources.StringActionEdit);
                 return;
             }
         }
@@ -200,7 +202,7 @@ public partial class FormUserGroup : Form
 
     private void Cancelar_Click(object sender, EventArgs e)
     {
-        if (Common.Forms.ButtonCancel_Click(context))
+        if (Common.Forms.ButtonCancel_Click(_context))
         {
             this.Close();
         }
@@ -212,16 +214,16 @@ public partial class FormUserGroup : Form
 
     private void InicializarDatosObjetoNuevo()
     {
-        usuarioGrupo.EsActivo = true;
-        usuarioGrupo.IdUsuarioCreacion = Program.Usuario.IdUsuario;
-        usuarioGrupo.FechaHoraCreacion = DateTime.Now;
-        usuarioGrupo.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
-        usuarioGrupo.FechaHoraUltimaModificacion = usuarioGrupo.FechaHoraCreacion;
+        _usuarioGrupo.EsActivo = true;
+        _usuarioGrupo.IdUsuarioCreacion = Program.Usuario.IdUsuario;
+        _usuarioGrupo.FechaHoraCreacion = DateTime.UtcNow.ToLocalTime();
+        _usuarioGrupo.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
+        _usuarioGrupo.FechaHoraUltimaModificacion = _usuarioGrupo.FechaHoraCreacion;
     }
 
     private bool CompletarDatosObjetoNuevo()
     {
-        if (!isNew)
+        if (!_isNew)
         {
             return true;
         }
@@ -230,20 +232,13 @@ public partial class FormUserGroup : Form
         {
             // Obtengo el id
             using Models.CSMapsContext newIdContext = new();
-            if (newIdContext.UsuarioGrupos.Any())
-            {
-                usuarioGrupo.IdUsuarioGrupo = (byte)(newIdContext.UsuarioGrupos.Max(u => u.IdUsuarioGrupo) + 1);
-            }
-            else
-            {
-                usuarioGrupo.IdUsuarioGrupo = 1;
-            }
+            _usuarioGrupo.IdUsuarioGrupo = newIdContext.UsuarioGrupo.Any() ? (byte)(newIdContext.UsuarioGrupo.Max(u => u.IdUsuarioGrupo) + 1) : (byte)1;
 
             return true;
         }
         catch (Exception ex)
         {
-            Error.ProcessException(ex, string.Format(entidadFemenina ? Properties.Resources.StringEntityNewValuesErrorFemale : Properties.Resources.StringEntityNewValuesErrorMale, entidadNombreSingular));
+            Error.ProcessException(ex, string.Format(CultureInfo.CurrentCulture, EntidadFemenina ? Properties.Resources.StringEntityNewValuesErrorFemale : Properties.Resources.StringEntityNewValuesErrorMale, _entidadNombreSingular));
             return false;
         }
     }

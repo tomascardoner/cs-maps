@@ -1,5 +1,7 @@
-﻿using CardonerSistemas.Framework.Base;
+﻿using System.Globalization;
+using CardonerSistemas.Framework.Base;
 using CardonerSistemas.Framework.Controls;
+using CSMaps.Main;
 
 namespace CSMaps.General;
 
@@ -8,17 +10,19 @@ public partial class FormSettlement : Form
 
     #region Declarations
 
-    private const string entityNameSingular = "establecimiento";
-    private const bool entityIsFemale = false;
+    private const string EntityNameSingular = "establecimiento";
+    private const bool EntityIsFemale = false;
 
-    private readonly bool isLoading;
-    private readonly bool isNew;
-    private bool isEditMode;
+    private readonly bool _isLoading;
+    private readonly bool _isNew;
+    private bool _isEditMode;
 
-    private Models.CSMapsContext context = new();
-    private Models.Establecimiento establecimiento;
+#pragma warning disable CA2213 // Disposable fields should be disposed
+    private readonly Models.CSMapsContext _dbContext = new();
+#pragma warning restore CA2213 // Disposable fields should be disposed
+    private readonly Models.Establecimiento _establecimiento;
 
-    #endregion
+    #endregion Declarations
 
     #region Form stuff
 
@@ -26,24 +30,24 @@ public partial class FormSettlement : Form
     {
         InitializeComponent();
 
-        isLoading = true;
-        isNew = (idEstablecimiento == 0);
-        isEditMode = editMode;
+        _isLoading = true;
+        _isNew = (idEstablecimiento == 0);
+        _isEditMode = editMode;
 
-        if (isNew)
+        if (_isNew)
         {
-            establecimiento = new();
+            _establecimiento = new();
             InitializeNewObjectData();
-            context.Establecimientos.Add(establecimiento);
+            _dbContext.Establecimiento.Add(_establecimiento);
         }
         else
         {
-            establecimiento = context.Establecimientos.Find(idEstablecimiento);
+            _establecimiento = _dbContext.Establecimiento.Find(idEstablecimiento);
         }
 
         InitializeForm();
         SetDataToUserInterface();
-        isLoading = false;
+        _isLoading = false;
 
         ChangeEditMode();
     }
@@ -51,64 +55,61 @@ public partial class FormSettlement : Form
     private void InitializeForm()
     {
         SetAppearance();
-        Common.Lists.GetEntidades(ComboBoxEntidad, context, true);
+        Common.Lists.GetEntidades(ComboBoxEntidad, _dbContext, false, true);
     }
 
     private void SetAppearance()
     {
-        this.Text = entityNameSingular.FirstCharToUpperCase();
+        this.Text = EntityNameSingular.FirstCharToUpperCase();
         Forms.SetFont(this, Program.AppearanceConfig.Font);
     }
 
     private void ChangeEditMode()
     {
-        if (isLoading)
+        if (_isLoading)
         {
             return;
         }
 
-        ToolStripButtonSave.Visible = isEditMode;
-        ToolStripButtonCancel.Visible = isEditMode;
-        ToolStripButtonEdit.Visible = !isEditMode;
-        ToolStripButtonClose.Visible = !isEditMode;
+        ToolStripButtonSave.Visible = _isEditMode;
+        ToolStripButtonCancel.Visible = _isEditMode;
+        ToolStripButtonEdit.Visible = !_isEditMode;
+        ToolStripButtonClose.Visible = !_isEditMode;
 
-        TextBoxNombre.ReadOnly = !isEditMode;
-        ComboBoxEntidad.Enabled = isEditMode;
-        TextBoxTelefonoMovil.ReadOnly = !isEditMode;
+        TextBoxNombre.ReadOnly = !_isEditMode;
+        ComboBoxEntidad.Enabled = _isEditMode;
+        TextBoxTelefonoMovil.ReadOnly = !_isEditMode;
     }
 
     private void This_FormClosed(object sender, FormClosedEventArgs e)
     {
-        context.Dispose();
-        context = null;
-        establecimiento = null;
-        this.Dispose();
+        _dbContext?.Dispose();
     }
 
-    #endregion
+    #endregion Form stuff
 
     #region User interface data
 
     private void SetDataToUserInterface()
     {
         // General
-        Values.ToControl(TextBoxNombre, establecimiento.Nombre);
-        Values.ToControl(ComboBoxEntidad, establecimiento.IdEntidad);
-        Values.ToControl(TextBoxTelefonoMovil, establecimiento.TelefonoMovil);
+        Values.ToControl(TextBoxNombre, _establecimiento.Nombre);
+        Values.ToControl(ComboBoxEntidad, _establecimiento.IdEntidad);
+        Values.ToControl(TextBoxTelefonoMovil, _establecimiento.TelefonoMovil);
 
         // Auditoría
-        Values.ToControl(TextBoxId, establecimiento.IdEstablecimiento, true, entityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
-        Values.ToControl(TextBoxFechaHoraCreacion, establecimiento.FechaHoraCreacion, Values.DateTimeFormats.ShortDateTime);
-        TextBoxUsuarioCreacion.Text = Users.Users.GetDescription(context, establecimiento.IdUsuarioCreacion);
-        Values.ToControl(TextBoxFechaHoraUltimaModificacion, establecimiento.FechaHoraUltimaModificacion, Values.DateTimeFormats.ShortDateTime);
-        TextBoxUsuarioUltimaModificacion.Text = Users.Users.GetDescription(context, establecimiento.IdUsuarioUltimaModificacion);
+        Values.ToControl(TextBoxId, _establecimiento.IdEstablecimiento, true, EntityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
+        Values.ToControl(TextBoxFechaHoraCreacion, _establecimiento.FechaHoraCreacion, Values.DateTimeFormats.ShortDateTime);
+        TextBoxUsuarioCreacion.Text = Users.Users.GetDescription(_dbContext, _establecimiento.IdUsuarioCreacion);
+        Values.ToControl(TextBoxFechaHoraUltimaModificacion, _establecimiento.FechaHoraUltimaModificacion, Values.DateTimeFormats.ShortDateTime);
+        TextBoxUsuarioUltimaModificacion.Text = Users.Users.GetDescription(_dbContext, _establecimiento.IdUsuarioUltimaModificacion);
     }
 
     private void SetDataToEntityObject()
     {
-        establecimiento.Nombre = Values.ToString(TextBoxNombre);
-        establecimiento.IdEntidad = Values.ToShort(ComboBoxEntidad);
-        establecimiento.TelefonoMovil = Values.ToString(TextBoxTelefonoMovil);
+        _establecimiento.Nombre = Values.ToString(TextBoxNombre);
+        _establecimiento.IdEntidad = Values.ToShort(ComboBoxEntidad);
+        _establecimiento.TelefonoMovil = Values.ToString(TextBoxTelefonoMovil);
     }
 
     #endregion
@@ -117,7 +118,7 @@ public partial class FormSettlement : Form
 
     private void This_KeyPress(object sender, KeyPressEventArgs e)
     {
-        Common.Forms.This_KeyPress(e, isEditMode, ActiveControl, ToolStripButtonClose, ToolStripButtonSave, ToolStripButtonCancel, null);
+        Common.Forms.This_KeyPress(e, _isEditMode, ActiveControl, ToolStripButtonClose, ToolStripButtonSave, ToolStripButtonCancel, null);
     }
 
     private void TextBoxs_Enter(object sender, EventArgs e)
@@ -143,25 +144,25 @@ public partial class FormSettlement : Form
 
         SetDataToEntityObject();
 
-        if (context.ChangeTracker.HasChanges())
+        if (_dbContext.ChangeTracker.HasChanges())
         {
             this.Cursor = Cursors.WaitCursor;
-            establecimiento.FechaHoraUltimaModificacion = DateTime.Now;
+            _establecimiento.FechaHoraUltimaModificacion = DateTime.UtcNow;
             try
             {
-                context.SaveChanges();
-                Common.RefreshLists.Settlements(establecimiento.IdEstablecimiento);
+                _dbContext.SaveChanges();
+                Common.RefreshLists.Settlements(_establecimiento.IdEstablecimiento);
             }
             catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
             {
                 this.Cursor = Cursors.Default;
-                Common.DBErrors.DbUpdateException(dbUEx, entityNameSingular, entityIsFemale, isNew ? Properties.Resources.StringActionAdd : Properties.Resources.StringActionEdit);
+                Common.DBErrors.DbUpdateException(dbUEx, EntityNameSingular, EntityIsFemale, _isNew ? Properties.Resources.StringActionAdd : Properties.Resources.StringActionEdit);
                 return;
             }
             catch (Exception ex)
             {
                 this.Cursor = Cursors.Default;
-                Common.DBErrors.OtherUpdateException(ex, entityNameSingular, entityIsFemale, isNew ? Properties.Resources.StringActionAdd : Properties.Resources.StringActionEdit);
+                Common.DBErrors.OtherUpdateException(ex, EntityNameSingular, EntityIsFemale, _isNew ? Properties.Resources.StringActionAdd : Properties.Resources.StringActionEdit);
                 return;
             }
         }
@@ -171,7 +172,7 @@ public partial class FormSettlement : Form
 
     private void ToolStripButtonCancel_Click(object sender, EventArgs e)
     {
-        if (Common.Forms.ButtonCancel_Click(context))
+        if (Common.Forms.ButtonCancel_Click(_dbContext))
         {
             this.Close();
         }
@@ -179,7 +180,7 @@ public partial class FormSettlement : Form
 
     private void ToolStripButtonEdit_Click(object sender, EventArgs e)
     {
-        isEditMode = true;
+        _isEditMode = true;
         ChangeEditMode();
     }
 
@@ -188,21 +189,21 @@ public partial class FormSettlement : Form
         this.Close();
     }
 
-    #endregion
+    #endregion Main toolbar
 
     #region New object initialization
 
     private void InitializeNewObjectData()
     {
-        establecimiento.IdUsuarioCreacion = Program.Usuario.IdUsuario;
-        establecimiento.FechaHoraCreacion = DateTime.Now;
-        establecimiento.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
-        establecimiento.FechaHoraUltimaModificacion = DateTime.Now;
+        _establecimiento.IdUsuarioCreacion = Program.Usuario.IdUsuario;
+        _establecimiento.FechaHoraCreacion = DateTime.UtcNow;
+        _establecimiento.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
+        _establecimiento.FechaHoraUltimaModificacion = DateTime.UtcNow;
     }
 
     private bool CompleteNewObjectData()
     {
-        if (!isNew)
+        if (!_isNew)
         {
             return true;
         }
@@ -210,25 +211,18 @@ public partial class FormSettlement : Form
         try
         {
             using Models.CSMapsContext newIdContext = new();
-            if (newIdContext.Establecimientos.Any())
-            {
-                establecimiento.IdEstablecimiento = (short)(newIdContext.Establecimientos.Max(e => e.IdEstablecimiento) + 1);
-            }
-            else
-            {
-                establecimiento.IdEstablecimiento = 1;
-            }
+            _establecimiento.IdEstablecimiento = newIdContext.Establecimiento.Any() ? (short)(newIdContext.Establecimiento.Max(e => e.IdEstablecimiento) + 1) : (short)1;
 
             return true;
         }
         catch (Exception ex)
         {
-            Error.ProcessException(ex, string.Format(entityIsFemale ? Properties.Resources.StringEntityNewValuesErrorFemale : Properties.Resources.StringEntityNewValuesErrorMale, entityNameSingular));
+            Error.ProcessException(ex, string.Format(CultureInfo.CurrentCulture, EntityIsFemale ? Properties.Resources.StringEntityNewValuesErrorFemale : Properties.Resources.StringEntityNewValuesErrorMale, EntityNameSingular));
             return false;
         }
     }
 
-    #endregion
+    #endregion New object initialization
 
     #region Extra stuff
 
@@ -236,7 +230,7 @@ public partial class FormSettlement : Form
     {
         if (string.IsNullOrWhiteSpace(TextBoxNombre.Text))
         {
-            Common.Forms.ShowRequiredFieldMessageBox(entityIsFemale, entityNameSingular, false, "nombre");
+            Common.Forms.ShowRequiredFieldMessageBox(EntityIsFemale, EntityNameSingular, false, "nombre");
             TabControlMain.SelectedTab = TabPageGeneral;
             TextBoxNombre.Focus();
             return false;
@@ -244,7 +238,7 @@ public partial class FormSettlement : Form
 
         if (ComboBoxEntidad.SelectedIndex == -1)
         {
-            Common.Forms.ShowRequiredFieldMessageBox(entityIsFemale, entityNameSingular, true, "entidad");
+            Common.Forms.ShowRequiredFieldMessageBox(EntityIsFemale, EntityNameSingular, true, "entidad");
             TabControlMain.SelectedTab = TabPageGeneral;
             ComboBoxEntidad.Focus();
             return false;

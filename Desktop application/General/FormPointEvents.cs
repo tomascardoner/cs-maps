@@ -1,5 +1,6 @@
 ﻿using CardonerSistemas.Framework.Base;
 using CardonerSistemas.Framework.Controls;
+using CSMaps.Main;
 
 namespace CSMaps.General;
 
@@ -24,7 +25,7 @@ public partial class FormPointEvents : Form
     private ToolStripControlHost HostDateTimePickerDateFilterTo;
 
     private DataGridViewColumn sortedColumn;
-    private SortOrder sortOrder;
+    private SortOrder _sortOrder;
 
     private bool skipFilterApply = true;
 
@@ -33,7 +34,7 @@ public partial class FormPointEvents : Form
         public short IdEvento { get; set; }
         public byte IdEventoTipo { get; set; }
         public string EventoTipoNombre { get; set; }
-        public System.DateTime FechaHora { get; set; }
+        public DateTime FechaHora { get; set; }
     }
 
     #endregion
@@ -63,7 +64,7 @@ public partial class FormPointEvents : Form
 
         // Set the initial sorted column of the grid
         sortedColumn = DataGridViewColumnFechaHora;
-        sortOrder = SortOrder.Descending;
+        _sortOrder = SortOrder.Descending;
 
         skipFilterApply = false;
         ReadData();
@@ -119,7 +120,7 @@ public partial class FormPointEvents : Form
 
     private void This_Load(object sender, EventArgs e)
     {
-        sortedColumn.HeaderCell.SortGlyphDirection = sortOrder;
+        sortedColumn.HeaderCell.SortGlyphDirection = _sortOrder;
     }
 
     private void This_FormClosed(object sender, FormClosedEventArgs e)
@@ -147,10 +148,10 @@ public partial class FormPointEvents : Form
 
     private void SetDataToUserInterface(Models.CSMapsContext context)
     {
-        var puntoDato = context.PuntoDatos.Find(idPunto);
+        var puntoDato = context.PuntoDato.Find(idPunto);
         if (puntoDato.IdEstablecimiento.HasValue)
         {
-            var establecimiento = context.Establecimientos.Find(puntoDato.IdEstablecimiento);
+            var establecimiento = context.Establecimiento.Find(puntoDato.IdEstablecimiento);
             TextBoxEstablecimiento.Text = establecimiento.Nombre;
         }
         else
@@ -167,8 +168,8 @@ public partial class FormPointEvents : Form
         try
         {
             using Models.CSMapsContext context = new();
-            entitiesAll = [.. from pe in context.PuntoEventos
-                              join e in context.EventoTipos on pe.IdEventoTipo equals e.IdEventoTipo into eventoTiposGrupo
+            entitiesAll = [.. from pe in context.PuntoEvento
+                              join e in context.EventoTipo on pe.IdEventoTipo equals e.IdEventoTipo into eventoTiposGrupo
                               from etg in eventoTiposGrupo.DefaultIfEmpty()
                               where pe.IdPunto == idPunto
                               select new DataGridViewRowData { IdEvento = pe.IdEvento, IdEventoTipo = pe.IdEventoTipo, EventoTipoNombre = (etg == null ? string.Empty : etg.Nombre), FechaHora = pe.FechaHora }];
@@ -183,14 +184,7 @@ public partial class FormPointEvents : Form
         // Save position
         if (restoreCurrentPosition)
         {
-            if (DataGridViewMain.CurrentRow == null)
-            {
-                idEvento = 0;
-            }
-            else
-            {
-                idEvento = ((DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem).IdEvento;
-            }
+            idEvento = DataGridViewMain.CurrentRow == null ? (short)0 : ((DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem).IdEvento;
         }
 
         FilterData();
@@ -223,7 +217,7 @@ public partial class FormPointEvents : Form
         entitiesFiltered = [.. entitiesAll.Where(pe => pe.FechaHora >= fechaDesde.ToDateTime(new()) && pe.FechaHora <= fechaHasta.ToDateTime(new(23, 59, 59)))];
 
         // Event type
-        if ((byte)ToolStripComboBoxEventTypeFilter.ComboBox.SelectedValue != Constants.ByteFieldValueAll)
+        if ((byte)ToolStripComboBoxEventTypeFilter.ComboBox.SelectedValue != CardonerSistemas.Framework.Base.Constants.ByteFieldValueAll)
         {
             entitiesFiltered = [.. entitiesFiltered.Where(pe => pe.IdEventoTipo == (byte)ToolStripComboBoxEventTypeFilter.ComboBox.SelectedValue)];
         }
@@ -237,30 +231,20 @@ public partial class FormPointEvents : Form
     {
         if (sortedColumn == DataGridViewColumnFechaHora)
         {
-            if (sortOrder == SortOrder.Ascending)
-            {
-                entitiesFiltered = [.. entitiesFiltered.OrderBy(pe => pe.FechaHora)];
-            }
-            else
-            {
-                entitiesFiltered = [.. entitiesFiltered.OrderByDescending(pe => pe.FechaHora)];
-            }
+            entitiesFiltered = _sortOrder == SortOrder.Ascending
+                ? [.. entitiesFiltered.OrderBy(pe => pe.FechaHora)]
+                : [.. entitiesFiltered.OrderByDescending(pe => pe.FechaHora)];
         }
         else if (sortedColumn == DataGridViewColumnEventoTipo)
         {
-            if (sortOrder == SortOrder.Ascending)
-            {
-                entitiesFiltered = [.. entitiesFiltered.OrderBy(pe => pe.EventoTipoNombre).ThenBy(pe => pe.FechaHora)];
-            }
-            else
-            {
-                entitiesFiltered = [.. entitiesFiltered.OrderByDescending(pe => pe.EventoTipoNombre).ThenByDescending(pe => pe.FechaHora)];
-            }
+            entitiesFiltered = _sortOrder == SortOrder.Ascending
+                ? [.. entitiesFiltered.OrderBy(pe => pe.EventoTipoNombre).ThenBy(pe => pe.FechaHora)]
+                : [.. entitiesFiltered.OrderByDescending(pe => pe.EventoTipoNombre).ThenByDescending(pe => pe.FechaHora)];
         }
 
         DataGridViewMain.AutoGenerateColumns = false;
         DataGridViewMain.DataSource = entitiesFiltered;
-        sortedColumn.HeaderCell.SortGlyphDirection = sortOrder;
+        sortedColumn.HeaderCell.SortGlyphDirection = _sortOrder;
         this.Cursor = Cursors.Default;
     }
 
@@ -293,7 +277,7 @@ public partial class FormPointEvents : Form
 
     private void DataGridViewMain_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
     {
-        if (Common.DataGridViews.ColumnHeaderMouseClick(DataGridViewMain, e, ref sortedColumn, ref sortOrder, [DataGridViewColumnEventoTipo, DataGridViewColumnFechaHora]))
+        if (Common.DataGridViews.ColumnHeaderMouseClick(DataGridViewMain, e, ref sortedColumn, ref _sortOrder, [DataGridViewColumnEventoTipo, DataGridViewColumnFechaHora]))
         {
             OrderData();
         }
@@ -351,9 +335,9 @@ public partial class FormPointEvents : Form
         try
         {
             using Models.CSMapsContext context = new();
-            var puntoEvento = context.PuntoEventos.Find(idPunto, rowData.IdEvento);
-            context.PuntoEventos.Attach(puntoEvento);
-            context.PuntoEventos.Remove(puntoEvento);
+            var puntoEvento = context.PuntoEvento.Find(idPunto, rowData.IdEvento);
+            context.PuntoEvento.Attach(puntoEvento);
+            context.PuntoEvento.Remove(puntoEvento);
             context.SaveChanges();
             Common.RefreshLists.PointsEvents(idPunto);
         }

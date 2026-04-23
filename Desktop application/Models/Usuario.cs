@@ -31,23 +31,23 @@ public partial class Usuario
 
     public DateTime FechaHoraUltimaModificacion { get; set; }
 
-    public virtual ICollection<Entidad> EntidadIdUsuarioCreacionNavigations { get; set; } = new List<Entidad>();
+    public virtual ICollection<Entidad> EntidadIdUsuarioCreacionNavigation { get; set; } = new List<Entidad>();
 
-    public virtual ICollection<Entidad> EntidadIdUsuarioUltimaModificacionNavigations { get; set; } = new List<Entidad>();
+    public virtual ICollection<Entidad> EntidadIdUsuarioUltimaModificacionNavigation { get; set; } = new List<Entidad>();
 
-    public virtual ICollection<Establecimiento> EstablecimientoIdUsuarioCreacionNavigations { get; set; } = new List<Establecimiento>();
+    public virtual ICollection<Establecimiento> EstablecimientoIdUsuarioCreacionNavigation { get; set; } = new List<Establecimiento>();
 
-    public virtual ICollection<Establecimiento> EstablecimientoIdUsuarioUltimaModificacionNavigations { get; set; } = new List<Establecimiento>();
+    public virtual ICollection<Establecimiento> EstablecimientoIdUsuarioUltimaModificacionNavigation { get; set; } = new List<Establecimiento>();
 
-    public virtual ICollection<EventoTipo> EventoTipoIdUsuarioCreacionNavigations { get; set; } = new List<EventoTipo>();
+    public virtual ICollection<EventoTipo> EventoTipoIdUsuarioCreacionNavigation { get; set; } = new List<EventoTipo>();
 
-    public virtual ICollection<EventoTipo> EventoTipoIdUsuarioUltimaModificacionNavigations { get; set; } = new List<EventoTipo>();
+    public virtual ICollection<EventoTipo> EventoTipoIdUsuarioUltimaModificacionNavigation { get; set; } = new List<EventoTipo>();
 
-    public virtual ICollection<Grupo> GrupoIdUsuarioCreacionNavigations { get; set; } = new List<Grupo>();
+    public virtual ICollection<Grupo> GrupoIdUsuarioCreacionNavigation { get; set; } = new List<Grupo>();
 
-    public virtual ICollection<Grupo> GrupoIdUsuarioUltimaModificacionNavigations { get; set; } = new List<Grupo>();
+    public virtual ICollection<Grupo> GrupoIdUsuarioUltimaModificacionNavigation { get; set; } = new List<Grupo>();
 
-    public virtual ICollection<GrupoPunto> GrupoPuntos { get; set; } = new List<GrupoPunto>();
+    public virtual ICollection<GrupoPunto> GrupoPunto { get; set; } = new List<GrupoPunto>();
 
     public virtual Usuario IdUsuarioCreacionNavigation { get; set; }
 
@@ -59,23 +59,23 @@ public partial class Usuario
 
     public virtual ICollection<Usuario> InverseIdUsuarioUltimaModificacionNavigation { get; set; } = new List<Usuario>();
 
-    public virtual ICollection<PuntoDato> PuntoDatoIdUsuarioCreacionNavigations { get; set; } = new List<PuntoDato>();
+    public virtual ICollection<PuntoDato> PuntoDatoIdUsuarioCreacionNavigation { get; set; } = new List<PuntoDato>();
 
-    public virtual ICollection<PuntoDato> PuntoDatoIdUsuarioUltimaModificacionNavigations { get; set; } = new List<PuntoDato>();
+    public virtual ICollection<PuntoDato> PuntoDatoIdUsuarioUltimaModificacionNavigation { get; set; } = new List<PuntoDato>();
 
-    public virtual ICollection<PuntoEvento> PuntoEventoIdUsuarioCreacionNavigations { get; set; } = new List<PuntoEvento>();
+    public virtual ICollection<PuntoEvento> PuntoEventoIdUsuarioCreacionNavigation { get; set; } = new List<PuntoEvento>();
 
-    public virtual ICollection<PuntoEvento> PuntoEventoIdUsuarioUltimaModificacionNavigations { get; set; } = new List<PuntoEvento>();
+    public virtual ICollection<PuntoEvento> PuntoEventoIdUsuarioUltimaModificacionNavigation { get; set; } = new List<PuntoEvento>();
 
-    public virtual ICollection<Punto> PuntoIdUsuarioCreacionNavigations { get; set; } = new List<Punto>();
+    public virtual ICollection<Punto> PuntoIdUsuarioCreacionNavigation { get; set; } = new List<Punto>();
 
-    public virtual ICollection<Punto> PuntoIdUsuarioUltimaModificacionNavigations { get; set; } = new List<Punto>();
+    public virtual ICollection<Punto> PuntoIdUsuarioUltimaModificacionNavigation { get; set; } = new List<Punto>();
 
-    public virtual ICollection<UsuarioGrupo> UsuarioGrupoIdUsuarioCreacionNavigations { get; set; } = new List<UsuarioGrupo>();
+    public virtual ICollection<UsuarioGrupo> UsuarioGrupoIdUsuarioCreacionNavigation { get; set; } = new List<UsuarioGrupo>();
 
-    public virtual ICollection<UsuarioGrupo> UsuarioGrupoIdUsuarioUltimaModificacionNavigations { get; set; } = new List<UsuarioGrupo>();
+    public virtual ICollection<UsuarioGrupo> UsuarioGrupoIdUsuarioUltimaModificacionNavigation { get; set; } = new List<UsuarioGrupo>();
 
-    public virtual ICollection<UsuarioGrupoPermiso> UsuarioGrupoPermisos { get; set; } = new List<UsuarioGrupoPermiso>();
+    public virtual ICollection<UsuarioGrupoPermiso> UsuarioGrupoPermiso { get; set; } = new List<UsuarioGrupoPermiso>();
 
-    public virtual ICollection<UsuarioParametro> UsuarioParametros { get; set; } = new List<UsuarioParametro>();
+    public virtual ICollection<UsuarioParametro> UsuarioParametro { get; set; } = new List<UsuarioParametro>();
 }

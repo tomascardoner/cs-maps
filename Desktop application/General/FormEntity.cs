@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using CardonerSistemas.Framework.Base;
 using CardonerSistemas.Framework.Controls;
+using CSMaps.Main;
 using CSMaps.Users;
 
 namespace CSMaps.General;
@@ -38,11 +39,11 @@ public partial class FormEntity : Form
         {
             _entidad = new();
             InitializeNewObjectData();
-            _dbContext.Entidades.Add(_entidad);
+            _dbContext.Entidad.Add(_entidad);
         }
         else
         {
-            _entidad = _dbContext.Entidades.Find(idEntidad);
+            _entidad = _dbContext.Entidad.Find(idEntidad);
         }
 
         InitializeForm();
@@ -212,7 +213,7 @@ public partial class FormEntity : Form
         try
         {
             using Models.CSMapsContext newIdContext = new();
-            _entidad.IdEntidad = newIdContext.Entidades.Any() ? (short)(newIdContext.Entidades.Max(e => e.IdEntidad) + 1) : (short)1;
+            _entidad.IdEntidad = newIdContext.Entidad.Any() ? (short)(newIdContext.Entidad.Max(e => e.IdEntidad) + 1) : (short)1;
 
             return true;
         }

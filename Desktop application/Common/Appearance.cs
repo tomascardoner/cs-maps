@@ -1,4 +1,6 @@
-﻿namespace CSMaps.Common;
+﻿using CSMaps.Main;
+
+namespace CSMaps.Common;
 
 internal static class Appearance
 {

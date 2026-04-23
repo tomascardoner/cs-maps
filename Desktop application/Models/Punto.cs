@@ -25,7 +25,7 @@ public partial class Punto
 
     public DateTime FechaHoraUltimaModificacion { get; set; }
 
-    public virtual ICollection<GrupoPunto> GrupoPuntos { get; set; } = new List<GrupoPunto>();
+    public virtual ICollection<GrupoPunto> GrupoPunto { get; set; } = new List<GrupoPunto>();
 
     public virtual Usuario IdUsuarioCreacionNavigation { get; set; }
 
@@ -33,5 +33,5 @@ public partial class Punto
 
     public virtual PuntoDato PuntoDato { get; set; }
 
-    public virtual ICollection<PuntoEvento> PuntoEventos { get; set; } = new List<PuntoEvento>();
+    public virtual ICollection<PuntoEvento> PuntoEvento { get; set; } = new List<PuntoEvento>();
 }

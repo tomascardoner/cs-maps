@@ -1,5 +1,6 @@
 ﻿using CardonerSistemas.Framework.Base;
 using CardonerSistemas.Framework.Controls;
+using CSMaps.Main;
 
 namespace CSMaps.General;
 
@@ -32,16 +33,16 @@ public partial class FormPointEvent : Form
         isEditMode = editMode;
 
         idPunto = idPuntoOrigen;
-        puntoEvento = context.PuntoEventos.Find(idPunto, idEvento);
+        puntoEvento = context.PuntoEvento.Find(idPunto, idEvento);
         if (isNew)
         {
             puntoEvento = new() { IdPunto = idPunto };
             InitializeNewObjectData();
-            context.PuntoEventos.Add(puntoEvento);
+            context.PuntoEvento.Add(puntoEvento);
         }
         else
         {
-            puntoEvento = context.PuntoEventos.Find(idPunto, idEvento);
+            puntoEvento = context.PuntoEvento.Find(idPunto, idEvento);
         }
 
         InitializeForm();
@@ -215,14 +216,9 @@ public partial class FormPointEvent : Form
         try
         {
             using Models.CSMapsContext newIdContext = new();
-            if (newIdContext.PuntoEventos.Where(pe => pe.IdPunto == idPunto).Any())
-            {
-                puntoEvento.IdEvento = (short)(newIdContext.PuntoEventos.Where(pe => pe.IdPunto == idPunto).Max(pe => pe.IdEvento) + 1);
-            }
-            else
-            {
-                puntoEvento.IdEvento = 1;
-            }
+            puntoEvento.IdEvento = newIdContext.PuntoEvento.Where(pe => pe.IdPunto == idPunto).Any()
+                ? (short)(newIdContext.PuntoEvento.Where(pe => pe.IdPunto == idPunto).Max(pe => pe.IdEvento) + 1)
+                : (short)1;
 
             return true;
         }

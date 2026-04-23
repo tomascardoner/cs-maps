@@ -1,9 +1,9 @@
 using CSMaps.config;
-using CSMaps.Main;
 using System.Diagnostics;
+using System.Globalization;
 using System.Reflection;
 
-namespace CSMaps;
+namespace CSMaps.Main;
 
 internal static class Program
 {
@@ -26,7 +26,7 @@ internal static class Program
     internal static Models.Usuario Usuario;
 
     // Instancias
-    internal static Main.FormMdi FormMdi;
+    internal static FormMdi FormMdi;
 #pragma warning restore S2223 // Non-constant static fields should not be visible
 
     /// <summary>
@@ -69,7 +69,7 @@ internal static class Program
 
         if (!connectionStringBuilder.PasswordUnencrypt(Constants.PublicEncryptionPassword, out var resultMessage))
         {
-            MessageBox.Show(string.Format(Properties.Resources.StringDatabasePasswordUnencryptionError, Environment.NewLine, resultMessage), Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(string.Format(CultureInfo.CurrentCulture, Properties.Resources.StringDatabasePasswordUnencryptionError, Environment.NewLine, resultMessage), Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
             formSplash.Close();
             TerminateApplication();
             return;
@@ -106,7 +106,7 @@ internal static class Program
             return;
         }
 
-        formSplash.labelLicensedTo.Text = LicensedCompany.ToUpper();
+        formSplash.labelLicensedTo.Text = LicensedCompany.ToUpper(CultureInfo.CurrentCulture);
         formSplash.labelLicensedTo.Visible = true;
         Application.DoEvents();
 
@@ -137,7 +137,7 @@ internal static class Program
             using Models.CSMapsContext context = new();
             try
             {
-                Usuario = context.Usuarios.Find(Constants.UserAdministratorId);
+                Usuario = context.Usuario.Find(Constants.UserAdministratorId);
                 Users.Users.LogIn();
             }
             catch (Exception ex)
@@ -168,7 +168,7 @@ internal static class Program
         Application.Run(FormMdi);
     }
 
-    static public void TerminateApplication()
+    public static void TerminateApplication()
     {
         if (FormMdi != null)
         {

@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using CardonerSistemas.Framework.Base;
 using CardonerSistemas.Framework.Controls;
+using CSMaps.Main;
 using CSMaps.Users;
 
 namespace CSMaps.General;
@@ -36,11 +37,11 @@ public partial class FormPoint : Form
         {
             _punto = new();
             InitializeNewObjectData();
-            _dbContext.Puntos.Add(_punto);
+            _dbContext.Punto.Add(_punto);
         }
         else
         {
-            _punto = _dbContext.Puntos.Find(idPunto);
+            _punto = _dbContext.Punto.Find(idPunto);
         }
 
         InitializeForm();
@@ -215,7 +216,7 @@ public partial class FormPoint : Form
         try
         {
             using Models.CSMapsContext newIdContext = new();
-            _punto.IdPunto = newIdContext.Puntos.Any() ? (short)(newIdContext.Puntos.Max(e => e.IdPunto) + 1) : 1;
+            _punto.IdPunto = newIdContext.Punto.Any() ? (short)(newIdContext.Punto.Max(e => e.IdPunto) + 1) : 1;
 
             return true;
         }

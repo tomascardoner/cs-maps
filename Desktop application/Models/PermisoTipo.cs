@@ -13,5 +13,5 @@ public partial class PermisoTipo
 
     public byte? Orden { get; set; }
 
-    public virtual ICollection<Permiso> Permisos { get; set; } = new List<Permiso>();
+    public virtual ICollection<Permiso> Permiso { get; set; } = new List<Permiso>();
 }

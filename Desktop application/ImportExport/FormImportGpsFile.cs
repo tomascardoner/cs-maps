@@ -1,4 +1,5 @@
 ﻿using CardonerSistemas.Framework.Base;
+using CSMaps.Main;
 using Geo;
 using Geo.Gps;
 using MediaDevices;
@@ -473,7 +474,7 @@ public partial class FormImportGpsFile : Form
             var added = false;
 
             // Busco por coordenada
-            foreach (var punto in dbContext.Puntos.Where(p => p.Latitud == (decimal)waypoint.Coordinate.Latitude && p.Longitud == (decimal)waypoint.Coordinate.Longitude))
+            foreach (var punto in dbContext.Punto.Where(p => p.Latitud == (decimal)waypoint.Coordinate.Latitude && p.Longitud == (decimal)waypoint.Coordinate.Longitude))
             {
                 if (punto.Nombre == waypoint.Name.Trim() && (waypoint.Coordinate.Is3D && punto.Altitud == (decimal)((CoordinateZ)waypoint.Coordinate).Elevation) || (!waypoint.Coordinate.Is3D && punto.Altitud == 0))
                 {
@@ -504,7 +505,7 @@ public partial class FormImportGpsFile : Form
             }
 
             // Busco por nombre
-            foreach (var punto in dbContext.Puntos.Where(p => !_puntosCoincidentes.Contains(p) && p.Nombre == waypoint.Name.Trim()))
+            foreach (var punto in dbContext.Punto.Where(p => !_puntosCoincidentes.Contains(p) && p.Nombre == waypoint.Name.Trim()))
             {
                 if (!_puntosCoincidentesCoordenadas.Exists(p => p.LatitudGps != p.LatitudBD || p.LongitudGps != p.LongitudBD))
                 {
@@ -559,9 +560,9 @@ public partial class FormImportGpsFile : Form
             if (_puntosNuevosCount > 0)
             {
                 var idPunto = 0;
-                if (dbContext.Puntos.Any())
+                if (dbContext.Punto.Any())
                 {
-                    idPunto = dbContext.Puntos.Max(p => p.IdPunto);
+                    idPunto = dbContext.Punto.Max(p => p.IdPunto);
                 }
 
                 foreach (DataGridViewRow row in DataGridViewPuntosNuevos.Rows)
@@ -575,7 +576,7 @@ public partial class FormImportGpsFile : Form
                         puntoAdd.FechaHoraCreacion = DateTime.UtcNow;
                         puntoAdd.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
                         puntoAdd.FechaHoraUltimaModificacion = puntoAdd.FechaHoraCreacion;
-                        dbContext.Puntos.Add(puntoAdd);
+                        dbContext.Punto.Add(puntoAdd);
                     }
                 }
             }
@@ -588,7 +589,7 @@ public partial class FormImportGpsFile : Form
                     if (row.Cells[2].Value != null && (bool)row.Cells[2].Value)
                     {
                         var puntoFromUpdate = (PuntosGpsBD)row.DataBoundItem;
-                        var puntoToUpdate = dbContext.Puntos.FirstOrDefault(p => p.IdPunto == puntoFromUpdate.IdPunto);
+                        var puntoToUpdate = dbContext.Punto.FirstOrDefault(p => p.IdPunto == puntoFromUpdate.IdPunto);
                         if (puntoToUpdate != null)
                         {
                             if (puntoFromUpdate.NombreGps != puntoFromUpdate.NombreBD)
@@ -616,7 +617,7 @@ public partial class FormImportGpsFile : Form
                     if (row.Cells[1].Value != null && (bool)row.Cells[1].Value)
                     {
                         var puntoFromUpdate = (PuntosGpsBD)row.DataBoundItem;
-                        var puntoToUpdate = dbContext.Puntos.FirstOrDefault(p => p.IdPunto == puntoFromUpdate.IdPunto);
+                        var puntoToUpdate = dbContext.Punto.FirstOrDefault(p => p.IdPunto == puntoFromUpdate.IdPunto);
                         if (puntoToUpdate != null)
                         {
                             if (puntoFromUpdate.LatitudGps != puntoFromUpdate.LatitudBD)

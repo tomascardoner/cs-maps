@@ -8,9 +8,9 @@ public partial class FormUserChangePassword : Form
 
     #region Declarations
 
-    private Models.CSMapsContext context = new();
+    private readonly Models.CSMapsContext _context = new();
 
-    private int intentos;
+    private int _intentos;
 
     #endregion
 
@@ -28,31 +28,22 @@ public partial class FormUserChangePassword : Form
         Forms.SetFont(this, Program.AppearanceConfig.Font);
     }
 
-    private void This_FormClosed(object sender, FormClosedEventArgs e)
+    protected override void OnKeyPress(KeyPressEventArgs e)
     {
-        context.Dispose();
-        context = null;
+        base.OnKeyPress(e);
+        Common.Forms.This_KeyPress(e, this.ActiveControl, ButtonAceptar, ButtonCancelar, null);
+    }
+
+    protected override void OnFormClosed(FormClosedEventArgs e)
+    {
+        base.OnFormClosed(e);
+        _context?.Dispose();
         this.Dispose();
     }
 
     #endregion
 
     #region Controls behavior
-
-    private void This_KeyPress(object sender, KeyPressEventArgs e)
-    {
-        switch (e.KeyChar)
-        {
-            case (char)Keys.Return:
-                ButtonAceptar.PerformClick();
-                break;
-            case (char)Keys.Escape:
-                ButtonCancelar.PerformClick();
-                break;
-            default:
-                break;
-        }
-    }
 
     private void TextBoxs_Enter(object sender, EventArgs e)
     {
@@ -79,7 +70,7 @@ public partial class FormUserChangePassword : Form
             return;
         }
 
-        var usuarioPasswordLongitudMinima = Parameters.GetIntegerAsByte(Parameters.ParametersId.UsuarioPasswordLongitudMinima, 8).Value;
+        var usuarioPasswordLongitudMinima = Main.Parameters.GetIntegerAsByte(Main.Parameters.ParametersId.UsuarioPasswordLongitudMinima, 8).Value;
         if (TextBoxPasswordAnterior.Text.Trim().Length < usuarioPasswordLongitudMinima)
         {
             MessageBox.Show($"La contraseña anterior debe contener al menos {usuarioPasswordLongitudMinima} caracteres.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -117,7 +108,7 @@ public partial class FormUserChangePassword : Form
             return;
         }
 
-        if (string.Compare(TextBoxPasswordNueva.Text, TextBoxPasswordConfirma.Text, false) != 0)
+        if (!string.Equals(TextBoxPasswordNueva.Text, TextBoxPasswordConfirma.Text, StringComparison.Ordinal))
         {
             MessageBox.Show("La contraseña nueva es diferente a la confirmación.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             TextBoxPasswordConfirma.Focus();
@@ -125,7 +116,7 @@ public partial class FormUserChangePassword : Form
         }
 
         // Verifico que la nueva contraseña sea diferente a la anterior
-        if (string.Compare(TextBoxPasswordAnterior.Text, TextBoxPasswordNueva.Text, false) == 0)
+        if (string.Equals(TextBoxPasswordAnterior.Text, TextBoxPasswordNueva.Text, StringComparison.Ordinal))
         {
             MessageBox.Show("La contraseña nueva debe ser diferente a la anterior.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             TextBoxPasswordNueva.Focus();
@@ -139,14 +130,14 @@ public partial class FormUserChangePassword : Form
             return;
         }
 
-        if (string.Compare(TextBoxPasswordAnterior.Text, decryptedPassword, false) != 0)
+        if (!string.Equals(TextBoxPasswordAnterior.Text, decryptedPassword, StringComparison.Ordinal))
         {
             MessageBox.Show("La contraseña anterior ingresada es incorrecta.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             TextBoxPasswordAnterior.SelectAll();
             TextBoxPasswordAnterior.Focus();
             this.Cursor = Cursors.Default;
-            intentos++;
-            if (intentos > 3)
+            _intentos++;
+            if (_intentos > 3)
             {
                 this.DialogResult = DialogResult.Cancel;
             }
@@ -159,9 +150,9 @@ public partial class FormUserChangePassword : Form
         {
             if (CardonerSistemas.Framework.Cryptography.StringCipher.Encrypt(TextBoxPasswordNueva.Text, Main.Constants.PublicEncryptionPassword, out var encryptedPassword))
             {
-                context.Usuarios.Attach(Program.Usuario);
+                _context.Usuario.Attach(Program.Usuario);
                 Program.Usuario.Password = encryptedPassword;
-                context.SaveChanges();
+                _context.SaveChanges();
                 MessageBox.Show("Se ha cambiado la contraseña del usuario.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }

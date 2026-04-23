@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using CardonerSistemas.Framework.Base;
+using CSMaps.Main;
 using CSMaps.Users;
 
 namespace CSMaps.General;
@@ -73,7 +74,7 @@ public partial class FormEntities : Form
         try
         {
             using Models.CSMapsContext context = new();
-            _entitiesAll = [.. context.Entidades];
+            _entitiesAll = [.. context.Entidad];
         }
         catch (Exception ex)
         {
@@ -243,9 +244,9 @@ public partial class FormEntities : Form
         try
         {
             using Models.CSMapsContext context = new();
-            var entidad = context.Entidades.Find(rowData.IdEntidad);
-            context.Entidades.Attach(entidad);
-            context.Entidades.Remove(entidad);
+            var entidad = context.Entidad.Find(rowData.IdEntidad);
+            context.Entidad.Attach(entidad);
+            context.Entidad.Remove(entidad);
             context.SaveChanges();
             Common.RefreshLists.Entities();
         }

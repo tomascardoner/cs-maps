@@ -1,4 +1,5 @@
 ﻿using CardonerSistemas.Framework.Base;
+using CSMaps.Main;
 
 namespace CSMaps.Users;
 
@@ -67,8 +68,9 @@ public partial class FormUsers : Form
         Common.Appearance.SetDataGrid(DataGridViewMain);
     }
 
-    private void This_Load(object sender, EventArgs e)
+    protected override void OnLoad(EventArgs e)
     {
+        base.OnLoad(e);
         _sortedColumn.HeaderCell.SortGlyphDirection = _sortOrder;
     }
 
@@ -82,8 +84,8 @@ public partial class FormUsers : Form
         try
         {
             using Models.CSMapsContext context = new();
-            _entitiesAll = [.. from u in context.Usuarios
-                              join ug in context.UsuarioGrupos on u.IdUsuarioGrupo equals ug.IdUsuarioGrupo
+            _entitiesAll = [.. from u in context.Usuario
+                              join ug in context.UsuarioGrupo on u.IdUsuarioGrupo equals ug.IdUsuarioGrupo
                               where u.IdUsuario != Main.Constants.UserAdministratorId
                               select new DataGridRowData() { IdUsuario = u.IdUsuario, Nombre = u.Nombre, Descripcion = u.Descripcion, IdUsuarioGrupo = u.IdUsuarioGrupo, UsuarioGrupoNombre = ug.Nombre, EsActivo = u.EsActivo }];
         }
@@ -241,9 +243,9 @@ public partial class FormUsers : Form
         try
         {
             using Models.CSMapsContext context = new();
-            var usuario = context.Usuarios.Find(rowData.IdUsuario);
-            context.Usuarios.Attach(usuario);
-            context.Usuarios.Remove(usuario);
+            var usuario = context.Usuario.Find(rowData.IdUsuario);
+            context.Usuario.Attach(usuario);
+            context.Usuario.Remove(usuario);
             context.SaveChanges();
         }
         catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)

@@ -19,5 +19,5 @@ public partial class Permiso
 
     public virtual PermisoTipo IdPermisoTipoNavigation { get; set; }
 
-    public virtual ICollection<UsuarioGrupoPermiso> UsuarioGrupoPermisos { get; set; } = new List<UsuarioGrupoPermiso>();
+    public virtual ICollection<UsuarioGrupoPermiso> UsuarioGrupoPermiso { get; set; } = new List<UsuarioGrupoPermiso>();
 }

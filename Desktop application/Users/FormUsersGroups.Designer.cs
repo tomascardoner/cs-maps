@@ -217,7 +217,6 @@
             Name = "FormUsersGroups";
             ShowInTaskbar = false;
             Text = "Grupos de usuarios";
-            FormClosed += This_FormClosed;
             FlowLayoutPanelToolbars.ResumeLayout(false);
             FlowLayoutPanelToolbars.PerformLayout();
             ToolStripMain.ResumeLayout(false);

@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using CardonerSistemas.Framework.Base;
+using CSMaps.Main;
 
 namespace CSMaps.General;
 
@@ -137,9 +138,9 @@ public partial class FormPointsDataAndEvents : Form
 
         _entitiesFiltered = ToolStripComboBoxLastEventTypeFilter.ComboBox.SelectedValue switch
         {
-            Constants.ByteFieldValueAll => _entitiesFiltered,
-            Constants.ByteFieldValueNotSpecified => [.. _entitiesFiltered.Where(p => !p.IdEventoTipo.HasValue)],
-            Constants.ByteFieldValueOther => [.. _entitiesFiltered.Where(p => p.IdEventoTipo.HasValue)],
+            CardonerSistemas.Framework.Base.Constants.ByteFieldValueAll => _entitiesFiltered,
+            CardonerSistemas.Framework.Base.Constants.ByteFieldValueNotSpecified => [.. _entitiesFiltered.Where(p => !p.IdEventoTipo.HasValue)],
+            CardonerSistemas.Framework.Base.Constants.ByteFieldValueOther => [.. _entitiesFiltered.Where(p => p.IdEventoTipo.HasValue)],
             _ => [.. _entitiesFiltered.Where(p => p.IdEventoTipo == (byte)ToolStripComboBoxLastEventTypeFilter.ComboBox.SelectedValue)]
         };
 
@@ -217,7 +218,7 @@ public partial class FormPointsDataAndEvents : Form
 
     private void DataGridViewMain_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
     {
-        if (Common.DataGridViews.ColumnHeaderMouseClick(DataGridViewMain, e, ref _sortedColumn, ref _sortOrder, [DataGridViewColumnNombre, DataGridViewColumnEstablecimiento, DataGridViewColumnChapaNumero, DataGridViewColumnFechaHora]))
+        if (Common.DataGridViews.ColumnHeaderMouseClick(DataGridViewMain, e, ref _sortedColumn, ref _sortOrder, [DataGridViewColumnNombre, DataGridViewColumnEstablecimiento, DataGridViewColumnEntidad, DataGridViewColumnChapaNumero, DataGridViewColumnFechaHora]))
         {
             OrderData();
         }
@@ -251,7 +252,7 @@ public partial class FormPointsDataAndEvents : Form
     {
         if (Common.DataGridViews.ViewVerify(this, DataGridViewMain, EntityNameSingle, EntityIsFemale))
         {
-            CardonerSistemas.Framework.Base.Maps.OpenMap(Convert.ToDouble(((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).Latitud), Convert.ToDouble(((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).Longitud), CardonerSistemas.Framework.Base.Maps.MapProviders.GoogleMaps, CardonerSistemas.Framework.Base.Maps.MapActions.Search);
+            Maps.OpenMap(Convert.ToDouble(((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).Latitud), Convert.ToDouble(((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).Longitud), Maps.MapProviders.GoogleMaps, Maps.MapActions.Search);
             Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
         }
     }
@@ -284,16 +285,16 @@ public partial class FormPointsDataAndEvents : Form
         try
         {
             using Models.CSMapsContext context = new();
-            if (context.PuntoEventos.Any(pe => pe.IdPunto == rowData.IdPunto))
+            if (context.PuntoEvento.Any(pe => pe.IdPunto == rowData.IdPunto))
             {
                 this.Cursor = Cursors.Default;
                 MessageBox.Show("Para poder borrar los datos de este punto, primero deberá borrar los eventos del mismo.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
-            var puntoDato = context.PuntoDatos.Find(rowData.IdPunto);
-            context.PuntoDatos.Attach(puntoDato);
-            context.PuntoDatos.Remove(puntoDato);
+            var puntoDato = context.PuntoDato.Find(rowData.IdPunto);
+            context.PuntoDato.Attach(puntoDato);
+            context.PuntoDato.Remove(puntoDato);
             context.SaveChanges();
             Common.RefreshLists.PointsData();
         }

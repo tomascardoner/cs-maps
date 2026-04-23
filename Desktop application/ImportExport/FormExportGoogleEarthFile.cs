@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using CardonerSistemas.Framework.Base;
+using CSMaps.Main;
 using Microsoft.EntityFrameworkCore;
 using SharpKml.Base;
 using SharpKml.Dom;
@@ -190,8 +191,8 @@ public partial class FormExportGoogleEarthFile : Form
     {
         try
         {
-            foreach (var punto in from p in _dbContext.Puntos.Include(p => p.PuntoDato).ThenInclude(pd => pd.IdEstablecimientoNavigation).ThenInclude(e => e.IdEntidadNavigation)
-                                  join gp in _dbContext.GrupoPuntos on p.IdPunto equals gp.IdPunto
+            foreach (var punto in from p in _dbContext.Punto.Include(p => p.PuntoDato).ThenInclude(pd => pd.IdEstablecimientoNavigation).ThenInclude(e => e.IdEntidadNavigation)
+                                  join gp in _dbContext.GrupoPunto on p.IdPunto equals gp.IdPunto
                                   where gp.IdGrupo == idGrupo
                                   select p)
             {
@@ -228,14 +229,14 @@ public partial class FormExportGoogleEarthFile : Form
                 style.Icon.Color = Color32.Parse(grupo.IconoMapaColor);
             }
 
-            if (grupo.IconoMapaHotSpotX.HasValue && !string.IsNullOrWhiteSpace(grupo.IconoMapaHotSpotXunits) && grupo.IconoMapaHotSpotY.HasValue && !string.IsNullOrWhiteSpace(grupo.IconoMapaHotSpotYunits))
+            if (grupo.IconoMapaHotSpotX.HasValue && !string.IsNullOrWhiteSpace(grupo.IconoMapaHotSpotXUnits) && grupo.IconoMapaHotSpotY.HasValue && !string.IsNullOrWhiteSpace(grupo.IconoMapaHotSpotYUnits))
             {
                 style.Icon.Hotspot = new()
                 {
                     X = grupo.IconoMapaHotSpotX.Value,
-                    XUnits = GetUnit(grupo.IconoMapaHotSpotXunits[0]),
+                    XUnits = GetUnit(grupo.IconoMapaHotSpotXUnits[0]),
                     Y = grupo.IconoMapaHotSpotY.Value,
-                    YUnits = GetUnit(grupo.IconoMapaHotSpotYunits[0])
+                    YUnits = GetUnit(grupo.IconoMapaHotSpotYUnits[0])
                 };
             }
         }

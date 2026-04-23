@@ -7,7 +7,7 @@ internal static class Users
 {
     internal static string GetDescription(Models.CSMapsContext context, short idUsuario)
     {
-        return idUsuario == 0 ? string.Empty : context.Usuarios.Find(idUsuario).Nombre;
+        return idUsuario == 0 ? string.Empty : context.Usuario.Find(idUsuario).Nombre;
     }
 
     internal static void LogIn()

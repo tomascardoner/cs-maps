@@ -87,10 +87,10 @@
             // 
             LabelCreacion.AutoSize = true;
             LabelCreacion.Dock = DockStyle.Fill;
-            LabelCreacion.Location = new Point(4, 33);
+            LabelCreacion.Location = new Point(4, 29);
             LabelCreacion.Margin = new Padding(4, 0, 4, 0);
             LabelCreacion.Name = "LabelCreacion";
-            LabelCreacion.Size = new Size(147, 33);
+            LabelCreacion.Size = new Size(118, 29);
             LabelCreacion.TabIndex = 2;
             LabelCreacion.Text = "Creación:";
             LabelCreacion.TextAlign = ContentAlignment.MiddleLeft;
@@ -99,10 +99,10 @@
             // 
             LabelModificacion.AutoSize = true;
             LabelModificacion.Dock = DockStyle.Fill;
-            LabelModificacion.Location = new Point(4, 66);
+            LabelModificacion.Location = new Point(4, 58);
             LabelModificacion.Margin = new Padding(4, 0, 4, 0);
             LabelModificacion.Name = "LabelModificacion";
-            LabelModificacion.Size = new Size(147, 33);
+            LabelModificacion.Size = new Size(118, 29);
             LabelModificacion.TabIndex = 5;
             LabelModificacion.Text = "Última modificación:";
             LabelModificacion.TextAlign = ContentAlignment.MiddleLeft;
@@ -124,7 +124,7 @@
             this.ToolStripButtonClose.ImageScaling = ToolStripItemImageScaling.None;
             this.ToolStripButtonClose.ImageTransparentColor = Color.Magenta;
             this.ToolStripButtonClose.Name = "ToolStripButtonClose";
-            this.ToolStripButtonClose.Size = new Size(85, 36);
+            this.ToolStripButtonClose.Size = new Size(75, 36);
             this.ToolStripButtonClose.Text = "Cerrar";
             this.ToolStripButtonClose.Click += this.ToolStripButtonClose_Click;
             // 
@@ -135,7 +135,7 @@
             this.ToolStripButtonEdit.ImageScaling = ToolStripItemImageScaling.None;
             this.ToolStripButtonEdit.ImageTransparentColor = Color.Magenta;
             this.ToolStripButtonEdit.Name = "ToolStripButtonEdit";
-            this.ToolStripButtonEdit.Size = new Size(84, 36);
+            this.ToolStripButtonEdit.Size = new Size(73, 36);
             this.ToolStripButtonEdit.Text = "Editar";
             this.ToolStripButtonEdit.Click += this.ToolStripButtonEdit_Click;
             // 
@@ -146,7 +146,7 @@
             this.ToolStripButtonCancel.ImageScaling = ToolStripItemImageScaling.None;
             this.ToolStripButtonCancel.ImageTransparentColor = Color.Magenta;
             this.ToolStripButtonCancel.Name = "ToolStripButtonCancel";
-            this.ToolStripButtonCancel.Size = new Size(102, 36);
+            this.ToolStripButtonCancel.Size = new Size(89, 36);
             this.ToolStripButtonCancel.Text = "Cancelar";
             this.ToolStripButtonCancel.Click += this.ToolStripButtonCancel_Click;
             // 
@@ -157,7 +157,7 @@
             this.ToolStripButtonSave.ImageScaling = ToolStripItemImageScaling.None;
             this.ToolStripButtonSave.ImageTransparentColor = Color.Magenta;
             this.ToolStripButtonSave.Name = "ToolStripButtonSave";
-            this.ToolStripButtonSave.Size = new Size(98, 36);
+            this.ToolStripButtonSave.Size = new Size(85, 36);
             this.ToolStripButtonSave.Text = "Guardar";
             this.ToolStripButtonSave.Click += this.ToolStripButtonSave_Click;
             // 
@@ -177,9 +177,9 @@
             // 
             this.LabelLongitud.AutoSize = true;
             this.LabelLongitud.Dock = DockStyle.Fill;
-            this.LabelLongitud.Location = new Point(3, 69);
+            this.LabelLongitud.Location = new Point(3, 65);
             this.LabelLongitud.Name = "LabelLongitud";
-            this.LabelLongitud.Size = new Size(71, 33);
+            this.LabelLongitud.Size = new Size(58, 29);
             this.LabelLongitud.TabIndex = 5;
             this.LabelLongitud.Text = "Longitud:";
             this.LabelLongitud.TextAlign = ContentAlignment.MiddleLeft;
@@ -190,14 +190,14 @@
             this.DoubleTextBoxLongitud.BeforeTouchSize = new Size(100, 27);
             this.DoubleTextBoxLongitud.DoubleValue = 0D;
             this.DoubleTextBoxLongitud.HideTrailingZeros = false;
-            this.DoubleTextBoxLongitud.Location = new Point(80, 72);
+            this.DoubleTextBoxLongitud.Location = new Point(67, 68);
             this.DoubleTextBoxLongitud.MaxValue = 180D;
             this.DoubleTextBoxLongitud.MinValue = -180D;
             this.DoubleTextBoxLongitud.Name = "DoubleTextBoxLongitud";
             this.DoubleTextBoxLongitud.NegativeColor = SystemColors.ControlText;
             this.DoubleTextBoxLongitud.NumberDecimalDigits = 6;
             this.DoubleTextBoxLongitud.ReadOnly = true;
-            this.DoubleTextBoxLongitud.Size = new Size(100, 27);
+            this.DoubleTextBoxLongitud.Size = new Size(100, 23);
             this.DoubleTextBoxLongitud.TabIndex = 6;
             this.DoubleTextBoxLongitud.TabStop = false;
             this.DoubleTextBoxLongitud.Text = "0,000000";
@@ -209,14 +209,14 @@
             this.DoubleTextBoxLatitud.BeforeTouchSize = new Size(100, 27);
             this.DoubleTextBoxLatitud.DoubleValue = 0D;
             this.DoubleTextBoxLatitud.HideTrailingZeros = false;
-            this.DoubleTextBoxLatitud.Location = new Point(80, 39);
+            this.DoubleTextBoxLatitud.Location = new Point(67, 39);
             this.DoubleTextBoxLatitud.MaxValue = 90D;
             this.DoubleTextBoxLatitud.MinValue = -90D;
             this.DoubleTextBoxLatitud.Name = "DoubleTextBoxLatitud";
             this.DoubleTextBoxLatitud.NegativeColor = SystemColors.ControlText;
             this.DoubleTextBoxLatitud.NumberDecimalDigits = 6;
             this.DoubleTextBoxLatitud.ReadOnly = true;
-            this.DoubleTextBoxLatitud.Size = new Size(100, 27);
+            this.DoubleTextBoxLatitud.Size = new Size(100, 23);
             this.DoubleTextBoxLatitud.TabIndex = 4;
             this.DoubleTextBoxLatitud.TabStop = false;
             this.DoubleTextBoxLatitud.Text = "0,000000";
@@ -228,7 +228,7 @@
             this.LabelLatitud.Dock = DockStyle.Fill;
             this.LabelLatitud.Location = new Point(3, 36);
             this.LabelLatitud.Name = "LabelLatitud";
-            this.LabelLatitud.Size = new Size(71, 33);
+            this.LabelLatitud.Size = new Size(58, 29);
             this.LabelLatitud.TabIndex = 3;
             this.LabelLatitud.Text = "Latitud:";
             this.LabelLatitud.TextAlign = ContentAlignment.MiddleLeft;
@@ -236,11 +236,11 @@
             // TextBoxNombre
             // 
             this.TextBoxNombre.Dock = DockStyle.Fill;
-            this.TextBoxNombre.Location = new Point(80, 3);
+            this.TextBoxNombre.Location = new Point(67, 3);
             this.TextBoxNombre.MaxLength = 100;
             this.TextBoxNombre.Name = "TextBoxNombre";
             this.TextBoxNombre.ReadOnly = true;
-            this.TextBoxNombre.Size = new Size(572, 27);
+            this.TextBoxNombre.Size = new Size(585, 23);
             this.TextBoxNombre.TabIndex = 1;
             this.TextBoxNombre.TabStop = false;
             this.TextBoxNombre.Enter += this.TextBoxs_Enter;
@@ -251,7 +251,7 @@
             this.LabelNombre.Dock = DockStyle.Fill;
             this.LabelNombre.Location = new Point(3, 0);
             this.LabelNombre.Name = "LabelNombre";
-            this.LabelNombre.Size = new Size(71, 36);
+            this.LabelNombre.Size = new Size(58, 36);
             this.LabelNombre.TabIndex = 0;
             this.LabelNombre.Text = "Nombre:";
             this.LabelNombre.TextAlign = ContentAlignment.MiddleLeft;
@@ -262,7 +262,7 @@
             this.LabelEstablecimiento.Dock = DockStyle.Fill;
             this.LabelEstablecimiento.Location = new Point(3, 0);
             this.LabelEstablecimiento.Name = "LabelEstablecimiento";
-            this.LabelEstablecimiento.Size = new Size(118, 34);
+            this.LabelEstablecimiento.Size = new Size(94, 29);
             this.LabelEstablecimiento.TabIndex = 1;
             this.LabelEstablecimiento.Text = "Establecimiento:";
             this.LabelEstablecimiento.TextAlign = ContentAlignment.MiddleLeft;
@@ -273,18 +273,18 @@
             this.ComboBoxEstablecimiento.Dock = DockStyle.Fill;
             this.ComboBoxEstablecimiento.DropDownStyle = ComboBoxStyle.DropDownList;
             this.ComboBoxEstablecimiento.FormattingEnabled = true;
-            this.ComboBoxEstablecimiento.Location = new Point(127, 3);
+            this.ComboBoxEstablecimiento.Location = new Point(103, 3);
             this.ComboBoxEstablecimiento.Name = "ComboBoxEstablecimiento";
-            this.ComboBoxEstablecimiento.Size = new Size(645, 28);
+            this.ComboBoxEstablecimiento.Size = new Size(669, 23);
             this.ComboBoxEstablecimiento.TabIndex = 2;
             // 
             // LabelChapaNumero
             // 
             this.LabelChapaNumero.AutoSize = true;
             this.LabelChapaNumero.Dock = DockStyle.Fill;
-            this.LabelChapaNumero.Location = new Point(3, 34);
+            this.LabelChapaNumero.Location = new Point(3, 29);
             this.LabelChapaNumero.Name = "LabelChapaNumero";
-            this.LabelChapaNumero.Size = new Size(118, 36);
+            this.LabelChapaNumero.Size = new Size(94, 36);
             this.LabelChapaNumero.TabIndex = 3;
             this.LabelChapaNumero.Text = "Nº de chapa:";
             this.LabelChapaNumero.TextAlign = ContentAlignment.MiddleLeft;
@@ -295,12 +295,12 @@
             this.IntegerTextBoxChapaNumero.AllowNull = true;
             this.IntegerTextBoxChapaNumero.BeforeTouchSize = new Size(100, 27);
             this.IntegerTextBoxChapaNumero.IntegerValue = 1L;
-            this.IntegerTextBoxChapaNumero.Location = new Point(127, 37);
+            this.IntegerTextBoxChapaNumero.Location = new Point(103, 32);
             this.IntegerTextBoxChapaNumero.MaxValue = 109999L;
             this.IntegerTextBoxChapaNumero.MinValue = 1L;
             this.IntegerTextBoxChapaNumero.Name = "IntegerTextBoxChapaNumero";
             this.IntegerTextBoxChapaNumero.NegativeColor = SystemColors.ControlText;
-            this.IntegerTextBoxChapaNumero.Size = new Size(100, 27);
+            this.IntegerTextBoxChapaNumero.Size = new Size(100, 23);
             this.IntegerTextBoxChapaNumero.TabIndex = 4;
             this.IntegerTextBoxChapaNumero.Text = "1";
             this.IntegerTextBoxChapaNumero.TextAlign = HorizontalAlignment.Right;
@@ -308,7 +308,7 @@
             // ButtonChapaNumeroObtenerDesdeNombre
             // 
             this.ButtonChapaNumeroObtenerDesdeNombre.AutoSize = true;
-            this.ButtonChapaNumeroObtenerDesdeNombre.Location = new Point(233, 37);
+            this.ButtonChapaNumeroObtenerDesdeNombre.Location = new Point(209, 32);
             this.ButtonChapaNumeroObtenerDesdeNombre.Name = "ButtonChapaNumeroObtenerDesdeNombre";
             this.ButtonChapaNumeroObtenerDesdeNombre.Size = new Size(207, 30);
             this.ButtonChapaNumeroObtenerDesdeNombre.TabIndex = 5;
@@ -319,7 +319,7 @@
             // GroupBoxAgregarEvento
             // 
             this.GroupBoxAgregarEvento.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            this.GroupBoxAgregarEvento.Location = new Point(6, 500);
+            this.GroupBoxAgregarEvento.Location = new Point(6, 505);
             this.GroupBoxAgregarEvento.Name = "GroupBoxAgregarEvento";
             this.GroupBoxAgregarEvento.Size = new Size(777, 52);
             this.GroupBoxAgregarEvento.TabIndex = 8;
@@ -330,9 +330,9 @@
             this.ComboBoxEventoAgregar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             this.ComboBoxEventoAgregar.DropDownStyle = ComboBoxStyle.DropDownList;
             this.ComboBoxEventoAgregar.FormattingEnabled = true;
-            this.ComboBoxEventoAgregar.Location = new Point(146, 3);
+            this.ComboBoxEventoAgregar.Location = new Point(119, 3);
             this.ComboBoxEventoAgregar.Name = "ComboBoxEventoAgregar";
-            this.ComboBoxEventoAgregar.Size = new Size(626, 28);
+            this.ComboBoxEventoAgregar.Size = new Size(653, 23);
             this.ComboBoxEventoAgregar.TabIndex = 1;
             // 
             // CheckBoxEventoAgregar
@@ -340,7 +340,7 @@
             this.CheckBoxEventoAgregar.AutoSize = true;
             this.CheckBoxEventoAgregar.Location = new Point(3, 3);
             this.CheckBoxEventoAgregar.Name = "CheckBoxEventoAgregar";
-            this.CheckBoxEventoAgregar.Size = new Size(137, 24);
+            this.CheckBoxEventoAgregar.Size = new Size(110, 19);
             this.CheckBoxEventoAgregar.TabIndex = 0;
             this.CheckBoxEventoAgregar.Text = "Agregar evento:";
             this.CheckBoxEventoAgregar.UseVisualStyleBackColor = true;
@@ -362,10 +362,10 @@
             // 
             this.TabPageGeneral.Controls.Add(this.TableLayoutPanelGeneral);
             this.TabPageGeneral.Controls.Add(this.GroupBoxAgregarEvento);
-            this.TabPageGeneral.Location = new Point(4, 32);
+            this.TabPageGeneral.Location = new Point(4, 27);
             this.TabPageGeneral.Name = "TabPageGeneral";
             this.TabPageGeneral.Padding = new Padding(3);
-            this.TabPageGeneral.Size = new Size(789, 558);
+            this.TabPageGeneral.Size = new Size(789, 563);
             this.TabPageGeneral.TabIndex = 0;
             this.TabPageGeneral.Text = "General";
             this.TabPageGeneral.UseVisualStyleBackColor = true;
@@ -388,7 +388,7 @@
             this.TableLayoutPanelGeneral.RowStyles.Add(new RowStyle());
             this.TableLayoutPanelGeneral.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             this.TableLayoutPanelGeneral.RowStyles.Add(new RowStyle());
-            this.TableLayoutPanelGeneral.Size = new Size(783, 552);
+            this.TableLayoutPanelGeneral.Size = new Size(783, 557);
             this.TableLayoutPanelGeneral.TabIndex = 10;
             // 
             // TableLayoutPanelPunto
@@ -414,7 +414,7 @@
             this.TableLayoutPanelPunto.RowStyles.Add(new RowStyle());
             this.TableLayoutPanelPunto.RowStyles.Add(new RowStyle());
             this.TableLayoutPanelPunto.RowStyles.Add(new RowStyle());
-            this.TableLayoutPanelPunto.Size = new Size(775, 102);
+            this.TableLayoutPanelPunto.Size = new Size(775, 94);
             this.TableLayoutPanelPunto.TabIndex = 7;
             // 
             // TableLayoutPanelDatos
@@ -432,23 +432,23 @@
             this.TableLayoutPanelDatos.Controls.Add(this.TextBoxNotas, 1, 2);
             this.TableLayoutPanelDatos.Dock = DockStyle.Fill;
             this.TableLayoutPanelDatos.GrowStyle = TableLayoutPanelGrowStyle.FixedSize;
-            this.TableLayoutPanelDatos.Location = new Point(4, 113);
+            this.TableLayoutPanelDatos.Location = new Point(4, 105);
             this.TableLayoutPanelDatos.Name = "TableLayoutPanelDatos";
             this.TableLayoutPanelDatos.RowCount = 3;
             this.TableLayoutPanelDatos.RowStyles.Add(new RowStyle());
             this.TableLayoutPanelDatos.RowStyles.Add(new RowStyle());
             this.TableLayoutPanelDatos.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            this.TableLayoutPanelDatos.Size = new Size(775, 394);
+            this.TableLayoutPanelDatos.Size = new Size(775, 412);
             this.TableLayoutPanelDatos.TabIndex = 9;
             // 
             // LabelNotas
             // 
             this.LabelNotas.AutoSize = true;
             this.LabelNotas.Dock = DockStyle.Fill;
-            this.LabelNotas.Location = new Point(4, 70);
+            this.LabelNotas.Location = new Point(4, 65);
             this.LabelNotas.Margin = new Padding(4, 0, 4, 0);
             this.LabelNotas.Name = "LabelNotas";
-            this.LabelNotas.Size = new Size(116, 324);
+            this.LabelNotas.Size = new Size(92, 347);
             this.LabelNotas.TabIndex = 6;
             this.LabelNotas.Text = "Notas:";
             // 
@@ -456,13 +456,13 @@
             // 
             this.TableLayoutPanelDatos.SetColumnSpan(this.TextBoxNotas, 2);
             this.TextBoxNotas.Dock = DockStyle.Fill;
-            this.TextBoxNotas.Location = new Point(128, 73);
+            this.TextBoxNotas.Location = new Point(104, 68);
             this.TextBoxNotas.Margin = new Padding(4, 3, 4, 3);
             this.TextBoxNotas.MaxLength = 0;
             this.TextBoxNotas.Multiline = true;
             this.TextBoxNotas.Name = "TextBoxNotas";
             this.TextBoxNotas.ScrollBars = ScrollBars.Vertical;
-            this.TextBoxNotas.Size = new Size(643, 318);
+            this.TextBoxNotas.Size = new Size(667, 341);
             this.TextBoxNotas.TabIndex = 7;
             // 
             // TableLayoutPanelEventoAgregar
@@ -475,21 +475,21 @@
             this.TableLayoutPanelEventoAgregar.Controls.Add(this.ComboBoxEventoAgregar, 1, 0);
             this.TableLayoutPanelEventoAgregar.Dock = DockStyle.Fill;
             this.TableLayoutPanelEventoAgregar.GrowStyle = TableLayoutPanelGrowStyle.FixedSize;
-            this.TableLayoutPanelEventoAgregar.Location = new Point(4, 514);
+            this.TableLayoutPanelEventoAgregar.Location = new Point(4, 524);
             this.TableLayoutPanelEventoAgregar.Name = "TableLayoutPanelEventoAgregar";
             this.TableLayoutPanelEventoAgregar.RowCount = 1;
             this.TableLayoutPanelEventoAgregar.RowStyles.Add(new RowStyle());
             this.TableLayoutPanelEventoAgregar.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            this.TableLayoutPanelEventoAgregar.Size = new Size(775, 34);
+            this.TableLayoutPanelEventoAgregar.Size = new Size(775, 29);
             this.TableLayoutPanelEventoAgregar.TabIndex = 11;
             // 
             // TabPageAuditoria
             // 
             this.TabPageAuditoria.Controls.Add(this.TableLayoutPanelAuditoria);
-            this.TabPageAuditoria.Location = new Point(4, 32);
+            this.TabPageAuditoria.Location = new Point(4, 27);
             this.TabPageAuditoria.Name = "TabPageAuditoria";
             this.TabPageAuditoria.Padding = new Padding(3);
-            this.TabPageAuditoria.Size = new Size(789, 558);
+            this.TabPageAuditoria.Size = new Size(789, 563);
             this.TabPageAuditoria.TabIndex = 1;
             this.TabPageAuditoria.Text = "Auditoría";
             this.TabPageAuditoria.UseVisualStyleBackColor = true;
@@ -518,7 +518,7 @@
             this.TableLayoutPanelAuditoria.RowStyles.Add(new RowStyle());
             this.TableLayoutPanelAuditoria.RowStyles.Add(new RowStyle());
             this.TableLayoutPanelAuditoria.RowStyles.Add(new RowStyle());
-            this.TableLayoutPanelAuditoria.Size = new Size(783, 552);
+            this.TableLayoutPanelAuditoria.Size = new Size(783, 557);
             this.TableLayoutPanelAuditoria.TabIndex = 9;
             // 
             // LabelId
@@ -528,66 +528,66 @@
             this.LabelId.Location = new Point(4, 0);
             this.LabelId.Margin = new Padding(4, 0, 4, 0);
             this.LabelId.Name = "LabelId";
-            this.LabelId.Size = new Size(147, 33);
+            this.LabelId.Size = new Size(118, 29);
             this.LabelId.TabIndex = 0;
             this.LabelId.Text = "Id:";
             this.LabelId.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // TextBoxId
             // 
-            this.TextBoxId.Location = new Point(159, 3);
+            this.TextBoxId.Location = new Point(130, 3);
             this.TextBoxId.Margin = new Padding(4, 3, 4, 3);
             this.TextBoxId.MaxLength = 10;
             this.TextBoxId.Name = "TextBoxId";
             this.TextBoxId.ReadOnly = true;
-            this.TextBoxId.Size = new Size(83, 27);
+            this.TextBoxId.Size = new Size(83, 23);
             this.TextBoxId.TabIndex = 1;
             this.TextBoxId.TabStop = false;
             this.TextBoxId.TextAlign = HorizontalAlignment.Center;
             // 
             // TextBoxFechaHoraCreacion
             // 
-            this.TextBoxFechaHoraCreacion.Location = new Point(159, 36);
+            this.TextBoxFechaHoraCreacion.Location = new Point(130, 32);
             this.TextBoxFechaHoraCreacion.Margin = new Padding(4, 3, 4, 3);
             this.TextBoxFechaHoraCreacion.MaxLength = 0;
             this.TextBoxFechaHoraCreacion.Name = "TextBoxFechaHoraCreacion";
             this.TextBoxFechaHoraCreacion.ReadOnly = true;
-            this.TextBoxFechaHoraCreacion.Size = new Size(140, 27);
+            this.TextBoxFechaHoraCreacion.Size = new Size(140, 23);
             this.TextBoxFechaHoraCreacion.TabIndex = 3;
             this.TextBoxFechaHoraCreacion.TabStop = false;
             // 
             // TextBoxUsuarioCreacion
             // 
             this.TextBoxUsuarioCreacion.Dock = DockStyle.Fill;
-            this.TextBoxUsuarioCreacion.Location = new Point(307, 36);
+            this.TextBoxUsuarioCreacion.Location = new Point(278, 32);
             this.TextBoxUsuarioCreacion.Margin = new Padding(4, 3, 4, 3);
             this.TextBoxUsuarioCreacion.MaxLength = 50;
             this.TextBoxUsuarioCreacion.Name = "TextBoxUsuarioCreacion";
             this.TextBoxUsuarioCreacion.ReadOnly = true;
-            this.TextBoxUsuarioCreacion.Size = new Size(472, 27);
+            this.TextBoxUsuarioCreacion.Size = new Size(501, 23);
             this.TextBoxUsuarioCreacion.TabIndex = 4;
             this.TextBoxUsuarioCreacion.TabStop = false;
             // 
             // TextBoxFechaHoraUltimaModificacion
             // 
-            this.TextBoxFechaHoraUltimaModificacion.Location = new Point(159, 69);
+            this.TextBoxFechaHoraUltimaModificacion.Location = new Point(130, 61);
             this.TextBoxFechaHoraUltimaModificacion.Margin = new Padding(4, 3, 4, 3);
             this.TextBoxFechaHoraUltimaModificacion.MaxLength = 0;
             this.TextBoxFechaHoraUltimaModificacion.Name = "TextBoxFechaHoraUltimaModificacion";
             this.TextBoxFechaHoraUltimaModificacion.ReadOnly = true;
-            this.TextBoxFechaHoraUltimaModificacion.Size = new Size(140, 27);
+            this.TextBoxFechaHoraUltimaModificacion.Size = new Size(140, 23);
             this.TextBoxFechaHoraUltimaModificacion.TabIndex = 6;
             this.TextBoxFechaHoraUltimaModificacion.TabStop = false;
             // 
             // TextBoxUsuarioUltimaModificacion
             // 
             this.TextBoxUsuarioUltimaModificacion.Dock = DockStyle.Fill;
-            this.TextBoxUsuarioUltimaModificacion.Location = new Point(307, 69);
+            this.TextBoxUsuarioUltimaModificacion.Location = new Point(278, 61);
             this.TextBoxUsuarioUltimaModificacion.Margin = new Padding(4, 3, 4, 3);
             this.TextBoxUsuarioUltimaModificacion.MaxLength = 50;
             this.TextBoxUsuarioUltimaModificacion.Name = "TextBoxUsuarioUltimaModificacion";
             this.TextBoxUsuarioUltimaModificacion.ReadOnly = true;
-            this.TextBoxUsuarioUltimaModificacion.Size = new Size(472, 27);
+            this.TextBoxUsuarioUltimaModificacion.Size = new Size(501, 23);
             this.TextBoxUsuarioUltimaModificacion.TabIndex = 7;
             this.TextBoxUsuarioUltimaModificacion.TabStop = false;
             // 

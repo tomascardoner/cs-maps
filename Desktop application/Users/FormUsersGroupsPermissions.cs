@@ -1,4 +1,6 @@
-﻿using CardonerSistemas.Framework.Base;
+﻿using System.Globalization;
+using CardonerSistemas.Framework.Base;
+using CSMaps.Main;
 
 namespace CSMaps.Users;
 
@@ -7,9 +9,9 @@ public partial class FormUsersGroupsPermissions : Form
 
     #region Declarations
 
-    private Models.CSMapsContext context = new();
-    private readonly bool isLoading;
-    private readonly bool PermitidoEstablecer;
+    private readonly Models.CSMapsContext _context = new();
+    private readonly bool _isLoading;
+    private readonly bool _permitidoEstablecer;
 
     #endregion
 
@@ -19,20 +21,18 @@ public partial class FormUsersGroupsPermissions : Form
     {
         InitializeComponent();
 
-        isLoading = true;
+        _isLoading = true;
 
         SetAppearance();
 
-        Common.Lists.GetUsersGroups(ComboBoxUsuarioGrupo, context, false, false, false, false);
-        Permissions.LoadPermissionsTree(context, TreeViewPermisos);
+        Common.Lists.GetUsersGroups(ComboBoxUsuarioGrupo, _context, false, false, false, false);
+        Permissions.LoadPermissionsTree(_context, TreeViewPermisos);
 
-        PermitidoEstablecer = Permissions.Verify(Permissions.Actions.UserGroupPermissionSet, false);
+        _permitidoEstablecer = Permissions.Verify(Permissions.Actions.UserGroupPermissionSet, false);
 
-        isLoading = false;
+        _isLoading = false;
 
-        this.Cursor = Cursors.WaitCursor;
-        Permissions.ShowEstablishedPermissions(context, TreeViewPermisos, (byte)ComboBoxUsuarioGrupo.SelectedValue);
-        this.Cursor = Cursors.Default;
+        Permissions.ShowEstablishedPermissions(_context, TreeViewPermisos, (byte)ComboBoxUsuarioGrupo.SelectedValue);
     }
 
     private void SetAppearance()
@@ -42,10 +42,11 @@ public partial class FormUsersGroupsPermissions : Form
         Forms.SetFont(this, Program.AppearanceConfig.Font);
     }
 
-    private void This_FormClosed(object sender, FormClosedEventArgs e)
+    protected override void OnFormClosed(FormClosedEventArgs e)
     {
-        context.Dispose();
-        context = null;
+        base.OnFormClosed(e);
+        _context?.Dispose();
+        this.Dispose();
     }
 
     #endregion
@@ -54,28 +55,27 @@ public partial class FormUsersGroupsPermissions : Form
 
     private void ComboboxUsuarioGrupo_SelectedIndexChanged(object sender, EventArgs e)
     {
-        if (isLoading)
+        if (_isLoading)
         {
             return;
         }
 
         this.Cursor = Cursors.WaitCursor;
-        Permissions.ShowEstablishedPermissions(context, TreeViewPermisos, (byte)ComboBoxUsuarioGrupo.SelectedValue);
+        Permissions.ShowEstablishedPermissions(_context, TreeViewPermisos, (byte)ComboBoxUsuarioGrupo.SelectedValue);
         this.Cursor = Cursors.Default;
     }
 
     private void TreeviewPermisos_BeforeCheck(object sender, TreeViewCancelEventArgs e)
     {
-        if ((e.Action == TreeViewAction.ByMouse || e.Action == TreeViewAction.ByKeyboard) && !PermitidoEstablecer)
+        if ((e.Action == TreeViewAction.ByMouse || e.Action == TreeViewAction.ByKeyboard) && !_permitidoEstablecer)
         {
             e.Cancel = true;
         }
-
     }
 
     private void TreeviewPermisos_AfterCheck(object sender, TreeViewEventArgs e)
     {
-        if (e.Action != TreeViewAction.ByMouse && e.Action != TreeViewAction.ByKeyboard)
+        if (e.Action is not TreeViewAction.ByMouse and not TreeViewAction.ByKeyboard)
         {
             return;
         }
@@ -90,15 +90,15 @@ public partial class FormUsersGroupsPermissions : Form
             // Agregar permiso
             try
             {
-                context.UsuarioGrupoPermisos.Add(
+                _context.UsuarioGrupoPermiso.Add(
                     new Models.UsuarioGrupoPermiso()
                     {
                         IdUsuarioGrupo = (byte)ComboBoxUsuarioGrupo.SelectedValue,
-                        IdPermiso = short.Parse(e.Node.Name[Permissions.PermissionPrefix.Length..]),
+                        IdPermiso = short.Parse(e.Node.Name[Permissions.PermissionPrefix.Length..], CultureInfo.CurrentCulture),
                         IdUsuarioCreacion = Program.Usuario.IdUsuario
                     }
                 );
-                context.SaveChanges();
+                _context.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -110,11 +110,11 @@ public partial class FormUsersGroupsPermissions : Form
             // Quitar permiso
             try
             {
-                var permiso = context.UsuarioGrupoPermisos.Find((byte)ComboBoxUsuarioGrupo.SelectedValue, short.Parse(e.Node.Name[Permissions.PermissionPrefix.Length..]));
+                var permiso = _context.UsuarioGrupoPermiso.Find((byte)ComboBoxUsuarioGrupo.SelectedValue, short.Parse(e.Node.Name[Permissions.PermissionPrefix.Length..], CultureInfo.CurrentCulture));
                 if (permiso != null)
                 {
-                    context.UsuarioGrupoPermisos.Remove(permiso);
-                    context.SaveChanges();
+                    _context.UsuarioGrupoPermiso.Remove(permiso);
+                    _context.SaveChanges();
                 }
             }
             catch (Exception ex)

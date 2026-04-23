@@ -103,7 +103,6 @@ namespace CSMaps.Users
             Name = "FormUsersGroupsPermissions";
             StartPosition = FormStartPosition.Manual;
             Text = "Permisos por grupo de usuarios";
-            FormClosed += This_FormClosed;
             TableLayoutPanelMain.ResumeLayout(false);
             TableLayoutPanelMain.PerformLayout();
             ResumeLayout(false);

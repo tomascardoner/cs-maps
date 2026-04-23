@@ -27,7 +27,7 @@ public partial class UsuarioGrupo
 
     public virtual Usuario IdUsuarioUltimaModificacionNavigation { get; set; }
 
-    public virtual ICollection<UsuarioGrupoPermiso> UsuarioGrupoPermisos { get; set; } = new List<UsuarioGrupoPermiso>();
+    public virtual ICollection<Usuario> Usuario { get; set; } = new List<Usuario>();
 
-    public virtual ICollection<Usuario> Usuarios { get; set; } = new List<Usuario>();
+    public virtual ICollection<UsuarioGrupoPermiso> UsuarioGrupoPermiso { get; set; } = new List<UsuarioGrupoPermiso>();
 }

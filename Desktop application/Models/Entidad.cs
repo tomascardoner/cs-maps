@@ -21,7 +21,7 @@ public partial class Entidad
 
     public DateTime FechaHoraUltimaModificacion { get; set; }
 
-    public virtual ICollection<Establecimiento> Establecimientos { get; set; } = new List<Establecimiento>();
+    public virtual ICollection<Establecimiento> Establecimiento { get; set; } = new List<Establecimiento>();
 
     public virtual Usuario IdUsuarioCreacionNavigation { get; set; }
 

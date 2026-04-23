@@ -1,5 +1,6 @@
 using System.Globalization;
 using CardonerSistemas.Framework.Base;
+using CSMaps.Main;
 using SharpKml.Dom;
 using SharpKml.Engine;
 
@@ -182,7 +183,7 @@ public partial class FormImportGoogleEarthFile : Form
         int idPuntoNuevo;
         try
         {
-            idPuntoUltimo = context.Puntos.Any() ? context.Puntos.Max(p => p.IdPunto) : 0;
+            idPuntoUltimo = context.Punto.Any() ? context.Punto.Max(p => p.IdPunto) : 0;
         }
         catch (Exception ex)
         {
@@ -198,7 +199,7 @@ public partial class FormImportGoogleEarthFile : Form
 #pragma warning disable S3267 // Loops should be simplified with "LINQ" expressions
             foreach (var placemark in rootElement.Flatten().OfType<Placemark>())
             {
-                if (!context.Puntos.Any(p => p.Nombre == placemark.Name))
+                if (!context.Punto.Any(p => p.Nombre == placemark.Name))
                 {
                     var coordinates = ((SharpKml.Dom.Point)placemark.Geometry).Coordinate;
 
@@ -213,7 +214,7 @@ public partial class FormImportGoogleEarthFile : Form
                     punto.FechaHoraCreacion = DateTime.UtcNow;
                     punto.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
                     punto.FechaHoraUltimaModificacion = DateTime.UtcNow;
-                    context.Puntos.Add(punto);
+                    context.Punto.Add(punto);
                 }
             }
 #pragma warning restore S3267 // Loops should be simplified with "LINQ" expressions

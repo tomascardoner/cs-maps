@@ -13,7 +13,7 @@ public partial class ParametroTipo
 
     public string Descripcion { get; set; }
 
-    public virtual ICollection<Parametro> Parametros { get; set; } = new List<Parametro>();
+    public virtual ICollection<Parametro> Parametro { get; set; } = new List<Parametro>();
 
-    public virtual ICollection<UsuarioParametro> UsuarioParametros { get; set; } = new List<UsuarioParametro>();
+    public virtual ICollection<UsuarioParametro> UsuarioParametro { get; set; } = new List<UsuarioParametro>();
 }

@@ -501,8 +501,6 @@
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "Usuario";
-            FormClosed += This_FormClosed;
-            KeyPress += This_KeyPress;
             ToolStripMain.ResumeLayout(false);
             ToolStripMain.PerformLayout();
             TabControlMain.ResumeLayout(false);

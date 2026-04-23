@@ -201,8 +201,6 @@
             SizeGripStyle = SizeGripStyle.Hide;
             StartPosition = FormStartPosition.CenterParent;
             Text = "Inicio de sesión";
-            FormClosed += This_FormClosed;
-            KeyPress += This_KeyPress;
             ToolStripMain.ResumeLayout(false);
             ToolStripMain.PerformLayout();
             TableLayoutPanelMain.ResumeLayout(false);

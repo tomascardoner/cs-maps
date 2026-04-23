@@ -1,4 +1,5 @@
 ﻿using CardonerSistemas.Framework.Base;
+using CSMaps.Main;
 using Microsoft.EntityFrameworkCore;
 
 namespace CSMaps.Users;
@@ -73,7 +74,7 @@ internal static class Permissions
         using Models.CSMapsContext context = new();
         try
         {
-            Program.Permisos = [.. context.UsuarioGrupoPermisos.Where(ugp => ugp.IdUsuarioGrupo == Program.Usuario.IdUsuarioGrupo)];
+            Program.Permisos = [.. context.UsuarioGrupoPermiso.Where(ugp => ugp.IdUsuarioGrupo == Program.Usuario.IdUsuarioGrupo)];
             return true;
         }
         catch (Exception ex)
@@ -89,15 +90,15 @@ internal static class Permissions
 
     internal static bool Verify(Actions action, bool showMessage = true)
     {
-        var IdUsuarioGrupo = Program.Usuario.IdUsuarioGrupo;
+        var idUsuarioGrupo = Program.Usuario.IdUsuarioGrupo;
 
-        if (IdUsuarioGrupo == Main.Constants.UserGroupAdministratorsId)
+        if (idUsuarioGrupo == Main.Constants.UserGroupAdministratorsId)
         {
             return true;
         }
         else
         {
-            if (Program.Permisos.Find(p => p.IdUsuarioGrupo == IdUsuarioGrupo && p.IdPermiso == ((short)action)) == null)
+            if (Program.Permisos.Find(p => p.IdUsuarioGrupo == idUsuarioGrupo && p.IdPermiso == ((short)action)) == null)
             {
                 if (showMessage)
                 {
@@ -117,7 +118,7 @@ internal static class Permissions
 
     #region Assignement
 
-    static internal void LoadPermissionsTree(Models.CSMapsContext context, TreeView arbol)
+    internal static void LoadPermissionsTree(Models.CSMapsContext context, TreeView arbol)
     {
         TreeNode treeNodeGroup;
 
@@ -128,8 +129,8 @@ internal static class Permissions
 
         try
         {
-            foreach (var permisoGrupo in context.PermisoGrupos
-                                                            .Include(pg => pg.Permisos)
+            foreach (var permisoGrupo in context.PermisoGrupo
+                                                            .Include(pg => pg.Permiso)
                                                             .ThenInclude(p => p.IdPermisoTipoNavigation)
                                                             .OrderBy(pg => pg.Orden)
                                                             .ThenBy(pg => pg.Nombre))
@@ -137,7 +138,7 @@ internal static class Permissions
                 // Creo el nodo del grupo de permisos
                 treeNodeGroup = arbol.Nodes.Add(GroupPrefix + permisoGrupo.IdPermisoGrupo.ToString(), permisoGrupo.Nombre);
 
-                foreach (var permiso in permisoGrupo.Permisos
+                foreach (var permiso in permisoGrupo.Permiso
                                                         .Where(p => p.IdPermisoGrupo == permisoGrupo.IdPermisoGrupo)
                                                         .OrderBy(p => p.IdPermisoTipoNavigation.Orden)
                                                         .ThenBy(p => p.Orden)
@@ -162,7 +163,7 @@ internal static class Permissions
         arbol.ResumeLayout();
     }
 
-    static internal void ShowEstablishedPermissions(Models.CSMapsContext context, TreeView arbol, byte idUserGroup)
+    internal static void ShowEstablishedPermissions(Models.CSMapsContext context, TreeView arbol, byte idUserGroup)
     {
         arbol.SuspendLayout();
         Application.DoEvents();
@@ -179,7 +180,7 @@ internal static class Permissions
 
         try
         {
-            foreach (var permiso in context.UsuarioGrupoPermisos.Where(ugp => ugp.IdUsuarioGrupo == idUserGroup))
+            foreach (var permiso in context.UsuarioGrupoPermiso.Where(ugp => ugp.IdUsuarioGrupo == idUserGroup))
             {
                 arbol.Nodes.Find(PermissionPrefix + permiso.IdPermiso.ToString(), true)[0].Checked = true;
             }

@@ -1,4 +1,6 @@
-﻿namespace CSMaps;
+﻿using CSMaps.Main;
+
+namespace CSMaps;
 
 public partial class FormSplash : Form
 {

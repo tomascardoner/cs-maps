@@ -1,108 +1,115 @@
 ﻿using CSMaps.Main;
+using Microsoft.EntityFrameworkCore;
 using System.Data;
 
 namespace CSMaps.Common;
 
 internal static class Lists
 {
-    static internal void GetAllYesNo(ComboBox comboBox, int selectElementNumber = -1)
+    internal static void GetAllYesNo(ComboBox comboBox, int selectElementNumber = -1)
     {
-        comboBox.Items.AddRange(new string[] { Properties.Resources.StringItemStartChar + Properties.Resources.StringItemAllMale + Properties.Resources.StringItemEndChar, Properties.Resources.StringYes, Properties.Resources.StringNo });
-        if (selectElementNumber > -1)
-        {
-            comboBox.SelectedIndex = selectElementNumber;
-        }
+        comboBox.Items.AddRange(Properties.Resources.StringItemStartChar + Properties.Resources.StringItemAllMale + Properties.Resources.StringItemEndChar, Properties.Resources.StringYes, Properties.Resources.StringNo);
+        comboBox.SelectedIndex = selectElementNumber;
     }
 
-    static internal void GetGenders(ComboBox comboBox, bool mostrarNoEspecifica)
+    internal static void GetGenders(ComboBox comboBox, bool mostrarNoEspecifica)
     {
-        const string IdFieldName = "IdGenero";
-        const string NombreFieldName = "Nombre";
+        const string idFieldName = "IdGenero";
+        const string nombreFieldName = "Nombre";
 
         DataTable dataTable = new("Generos");
         DataRow dataRow;
 
-        comboBox.ValueMember = IdFieldName;
-        comboBox.DisplayMember = NombreFieldName;
+        comboBox.ValueMember = idFieldName;
+        comboBox.DisplayMember = nombreFieldName;
 
-        dataTable.Columns.Add(IdFieldName, Type.GetType("System.String"));
-        dataTable.Columns.Add(NombreFieldName, Type.GetType("System.String"));
+        dataTable.Columns.Add(idFieldName, Type.GetType("System.String"));
+        dataTable.Columns.Add(nombreFieldName, Type.GetType("System.String"));
 
         if (mostrarNoEspecifica)
         {
             dataRow = dataTable.NewRow();
-            dataRow[IdFieldName] = Constants.GenderUnknown;
-            dataRow[NombreFieldName] = Properties.Resources.StringItemStartChar + Properties.Resources.StringItemNotSpecified + Properties.Resources.StringItemEndChar;
+            dataRow[idFieldName] = Constants.GenderUnknown;
+            dataRow[nombreFieldName] = Properties.Resources.StringItemStartChar + Properties.Resources.StringItemNotSpecified + Properties.Resources.StringItemEndChar;
             dataTable.Rows.Add(dataRow);
         }
 
         dataRow = dataTable.NewRow();
-        dataRow[IdFieldName] = Constants.GenderMale;
-        dataRow[NombreFieldName] = Properties.Resources.StringGenderMale;
+        dataRow[idFieldName] = Constants.GenderMale;
+        dataRow[nombreFieldName] = Properties.Resources.StringGenderMale;
         dataTable.Rows.Add(dataRow);
 
         dataRow = dataTable.NewRow();
-        dataRow[IdFieldName] = Constants.GenderFemale;
-        dataRow[NombreFieldName] = Properties.Resources.StringGenderFemale;
+        dataRow[idFieldName] = Constants.GenderFemale;
+        dataRow[nombreFieldName] = Properties.Resources.StringGenderFemale;
         dataTable.Rows.Add(dataRow);
 
         comboBox.DataSource = dataTable;
-        if (mostrarNoEspecifica)
-        {
-            comboBox.SelectedIndex = 0;
-        }
-        else
-        {
-            comboBox.SelectedIndex = -1;
-        }
+        comboBox.SelectedIndex = mostrarNoEspecifica ? 0 : -1;
     }
 
-    static internal void GetEntidades(ComboBox comboBox, Models.CSMapsContext context, bool showNotSpecified)
+    internal static void GetEntidades(ComboBox comboBox, Models.CSMapsContext dbContext, bool showAll, bool showNotSpecified)
     {
         comboBox.ValueMember = "IdEntidad";
         comboBox.DisplayMember = "Nombre";
 
-        List<Models.Entidad> entidades = [.. context.Entidades.OrderBy(e => e.Nombre)];
+        List<Models.Entidad> entidades = [.. dbContext.Entidad.OrderBy(e => e.Nombre)];
 
         if (showNotSpecified)
         {
-            Models.Entidad noEspecifica = new()
+            entidades.Insert(0, new Models.Entidad
             {
                 IdEntidad = CardonerSistemas.Framework.Base.Constants.ShortFieldValueNotSpecified,
                 Nombre = Properties.Resources.StringItemStartChar + Properties.Resources.StringItemNotSpecified + Properties.Resources.StringItemEndChar
-            };
-            entidades.Insert(0, noEspecifica);
+            });
+        }
+
+        if (showAll)
+        {
+            entidades.Insert(0, new Models.Entidad
+            {
+                IdEntidad = CardonerSistemas.Framework.Base.Constants.ShortFieldValueAll,
+                Nombre = Properties.Resources.StringItemStartChar + Properties.Resources.StringItemAllFemale + Properties.Resources.StringItemEndChar
+            });
         }
 
         comboBox.DataSource = entidades;
     }
 
-    static internal void GetEstablecimientos(ComboBox comboBox, Models.CSMapsContext context, bool showNotSpecified)
+    internal static void GetEstablecimientos(ComboBox comboBox, Models.CSMapsContext context, bool showNotSpecified, bool showEntidad)
     {
         comboBox.ValueMember = "IdEstablecimiento";
         comboBox.DisplayMember = "Nombre";
 
-        List<Models.Establecimiento> establecimientos = [.. context.Establecimientos.OrderBy(e => e.Nombre)];
+        var establecimientos =
+            context.Establecimiento.AsNoTracking()
+                .LeftJoin(context.Entidad.AsNoTracking(), e => e.IdEntidad, en => en.IdEntidad, (e, en) => new { Establecimiento = e, Entidad = en })
+                .OrderBy(e => e.Establecimiento.Nombre)
+                .ThenBy(e => e.Entidad.Nombre)
+                .Select(e => new
+                {
+                    IdEstablecimiento = e.Establecimiento.IdEstablecimiento,
+                    Nombre = e.Establecimiento.Nombre + (showEntidad && e.Entidad != null ? " (" + e.Entidad.Nombre + ")" : string.Empty)
+                }).ToList();
 
         if (showNotSpecified)
         {
-            Models.Establecimiento noEspecifica = new()
+            establecimientos.Insert(0, new
             {
                 IdEstablecimiento = CardonerSistemas.Framework.Base.Constants.ShortFieldValueNotSpecified,
                 Nombre = Properties.Resources.StringItemStartChar + Properties.Resources.StringItemNotSpecified + Properties.Resources.StringItemEndChar
-            };
-            establecimientos.Insert(0, noEspecifica);
+            });
         }
 
         comboBox.DataSource = establecimientos;
     }
 
-    static internal void GetEventosTipos(ComboBox comboBox, Models.CSMapsContext context, bool showAll, bool showEmpty, bool showComplete)
+    internal static void GetEventosTipos(ComboBox comboBox, Models.CSMapsContext context, bool showAll, bool showEmpty, bool showComplete)
     {
         comboBox.ValueMember = "IdEventoTipo";
         comboBox.DisplayMember = "Nombre";
 
-        List<Models.EventoTipo> eventos = [.. context.EventoTipos.OrderBy(e => e.Orden).ThenBy(e => e.Nombre)];
+        List<Models.EventoTipo> eventos = [.. context.EventoTipo.OrderBy(e => e.Orden).ThenBy(e => e.Nombre)];
 
         if (showEmpty)
         {
@@ -144,7 +151,7 @@ internal static class Lists
         comboBox.ValueMember = "IdUsuarioGrupo";
         comboBox.DisplayMember = "Nombre";
 
-        usuarioGrupos = [.. context.UsuarioGrupos.Where(ug => (showInactives || ug.EsActivo) && (showAdministrators || ug.IdUsuarioGrupo != Constants.UserGroupAdministratorsId)).OrderBy(ug => ug.Nombre)];
+        usuarioGrupos = [.. context.UsuarioGrupo.Where(ug => (showInactives || ug.EsActivo) && (showAdministrators || ug.IdUsuarioGrupo != Constants.UserGroupAdministratorsId)).OrderBy(ug => ug.Nombre)];
 
         if (showNotSpecified)
         {
@@ -171,7 +178,7 @@ internal static class Lists
 
     internal static void GetGroups(ListBox listBox, Models.CSMapsContext context)
     {
-        List<Models.Grupo> grupos = [.. context.Grupos.Where(g => g.EsActivo).OrderBy(g => g.Nombre)];
+        List<Models.Grupo> grupos = [.. context.Grupo.Where(g => g.EsActivo).OrderBy(g => g.Nombre)];
 
         listBox.DataSource = grupos;
         listBox.ValueMember = "IdGrupo";

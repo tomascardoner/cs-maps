@@ -18,10 +18,11 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	SELECT p.IdPunto, p.Nombre AS PuntoNombre, p.Latitud, p.Longitud, pd.ChapaNumero, pd.IdEstablecimiento, e.Nombre AS EstablecimientoNombre, pe.IdEventoTipo, et.Nombre AS EventoTipoNombre, pe.FechaHora
+	SELECT p.IdPunto, p.Nombre AS PuntoNombre, p.Latitud, p.Longitud, pd.ChapaNumero, pd.IdEstablecimiento, es.Nombre AS EstablecimientoNombre, en.Nombre AS EntidadNombre, pe.IdEventoTipo, et.Nombre AS EventoTipoNombre, pe.FechaHora
 		FROM Punto AS p
 			INNER JOIN PuntoDato AS pd ON p.IdPunto = pd.IdPunto
-			LEFT JOIN Establecimiento AS e ON pd.IdEstablecimiento = e.IdEstablecimiento
+			LEFT JOIN Establecimiento AS es ON pd.IdEstablecimiento = es.IdEstablecimiento
+			LEFT JOIN Entidad AS en ON es.IdEntidad = en.IdEntidad
 			LEFT JOIN PuntoEvento AS pe ON p.IdPunto = pe.IdPunto
 			LEFT JOIN EventoTipo AS et ON pe.IdEventoTipo = et.IdEventoTipo
 		WHERE pe.IdEvento IS NULL OR pe.IdEvento = (SELECT TOP 1 IdEvento FROM PuntoEvento WHERE IdPunto = p.IdPunto ORDER BY FechaHora DESC)

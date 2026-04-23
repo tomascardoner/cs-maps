@@ -1,5 +1,7 @@
-﻿using CardonerSistemas.Framework.Base;
+﻿using System.Globalization;
+using CardonerSistemas.Framework.Base;
 using CardonerSistemas.Framework.Controls;
+using CSMaps.Main;
 
 namespace CSMaps.Users;
 
@@ -8,15 +10,15 @@ public partial class FormUser : Form
 
     #region Declarations
 
-    private const string entityNameSingular = "usuario";
-    private const bool entityIsFemale = false;
+    private const string EntityNameSingular = "usuario";
+    private const bool EntityIsFemale = false;
 
-    private readonly bool isLoading;
-    private readonly bool isNew;
-    private bool isEditMode;
+    private readonly bool _isLoading;
+    private readonly bool _isNew;
+    private bool _isEditMode;
 
-    private Models.CSMapsContext context = new();
-    private Models.Usuario usuario;
+    private readonly Models.CSMapsContext _context = new();
+    private readonly Models.Usuario _usuario;
 
     #endregion
 
@@ -26,24 +28,24 @@ public partial class FormUser : Form
     {
         InitializeComponent();
 
-        isLoading = true;
-        isNew = (idUsuario == 0);
-        isEditMode = editMode;
+        _isLoading = true;
+        _isNew = (idUsuario == 0);
+        _isEditMode = editMode;
 
-        if (isNew)
+        if (_isNew)
         {
-            usuario = new();
+            _usuario = new();
             InitializeNewObjectData();
-            context.Usuarios.Add(usuario);
+            _context.Usuario.Add(_usuario);
         }
         else
         {
-            usuario = context.Usuarios.Find(idUsuario);
+            _usuario = _context.Usuario.Find(idUsuario);
         }
 
         InitializeFormAndControls();
         SetDataToUserInterface();
-        isLoading = false;
+        _isLoading = false;
 
         ChangeEditMode();
     }
@@ -53,44 +55,49 @@ public partial class FormUser : Form
         SetAppearance();
 
         Common.Lists.GetGenders(ComboBoxGenero, false);
-        Common.Lists.GetUsersGroups(ComboBoxUsuarioGrupo, context, false, false);
+        Common.Lists.GetUsersGroups(ComboBoxUsuarioGrupo, _context, false, false);
     }
 
     private void SetAppearance()
     {
-        this.Text = entityNameSingular.FirstCharToUpperCase();
+        this.Text = EntityNameSingular.FirstCharToUpperCase();
         Forms.SetFont(this, Program.AppearanceConfig.Font);
     }
 
     private void ChangeEditMode()
     {
-        if (isLoading)
+        if (_isLoading)
         {
             return;
         }
 
-        ToolStripButtonSave.Visible = isEditMode;
-        ToolStripButtonCancel.Visible = isEditMode;
-        ToolStripButtonEdit.Visible = !isEditMode;
-        ToolStripButtonClose.Visible = !isEditMode;
+        ToolStripButtonSave.Visible = _isEditMode;
+        ToolStripButtonCancel.Visible = _isEditMode;
+        ToolStripButtonEdit.Visible = !_isEditMode;
+        ToolStripButtonClose.Visible = !_isEditMode;
 
         // General
-        TextBoxNombre.ReadOnly = !isEditMode;
-        TextBoxDescripcion.ReadOnly = !isEditMode;
-        TextBoxPassword.ReadOnly = !isEditMode;
-        ComboBoxGenero.Enabled = isEditMode;
-        ComboBoxUsuarioGrupo.Enabled = isEditMode;
+        TextBoxNombre.ReadOnly = !_isEditMode;
+        TextBoxDescripcion.ReadOnly = !_isEditMode;
+        TextBoxPassword.ReadOnly = !_isEditMode;
+        ComboBoxGenero.Enabled = _isEditMode;
+        ComboBoxUsuarioGrupo.Enabled = _isEditMode;
 
         // Notas y Auditoría
-        TextBoxNotas.ReadOnly = !isEditMode;
-        CheckBoxEsActivo.Enabled = isEditMode;
+        TextBoxNotas.ReadOnly = !_isEditMode;
+        CheckBoxEsActivo.Enabled = _isEditMode;
     }
 
-    private void This_FormClosed(object sender, FormClosedEventArgs e)
+    protected override void OnKeyPress(KeyPressEventArgs e)
     {
-        context.Dispose();
-        context = null;
-        usuario = null;
+        base.OnKeyPress(e);
+        Common.Forms.This_KeyPress(e, _isEditMode, this.ActiveControl, ToolStripButtonClose, ToolStripButtonSave, ToolStripButtonCancel, [TextBoxNotas]);
+    }
+
+    protected override void OnFormClosed(FormClosedEventArgs e)
+    {
+        base.OnFormClosed(e);
+        _context?.Dispose();
         this.Dispose();
     }
 
@@ -101,67 +108,47 @@ public partial class FormUser : Form
     private void SetDataToUserInterface()
     {
         // General
-        Values.ToControl(TextBoxNombre, usuario.Nombre);
-        Values.ToControl(TextBoxDescripcion, usuario.Descripcion);
-        if (string.IsNullOrWhiteSpace(usuario.Password))
-        {
-            TextBoxPassword.Text = string.Empty;
-        }
-        else
-        {
-            if (CardonerSistemas.Framework.Cryptography.StringCipher.Decrypt(usuario.Password, Main.Constants.PublicEncryptionPassword, out var decryptedPassword))
-            {
-                TextBoxPassword.Text = decryptedPassword;
-            }
-            else
-            {
-                TextBoxPassword.Text = string.Empty;
-            }
-        }
+        Values.ToControl(TextBoxNombre, _usuario.Nombre);
+        Values.ToControl(TextBoxDescripcion, _usuario.Descripcion);
+        TextBoxPassword.Text = string.IsNullOrWhiteSpace(_usuario.Password)
+            ? string.Empty
+            : CardonerSistemas.Framework.Cryptography.StringCipher.Decrypt(_usuario.Password, Main.Constants.PublicEncryptionPassword, out var decryptedPassword)
+                ? decryptedPassword
+                : string.Empty;
 
-        Values.ToControl(ComboBoxGenero, usuario.Genero, ComboBoxExtension.SelectedItemOptions.Value, Main.Constants.GenderUnknown);
-        Values.ToControl(ComboBoxUsuarioGrupo, usuario.IdUsuarioGrupo);
+        Values.ToControl(ComboBoxGenero, _usuario.Genero, ComboBoxExtension.SelectedItemOptions.Value, Main.Constants.GenderUnknown);
+        Values.ToControl(ComboBoxUsuarioGrupo, _usuario.IdUsuarioGrupo);
 
         // Notas y Auditoría
-        Values.ToControl(TextBoxNotas, usuario.Notas);
-        Values.ToControl(CheckBoxEsActivo, usuario.EsActivo);
-        Values.ToControl(TextBoxId, usuario.IdUsuario, true, entityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
-        Values.ToControl(TextBoxFechaHoraCreacion, usuario.FechaHoraCreacion, Values.DateTimeFormats.ShortDateTime);
-        TextBoxUsuarioCreacion.Text = Users.GetDescription(context, usuario.IdUsuarioCreacion);
-        Values.ToControl(TextBoxFechaHoraUltimaModificacion, usuario.FechaHoraUltimaModificacion, Values.DateTimeFormats.ShortDateTime);
-        TextBoxUsuarioUltimaModificacion.Text = Users.GetDescription(context, usuario.IdUsuarioUltimaModificacion);
+        Values.ToControl(TextBoxNotas, _usuario.Notas);
+        Values.ToControl(CheckBoxEsActivo, _usuario.EsActivo);
+        Values.ToControl(TextBoxId, _usuario.IdUsuario, true, EntityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
+        Values.ToControl(TextBoxFechaHoraCreacion, _usuario.FechaHoraCreacion, Values.DateTimeFormats.ShortDateTime);
+        TextBoxUsuarioCreacion.Text = Users.GetDescription(_context, _usuario.IdUsuarioCreacion);
+        Values.ToControl(TextBoxFechaHoraUltimaModificacion, _usuario.FechaHoraUltimaModificacion, Values.DateTimeFormats.ShortDateTime);
+        TextBoxUsuarioUltimaModificacion.Text = Users.GetDescription(_context, _usuario.IdUsuarioUltimaModificacion);
     }
 
     private void SetDataToEntityObject()
     {
         // General
-        usuario.Nombre = Values.ToString(TextBoxNombre);
-        usuario.Descripcion = Values.ToString(TextBoxDescripcion);
-        if (CardonerSistemas.Framework.Cryptography.StringCipher.Encrypt(TextBoxPassword.Text.Trim(), Main.Constants.PublicEncryptionPassword, out var encryptedPassword))
-        {
-            usuario.Password = encryptedPassword;
-        }
-        else
-        {
-            usuario.Password = null;
-        }
+        _usuario.Nombre = Values.ToString(TextBoxNombre);
+        _usuario.Descripcion = Values.ToString(TextBoxDescripcion);
+        _usuario.Password = CardonerSistemas.Framework.Cryptography.StringCipher.Encrypt(TextBoxPassword.Text.Trim(), Main.Constants.PublicEncryptionPassword, out var encryptedPassword)
+            ? encryptedPassword
+            : null;
 
-        usuario.Genero = Values.ToString(ComboBoxGenero, Main.Constants.GenderUnknown);
-        usuario.IdUsuarioGrupo = Values.ToByte(ComboBoxUsuarioGrupo).Value;
+        _usuario.Genero = Values.ToString(ComboBoxGenero, Main.Constants.GenderUnknown);
+        _usuario.IdUsuarioGrupo = Values.ToByte(ComboBoxUsuarioGrupo).Value;
 
         // Notas y Auditoría
-        usuario.Notas = Values.ToString(TextBoxNotas);
-        usuario.EsActivo = Values.ToBoolean(CheckBoxEsActivo);
+        _usuario.Notas = Values.ToString(TextBoxNotas);
+        _usuario.EsActivo = Values.ToBoolean(CheckBoxEsActivo);
     }
 
     #endregion
 
     #region Controls events
-
-    private void This_KeyPress(object sender, KeyPressEventArgs e)
-    {
-        Common.Forms.This_KeyPress(e, isEditMode, this.ActiveControl, ToolStripButtonClose, ToolStripButtonSave, ToolStripButtonCancel, [TextBoxNotas]);
-    }
 
     private void TextBoxs_Enter(object sender, EventArgs e)
     {
@@ -191,26 +178,26 @@ public partial class FormUser : Form
 
         SetDataToEntityObject();
 
-        if (context.ChangeTracker.HasChanges())
+        if (_context.ChangeTracker.HasChanges())
         {
             this.Cursor = Cursors.WaitCursor;
-            usuario.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
-            usuario.FechaHoraUltimaModificacion = DateTime.Now;
+            _usuario.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
+            _usuario.FechaHoraUltimaModificacion = DateTime.UtcNow.ToLocalTime();
             try
             {
-                context.SaveChanges();
-                Common.RefreshLists.Users(usuario.IdUsuario);
+                _context.SaveChanges();
+                Common.RefreshLists.Users(_usuario.IdUsuario);
             }
             catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
             {
                 this.Cursor = Cursors.Default;
-                Common.DBErrors.DbUpdateException(dbUEx, entityNameSingular, entityIsFemale, isNew ? Properties.Resources.StringActionAdd : Properties.Resources.StringActionEdit);
+                Common.DBErrors.DbUpdateException(dbUEx, EntityNameSingular, EntityIsFemale, _isNew ? Properties.Resources.StringActionAdd : Properties.Resources.StringActionEdit);
                 return;
             }
             catch (Exception ex)
             {
                 this.Cursor = Cursors.Default;
-                Common.DBErrors.OtherUpdateException(ex, entityNameSingular, entityIsFemale, isNew ? Properties.Resources.StringActionAdd : Properties.Resources.StringActionEdit);
+                Common.DBErrors.OtherUpdateException(ex, EntityNameSingular, EntityIsFemale, _isNew ? Properties.Resources.StringActionAdd : Properties.Resources.StringActionEdit);
                 return;
             }
         }
@@ -220,7 +207,7 @@ public partial class FormUser : Form
 
     private void ToolStripButtonCancel_Click(object sender, EventArgs e)
     {
-        if (Common.Forms.ButtonCancel_Click(context))
+        if (Common.Forms.ButtonCancel_Click(_context))
         {
             this.Close();
         }
@@ -230,7 +217,7 @@ public partial class FormUser : Form
     {
         if (Permissions.Verify(Permissions.Actions.UserEdit))
         {
-            isEditMode = true;
+            _isEditMode = true;
             ChangeEditMode();
         }
     }
@@ -246,16 +233,16 @@ public partial class FormUser : Form
 
     private void InitializeNewObjectData()
     {
-        usuario.EsActivo = true;
-        usuario.IdUsuarioCreacion = Program.Usuario.IdUsuario;
-        usuario.FechaHoraCreacion = DateTime.Now;
-        usuario.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
-        usuario.FechaHoraUltimaModificacion = usuario.FechaHoraCreacion;
+        _usuario.EsActivo = true;
+        _usuario.IdUsuarioCreacion = Program.Usuario.IdUsuario;
+        _usuario.FechaHoraCreacion = DateTime.UtcNow.ToLocalTime();
+        _usuario.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
+        _usuario.FechaHoraUltimaModificacion = _usuario.FechaHoraCreacion;
     }
 
     private bool CompleteNewObjectData()
     {
-        if (!isNew)
+        if (!_isNew)
         {
             return true;
         }
@@ -263,20 +250,13 @@ public partial class FormUser : Form
         try
         {
             using Models.CSMapsContext newIdContext = new();
-            if (newIdContext.Usuarios.Any())
-            {
-                usuario.IdUsuario = (short)(newIdContext.Usuarios.Max(u => u.IdUsuario) + 1);
-            }
-            else
-            {
-                usuario.IdUsuario = 1;
-            }
+            _usuario.IdUsuario = newIdContext.Usuario.Any() ? (short)(newIdContext.Usuario.Max(u => u.IdUsuario) + 1) : (short)1;
 
             return true;
         }
         catch (Exception ex)
         {
-            Error.ProcessException(ex, string.Format(entityIsFemale ? Properties.Resources.StringEntityNewValuesErrorFemale : Properties.Resources.StringEntityNewValuesErrorMale, entityNameSingular));
+            Error.ProcessException(ex, string.Format(CultureInfo.CurrentCulture, EntityIsFemale ? Properties.Resources.StringEntityNewValuesErrorFemale : Properties.Resources.StringEntityNewValuesErrorMale, EntityNameSingular));
             return false;
         }
     }
@@ -291,12 +271,12 @@ public partial class FormUser : Form
         if (string.IsNullOrWhiteSpace(TextBoxNombre.Text))
         {
             TabControlMain.SelectedTab = TabPageGeneral;
-            Common.Forms.ShowRequiredFieldMessageBox(entityIsFemale, entityNameSingular, false, "nombre");
+            Common.Forms.ShowRequiredFieldMessageBox(EntityIsFemale, EntityNameSingular, false, "nombre");
             TextBoxNombre.Focus();
             return false;
         }
 
-        var usuarioNombreLongitudMinima = Parameters.GetIntegerAsByte(Parameters.ParametersId.UsuarioNombreLongitudMinima, 5).Value;
+        var usuarioNombreLongitudMinima = Main.Parameters.GetIntegerAsByte(Main.Parameters.ParametersId.UsuarioNombreLongitudMinima, 5).Value;
         if (TextBoxNombre.Text.Length < usuarioNombreLongitudMinima)
         {
             TabControlMain.SelectedTab = TabPageGeneral;
@@ -308,7 +288,7 @@ public partial class FormUser : Form
         if (string.IsNullOrWhiteSpace(TextBoxDescripcion.Text))
         {
             TabControlMain.SelectedTab = TabPageGeneral;
-            Common.Forms.ShowRequiredFieldMessageBox(entityIsFemale, entityNameSingular, true, "descripción");
+            Common.Forms.ShowRequiredFieldMessageBox(EntityIsFemale, EntityNameSingular, true, "descripción");
             TextBoxDescripcion.Focus();
             return false;
         }
@@ -316,12 +296,12 @@ public partial class FormUser : Form
         if (string.IsNullOrWhiteSpace(TextBoxPassword.Text))
         {
             TabControlMain.SelectedTab = TabPageGeneral;
-            Common.Forms.ShowRequiredFieldMessageBox(entityIsFemale, entityNameSingular, true, "contraseña");
+            Common.Forms.ShowRequiredFieldMessageBox(EntityIsFemale, EntityNameSingular, true, "contraseña");
             TextBoxPassword.Focus();
             return false;
         }
 
-        var usuarioPasswordLongitudMinima = Parameters.GetIntegerAsByte(Parameters.ParametersId.UsuarioPasswordLongitudMinima, 8).Value;
+        var usuarioPasswordLongitudMinima = Main.Parameters.GetIntegerAsByte(Main.Parameters.ParametersId.UsuarioPasswordLongitudMinima, 8).Value;
         if (TextBoxPassword.Text.Trim().Length < usuarioPasswordLongitudMinima)
         {
             TabControlMain.SelectedTab = TabPageGeneral;
@@ -333,7 +313,7 @@ public partial class FormUser : Form
         if (ComboBoxGenero.SelectedIndex < 0)
         {
             TabControlMain.SelectedTab = TabPageGeneral;
-            Common.Forms.ShowRequiredFieldMessageBox(entityIsFemale, entityNameSingular, false, "género");
+            Common.Forms.ShowRequiredFieldMessageBox(EntityIsFemale, EntityNameSingular, false, "género");
             ComboBoxGenero.Focus();
             return false;
         }
@@ -341,7 +321,7 @@ public partial class FormUser : Form
         if (ComboBoxUsuarioGrupo.SelectedIndex < 0)
         {
             TabControlMain.SelectedTab = TabPageGeneral;
-            Common.Forms.ShowRequiredFieldMessageBox(entityIsFemale, entityNameSingular, false, "grupo");
+            Common.Forms.ShowRequiredFieldMessageBox(EntityIsFemale, EntityNameSingular, false, "grupo");
             ComboBoxUsuarioGrupo.Focus();
             return false;
         }

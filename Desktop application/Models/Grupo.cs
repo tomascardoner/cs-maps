@@ -19,11 +19,11 @@ public partial class Grupo
 
     public byte? IconoMapaHotSpotX { get; set; }
 
-    public string IconoMapaHotSpotXunits { get; set; }
+    public string IconoMapaHotSpotXUnits { get; set; }
 
     public byte? IconoMapaHotSpotY { get; set; }
 
-    public string IconoMapaHotSpotYunits { get; set; }
+    public string IconoMapaHotSpotYUnits { get; set; }
 
     public bool EsActivo { get; set; }
 
@@ -35,7 +35,7 @@ public partial class Grupo
 
     public DateTime FechaHoraUltimaModificacion { get; set; }
 
-    public virtual ICollection<GrupoPunto> GrupoPuntos { get; set; } = new List<GrupoPunto>();
+    public virtual ICollection<GrupoPunto> GrupoPunto { get; set; } = new List<GrupoPunto>();
 
     public virtual Usuario IdUsuarioCreacionNavigation { get; set; }
 

@@ -1,4 +1,5 @@
 ﻿using CardonerSistemas.Framework.Base;
+using CSMaps.Main;
 using System.Data;
 
 namespace CSMaps.Users;
@@ -8,9 +9,9 @@ public partial class FormUserLogin : Form
 
     #region Declarations
 
-    private Models.CSMapsContext context = new();
+    private readonly Models.CSMapsContext _context = new();
 
-    private int intentos;
+    private int _intentos;
 
     #endregion
 
@@ -34,31 +35,22 @@ public partial class FormUserLogin : Form
         }
     }
 
-    private void This_FormClosed(object sender, FormClosedEventArgs e)
+    protected override void OnKeyPress(KeyPressEventArgs e)
     {
-        context.Dispose();
-        context = null;
+        base.OnKeyPress(e);
+        Common.Forms.This_KeyPress(e, this.ActiveControl, ButtonAceptar, ButtonCancelar, null);
+    }
+
+    protected override void OnFormClosed(FormClosedEventArgs e)
+    {
+        base.OnFormClosed(e);
+        _context?.Dispose();
         this.Dispose();
     }
 
     #endregion
 
     #region Controls behavior
-
-    private void This_KeyPress(object sender, KeyPressEventArgs e)
-    {
-        switch (e.KeyChar)
-        {
-            case (char)Keys.Return:
-                ButtonAceptar.PerformClick();
-                break;
-            case (char)Keys.Escape:
-                ButtonCancelar.PerformClick();
-                break;
-            default:
-                break;
-        }
-    }
 
     private void TextBoxs_Enter(object sender, EventArgs e)
     {
@@ -86,7 +78,7 @@ public partial class FormUserLogin : Form
             return;
         }
 
-        var usuarioNombreLongitudMinima = Parameters.GetIntegerAsByte(Parameters.ParametersId.UsuarioNombreLongitudMinima, 5).Value;
+        var usuarioNombreLongitudMinima = Main.Parameters.GetIntegerAsByte(Main.Parameters.ParametersId.UsuarioNombreLongitudMinima, 5).Value;
         if (TextBoxNombre.Text.Length < usuarioNombreLongitudMinima)
         {
             MessageBox.Show($"El nombre de usuario debe contener al menos {usuarioNombreLongitudMinima} caracteres.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -102,7 +94,7 @@ public partial class FormUserLogin : Form
             return;
         }
 
-        var usuarioPasswordLongitudMinima = Parameters.GetIntegerAsByte(Parameters.ParametersId.UsuarioPasswordLongitudMinima, 8).Value;
+        var usuarioPasswordLongitudMinima = Main.Parameters.GetIntegerAsByte(Main.Parameters.ParametersId.UsuarioPasswordLongitudMinima, 8).Value;
         if (TextBoxPassword.Text.Trim().Length < usuarioPasswordLongitudMinima)
         {
             MessageBox.Show($"La contraseña debe contener al menos {usuarioPasswordLongitudMinima} caracteres.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -115,7 +107,7 @@ public partial class FormUserLogin : Form
         Models.Usuario usuario;
         try
         {
-            usuario = context.Usuarios.Where(u => u.Nombre == TextBoxNombre.Text).FirstOrDefault();
+            usuario = _context.Usuario.Where(u => u.Nombre == TextBoxNombre.Text).FirstOrDefault();
         }
         catch (Exception ex)
         {
@@ -133,8 +125,8 @@ public partial class FormUserLogin : Form
             TextBoxNombre.Focus();
             usuario = null;
             this.Cursor = Cursors.Default;
-            intentos++;
-            if (intentos > 3)
+            _intentos++;
+            if (_intentos > 3)
             {
                 this.DialogResult = DialogResult.Cancel;
             }
@@ -151,15 +143,15 @@ public partial class FormUserLogin : Form
             return;
         }
 
-        if (string.Compare(TextBoxPassword.Text, decryptedPassword, false) != 0)
+        if (!string.Equals(TextBoxPassword.Text, decryptedPassword, StringComparison.Ordinal))
         {
             MessageBox.Show("La contraseña ingresada es incorrecta.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             TextBoxPassword.SelectAll();
             TextBoxPassword.Focus();
             usuario = null;
             this.Cursor = Cursors.Default;
-            intentos++;
-            if (intentos > 3)
+            _intentos++;
+            if (_intentos > 3)
             {
                 this.DialogResult = DialogResult.Cancel;
             }

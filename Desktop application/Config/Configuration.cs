@@ -1,4 +1,6 @@
-﻿namespace CSMaps.config;
+﻿using CSMaps.Main;
+
+namespace CSMaps.config;
 
 internal static class Configuration
 {

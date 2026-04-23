@@ -1,4 +1,5 @@
 ﻿using CardonerSistemas.Framework.Base;
+using CSMaps.Main;
 
 namespace CSMaps.General;
 
@@ -14,10 +15,8 @@ public partial class FormPointFind : Form
         ComboBoxTipoBusqueda.Items.AddRange([Properties.Resources.StringTextFilterTypeBegin, Properties.Resources.StringTextFilterTypeContains]);
         ComboBoxTipoBusqueda.SelectedIndex = 1;
 
-        this.Cursor = Cursors.WaitCursor;
         using Models.CSMapsContext context = new();
-        puntos = [.. context.Puntos.OrderBy(p => p.Nombre)];
-        this.Cursor = Cursors.Default;
+        puntos = [.. context.Punto.OrderBy(p => p.Nombre)];
     }
 
     private void SetAppearance()
@@ -45,16 +44,9 @@ public partial class FormPointFind : Form
             return;
         }
 
-        List<Models.Punto> puntosFiltrados;
-
-        if (ComboBoxTipoBusqueda.SelectedIndex == 0)
-        {
-            puntosFiltrados = [.. puntos.Where(p => p.Nombre.ReplaceDiacritics().StartsWith(TextBoxNombre.Text.Trim().ReplaceDiacritics()))];
-        }
-        else
-        {
-            puntosFiltrados = [.. puntos.Where(p => p.Nombre.ReplaceDiacritics().Contains(TextBoxNombre.Text.Trim().ReplaceDiacritics()))];
-        }
+        var puntosFiltrados = ComboBoxTipoBusqueda.SelectedIndex == 0
+            ? [.. puntos.Where(p => p.Nombre.ReplaceDiacritics().StartsWith(TextBoxNombre.Text.Trim().ReplaceDiacritics()))]
+            : (List<Models.Punto>)[.. puntos.Where(p => p.Nombre.ReplaceDiacritics().Contains(TextBoxNombre.Text.Trim().ReplaceDiacritics()))];
 
         if (puntosFiltrados.Count == 0)
         {

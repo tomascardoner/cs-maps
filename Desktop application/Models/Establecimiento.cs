@@ -29,5 +29,5 @@ public partial class Establecimiento
 
     public virtual Usuario IdUsuarioUltimaModificacionNavigation { get; set; }
 
-    public virtual ICollection<PuntoDato> PuntoDatos { get; set; } = new List<PuntoDato>();
+    public virtual ICollection<PuntoDato> PuntoDato { get; set; } = new List<PuntoDato>();
 }

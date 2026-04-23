@@ -2,13 +2,13 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net9.0-windows7.0</TargetFramework>
+    <TargetFramework>net10.0-windows</TargetFramework>
     <RootNamespace>CSMaps</RootNamespace>
     <Nullable>disable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <PlatformTarget>x64</PlatformTarget>
-    <StartupObject>CSMaps.Program</StartupObject>
+    <StartupObject>CSMaps.Main.Program</StartupObject>
     <ApplicationDefaultFont>Segoe UI, 9pt</ApplicationDefaultFont>
     <ApplicationIcon>Resources\Application\IconApplication.ico</ApplicationIcon>
     <NeutralLanguage>es-AR</NeutralLanguage>
@@ -17,7 +17,7 @@
     <Company>Cardoner Sistemas</Company>
     <Product>CS-Maps</Product>
     <Description>Sistema de gestión de puntos y datos de mapas.</Description>
-    <Copyright>© 2024-2025 Cardoner Sistemas. Todos los derechos reservados.</Copyright>
+    <Copyright>© 2024-$([System.DateTime]::get_Now().get_Year()) Cardoner Sistemas. Todos los derechos reservados.</Copyright>
     <Trademark>® CS-Maps</Trademark>
     <Build>$([System.DateTime]::op_Subtraction($([System.DateTime]::get_Now().get_Date()),$([System.DateTime]::new(2000,1,1))).get_TotalDays())</Build>
     <Revision>$([MSBuild]::Divide($([System.DateTime]::get_Now().get_TimeOfDay().get_TotalSeconds()), 2).ToString('F0'))</Revision>
@@ -45,10 +45,10 @@
   <ItemGroup>
     <PackageReference Include="Geo" Version="1.2.0" />
     <PackageReference Include="MediaDevices" Version="1.10.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.7" />
     <PackageReference Include="SharpKml.Core" Version="6.1.0" />
-    <PackageReference Include="Syncfusion.Shared.Base" Version="31.2.2" />
-    <PackageReference Include="Workleap.DotNet.CodingStandards" Version="1.1.31">
+    <PackageReference Include="Syncfusion.Shared.Base" Version="33.2.3" />
+    <PackageReference Include="Workleap.DotNet.CodingStandards" Version="2.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

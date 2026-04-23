@@ -14,7 +14,7 @@ internal static class UsersParameters
         try
         {
             using Models.CSMapsContext context = new();
-            Program.ParametrosUsuario = [.. context.UsuarioParametros];
+            Program.ParametrosUsuario = [.. context.UsuarioParametro];
             return true;
         }
         catch (Exception ex)

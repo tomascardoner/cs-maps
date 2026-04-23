@@ -182,8 +182,6 @@
             Name = "FormUserChangePassword";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Cambio de contraseña";
-            FormClosed += This_FormClosed;
-            KeyPress += This_KeyPress;
             ToolStripMain.ResumeLayout(false);
             ToolStripMain.PerformLayout();
             TableLayoutPanelMain.ResumeLayout(false);

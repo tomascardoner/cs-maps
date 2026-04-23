@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using CardonerSistemas.Framework.Base;
+using CSMaps.Main;
 using CSMaps.Users;
 
 namespace CSMaps.General;
@@ -78,7 +79,7 @@ public partial class FormPoints : Form
         try
         {
             using Models.CSMapsContext context = new();
-            _entitiesAll = [.. context.Puntos];
+            _entitiesAll = [.. context.Punto];
         }
         catch (Exception ex)
         {
@@ -220,7 +221,7 @@ public partial class FormPoints : Form
     {
         if (Common.DataGridViews.ViewVerify(this, DataGridViewMain, EntityNameSingle, EntityIsFemale))
         {
-            CardonerSistemas.Framework.Base.Maps.OpenMap(Convert.ToDouble(((Models.Punto)DataGridViewMain.CurrentRow.DataBoundItem).Latitud), Convert.ToDouble(((Models.Punto)DataGridViewMain.CurrentRow.DataBoundItem).Longitud), CardonerSistemas.Framework.Base.Maps.MapProviders.GoogleMaps, CardonerSistemas.Framework.Base.Maps.MapActions.Search);
+            Maps.OpenMap(Convert.ToDouble(((Models.Punto)DataGridViewMain.CurrentRow.DataBoundItem).Latitud), Convert.ToDouble(((Models.Punto)DataGridViewMain.CurrentRow.DataBoundItem).Longitud), Maps.MapProviders.GoogleMaps, Maps.MapActions.Search);
             Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
         }
     }
@@ -253,9 +254,9 @@ public partial class FormPoints : Form
         try
         {
             using Models.CSMapsContext context = new();
-            var punto = context.Puntos.Find(rowData.IdPunto);
-            context.Puntos.Attach(punto);
-            context.Puntos.Remove(punto);
+            var punto = context.Punto.Find(rowData.IdPunto);
+            context.Punto.Attach(punto);
+            context.Punto.Remove(punto);
             context.SaveChanges();
             Common.RefreshLists.Points();
         }

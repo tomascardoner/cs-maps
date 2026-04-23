@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using CardonerSistemas.Framework.Base;
+using CSMaps.Main;
 
 namespace CSMaps.Common;
 
@@ -110,10 +111,7 @@ internal static class DataGridViews
         else
         {
             // Clicked column is different from the previous one
-            if (sortedColumn != null)
-            {
-                sortedColumn.HeaderCell.SortGlyphDirection = SortOrder.None;
-            }
+            sortedColumn?.HeaderCell.SortGlyphDirection = SortOrder.None;
 
             sortedColumn = column;
             sortOrder = SortOrder.Ascending;
