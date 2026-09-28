@@ -43,12 +43,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Geo" Version="1.2.0" />
-    <PackageReference Include="MediaDevices" Version="1.10.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.7" />
+    <PackageReference Include="Geo" Version="3.0.1" />
+    <PackageReference Include="MediaDevices" Version="2.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.12" />
     <PackageReference Include="SharpKml.Core" Version="6.1.0" />
-    <PackageReference Include="Syncfusion.Shared.Base" Version="33.2.3" />
-    <PackageReference Include="Workleap.DotNet.CodingStandards" Version="2.0.0">
+    <PackageReference Include="Syncfusion.Shared.Base" Version="34.2.9" />
+    <PackageReference Include="Workleap.DotNet.CodingStandards" Version="2.0.7">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

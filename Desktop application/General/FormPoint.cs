@@ -80,10 +80,15 @@ public partial class FormPoint : Form
         DoubleTextBoxAltitud.ReadOnly = !_isEditMode;
     }
 
-    protected override void OnFormClosed(FormClosedEventArgs e)
+    protected override void Dispose(bool disposing)
     {
-        base.OnFormClosed(e);
-        _dbContext?.Dispose();
+        if (disposing)
+        {
+            components?.Dispose();
+            _dbContext?.Dispose();
+        }
+
+        base.Dispose(disposing);
     }
 
     #endregion Form stuff
@@ -132,7 +137,9 @@ public partial class FormPoint : Form
 
     #region Main toolbar
 
-    private void ToolStripButtonSave_Click(object sender, EventArgs e)
+#pragma warning disable MA0155 // Do not use async void methods (event handler)
+    private async void ToolStripButtonSave_Click(object sender, EventArgs e)
+#pragma warning restore MA0155
     {
         if (!VerifyData())
         {
@@ -152,8 +159,8 @@ public partial class FormPoint : Form
             _punto.FechaHoraUltimaModificacion = DateTime.UtcNow;
             try
             {
-                _dbContext.SaveChanges();
-                Common.RefreshLists.Points(_punto.IdPunto);
+                await _dbContext.SaveChangesAsync();
+                await Common.RefreshLists.PointsAsync(_punto.IdPunto);
             }
             catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
             {

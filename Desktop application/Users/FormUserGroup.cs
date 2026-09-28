@@ -94,11 +94,15 @@ public partial class FormUserGroup : Form
         Common.Forms.This_KeyPress(e, _isEditMode, this.ActiveControl, ButtonCerrar, ButtonGuardar, ButtonCancelar, [TextBoxNotas]);
     }
 
-    protected override void OnFormClosed(FormClosedEventArgs e)
+    protected override void Dispose(bool disposing)
     {
-        base.OnFormClosed(e);
-        _context?.Dispose();
-        this.Dispose();
+        if (disposing)
+        {
+            components?.Dispose();
+            _context?.Dispose();
+        }
+
+        base.Dispose(disposing);
     }
 
     #endregion

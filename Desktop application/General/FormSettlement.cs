@@ -17,9 +17,7 @@ public partial class FormSettlement : Form
     private readonly bool _isNew;
     private bool _isEditMode;
 
-#pragma warning disable CA2213 // Disposable fields should be disposed
     private readonly Models.CSMapsContext _dbContext = new();
-#pragma warning restore CA2213 // Disposable fields should be disposed
     private readonly Models.Establecimiento _establecimiento;
 
     #endregion Declarations
@@ -81,9 +79,15 @@ public partial class FormSettlement : Form
         TextBoxTelefonoMovil.ReadOnly = !_isEditMode;
     }
 
-    private void This_FormClosed(object sender, FormClosedEventArgs e)
+    protected override void Dispose(bool disposing)
     {
-        _dbContext?.Dispose();
+        if (disposing)
+        {
+            components?.Dispose();
+            _dbContext?.Dispose();
+        }
+
+        base.Dispose(disposing);
     }
 
     #endregion Form stuff

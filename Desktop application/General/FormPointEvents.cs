@@ -9,25 +9,25 @@ public partial class FormPointEvents : Form
 
     #region Declarations
 
-    private const string entityNameSingle = "evento del punto";
-    private const string entityNamePlural = "eventos del punto";
-    private const bool entityIsFemale = false;
+    private const string EntityNameSingle = "evento del punto";
+    private const string EntityNamePlural = "eventos del punto";
+    private const bool EntityIsFemale = false;
 
-    private readonly int idPunto;
-    private List<DataGridViewRowData> entitiesAll;
-    private List<DataGridViewRowData> entitiesFiltered;
+    private readonly int _idPunto;
+    private List<DataGridViewRowData> _entitiesAll;
+    private List<DataGridViewRowData> _entitiesFiltered;
 
-    private readonly Users.Permissions.Actions addPermission = Users.Permissions.Actions.PointEventAdd;
-    private readonly Users.Permissions.Actions editPermission = Users.Permissions.Actions.PointEventEdit;
-    private readonly Users.Permissions.Actions deletePermission = Users.Permissions.Actions.PointEventDelete;
+    private readonly Users.Permissions.Actions _addPermission = Users.Permissions.Actions.PointEventAdd;
+    private readonly Users.Permissions.Actions _editPermission = Users.Permissions.Actions.PointEventEdit;
+    private readonly Users.Permissions.Actions _deletePermission = Users.Permissions.Actions.PointEventDelete;
 
-    private ToolStripControlHost HostDateTimePickerDateFilterFrom;
-    private ToolStripControlHost HostDateTimePickerDateFilterTo;
+    private ToolStripControlHost _hostDateTimePickerDateFilterFrom;
+    private ToolStripControlHost _hostDateTimePickerDateFilterTo;
 
-    private DataGridViewColumn sortedColumn;
+    private DataGridViewColumn _sortedColumn;
     private SortOrder _sortOrder;
 
-    private bool skipFilterApply = true;
+    private bool _skipFilterApply = true;
 
     public class DataGridViewRowData
     {
@@ -45,7 +45,7 @@ public partial class FormPointEvents : Form
     {
         InitializeComponent();
 
-        idPunto = idPuntoOrigen;
+        _idPunto = idPuntoOrigen;
 
         InitializeForm();
     }
@@ -63,10 +63,10 @@ public partial class FormPointEvents : Form
         Common.Lists.GetEventosTipos(ToolStripComboBoxEventTypeFilter.ComboBox, context, true, false, false);
 
         // Set the initial sorted column of the grid
-        sortedColumn = DataGridViewColumnFechaHora;
+        _sortedColumn = DataGridViewColumnFechaHora;
         _sortOrder = SortOrder.Descending;
 
-        skipFilterApply = false;
+        _skipFilterApply = false;
         ReadData();
     }
 
@@ -81,65 +81,64 @@ public partial class FormPointEvents : Form
 #pragma warning disable S6562 // Always set the "DateTimeKind" when creating new "DateTime" instances
 
         // Date from control
-        DateTimePicker DateTimePickerDateFilterFrom = new()
+        DateTimePicker dateTimePickerDateFilterFrom = new()
         {
             Format = DateTimePickerFormat.Short,
             MinDate = new(2022, 1, 1),
             MaxDate = new(2099, 12, 31),
-            Value = DateTime.Now,
+            Value = DateTime.UtcNow.ToLocalTime(),
             Width = 100
         };
-        DateTimePickerDateFilterFrom.ValueChanged += DateTimePickerDateFilter_ValueChanged;
-        HostDateTimePickerDateFilterFrom = new(DateTimePickerDateFilterFrom)
+        dateTimePickerDateFilterFrom.ValueChanged += DateTimePickerDateFilter_ValueChanged;
+        _hostDateTimePickerDateFilterFrom = new(dateTimePickerDateFilterFrom)
         {
             DisplayStyle = ToolStripItemDisplayStyle.Text,
             Visible = false,
             Width = 100
         };
-        ToolStripDateFilter.Items.Insert(3, HostDateTimePickerDateFilterFrom);
+        ToolStripDateFilter.Items.Insert(3, _hostDateTimePickerDateFilterFrom);
 
         // Date to control
-        DateTimePicker DateTimePickerDateFilterTo = new()
+        DateTimePicker dateTimePickerDateFilterTo = new()
         {
             Format = DateTimePickerFormat.Short,
             MinDate = new(2022, 1, 1),
             MaxDate = new(2099, 12, 31),
-            Value = DateTime.Now,
+            Value = DateTime.UtcNow.ToLocalTime(),
             Width = 100
         };
-        DateTimePickerDateFilterTo.ValueChanged += DateTimePickerDateFilter_ValueChanged;
-        HostDateTimePickerDateFilterTo = new(DateTimePickerDateFilterTo)
+        dateTimePickerDateFilterTo.ValueChanged += DateTimePickerDateFilter_ValueChanged;
+        _hostDateTimePickerDateFilterTo = new(dateTimePickerDateFilterTo)
         {
             DisplayStyle = ToolStripItemDisplayStyle.Text,
             Visible = false,
             Width = 100
         };
-        ToolStripDateFilter.Items.Add(HostDateTimePickerDateFilterTo);
+        ToolStripDateFilter.Items.Add(_hostDateTimePickerDateFilterTo);
 #pragma warning restore S6562 // Always set the "DateTimeKind" when creating new "DateTime" instances
     }
 
     private void This_Load(object sender, EventArgs e)
     {
-        sortedColumn.HeaderCell.SortGlyphDirection = _sortOrder;
+        _sortedColumn.HeaderCell.SortGlyphDirection = _sortOrder;
     }
 
     private void This_FormClosed(object sender, FormClosedEventArgs e)
     {
-        entitiesAll = null;
-        entitiesFiltered = null;
-        if (HostDateTimePickerDateFilterFrom != null)
+        _entitiesAll = null;
+        _entitiesFiltered = null;
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
         {
-            HostDateTimePickerDateFilterFrom.Control.Dispose();
-            HostDateTimePickerDateFilterFrom.Dispose();
-            HostDateTimePickerDateFilterFrom = null;
+            components?.Dispose();
+            _hostDateTimePickerDateFilterFrom?.Dispose();
+            _hostDateTimePickerDateFilterTo?.Dispose();
         }
 
-        if (HostDateTimePickerDateFilterTo != null)
-        {
-            HostDateTimePickerDateFilterTo.Control.Dispose();
-            HostDateTimePickerDateFilterTo.Dispose();
-            HostDateTimePickerDateFilterTo = null;
-        }
+        base.Dispose(disposing);
     }
 
     #endregion
@@ -148,7 +147,7 @@ public partial class FormPointEvents : Form
 
     private void SetDataToUserInterface(Models.CSMapsContext context)
     {
-        var puntoDato = context.PuntoDato.Find(idPunto);
+        var puntoDato = context.PuntoDato.Find(_idPunto);
         if (puntoDato.IdEstablecimiento.HasValue)
         {
             var establecimiento = context.Establecimiento.Find(puntoDato.IdEstablecimiento);
@@ -168,10 +167,10 @@ public partial class FormPointEvents : Form
         try
         {
             using Models.CSMapsContext context = new();
-            entitiesAll = [.. from pe in context.PuntoEvento
+            _entitiesAll = [.. from pe in context.PuntoEvento
                               join e in context.EventoTipo on pe.IdEventoTipo equals e.IdEventoTipo into eventoTiposGrupo
                               from etg in eventoTiposGrupo.DefaultIfEmpty()
-                              where pe.IdPunto == idPunto
+                              where pe.IdPunto == _idPunto
                               select new DataGridViewRowData { IdEvento = pe.IdEvento, IdEventoTipo = pe.IdEventoTipo, EventoTipoNombre = (etg == null ? string.Empty : etg.Nombre), FechaHora = pe.FechaHora }];
         }
         catch (Exception ex)
@@ -205,7 +204,7 @@ public partial class FormPointEvents : Form
 
     private void FilterData()
     {
-        if (skipFilterApply)
+        if (_skipFilterApply)
         {
             return;
         }
@@ -213,38 +212,38 @@ public partial class FormPointEvents : Form
         this.Cursor = Cursors.WaitCursor;
 
         // Date
-        (var fechaDesde, var fechaHasta) = DateAndTime.GetDatesFromPeriodTypeAndValue((DateAndTime.PeriodTypes)ToolStripComboBoxDateFilterPeriodType.SelectedIndex, (byte)ToolStripComboBoxDateFilterPeriodValue.SelectedIndex, DateOnly.FromDateTime(((DateTimePicker)HostDateTimePickerDateFilterFrom.Control).Value), DateOnly.FromDateTime(((DateTimePicker)HostDateTimePickerDateFilterTo.Control).Value));
-        entitiesFiltered = [.. entitiesAll.Where(pe => pe.FechaHora >= fechaDesde.ToDateTime(new()) && pe.FechaHora <= fechaHasta.ToDateTime(new(23, 59, 59)))];
+        (var fechaDesde, var fechaHasta) = DateAndTime.GetDatesFromPeriodTypeAndValue((DateAndTime.PeriodTypes)ToolStripComboBoxDateFilterPeriodType.SelectedIndex, (byte)ToolStripComboBoxDateFilterPeriodValue.SelectedIndex, DateOnly.FromDateTime(((DateTimePicker)_hostDateTimePickerDateFilterFrom.Control).Value), DateOnly.FromDateTime(((DateTimePicker)_hostDateTimePickerDateFilterTo.Control).Value));
+        _entitiesFiltered = [.. _entitiesAll.Where(pe => pe.FechaHora >= fechaDesde.ToDateTime(new()) && pe.FechaHora <= fechaHasta.ToDateTime(new(23, 59, 59)))];
 
         // Event type
         if ((byte)ToolStripComboBoxEventTypeFilter.ComboBox.SelectedValue != CardonerSistemas.Framework.Base.Constants.ByteFieldValueAll)
         {
-            entitiesFiltered = [.. entitiesFiltered.Where(pe => pe.IdEventoTipo == (byte)ToolStripComboBoxEventTypeFilter.ComboBox.SelectedValue)];
+            _entitiesFiltered = [.. _entitiesFiltered.Where(pe => pe.IdEventoTipo == (byte)ToolStripComboBoxEventTypeFilter.ComboBox.SelectedValue)];
         }
 
-        ToolStripLabelItemsCounter.Text = Common.DataGridViews.GetItemsCountText(entityNameSingle, entityNamePlural, entitiesFiltered.Count);
+        ToolStripLabelItemsCounter.Text = Common.DataGridViews.GetItemsCountText(EntityNameSingle, EntityNamePlural, _entitiesFiltered.Count);
 
         OrderData();
     }
 
     private void OrderData()
     {
-        if (sortedColumn == DataGridViewColumnFechaHora)
+        if (_sortedColumn == DataGridViewColumnFechaHora)
         {
-            entitiesFiltered = _sortOrder == SortOrder.Ascending
-                ? [.. entitiesFiltered.OrderBy(pe => pe.FechaHora)]
-                : [.. entitiesFiltered.OrderByDescending(pe => pe.FechaHora)];
+            _entitiesFiltered = _sortOrder == SortOrder.Ascending
+                ? [.. _entitiesFiltered.OrderBy(pe => pe.FechaHora)]
+                : [.. _entitiesFiltered.OrderByDescending(pe => pe.FechaHora)];
         }
-        else if (sortedColumn == DataGridViewColumnEventoTipo)
+        else if (_sortedColumn == DataGridViewColumnEventoTipo)
         {
-            entitiesFiltered = _sortOrder == SortOrder.Ascending
-                ? [.. entitiesFiltered.OrderBy(pe => pe.EventoTipoNombre).ThenBy(pe => pe.FechaHora)]
-                : [.. entitiesFiltered.OrderByDescending(pe => pe.EventoTipoNombre).ThenByDescending(pe => pe.FechaHora)];
+            _entitiesFiltered = _sortOrder == SortOrder.Ascending
+                ? [.. _entitiesFiltered.OrderBy(pe => pe.EventoTipoNombre).ThenBy(pe => pe.FechaHora)]
+                : [.. _entitiesFiltered.OrderByDescending(pe => pe.EventoTipoNombre).ThenByDescending(pe => pe.FechaHora)];
         }
 
         DataGridViewMain.AutoGenerateColumns = false;
-        DataGridViewMain.DataSource = entitiesFiltered;
-        sortedColumn.HeaderCell.SortGlyphDirection = _sortOrder;
+        DataGridViewMain.DataSource = _entitiesFiltered;
+        _sortedColumn.HeaderCell.SortGlyphDirection = _sortOrder;
         this.Cursor = Cursors.Default;
     }
 
@@ -259,9 +258,9 @@ public partial class FormPointEvents : Form
 
     private void ToolStripComboBoxDateFilterPeriodValue_SelectedIndexChanged(object sender, EventArgs e)
     {
-        HostDateTimePickerDateFilterFrom.Visible = (ToolStripComboBoxDateFilterPeriodType.SelectedIndex == (int)DateAndTime.PeriodTypes.Range);
+        _hostDateTimePickerDateFilterFrom.Visible = (ToolStripComboBoxDateFilterPeriodType.SelectedIndex == (int)DateAndTime.PeriodTypes.Range);
         ToolStripLabelDateFilterAnd.Visible = (ToolStripComboBoxDateFilterPeriodType.SelectedIndex == (int)DateAndTime.PeriodTypes.Range && ToolStripComboBoxDateFilterPeriodValue.SelectedIndex == (int)DateAndTime.PeriodDateRangeValues.Between);
-        HostDateTimePickerDateFilterTo.Visible = ToolStripLabelDateFilterAnd.Visible;
+        _hostDateTimePickerDateFilterTo.Visible = ToolStripLabelDateFilterAnd.Visible;
         ReadData();
     }
 
@@ -277,7 +276,7 @@ public partial class FormPointEvents : Form
 
     private void DataGridViewMain_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
     {
-        if (Common.DataGridViews.ColumnHeaderMouseClick(DataGridViewMain, e, ref sortedColumn, ref _sortOrder, [DataGridViewColumnEventoTipo, DataGridViewColumnFechaHora]))
+        if (Common.DataGridViews.ColumnHeaderMouseClick(DataGridViewMain, e, ref _sortedColumn, ref _sortOrder, [DataGridViewColumnEventoTipo, DataGridViewColumnFechaHora]))
         {
             OrderData();
         }
@@ -289,9 +288,9 @@ public partial class FormPointEvents : Form
 
     private void ToolStripButtonAdd_Click(object sender, EventArgs e)
     {
-        if (Common.DataGridViews.AddVerify(this, DataGridViewMain, addPermission))
+        if (Common.DataGridViews.AddVerify(this, DataGridViewMain, _addPermission))
         {
-            FormPointEvent formPointEvent = new(true, idPunto, 0);
+            using FormPointEvent formPointEvent = new(true, _idPunto, 0);
             formPointEvent.ShowDialog(this);
             Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
         }
@@ -299,9 +298,9 @@ public partial class FormPointEvents : Form
 
     private void ToolStripButtonView_Click(object sender, EventArgs e)
     {
-        if (Common.DataGridViews.ViewVerify(this, DataGridViewMain, entityNameSingle, entityIsFemale))
+        if (Common.DataGridViews.ViewVerify(this, DataGridViewMain, EntityNameSingle, EntityIsFemale))
         {
-            FormPointEvent formPointEvent = new(false, idPunto, ((DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem).IdEvento);
+            using FormPointEvent formPointEvent = new(false, _idPunto, ((DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem).IdEvento);
             formPointEvent.ShowDialog(this);
             Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
         }
@@ -309,24 +308,26 @@ public partial class FormPointEvents : Form
 
     private void ToolStripButtonEdit_Click(object sender, EventArgs e)
     {
-        if (Common.DataGridViews.EditVerify(this, DataGridViewMain, editPermission, entityNameSingle, entityIsFemale))
+        if (Common.DataGridViews.EditVerify(this, DataGridViewMain, _editPermission, EntityNameSingle, EntityIsFemale))
         {
-            FormPointEvent formPointEvent = new(true, idPunto, ((DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem).IdEvento);
+            using FormPointEvent formPointEvent = new(true, _idPunto, ((DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem).IdEvento);
             formPointEvent.ShowDialog(this);
             Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
         }
     }
 
-    private void ToolStripButtonDelete_Click(object sender, EventArgs e)
+#pragma warning disable MA0155 // Do not use async void methods (event handler)
+    private async void ToolStripButtonDelete_Click(object sender, EventArgs e)
+#pragma warning restore MA0155
     {
-        if (!Common.DataGridViews.DeleteVerify(DataGridViewMain, deletePermission, entityNameSingle, entityIsFemale))
+        if (!Common.DataGridViews.DeleteVerify(DataGridViewMain, _deletePermission, EntityNameSingle, EntityIsFemale))
         {
             return;
         }
 
         var rowData = (DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem;
         var entidadDatos = $"Tipo: {rowData.EventoTipoNombre}\nFecha-hora: {rowData.FechaHora:g}";
-        if (!Common.DataGridViews.DeleteConfirm(entityNameSingle, entityIsFemale, entidadDatos))
+        if (!Common.DataGridViews.DeleteConfirm(EntityNameSingle, EntityIsFemale, entidadDatos))
         {
             return;
         }
@@ -334,20 +335,20 @@ public partial class FormPointEvents : Form
         this.Cursor = Cursors.WaitCursor;
         try
         {
-            using Models.CSMapsContext context = new();
-            var puntoEvento = context.PuntoEvento.Find(idPunto, rowData.IdEvento);
+            await using Models.CSMapsContext context = new();
+            var puntoEvento = await context.PuntoEvento.FindAsync(_idPunto, rowData.IdEvento);
             context.PuntoEvento.Attach(puntoEvento);
             context.PuntoEvento.Remove(puntoEvento);
-            context.SaveChanges();
-            Common.RefreshLists.PointsEvents(idPunto);
+            await context.SaveChangesAsync();
+            await Common.RefreshLists.PointsEventsAsync(_idPunto);
         }
         catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
         {
-            Common.DBErrors.DbUpdateException(dbUEx, entityNameSingle, entityIsFemale, Properties.Resources.StringActionDelete);
+            Common.DBErrors.DbUpdateException(dbUEx, EntityNameSingle, EntityIsFemale, Properties.Resources.StringActionDelete);
         }
         catch (Exception ex)
         {
-            Common.DBErrors.OtherUpdateException(ex, entityNameSingle, entityIsFemale, Properties.Resources.StringActionDelete);
+            Common.DBErrors.OtherUpdateException(ex, EntityNameSingle, EntityIsFemale, Properties.Resources.StringActionDelete);
         }
 
         this.Cursor = Cursors.Default;

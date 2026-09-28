@@ -12,9 +12,7 @@ public partial class FormImportGpsFile : Form
 
     #region Declarations
 
-#pragma warning disable CA2213 // Disposable fields should be disposed
     private readonly Models.CSMapsContext _dbContext = new();
-#pragma warning restore CA2213 // Disposable fields should be disposed
     private List<MediaDevice> _mediaDevices;
 
     private sealed class PuntosGpsBD
@@ -112,10 +110,15 @@ public partial class FormImportGpsFile : Form
         dataGridViewExtension.BuildDualHeader(DataGridViewPuntosCoincidentesNombres);
     }
 
-    protected override void OnFormClosed(FormClosedEventArgs e)
+    protected override void Dispose(bool disposing)
     {
-        base.OnFormClosed(e);
-        _dbContext?.Dispose();
+        if (disposing)
+        {
+            components?.Dispose();
+            _dbContext?.Dispose();
+        }
+
+        base.Dispose(disposing);
     }
 
     #endregion Form stuff

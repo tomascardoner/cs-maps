@@ -5,7 +5,7 @@ namespace CSMaps.General;
 
 public partial class FormPointFind : Form
 {
-    private readonly List<Models.Punto> puntos;
+    private readonly List<Models.Punto> _puntos;
 
     public FormPointFind()
     {
@@ -16,7 +16,7 @@ public partial class FormPointFind : Form
         ComboBoxTipoBusqueda.SelectedIndex = 1;
 
         using Models.CSMapsContext context = new();
-        puntos = [.. context.Punto.OrderBy(p => p.Nombre)];
+        _puntos = [.. context.Punto.OrderBy(p => p.Nombre)];
     }
 
     private void SetAppearance()
@@ -44,9 +44,11 @@ public partial class FormPointFind : Form
             return;
         }
 
+#pragma warning disable CA1310 // Specify StringComparison for correctness
         var puntosFiltrados = ComboBoxTipoBusqueda.SelectedIndex == 0
-            ? [.. puntos.Where(p => p.Nombre.ReplaceDiacritics().StartsWith(TextBoxNombre.Text.Trim().ReplaceDiacritics()))]
-            : (List<Models.Punto>)[.. puntos.Where(p => p.Nombre.ReplaceDiacritics().Contains(TextBoxNombre.Text.Trim().ReplaceDiacritics()))];
+            ? [.. _puntos.Where(p => p.Nombre.ReplaceDiacritics().StartsWith(TextBoxNombre.Text.Trim().ReplaceDiacritics()))]
+            : (List<Models.Punto>)[.. _puntos.Where(p => p.Nombre.ReplaceDiacritics().Contains(TextBoxNombre.Text.Trim().ReplaceDiacritics()))];
+#pragma warning restore CA1310 // Specify StringComparison for correctness
 
         if (puntosFiltrados.Count == 0)
         {

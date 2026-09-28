@@ -1,4 +1,4 @@
-﻿namespace CSMaps;
+﻿namespace CSMaps.config;
 
 public class GeneralConfig
 {

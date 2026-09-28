@@ -8,7 +8,7 @@ public partial class FormUsers : Form
 
     #region Declarations
 
-    internal class DataGridRowData
+    internal sealed class DataGridRowData
     {
         public short IdUsuario { get; set; }
         public string Nombre { get; set; }

@@ -8,8 +8,8 @@ internal static class Constants
 
     internal const string GoogleMapsApiKey = "AIzaSyDn8qjiDcnGHOriIrmCnbHs8RK4h_WoGpg"; // from Demo.Geocoding project
 
-    // Components - Syncfusion Essential Studio Enterprise Edition v33.x.x
-    internal const string SyncfusionLicenseKey = "Ngo9BigBOggjHTQxAR8/V1JHaF5cWWdCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdlWXtfd3VXRGJeWEN1W0dWYEo=";
+    // Components - Syncfusion Essential Studio Enterprise Edition v34.x.x
+    internal const string SyncfusionLicenseKey = "Ngo9BigBOggjHTQxAR8/V1JAaF5cXmFCd1p/TH5YfUNzdUVEY1ZUTXxaS1ZhSXxVdkJhWH5Yc31VQWVcUkR9XEY=";
 
     // Users
     internal const byte UserGroupAdministratorsId = 1;

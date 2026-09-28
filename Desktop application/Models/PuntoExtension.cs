@@ -1,8 +1,14 @@
-﻿namespace CSMaps.Models;
+﻿using System.Globalization;
 
+namespace CSMaps.Models;
+
+#pragma warning disable MA0048 // File name must match type name
 public partial class Punto
+#pragma warning restore MA0048 // File name must match type name
 {
-    public string NombreExportar => PuntoDato == null ? Nombre : PuntoDato.ChapaNumero.ToString();
+    public string NombreExportar => PuntoDato is null
+                                        ? Nombre
+                                        : PuntoDato.ChapaNumero?.ToString(CultureInfo.CurrentCulture);
 #pragma warning disable CA1822 // Mark members as static
     public string ComentarioExportar => string.Empty;
 #pragma warning restore CA1822 // Mark members as static
@@ -29,13 +35,13 @@ public partial class Punto
 
                     if (PuntoDato.IdEstablecimientoNavigation.IdEntidad.HasValue)
                     {
-                        if (string.Compare(PuntoDato.IdEstablecimientoNavigation.Nombre, PuntoDato.IdEstablecimientoNavigation.IdEntidadNavigation.Nombre) != 0)
+                        if (!string.Equals(PuntoDato.IdEstablecimientoNavigation.Nombre, PuntoDato.IdEstablecimientoNavigation.IdEntidadNavigation.Nombre, StringComparison.OrdinalIgnoreCase))
                         {
                             // Nombre de la entidad, si es diferente al del establecimiento
                             value += $"\n{PuntoDato.IdEstablecimientoNavigation.IdEntidadNavigation.Nombre}";
                         }
 
-                        if (!string.IsNullOrWhiteSpace(PuntoDato.IdEstablecimientoNavigation.IdEntidadNavigation.TelefonoMovil) && string.Compare(PuntoDato.IdEstablecimientoNavigation.TelefonoMovil, PuntoDato.IdEstablecimientoNavigation.IdEntidadNavigation.TelefonoMovil) != 0)
+                        if (!string.IsNullOrWhiteSpace(PuntoDato.IdEstablecimientoNavigation.IdEntidadNavigation.TelefonoMovil) && !string.Equals(PuntoDato.IdEstablecimientoNavigation.TelefonoMovil, PuntoDato.IdEstablecimientoNavigation.IdEntidadNavigation.TelefonoMovil, StringComparison.OrdinalIgnoreCase))
                         {
                             // Teléfono de la entidad, si es diferente al del establecimiento
                             value += $"\n{PuntoDato.IdEstablecimientoNavigation.IdEntidadNavigation.TelefonoMovil}";

@@ -1,4 +1,5 @@
-﻿using CardonerSistemas.Framework.Base;
+﻿using System.Globalization;
+using CardonerSistemas.Framework.Base;
 using CardonerSistemas.Framework.Controls;
 using CSMaps.Main;
 
@@ -9,16 +10,16 @@ public partial class FormPointEvent : Form
 
     #region Declarations
 
-    private const string entityNameSingular = "evento del punto";
-    private const bool entityIsFemale = false;
+    private const string EntityNameSingular = "evento del punto";
+    private const bool EntityIsFemale = false;
 
-    private readonly bool isLoading;
-    private readonly bool isNew;
-    private bool isEditMode;
+    private readonly bool _isLoading;
+    private readonly bool _isNew;
+    private bool _isEditMode;
 
-    private Models.CSMapsContext context = new();
-    private readonly int idPunto;
-    private readonly Models.PuntoEvento puntoEvento;
+    private readonly Models.CSMapsContext _context = new();
+    private readonly int _idPunto;
+    private readonly Models.PuntoEvento _puntoEvento;
 
     #endregion
 
@@ -28,26 +29,26 @@ public partial class FormPointEvent : Form
     {
         InitializeComponent();
 
-        isLoading = true;
-        isNew = (idEvento == 0);
-        isEditMode = editMode;
+        _isLoading = true;
+        _isNew = (idEvento == 0);
+        _isEditMode = editMode;
 
-        idPunto = idPuntoOrigen;
-        puntoEvento = context.PuntoEvento.Find(idPunto, idEvento);
-        if (isNew)
+        _idPunto = idPuntoOrigen;
+        _puntoEvento = _context.PuntoEvento.Find(_idPunto, idEvento);
+        if (_isNew)
         {
-            puntoEvento = new() { IdPunto = idPunto };
+            _puntoEvento = new() { IdPunto = _idPunto };
             InitializeNewObjectData();
-            context.PuntoEvento.Add(puntoEvento);
+            _context.PuntoEvento.Add(_puntoEvento);
         }
         else
         {
-            puntoEvento = context.PuntoEvento.Find(idPunto, idEvento);
+            _puntoEvento = _context.PuntoEvento.Find(_idPunto, idEvento);
         }
 
         InitializeForm();
         SetDataToUserInterface();
-        isLoading = false;
+        _isLoading = false;
 
         ChangeEditMode();
     }
@@ -55,38 +56,42 @@ public partial class FormPointEvent : Form
     private void InitializeForm()
     {
         SetAppearance();
-        Common.Lists.GetEventosTipos(ComboBoxEventoTipo, context, false, false, false);
+        Common.Lists.GetEventosTipos(ComboBoxEventoTipo, _context, false, false, false);
     }
 
     private void SetAppearance()
     {
-        this.Text = entityNameSingular.FirstCharToUpperCase();
+        this.Text = EntityNameSingular.FirstCharToUpperCase();
         Forms.SetFont(this, Program.AppearanceConfig.Font);
     }
 
     private void ChangeEditMode()
     {
-        if (isLoading)
+        if (_isLoading)
         {
             return;
         }
 
-        ToolStripButtonSave.Visible = isEditMode;
-        ToolStripButtonCancel.Visible = isEditMode;
-        ToolStripButtonEdit.Visible = !isEditMode;
-        ToolStripButtonClose.Visible = !isEditMode;
+        ToolStripButtonSave.Visible = _isEditMode;
+        ToolStripButtonCancel.Visible = _isEditMode;
+        ToolStripButtonEdit.Visible = !_isEditMode;
+        ToolStripButtonClose.Visible = !_isEditMode;
 
-        ComboBoxEventoTipo.Enabled = isEditMode;
-        DateTimePickerFecha.Enabled = isEditMode;
-        DateTimePickerHora.Enabled = isEditMode;
-        TextBoxNotas.ReadOnly = !isEditMode;
+        ComboBoxEventoTipo.Enabled = _isEditMode;
+        DateTimePickerFecha.Enabled = _isEditMode;
+        DateTimePickerHora.Enabled = _isEditMode;
+        TextBoxNotas.ReadOnly = !_isEditMode;
     }
 
-    private void This_FormClosed(object sender, FormClosedEventArgs e)
+    protected override void Dispose(bool disposing)
     {
-        context.Dispose();
-        context = null;
-        this.Dispose();
+        if (disposing)
+        {
+            components?.Dispose();
+            _context?.Dispose();
+        }
+
+        base.Dispose(disposing);
     }
 
     #endregion
@@ -96,24 +101,24 @@ public partial class FormPointEvent : Form
     private void SetDataToUserInterface()
     {
         // General
-        Values.ToControl(ComboBoxEventoTipo, puntoEvento.IdEventoTipo);
-        Values.ToControl(DateTimePickerFecha, puntoEvento.FechaHora);
-        Values.ToControl(DateTimePickerHora, puntoEvento.FechaHora);
-        Values.ToControl(TextBoxNotas, puntoEvento.Notas);
+        Values.ToControl(ComboBoxEventoTipo, _puntoEvento.IdEventoTipo);
+        Values.ToControl(DateTimePickerFecha, _puntoEvento.FechaHora);
+        Values.ToControl(DateTimePickerHora, _puntoEvento.FechaHora);
+        Values.ToControl(TextBoxNotas, _puntoEvento.Notas);
 
         // Auditoría
-        Values.ToControl(TextBoxId, puntoEvento.IdEvento, true, entityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
-        Values.ToControl(TextBoxFechaHoraCreacion, puntoEvento.FechaHoraCreacion, Values.DateTimeFormats.ShortDateTime);
-        TextBoxUsuarioCreacion.Text = Users.Users.GetDescription(context, puntoEvento.IdUsuarioCreacion);
-        Values.ToControl(TextBoxFechaHoraUltimaModificacion, puntoEvento.FechaHoraUltimaModificacion, Values.DateTimeFormats.ShortDateTime);
-        TextBoxUsuarioUltimaModificacion.Text = Users.Users.GetDescription(context, puntoEvento.IdUsuarioUltimaModificacion);
+        Values.ToControl(TextBoxId, _puntoEvento.IdEvento, true, EntityIsFemale ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
+        Values.ToControl(TextBoxFechaHoraCreacion, _puntoEvento.FechaHoraCreacion, Values.DateTimeFormats.ShortDateTime);
+        TextBoxUsuarioCreacion.Text = Users.Users.GetDescription(_context, _puntoEvento.IdUsuarioCreacion);
+        Values.ToControl(TextBoxFechaHoraUltimaModificacion, _puntoEvento.FechaHoraUltimaModificacion, Values.DateTimeFormats.ShortDateTime);
+        TextBoxUsuarioUltimaModificacion.Text = Users.Users.GetDescription(_context, _puntoEvento.IdUsuarioUltimaModificacion);
     }
 
     private void SetDataToEntityObject()
     {
-        puntoEvento.IdEventoTipo = Values.ToByte(ComboBoxEventoTipo).Value;
-        puntoEvento.FechaHora = Values.ToDateTime(DateTimePickerFecha, DateTimePickerHora).Value;
-        puntoEvento.Notas = Values.ToString(TextBoxNotas);
+        _puntoEvento.IdEventoTipo = Values.ToByte(ComboBoxEventoTipo).Value;
+        _puntoEvento.FechaHora = Values.ToDateTime(DateTimePickerFecha, DateTimePickerHora).Value;
+        _puntoEvento.Notas = Values.ToString(TextBoxNotas);
     }
 
     #endregion
@@ -122,7 +127,7 @@ public partial class FormPointEvent : Form
 
     private void This_KeyPress(object sender, KeyPressEventArgs e)
     {
-        Common.Forms.This_KeyPress(e, isEditMode, ActiveControl, ToolStripButtonClose, ToolStripButtonSave, ToolStripButtonCancel, null);
+        Common.Forms.This_KeyPress(e, _isEditMode, ActiveControl, ToolStripButtonClose, ToolStripButtonSave, ToolStripButtonCancel, null);
     }
 
     private void TextBoxs_Enter(object sender, EventArgs e)
@@ -134,7 +139,9 @@ public partial class FormPointEvent : Form
 
     #region Main toolbar
 
-    private void ToolStripButtonSave_Click(object sender, EventArgs e)
+#pragma warning disable MA0155 // Do not use async void methods (event handler)
+    private async void ToolStripButtonSave_Click(object sender, EventArgs e)
+#pragma warning restore MA0155
     {
         if (!VerifyData())
         {
@@ -148,25 +155,25 @@ public partial class FormPointEvent : Form
 
         SetDataToEntityObject();
 
-        if (context.ChangeTracker.HasChanges())
+        if (_context.ChangeTracker.HasChanges())
         {
             this.Cursor = Cursors.WaitCursor;
-            puntoEvento.FechaHoraUltimaModificacion = DateTime.Now;
+            _puntoEvento.FechaHoraUltimaModificacion = DateTime.UtcNow.ToLocalTime();
             try
             {
-                context.SaveChanges();
-                Common.RefreshLists.PointsEvents(idPunto, puntoEvento.IdEvento);
+                await _context.SaveChangesAsync();
+                await Common.RefreshLists.PointsEventsAsync(_idPunto, _puntoEvento.IdEvento);
             }
             catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
             {
                 this.Cursor = Cursors.Default;
-                Common.DBErrors.DbUpdateException(dbUEx, entityNameSingular, entityIsFemale, isNew ? Properties.Resources.StringActionAdd : Properties.Resources.StringActionEdit);
+                Common.DBErrors.DbUpdateException(dbUEx, EntityNameSingular, EntityIsFemale, _isNew ? Properties.Resources.StringActionAdd : Properties.Resources.StringActionEdit);
                 return;
             }
             catch (Exception ex)
             {
                 this.Cursor = Cursors.Default;
-                Common.DBErrors.OtherUpdateException(ex, entityNameSingular, entityIsFemale, isNew ? Properties.Resources.StringActionAdd : Properties.Resources.StringActionEdit);
+                Common.DBErrors.OtherUpdateException(ex, EntityNameSingular, EntityIsFemale, _isNew ? Properties.Resources.StringActionAdd : Properties.Resources.StringActionEdit);
                 return;
             }
         }
@@ -176,7 +183,7 @@ public partial class FormPointEvent : Form
 
     private void ToolStripButtonCancel_Click(object sender, EventArgs e)
     {
-        if (Common.Forms.ButtonCancel_Click(context))
+        if (Common.Forms.ButtonCancel_Click(_context))
         {
             this.Close();
         }
@@ -184,7 +191,7 @@ public partial class FormPointEvent : Form
 
     private void ToolStripButtonEdit_Click(object sender, EventArgs e)
     {
-        isEditMode = true;
+        _isEditMode = true;
         ChangeEditMode();
     }
 
@@ -199,16 +206,16 @@ public partial class FormPointEvent : Form
 
     private void InitializeNewObjectData()
     {
-        puntoEvento.FechaHora = DateTime.Now;
-        puntoEvento.IdUsuarioCreacion = Program.Usuario.IdUsuario;
-        puntoEvento.FechaHoraCreacion = DateTime.Now;
-        puntoEvento.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
-        puntoEvento.FechaHoraUltimaModificacion = DateTime.Now;
+        _puntoEvento.FechaHora = DateTime.UtcNow.ToLocalTime();
+        _puntoEvento.IdUsuarioCreacion = Program.Usuario.IdUsuario;
+        _puntoEvento.FechaHoraCreacion = DateTime.UtcNow.ToLocalTime();
+        _puntoEvento.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
+        _puntoEvento.FechaHoraUltimaModificacion = DateTime.UtcNow.ToLocalTime();
     }
 
     private bool CompleteNewObjectData()
     {
-        if (!isNew)
+        if (!_isNew)
         {
             return true;
         }
@@ -216,15 +223,15 @@ public partial class FormPointEvent : Form
         try
         {
             using Models.CSMapsContext newIdContext = new();
-            puntoEvento.IdEvento = newIdContext.PuntoEvento.Where(pe => pe.IdPunto == idPunto).Any()
-                ? (short)(newIdContext.PuntoEvento.Where(pe => pe.IdPunto == idPunto).Max(pe => pe.IdEvento) + 1)
+            _puntoEvento.IdEvento = newIdContext.PuntoEvento.Where(pe => pe.IdPunto == _idPunto).Any()
+                ? (short)(newIdContext.PuntoEvento.Where(pe => pe.IdPunto == _idPunto).Max(pe => pe.IdEvento) + 1)
                 : (short)1;
 
             return true;
         }
         catch (Exception ex)
         {
-            Error.ProcessException(ex, string.Format(entityIsFemale ? Properties.Resources.StringEntityNewValuesErrorFemale : Properties.Resources.StringEntityNewValuesErrorMale, entityNameSingular));
+            Error.ProcessException(ex, string.Format(CultureInfo.CurrentCulture, EntityIsFemale ? Properties.Resources.StringEntityNewValuesErrorFemale : Properties.Resources.StringEntityNewValuesErrorMale, EntityNameSingular));
             return false;
         }
     }
@@ -237,7 +244,7 @@ public partial class FormPointEvent : Form
     {
         if (ComboBoxEventoTipo.SelectedIndex == -1)
         {
-            Common.Forms.ShowRequiredFieldMessageBox(entityIsFemale, entityNameSingular, false, "tipo de evento");
+            Common.Forms.ShowRequiredFieldMessageBox(EntityIsFemale, EntityNameSingular, false, "tipo de evento");
             TabControlMain.SelectedTab = TabPageGeneral;
             ComboBoxEventoTipo.Focus();
             return false;

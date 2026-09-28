@@ -23,20 +23,24 @@ internal static class RefreshLists
         Forms.GetSettlements()?.ReadData(idSettlement);
     }
 
-    internal static void Points(int idPoint = 0)
+    internal static async Task PointsAsync(int idPoint = 0)
     {
         Forms.GetPoints()?.ReadData(idPoint);
-        PointsEvents(idPoint);
+        await PointsEventsAsync(idPoint);
     }
 
-    internal static void PointsData(int idPoint = 0)
+    internal static async Task PointsDataAsync(int idPoint = 0)
     {
-        Forms.GetPointsDataAndEvents()?.ReadData(idPoint);
+        var form = Forms.GetPointsDataAndEvents();
+        if (form != null)
+        {
+            await form.ReadData(idPoint);
+        }
     }
 
-    internal static void PointsEvents(int idPoint = 0, short idEvent = 0)
+    internal static async Task PointsEventsAsync(int idPoint = 0, short idEvent = 0)
     {
-        PointsData(idPoint);
+        await PointsDataAsync(idPoint);
         Forms.GetPointEvents()?.ReadData(idEvent);
     }
 }

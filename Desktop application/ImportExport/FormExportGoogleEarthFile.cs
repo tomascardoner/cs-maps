@@ -16,9 +16,7 @@ public partial class FormExportGoogleEarthFile : Form
     private const string MapName = "SOS Rural - tranquera segura";
     private const string StyleIdPrefix = "icon-";
 
-#pragma warning disable CA2213 // Disposable fields should be disposed
     private readonly Models.CSMapsContext _dbContext = new();
-#pragma warning restore CA2213 // Disposable fields should be disposed
 
     #endregion Declarations
 
@@ -42,10 +40,15 @@ public partial class FormExportGoogleEarthFile : Form
         Forms.SetFont(this, Program.AppearanceConfig.Font);
     }
 
-    protected override void OnFormClosed(FormClosedEventArgs e)
+    protected override void Dispose(bool disposing)
     {
-        base.OnFormClosed(e);
-        _dbContext?.Dispose();
+        if (disposing)
+        {
+            components?.Dispose();
+            _dbContext?.Dispose();
+        }
+
+        base.Dispose(disposing);
     }
 
     #endregion Form stuff

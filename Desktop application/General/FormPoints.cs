@@ -201,7 +201,7 @@ public partial class FormPoints : Form
     {
         if (Common.DataGridViews.AddVerify(this, DataGridViewMain, _addPermission))
         {
-            FormPoint formPoint = new(true, 0);
+            using FormPoint formPoint = new(true, 0);
             formPoint.ShowDialog(this);
             Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
         }
@@ -211,7 +211,7 @@ public partial class FormPoints : Form
     {
         if (Common.DataGridViews.ViewVerify(this, DataGridViewMain, EntityNameSingle, EntityIsFemale))
         {
-            FormPoint formPoint = new(false, ((Models.Punto)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto);
+            using FormPoint formPoint = new(false, ((Models.Punto)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto);
             formPoint.ShowDialog(this);
             Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
         }
@@ -230,13 +230,15 @@ public partial class FormPoints : Form
     {
         if (Common.DataGridViews.EditVerify(this, DataGridViewMain, _editPermission, EntityNameSingle, EntityIsFemale))
         {
-            FormPoint formPoint = new(true, ((Models.Punto)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto);
+            using FormPoint formPoint = new(true, ((Models.Punto)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto);
             formPoint.ShowDialog(this);
             Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
         }
     }
 
-    private void ToolStripButtonDelete_Click(object sender, EventArgs e)
+#pragma warning disable MA0155 // Do not use async void methods (event handler)
+    private async void ToolStripButtonDelete_Click(object sender, EventArgs e)
+#pragma warning restore MA0155
     {
         if (!Common.DataGridViews.DeleteVerify(DataGridViewMain, _deletePermission, EntityNameSingle, EntityIsFemale))
         {
@@ -253,12 +255,12 @@ public partial class FormPoints : Form
         this.Cursor = Cursors.WaitCursor;
         try
         {
-            using Models.CSMapsContext context = new();
-            var punto = context.Punto.Find(rowData.IdPunto);
+            await using Models.CSMapsContext context = new();
+            var punto = await context.Punto.FindAsync(rowData.IdPunto);
             context.Punto.Attach(punto);
             context.Punto.Remove(punto);
-            context.SaveChanges();
-            Common.RefreshLists.Points();
+            await context.SaveChangesAsync();
+            await Common.RefreshLists.PointsAsync();
         }
         catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
         {

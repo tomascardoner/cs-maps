@@ -200,7 +200,7 @@ public partial class FormEntities : Form
     {
         if (Common.DataGridViews.AddVerify(this, DataGridViewMain, _addPermission))
         {
-            FormEntity formEntity = new(true, 0);
+            using FormEntity formEntity = new(true, 0);
             formEntity.ShowDialog(this);
             Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
         }
@@ -210,7 +210,7 @@ public partial class FormEntities : Form
     {
         if (Common.DataGridViews.ViewVerify(this, DataGridViewMain, EntityNameSingle, EntityIsFemale))
         {
-            FormEntity formEntity = new(false, ((Models.Entidad)DataGridViewMain.CurrentRow.DataBoundItem).IdEntidad);
+            using FormEntity formEntity = new(false, ((Models.Entidad)DataGridViewMain.CurrentRow.DataBoundItem).IdEntidad);
             formEntity.ShowDialog(this);
             Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
         }
@@ -220,7 +220,7 @@ public partial class FormEntities : Form
     {
         if (Common.DataGridViews.EditVerify(this, DataGridViewMain, _editPermission, EntityNameSingle, EntityIsFemale))
         {
-            FormEntity formEntity = new(true, ((Models.Entidad)DataGridViewMain.CurrentRow.DataBoundItem).IdEntidad);
+            using FormEntity formEntity = new(true, ((Models.Entidad)DataGridViewMain.CurrentRow.DataBoundItem).IdEntidad);
             formEntity.ShowDialog(this);
             Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
         }

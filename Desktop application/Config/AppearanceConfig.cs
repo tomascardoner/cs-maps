@@ -2,7 +2,7 @@
 
 namespace CSMaps.config;
 
-internal class AppearanceConfig
+internal sealed class AppearanceConfig
 {
 
     #region Default values

@@ -34,11 +34,15 @@ public partial class FormUserChangePassword : Form
         Common.Forms.This_KeyPress(e, this.ActiveControl, ButtonAceptar, ButtonCancelar, null);
     }
 
-    protected override void OnFormClosed(FormClosedEventArgs e)
+    protected override void Dispose(bool disposing)
     {
-        base.OnFormClosed(e);
-        _context?.Dispose();
-        this.Dispose();
+        if (disposing)
+        {
+            components?.Dispose();
+            _context?.Dispose();
+        }
+
+        base.Dispose(disposing);
     }
 
     #endregion

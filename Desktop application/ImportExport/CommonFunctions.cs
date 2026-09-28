@@ -64,7 +64,7 @@ internal static class CommonFunctions
         {
             mediaDevices = [];
 #pragma warning disable CA1862 // Use the 'StringComparison' method overloads to perform case-insensitive string comparisons
-            foreach (var mediaDevice in MediaDevice.GetDevices().Where(md => Array.Exists(ManufacturerExpectedContains, m => md.Manufacturer.ToLowerInvariant().Contains(m.ToLowerInvariant(), StringComparison.OrdinalIgnoreCase)) || Array.Exists(FriendlyNameExpectedContains, fn => md.FriendlyName.ToLowerInvariant().Contains(fn.ToLowerInvariant(), StringComparison.OrdinalIgnoreCase))))
+            foreach (var mediaDevice in MediaDeviceManager.Instance.GetDevices().Where(md => Array.Exists(ManufacturerExpectedContains, m => md.Manufacturer.ToLowerInvariant().Contains(m.ToLowerInvariant(), StringComparison.OrdinalIgnoreCase)) || Array.Exists(FriendlyNameExpectedContains, fn => md.FriendlyName.ToLowerInvariant().Contains(fn.ToLowerInvariant(), StringComparison.OrdinalIgnoreCase))))
             {
                 mediaDevice.Connect();
                 if (mediaDevice.DeviceType == DeviceType.Generic && mediaDevice.FunctionalCategories().Any(fc => fc == FunctionalCategory.Storage))

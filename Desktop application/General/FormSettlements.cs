@@ -240,7 +240,7 @@ public partial class FormSettlements : Form
     {
         if (Common.DataGridViews.AddVerify(this, DataGridViewMain, _addPermission))
         {
-            FormSettlement formSettlement = new(true, 0);
+            using FormSettlement formSettlement = new(true, 0);
             formSettlement.ShowDialog(this);
             Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
         }
@@ -250,7 +250,7 @@ public partial class FormSettlements : Form
     {
         if (Common.DataGridViews.ViewVerify(this, DataGridViewMain, EntityNameSingle, EntityIsFemale))
         {
-            FormSettlement formSettlement = new(false, ((DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem).IdEstablecimiento);
+            using FormSettlement formSettlement = new(false, ((DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem).IdEstablecimiento);
             formSettlement.ShowDialog(this);
             Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
         }
@@ -260,7 +260,7 @@ public partial class FormSettlements : Form
     {
         if (Common.DataGridViews.EditVerify(this, DataGridViewMain, _editPermission, EntityNameSingle, EntityIsFemale))
         {
-            FormSettlement formSettlement = new(true, ((DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem).IdEstablecimiento);
+            using FormSettlement formSettlement = new(true, ((DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem).IdEstablecimiento);
             formSettlement.ShowDialog(this);
             Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
         }

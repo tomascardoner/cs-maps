@@ -16,9 +16,7 @@ public partial class FormPointData : Form
     private readonly bool _isNew;
     private bool _isEditMode;
 
-#pragma warning disable CA2213 // Disposable fields should be disposed
     private readonly Models.CSMapsContext _dbContext = new();
-#pragma warning restore CA2213 // Disposable fields should be disposed
     private Models.Punto _punto;
     private readonly Models.PuntoDato _puntoDato;
 
@@ -90,10 +88,15 @@ public partial class FormPointData : Form
         ComboBoxEventoAgregar.Visible = _isNew && CheckBoxEventoAgregar.Checked;
     }
 
-    protected override void OnFormClosed(FormClosedEventArgs e)
+    protected override void Dispose(bool disposing)
     {
-        base.OnFormClosed(e);
-        _dbContext?.Dispose();
+        if (disposing)
+        {
+            components?.Dispose();
+            _dbContext?.Dispose();
+        }
+
+        base.Dispose(disposing);
     }
 
     #endregion Form stuff
@@ -191,7 +194,9 @@ public partial class FormPointData : Form
 
     #region Main toolbar
 
-    private void ToolStripButtonSave_Click(object sender, EventArgs e)
+#pragma warning disable MA0155 // Do not use async void methods (event handler)
+    private async void ToolStripButtonSave_Click(object sender, EventArgs e)
+#pragma warning restore MA0155
     {
         if (!VerifyData())
         {
@@ -206,8 +211,8 @@ public partial class FormPointData : Form
             _puntoDato.FechaHoraUltimaModificacion = DateTime.UtcNow;
             try
             {
-                _dbContext.SaveChanges();
-                Common.RefreshLists.PointsData(_punto.IdPunto);
+                await _dbContext.SaveChangesAsync();
+                await Common.RefreshLists.PointsDataAsync(_punto.IdPunto);
             }
             catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
             {

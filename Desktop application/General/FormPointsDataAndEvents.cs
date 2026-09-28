@@ -232,7 +232,7 @@ public partial class FormPointsDataAndEvents : Form
     {
         if (Common.DataGridViews.AddVerify(this, DataGridViewMain, _addPermission))
         {
-            FormPointData formPointData = new(true, 0);
+            using FormPointData formPointData = new(true, 0);
             formPointData.ShowDialog(this);
             Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
         }
@@ -242,7 +242,7 @@ public partial class FormPointsDataAndEvents : Form
     {
         if (Common.DataGridViews.ViewVerify(this, DataGridViewMain, EntityNameSingle, EntityIsFemale))
         {
-            FormPointData formPointData = new(false, ((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto);
+            using FormPointData formPointData = new(false, ((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto);
             formPointData.ShowDialog(this);
             Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
         }
@@ -261,13 +261,15 @@ public partial class FormPointsDataAndEvents : Form
     {
         if (Common.DataGridViews.EditVerify(this, DataGridViewMain, _editPermission, EntityNameSingle, EntityIsFemale))
         {
-            FormPointData formPointData = new(true, ((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto);
+            using FormPointData formPointData = new(true, ((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto);
             formPointData.ShowDialog(this);
             Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
         }
     }
 
-    private void ToolStripButtonDelete_Click(object sender, EventArgs e)
+#pragma warning disable MA0155 // Do not use async void methods (event handler)
+    private async void ToolStripButtonDelete_Click(object sender, EventArgs e)
+#pragma warning restore MA0155
     {
         if (!Common.DataGridViews.DeleteVerify(DataGridViewMain, _deletePermission, EntityNameSingle, EntityIsFemale))
         {
@@ -284,7 +286,7 @@ public partial class FormPointsDataAndEvents : Form
         this.Cursor = Cursors.WaitCursor;
         try
         {
-            using Models.CSMapsContext context = new();
+            await using Models.CSMapsContext context = new();
             if (context.PuntoEvento.Any(pe => pe.IdPunto == rowData.IdPunto))
             {
                 this.Cursor = Cursors.Default;
@@ -292,11 +294,11 @@ public partial class FormPointsDataAndEvents : Form
                 return;
             }
 
-            var puntoDato = context.PuntoDato.Find(rowData.IdPunto);
+            var puntoDato = await context.PuntoDato.FindAsync(rowData.IdPunto);
             context.PuntoDato.Attach(puntoDato);
             context.PuntoDato.Remove(puntoDato);
-            context.SaveChanges();
-            Common.RefreshLists.PointsData();
+            await context.SaveChangesAsync();
+            await Common.RefreshLists.PointsDataAsync();
         }
         catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
         {
@@ -323,7 +325,7 @@ public partial class FormPointsDataAndEvents : Form
             return;
         }
 
-        FormPointEvent formPointEvent = new(true, ((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto, 0);
+        using FormPointEvent formPointEvent = new(true, ((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto, 0);
         formPointEvent.ShowDialog(this);
     }
 
