@@ -62,6 +62,7 @@ internal static class CommonFunctions
     {
         try
         {
+            DisposeMediaDevices(mediaDevices);
             mediaDevices = [];
 #pragma warning disable CA1862 // Use the 'StringComparison' method overloads to perform case-insensitive string comparisons
             foreach (var mediaDevice in MediaDeviceManager.Instance.GetDevices().Where(md => Array.Exists(ManufacturerExpectedContains, m => md.Manufacturer.ToLowerInvariant().Contains(m.ToLowerInvariant(), StringComparison.OrdinalIgnoreCase)) || Array.Exists(FriendlyNameExpectedContains, fn => md.FriendlyName.ToLowerInvariant().Contains(fn.ToLowerInvariant(), StringComparison.OrdinalIgnoreCase))))
@@ -182,5 +183,23 @@ internal static class CommonFunctions
     }
 
     #endregion Files
+
+    #region Media devices
+
+    internal static void DisposeMediaDevices(List<MediaDevice> mediaDevices)
+    {
+        if (mediaDevices is null)
+        {
+            return;
+        }
+
+        // The same device can be listed once per GPS directory found on it
+        foreach (var mediaDevice in mediaDevices.Distinct())
+        {
+            mediaDevice.Dispose();
+        }
+    }
+
+    #endregion Media devices
 
 }

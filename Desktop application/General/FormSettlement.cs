@@ -151,7 +151,8 @@ public partial class FormSettlement : Form
         if (_dbContext.ChangeTracker.HasChanges())
         {
             this.Cursor = Cursors.WaitCursor;
-            _establecimiento.FechaHoraUltimaModificacion = DateTime.UtcNow;
+            _establecimiento.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
+            _establecimiento.FechaHoraUltimaModificacion = DateTime.UtcNow.ToLocalTime();
             try
             {
                 _dbContext.SaveChanges();
@@ -184,8 +185,11 @@ public partial class FormSettlement : Form
 
     private void ToolStripButtonEdit_Click(object sender, EventArgs e)
     {
-        _isEditMode = true;
-        ChangeEditMode();
+        if (Users.Permissions.Verify(Users.Permissions.Actions.SettlementEdit))
+        {
+            _isEditMode = true;
+            ChangeEditMode();
+        }
     }
 
     private void ToolStripButtonClose_Click(object sender, EventArgs e)
@@ -200,9 +204,9 @@ public partial class FormSettlement : Form
     private void InitializeNewObjectData()
     {
         _establecimiento.IdUsuarioCreacion = Program.Usuario.IdUsuario;
-        _establecimiento.FechaHoraCreacion = DateTime.UtcNow;
+        _establecimiento.FechaHoraCreacion = DateTime.UtcNow.ToLocalTime();
         _establecimiento.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
-        _establecimiento.FechaHoraUltimaModificacion = DateTime.UtcNow;
+        _establecimiento.FechaHoraUltimaModificacion = DateTime.UtcNow.ToLocalTime();
     }
 
     private bool CompleteNewObjectData()

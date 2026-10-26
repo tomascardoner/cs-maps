@@ -138,6 +138,16 @@ public partial class FormUserLogin : Form
             return;
         }
 
+        // Verifico que el usuario esté activo
+        if (!usuario.EsActivo)
+        {
+            MessageBox.Show("El usuario especificado no está activo.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            TextBoxNombre.SelectAll();
+            TextBoxNombre.Focus();
+            this.Cursor = Cursors.Default;
+            return;
+        }
+
         // Comparo la contraseña ingresada con la del usuario
         if (!CardonerSistemas.Framework.Cryptography.StringCipher.Decrypt(usuario.Password, Main.Constants.PublicEncryptionPassword, out var decryptedPassword, out var decryptionResultMessage))
         {

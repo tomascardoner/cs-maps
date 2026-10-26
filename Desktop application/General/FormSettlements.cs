@@ -144,8 +144,8 @@ public partial class FormSettlements : Form
         {
             _entitiesFiltered = ToolStripComboBoxNameFilterType.SelectedIndex switch
             {
-                0 => [.. _entitiesAll.Where(e => e.Nombre.ToLower(CultureInfo.CurrentCulture).ReplaceDiacritics().StartsWith(ToolStripTextBoxNameFilter.Text.ToLower(CultureInfo.CurrentCulture).ReplaceDiacritics(), StringComparison.CurrentCulture))],
-                1 => [.. _entitiesAll.Where(e => e.Nombre.ToLower(CultureInfo.CurrentCulture).ReplaceDiacritics().Contains(ToolStripTextBoxNameFilter.Text.ToLower(CultureInfo.CurrentCulture).ReplaceDiacritics(), StringComparison.CurrentCulture))],
+                0 => [.. _entitiesFiltered.Where(e => e.Nombre.ToLower(CultureInfo.CurrentCulture).ReplaceDiacritics().StartsWith(ToolStripTextBoxNameFilter.Text.ToLower(CultureInfo.CurrentCulture).ReplaceDiacritics(), StringComparison.CurrentCulture))],
+                1 => [.. _entitiesFiltered.Where(e => e.Nombre.ToLower(CultureInfo.CurrentCulture).ReplaceDiacritics().Contains(ToolStripTextBoxNameFilter.Text.ToLower(CultureInfo.CurrentCulture).ReplaceDiacritics(), StringComparison.CurrentCulture))],
                 _ => throw new NotImplementedException(),
             };
         }

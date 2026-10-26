@@ -9,8 +9,6 @@ public partial class FormPointsDataAndEvents : Form
 
     #region Declarations
 
-    internal FormPointEvents FormPointEvents;
-
     private const string EntityNameSingle = "dato del punto";
     private const string EntityNamePlural = "datos de los puntos";
     private const bool EntityIsFemale = false;
@@ -129,8 +127,8 @@ public partial class FormPointsDataAndEvents : Form
             ? _entitiesAll
             : ToolStripComboBoxNameAndSettlementFilterType.SelectedIndex switch
             {
-                0 => [.. _entitiesAll.Where(p => p.EstablecimientoNombre.ToLower(CultureInfo.CurrentCulture).ReplaceDiacritics().StartsWith(ToolStripTextBoxNameAndSettlementFilter.Text.ToLower(CultureInfo.CurrentCulture).ReplaceDiacritics(), StringComparison.CurrentCulture))],
-                1 => [.. _entitiesAll.Where(p => p.EstablecimientoNombre.ToLower(CultureInfo.CurrentCulture).ReplaceDiacritics().Contains(ToolStripTextBoxNameAndSettlementFilter.Text.ToLower(CultureInfo.CurrentCulture).ReplaceDiacritics(), StringComparison.CurrentCulture))],
+                0 => [.. _entitiesAll.Where(p => (p.EstablecimientoNombre ?? string.Empty).ToLower(CultureInfo.CurrentCulture).ReplaceDiacritics().StartsWith(ToolStripTextBoxNameAndSettlementFilter.Text.ToLower(CultureInfo.CurrentCulture).ReplaceDiacritics(), StringComparison.CurrentCulture))],
+                1 => [.. _entitiesAll.Where(p => (p.EstablecimientoNombre ?? string.Empty).ToLower(CultureInfo.CurrentCulture).ReplaceDiacritics().Contains(ToolStripTextBoxNameAndSettlementFilter.Text.ToLower(CultureInfo.CurrentCulture).ReplaceDiacritics(), StringComparison.CurrentCulture))],
                 2 => [.. _entitiesAll.Where(p => p.PuntoNombre.ToLower(CultureInfo.CurrentCulture).ReplaceDiacritics().StartsWith(ToolStripTextBoxNameAndSettlementFilter.Text.ToLower(CultureInfo.CurrentCulture).ReplaceDiacritics(), StringComparison.CurrentCulture))],
                 3 => [.. _entitiesAll.Where(p => p.PuntoNombre.ToLower(CultureInfo.CurrentCulture).ReplaceDiacritics().Contains(ToolStripTextBoxNameAndSettlementFilter.Text.ToLower(CultureInfo.CurrentCulture).ReplaceDiacritics(), StringComparison.CurrentCulture))],
                 _ => throw new NotImplementedException()
@@ -162,6 +160,12 @@ public partial class FormPointsDataAndEvents : Form
             _entitiesFiltered = _sortOrder == SortOrder.Ascending
                 ? [.. _entitiesFiltered.OrderBy(e => e.EstablecimientoNombre).ThenBy(e => e.PuntoNombre)]
                 : [.. _entitiesFiltered.OrderByDescending(e => e.EstablecimientoNombre).ThenByDescending(e => e.PuntoNombre)];
+        }
+        else if (_sortedColumn == DataGridViewColumnEntidad)
+        {
+            _entitiesFiltered = _sortOrder == SortOrder.Ascending
+                ? [.. _entitiesFiltered.OrderBy(e => e.EntidadNombre).ThenBy(e => e.PuntoNombre)]
+                : [.. _entitiesFiltered.OrderByDescending(e => e.EntidadNombre).ThenByDescending(e => e.PuntoNombre)];
         }
         else if (_sortedColumn == DataGridViewColumnChapaNumero)
         {
@@ -277,7 +281,7 @@ public partial class FormPointsDataAndEvents : Form
         }
 
         var rowData = (Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem;
-        var entidadDatos = $"Nombre: {rowData.PuntoNombre}\nLatitud: {rowData.Latitud}\nLongitud: {rowData.Longitud}\nEstablecimiento: {rowData.EstablecimientoNombre}\nNº de chapa:: {rowData.ChapaNumero}";
+        var entidadDatos = $"Nombre: {rowData.PuntoNombre}\nLatitud: {rowData.Latitud}\nLongitud: {rowData.Longitud}\nEstablecimiento: {rowData.EstablecimientoNombre}\nNº de chapa:{rowData.ChapaNumero}";
         if (!Common.DataGridViews.DeleteConfirm(EntityNameSingle, EntityIsFemale, entidadDatos))
         {
             return;
@@ -337,8 +341,8 @@ public partial class FormPointsDataAndEvents : Form
             return;
         }
 
-        FormPointEvents ??= new(((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto);
-        FormPointEvents.ShowDialog(this);
+        using FormPointEvents formPointEvents = new(((Models.ObtenerPuntosDatosYEventosResult)DataGridViewMain.CurrentRow.DataBoundItem).IdPunto);
+        formPointEvents.ShowDialog(this);
     }
 
     #endregion Main toolbar

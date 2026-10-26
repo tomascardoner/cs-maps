@@ -143,7 +143,7 @@ internal sealed class AppearanceConfig
             }
             catch (ArgumentException ex)
             {
-                Error.ProcessException(ex, $"Error al convertir el nombre de la tipografía '{name}' a una tipografía válida del sistem.");
+                Error.ProcessException(ex, $"Error al convertir el nombre de la tipografía '{name}' a una tipografía válida del sistema.");
             }
         }
 

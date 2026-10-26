@@ -233,6 +233,12 @@ public partial class FormUsers : Form
         }
 
         var rowData = (DataGridRowData)DataGridViewMain.CurrentRow.DataBoundItem;
+        if (rowData.IdUsuario == Program.Usuario.IdUsuario)
+        {
+            MessageBox.Show("No se puede borrar el usuario con el que se inició la sesión actual.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            return;
+        }
+
         var entidadDatos = $"Nombre: {rowData.Nombre}\nDescripción: {rowData.Descripcion}\nGrupo: {rowData.UsuarioGrupoNombre}";
         if (!Common.DataGridViews.DeleteConfirm(EntityNameSingle, EntityIsFemale, entidadDatos))
         {

@@ -138,9 +138,16 @@ public partial class FormUser : Form
         // General
         _usuario.Nombre = Values.ToString(TextBoxNombre);
         _usuario.Descripcion = Values.ToString(TextBoxDescripcion);
-        _usuario.Password = CardonerSistemas.Framework.Cryptography.StringCipher.Encrypt(TextBoxPassword.Text.Trim(), Main.Constants.PublicEncryptionPassword, out var encryptedPassword)
-            ? encryptedPassword
-            : null;
+        // Encryption uses a random salt, so only re-encrypt when the password actually changed; otherwise the user would always be marked as modified
+        var password = TextBoxPassword.Text.Trim();
+        if (string.IsNullOrWhiteSpace(_usuario.Password)
+            || !CardonerSistemas.Framework.Cryptography.StringCipher.Decrypt(_usuario.Password, Main.Constants.PublicEncryptionPassword, out var currentPassword)
+            || !string.Equals(password, currentPassword, StringComparison.Ordinal))
+        {
+            _usuario.Password = CardonerSistemas.Framework.Cryptography.StringCipher.Encrypt(password, Main.Constants.PublicEncryptionPassword, out var encryptedPassword)
+                ? encryptedPassword
+                : null;
+        }
 
         _usuario.Genero = Values.ToString(ComboBoxGenero, Main.Constants.GenderUnknown);
         _usuario.IdUsuarioGrupo = Values.ToByte(ComboBoxUsuarioGrupo).Value;

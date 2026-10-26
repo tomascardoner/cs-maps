@@ -55,8 +55,8 @@ public partial class FormPointEvents : Form
         SetAppearance();
 
         InitializeDateFilter();
-        ToolStripComboBoxDateFilterPeriodType.ComboBox.Items.AddRange(DateAndTime.GetPeriodTypes());
-        ToolStripComboBoxDateFilterPeriodType.ComboBox.SelectedItem = DateAndTime.PeriodTypes.All;
+        ToolStripComboBoxDateFilterPeriodType.ComboBox.Items.AddRange([.. DateAndTime.GetPeriodTypes()]);
+        ToolStripComboBoxDateFilterPeriodType.ComboBox.SelectedIndex = (int)DateAndTime.PeriodTypes.All;
 
         using Models.CSMapsContext context = new();
         SetDataToUserInterface(context);
@@ -253,7 +253,9 @@ public partial class FormPointEvents : Form
 
     private void ToolStripComboBoxDateFilterPeriodType_SelectedIndexChanged(object sender, EventArgs e)
     {
-        ToolStripComboBoxDateFilterPeriodValue.ComboBox.Items.AddRange(DateAndTime.GetPeriodValues((DateAndTime.PeriodTypes)ToolStripComboBoxDateFilterPeriodType.SelectedIndex));
+        ToolStripComboBoxDateFilterPeriodValue.ComboBox.Items.Clear();
+        ToolStripComboBoxDateFilterPeriodValue.ComboBox.Items.AddRange([.. DateAndTime.GetPeriodValues((DateAndTime.PeriodTypes)ToolStripComboBoxDateFilterPeriodType.SelectedIndex)]);
+        ToolStripComboBoxDateFilterPeriodValue.ComboBox.SelectedIndex = 0;
     }
 
     private void ToolStripComboBoxDateFilterPeriodValue_SelectedIndexChanged(object sender, EventArgs e)
@@ -261,7 +263,7 @@ public partial class FormPointEvents : Form
         _hostDateTimePickerDateFilterFrom.Visible = (ToolStripComboBoxDateFilterPeriodType.SelectedIndex == (int)DateAndTime.PeriodTypes.Range);
         ToolStripLabelDateFilterAnd.Visible = (ToolStripComboBoxDateFilterPeriodType.SelectedIndex == (int)DateAndTime.PeriodTypes.Range && ToolStripComboBoxDateFilterPeriodValue.SelectedIndex == (int)DateAndTime.PeriodDateRangeValues.Between);
         _hostDateTimePickerDateFilterTo.Visible = ToolStripLabelDateFilterAnd.Visible;
-        ReadData();
+        FilterData();
     }
 
     private void DateTimePickerDateFilter_ValueChanged(object sender, EventArgs e)
@@ -292,6 +294,7 @@ public partial class FormPointEvents : Form
         {
             using FormPointEvent formPointEvent = new(true, _idPunto, 0);
             formPointEvent.ShowDialog(this);
+            ReadData(0, true);
             Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
         }
     }
@@ -302,6 +305,7 @@ public partial class FormPointEvents : Form
         {
             using FormPointEvent formPointEvent = new(false, _idPunto, ((DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem).IdEvento);
             formPointEvent.ShowDialog(this);
+            ReadData(0, true);
             Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
         }
     }
@@ -312,6 +316,7 @@ public partial class FormPointEvents : Form
         {
             using FormPointEvent formPointEvent = new(true, _idPunto, ((DataGridViewRowData)DataGridViewMain.CurrentRow.DataBoundItem).IdEvento);
             formPointEvent.ShowDialog(this);
+            ReadData(0, true);
             Common.DataGridViews.CommonActionFinalize(this, DataGridViewMain);
         }
     }
@@ -341,6 +346,7 @@ public partial class FormPointEvents : Form
             context.PuntoEvento.Remove(puntoEvento);
             await context.SaveChangesAsync();
             await Common.RefreshLists.PointsEventsAsync(_idPunto);
+            ReadData();
         }
         catch (Microsoft.EntityFrameworkCore.DbUpdateException dbUEx)
         {

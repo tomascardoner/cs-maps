@@ -837,7 +837,16 @@ namespace CSMaps.Properties {
                 return ResourceManager.GetString("StringImportGoogleEarthFileOpenDialogTitle", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Seleccione el archivo de GPS para importar.
+        /// </summary>
+        internal static string StringImportGpsFileOpenDialogTitle {
+            get {
+                return ResourceManager.GetString("StringImportGpsFileOpenDialogTitle", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Debe especificar el dispositivo o la ubicación del archivo de origen..
         /// </summary>

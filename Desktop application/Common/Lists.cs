@@ -23,8 +23,8 @@ internal static class Lists
         comboBox.ValueMember = idFieldName;
         comboBox.DisplayMember = nombreFieldName;
 
-        dataTable.Columns.Add(idFieldName, Type.GetType("System.String"));
-        dataTable.Columns.Add(nombreFieldName, Type.GetType("System.String"));
+        dataTable.Columns.Add(idFieldName, typeof(string));
+        dataTable.Columns.Add(nombreFieldName, typeof(string));
 
         if (mostrarNoEspecifica)
         {
@@ -180,8 +180,8 @@ internal static class Lists
     {
         List<Models.Grupo> grupos = [.. context.Grupo.Where(g => g.EsActivo).OrderBy(g => g.Nombre)];
 
-        listBox.DataSource = grupos;
         listBox.ValueMember = "IdGrupo";
         listBox.DisplayMember = "Nombre";
+        listBox.DataSource = grupos;
     }
 }

@@ -124,10 +124,15 @@ internal static class DataGridViews
 
     #region Search row by first key letter pressed
 
+    private static bool CellStartsWith(DataGridViewRow row, DataGridViewColumn dataGridViewColumn, char keyChar)
+    {
+        return row.Cells[dataGridViewColumn.Name].Value?.ToString().ReplaceDiacritics().StartsWith(keyChar.ToString(), StringComparison.CurrentCultureIgnoreCase) ?? false;
+    }
+
     private static void SearchByKeyPressFirstOccurrence(KeyPressEventArgs e, DataGridView dataGridView, DataGridViewColumn dataGridViewColumn)
     {
         var row = (from DataGridViewRow r in dataGridView.Rows
-                   where r.Cells[dataGridViewColumn.Name].Value.ToString().ReplaceDiacritics().StartsWith(e.KeyChar.ToString(), StringComparison.CurrentCultureIgnoreCase)
+                   where CellStartsWith(r, dataGridViewColumn, e.KeyChar)
                    select r).FirstOrDefault();
         if (row != null)
         {
@@ -141,7 +146,7 @@ internal static class DataGridViews
     {
         if (dataGridView.CurrentCell.RowIndex < dataGridView.RowCount - 1)
         {
-            if (dataGridView.Rows[dataGridView.CurrentCell.RowIndex + 1].Cells[dataGridViewColumn.Name].Value.ToString().ReplaceDiacritics().StartsWith(e.KeyChar.ToString(), StringComparison.CurrentCultureIgnoreCase))
+            if (CellStartsWith(dataGridView.Rows[dataGridView.CurrentCell.RowIndex + 1], dataGridViewColumn, e.KeyChar))
             {
                 dataGridView.Rows[dataGridView.CurrentCell.RowIndex + 1].Cells[dataGridViewColumn.Name].Selected = true;
                 e.Handled = true;
@@ -160,9 +165,9 @@ internal static class DataGridViews
 
     internal static void SearchByKeyPress(KeyPressEventArgs e, DataGridView dataGridView, DataGridViewColumn dataGridViewColumn)
     {
-        if (char.IsLetter(e.KeyChar))
+        if (char.IsLetter(e.KeyChar) && dataGridView.CurrentRow != null)
         {
-            if (dataGridView.CurrentRow.Cells[dataGridViewColumn.Name].Value.ToString().ReplaceDiacritics().StartsWith(e.KeyChar.ToString(), StringComparison.CurrentCultureIgnoreCase))
+            if (CellStartsWith(dataGridView.CurrentRow, dataGridViewColumn, e.KeyChar))
             {
                 // It's the same key search, so iterate through items
                 SearchByKeyPressNextOccurrences(e, dataGridView, dataGridViewColumn);

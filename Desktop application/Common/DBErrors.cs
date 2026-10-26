@@ -9,7 +9,7 @@ internal static class DBErrors
 {
     internal static void DbUpdateException(Microsoft.EntityFrameworkCore.DbUpdateException ex, string entityNameSingle, bool entityIsFemale, string actionName)
     {
-        var message = string.Empty;
+        string message;
         switch (Errors.TryDecodeDbUpdateException(ex))
         {
             case Errors.ErrorTypes.RelatedEntity:
@@ -22,13 +22,9 @@ internal static class DBErrors
                 message = string.Format(CultureInfo.CurrentCulture, entityIsFemale ? Properties.Resources.StringEntityDuplicatedPrimaryKeyErrorFemale : Properties.Resources.StringEntityDuplicatedPrimaryKeyErrorMale, entityNameSingle, actionName);
                 break;
             case Errors.ErrorTypes.NoDBError:
-                break;
             case Errors.ErrorTypes.Unknown:
-                break;
             case Errors.ErrorTypes.InvalidColumn:
-                break;
             case Errors.ErrorTypes.UserDefinedError:
-                break;
             default:
                 OtherUpdateException(ex, entityNameSingle, entityIsFemale, actionName);
                 return;

@@ -136,11 +136,11 @@ public partial class FormPointData : Form
                     IdPunto = _punto.IdPunto,
                     IdEvento = 1,
                     IdEventoTipo = (byte)ComboBoxEventoAgregar.SelectedValue,
-                    FechaHora = DateTime.UtcNow,
+                    FechaHora = DateTime.UtcNow.ToLocalTime(),
                     IdUsuarioCreacion = Program.Usuario.IdUsuario,
-                    FechaHoraCreacion = DateTime.UtcNow,
+                    FechaHoraCreacion = DateTime.UtcNow.ToLocalTime(),
                     IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario,
-                    FechaHoraUltimaModificacion = DateTime.UtcNow
+                    FechaHoraUltimaModificacion = DateTime.UtcNow.ToLocalTime()
                 });
         }
     }
@@ -208,7 +208,8 @@ public partial class FormPointData : Form
         if (_dbContext.ChangeTracker.HasChanges())
         {
             this.Cursor = Cursors.WaitCursor;
-            _puntoDato.FechaHoraUltimaModificacion = DateTime.UtcNow;
+            _puntoDato.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
+            _puntoDato.FechaHoraUltimaModificacion = DateTime.UtcNow.ToLocalTime();
             try
             {
                 await _dbContext.SaveChangesAsync();
@@ -241,8 +242,11 @@ public partial class FormPointData : Form
 
     private void ToolStripButtonEdit_Click(object sender, EventArgs e)
     {
-        _isEditMode = true;
-        ChangeEditMode();
+        if (Users.Permissions.Verify(Users.Permissions.Actions.PointDataEdit))
+        {
+            _isEditMode = true;
+            ChangeEditMode();
+        }
     }
 
     private void ToolStripButtonClose_Click(object sender, EventArgs e)
@@ -257,9 +261,9 @@ public partial class FormPointData : Form
     private void InitializeNewObjectData()
     {
         _puntoDato.IdUsuarioCreacion = Program.Usuario.IdUsuario;
-        _puntoDato.FechaHoraCreacion = DateTime.UtcNow;
+        _puntoDato.FechaHoraCreacion = DateTime.UtcNow.ToLocalTime();
         _puntoDato.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
-        _puntoDato.FechaHoraUltimaModificacion = DateTime.UtcNow;
+        _puntoDato.FechaHoraUltimaModificacion = DateTime.UtcNow.ToLocalTime();
     }
 
     #endregion New object initialization

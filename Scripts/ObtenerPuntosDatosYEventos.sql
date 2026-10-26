@@ -1,9 +1,9 @@
-SET ANSI_NULLS ON
+﻿SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
--- Author:		Tom�s A. Cardoner
+-- Author:		Tomás A. Cardoner
 -- Create date: 2024-03-21
 -- Description:	Obtiene los datos y los eventos de los puntos
 -- =============================================

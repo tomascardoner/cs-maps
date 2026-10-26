@@ -3,7 +3,6 @@ using CSMaps.Main;
 using Geo;
 using Geo.Gps;
 using MediaDevices;
-using Microsoft.IdentityModel.Tokens;
 
 namespace CSMaps.ImportExport;
 
@@ -12,7 +11,6 @@ public partial class FormImportGpsFile : Form
 
     #region Declarations
 
-    private readonly Models.CSMapsContext _dbContext = new();
     private List<MediaDevice> _mediaDevices;
 
     private sealed class PuntosGpsBD
@@ -115,7 +113,7 @@ public partial class FormImportGpsFile : Form
         if (disposing)
         {
             components?.Dispose();
-            _dbContext?.Dispose();
+            CommonFunctions.DisposeMediaDevices(_mediaDevices);
         }
 
         base.Dispose(disposing);
@@ -136,7 +134,7 @@ public partial class FormImportGpsFile : Form
         {
             FileName = CommonFunctions.GarminFileName,
             RestoreDirectory = true,
-            Title = Properties.Resources.StringExportGpsFileSaveDialogTitle,
+            Title = Properties.Resources.StringImportGpsFileOpenDialogTitle,
             Filter = Properties.Resources.StringGpsFileDialogFilter,
             CheckPathExists = true,
             AddExtension = true,
@@ -241,13 +239,6 @@ public partial class FormImportGpsFile : Form
             this.Cursor = Cursors.Default;
         }
 
-        if (_stepNumberCurrent == 2)
-        {
-            this.Cursor = Cursors.WaitCursor;
-            ReadGpxFile();
-            this.Cursor = Cursors.Default;
-        }
-
         if (_stepNumberCurrent == 3)
         {
             ShowSummary();
@@ -280,7 +271,7 @@ public partial class FormImportGpsFile : Form
     {
         return _stepNumberCurrent switch
         {
-            1 => VerifySource(),
+            1 => VerifySource() && ReadGpxFile(),
             2 => VerifySelectedPoints(),
             _ => true,
         };
@@ -288,13 +279,19 @@ public partial class FormImportGpsFile : Form
 
     private bool VerifySource()
     {
-        if (ListViewDevices.SelectedItems.Count == 0 && TextBoxFile.Text.Trim().IsNullOrEmpty())
+        if (ListViewDevices.SelectedItems.Count == 0 && string.IsNullOrWhiteSpace(TextBoxFile.Text))
         {
             MessageBox.Show(Properties.Resources.StringImportSourceNotSpecified, Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             return false;
         }
 
-        if (!TextBoxFile.Text.Trim().IsNullOrEmpty() && !Path.Exists(FileSystem.GetPathWithoutFileName(TextBoxFile.Text)))
+        // When a file is specified, it takes precedence over the selected device
+        if (string.IsNullOrWhiteSpace(TextBoxFile.Text))
+        {
+            return true;
+        }
+
+        if (!Path.Exists(FileSystem.GetPathWithoutFileName(TextBoxFile.Text)))
         {
             MessageBox.Show("La ubicación del archivo de origen a importar no existe.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             return false;
@@ -348,9 +345,9 @@ public partial class FormImportGpsFile : Form
 
     #region Import GPX file
 
-    private void ReadGpxFile()
+    private bool ReadGpxFile()
     {
-        _sourceIsDevice = TextBoxFile.Text.IsNullOrEmpty();
+        _sourceIsDevice = string.IsNullOrWhiteSpace(TextBoxFile.Text);
 
         this.Cursor = Cursors.WaitCursor;
 
@@ -358,10 +355,10 @@ public partial class FormImportGpsFile : Form
         {
             // Descargo el archivo desde el dispositivo a la carpeta Temp
             _fileFullPath = Path.Combine(Path.GetTempPath(), CommonFunctions.GarminFileName);
-            if (!ImportDownloadFileFromDevice(_fileFullPath, Path.Combine(ListViewDevices.SelectedItems[0].Tag.ToString(), CommonFunctions.GarminFileName)))
+            if (!ImportDownloadFileFromDevice(Path.Combine(ListViewDevices.SelectedItems[0].Tag.ToString(), CommonFunctions.GarminFileName), _fileFullPath))
             {
                 this.Cursor = Cursors.Default;
-                return;
+                return false;
             }
         }
         else
@@ -369,25 +366,22 @@ public partial class FormImportGpsFile : Form
             _fileFullPath = TextBoxFile.Text.Trim();
         }
 
-        if (!ImportGetGpsData(_fileFullPath))
-        {
-            this.Cursor = Cursors.Default;
-            return;
-        }
-
+        var result = ImportGetGpsData(_fileFullPath);
         this.Cursor = Cursors.Default;
+        return result;
     }
 
     private bool ImportDownloadFileFromDevice(string sourceFilePath, string destinationFilePath)
     {
         try
         {
-            using var mediaDevice = _mediaDevices[ListViewDevices.SelectedItems[0].Index];
+            var mediaDevice = _mediaDevices[ListViewDevices.SelectedItems[0].Index];
             mediaDevice.Connect();
             if (!mediaDevice.FileExists(sourceFilePath))
             {
                 mediaDevice.Disconnect();
                 this.Cursor = Cursors.Default;
+                MessageBox.Show(Properties.Resources.StringFileNotFound, Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
 
@@ -479,7 +473,7 @@ public partial class FormImportGpsFile : Form
             // Busco por coordenada
             foreach (var punto in dbContext.Punto.Where(p => p.Latitud == (decimal)waypoint.Coordinate.Latitude && p.Longitud == (decimal)waypoint.Coordinate.Longitude))
             {
-                if (punto.Nombre == waypoint.Name.Trim() && (waypoint.Coordinate.Is3D && punto.Altitud == (decimal)((CoordinateZ)waypoint.Coordinate).Elevation) || (!waypoint.Coordinate.Is3D && punto.Altitud == 0))
+                if (punto.Nombre == waypoint.Name.Trim() && ((waypoint.Coordinate.Is3D && punto.Altitud == (decimal)((CoordinateZ)waypoint.Coordinate).Elevation) || (!waypoint.Coordinate.Is3D && punto.Altitud == 0)))
                 {
                     _puntosCoincidentes.Add(punto);
                 }
@@ -507,24 +501,22 @@ public partial class FormImportGpsFile : Form
                 return true;
             }
 
-            // Busco por nombre
-            foreach (var punto in dbContext.Punto.Where(p => !_puntosCoincidentes.Contains(p) && p.Nombre == waypoint.Name.Trim()))
+            // Busco por nombre (no hubo coincidencias por coordenadas, así que las coordenadas difieren)
+            var nombre = waypoint.Name.Trim();
+            foreach (var punto in dbContext.Punto.Where(p => p.Nombre == nombre))
             {
-                if (!_puntosCoincidentesCoordenadas.Exists(p => p.LatitudGps != p.LatitudBD || p.LongitudGps != p.LongitudBD))
+                _puntosCoincidentesNombres.Add(new()
                 {
-                    _puntosCoincidentesNombres.Add(new()
-                    {
-                        IdPunto = punto.IdPunto,
-                        NombreGps = waypoint.Name.Trim(),
-                        LatitudGps = (decimal)waypoint.Coordinate.Latitude,
-                        LongitudGps = (decimal)waypoint.Coordinate.Longitude,
-                        AltitudGps = waypoint.Coordinate.Is3D ? (decimal)((CoordinateZ)waypoint.Coordinate).Elevation : 0,
-                        NombreBD = punto.Nombre,
-                        LatitudBD = punto.Latitud,
-                        LongitudBD = punto.Longitud,
-                        AltitudBD = punto.Altitud
-                    });
-                }
+                    IdPunto = punto.IdPunto,
+                    NombreGps = nombre,
+                    LatitudGps = (decimal)waypoint.Coordinate.Latitude,
+                    LongitudGps = (decimal)waypoint.Coordinate.Longitude,
+                    AltitudGps = waypoint.Coordinate.Is3D ? (decimal)((CoordinateZ)waypoint.Coordinate).Elevation : 0,
+                    NombreBD = punto.Nombre,
+                    LatitudBD = punto.Latitud,
+                    LongitudBD = punto.Longitud,
+                    AltitudBD = punto.Altitud
+                });
 
                 added = true;
             }
@@ -576,7 +568,7 @@ public partial class FormImportGpsFile : Form
                         var puntoAdd = (Models.Punto)row.DataBoundItem;
                         puntoAdd.IdPunto = idPunto;
                         puntoAdd.IdUsuarioCreacion = Program.Usuario.IdUsuario;
-                        puntoAdd.FechaHoraCreacion = DateTime.UtcNow;
+                        puntoAdd.FechaHoraCreacion = DateTime.UtcNow.ToLocalTime();
                         puntoAdd.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
                         puntoAdd.FechaHoraUltimaModificacion = puntoAdd.FechaHoraCreacion;
                         dbContext.Punto.Add(puntoAdd);
@@ -606,7 +598,7 @@ public partial class FormImportGpsFile : Form
                             }
 
                             puntoToUpdate.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
-                            puntoToUpdate.FechaHoraUltimaModificacion = DateTime.UtcNow;
+                            puntoToUpdate.FechaHoraUltimaModificacion = DateTime.UtcNow.ToLocalTime();
                         }
                     }
                 }
@@ -639,7 +631,7 @@ public partial class FormImportGpsFile : Form
                             }
 
                             puntoToUpdate.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
-                            puntoToUpdate.FechaHoraUltimaModificacion = DateTime.UtcNow;
+                            puntoToUpdate.FechaHoraUltimaModificacion = DateTime.UtcNow.ToLocalTime();
                         }
                     }
                 }
@@ -647,12 +639,15 @@ public partial class FormImportGpsFile : Form
 
             dbContext.SaveChanges();
 
+            _ = Common.RefreshLists.PointsAsync();
+
             this.Cursor = Cursors.Default;
             MessageBox.Show($"Se ha importado correctamente la información desde el origen especificado.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
             return true;
         }
         catch (Exception ex)
         {
+            this.Cursor = Cursors.Default;
             Error.ProcessException(ex, "Error al guardar los puntos en la base de datos.");
             return false;
         }

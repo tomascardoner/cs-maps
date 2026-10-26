@@ -34,7 +34,6 @@ public partial class FormPointEvent : Form
         _isEditMode = editMode;
 
         _idPunto = idPuntoOrigen;
-        _puntoEvento = _context.PuntoEvento.Find(_idPunto, idEvento);
         if (_isNew)
         {
             _puntoEvento = new() { IdPunto = _idPunto };
@@ -158,6 +157,7 @@ public partial class FormPointEvent : Form
         if (_context.ChangeTracker.HasChanges())
         {
             this.Cursor = Cursors.WaitCursor;
+            _puntoEvento.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
             _puntoEvento.FechaHoraUltimaModificacion = DateTime.UtcNow.ToLocalTime();
             try
             {
@@ -191,8 +191,11 @@ public partial class FormPointEvent : Form
 
     private void ToolStripButtonEdit_Click(object sender, EventArgs e)
     {
-        _isEditMode = true;
-        ChangeEditMode();
+        if (Users.Permissions.Verify(Users.Permissions.Actions.PointEventEdit))
+        {
+            _isEditMode = true;
+            ChangeEditMode();
+        }
     }
 
     private void ToolStripButtonClose_Click(object sender, EventArgs e)

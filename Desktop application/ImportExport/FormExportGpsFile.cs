@@ -4,7 +4,6 @@ using CSMaps.Main;
 using Geo.Gps;
 using MediaDevices;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 
 namespace CSMaps.ImportExport;
 
@@ -48,6 +47,7 @@ public partial class FormExportGpsFile : Form
         {
             components?.Dispose();
             _dbContext?.Dispose();
+            CommonFunctions.DisposeMediaDevices(_mediaDevices);
         }
 
         base.Dispose(disposing);
@@ -184,13 +184,13 @@ public partial class FormExportGpsFile : Form
 
     private bool VerifyDestination()
     {
-        if (ListViewDevices.SelectedItems.Count == 0 && TextBoxFile.Text.Trim().IsNullOrEmpty())
+        if (ListViewDevices.SelectedItems.Count == 0 && string.IsNullOrWhiteSpace(TextBoxFile.Text))
         {
             MessageBox.Show(Properties.Resources.StringExportDestinationNotSpecified, Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             return false;
         }
 
-        if (!TextBoxFile.Text.Trim().IsNullOrEmpty() && !Path.Exists(FileSystem.GetPathWithoutFileName(TextBoxFile.Text)))
+        if (!string.IsNullOrWhiteSpace(TextBoxFile.Text) && !Path.Exists(FileSystem.GetPathWithoutFileName(TextBoxFile.Text)))
         {
             MessageBox.Show("La ubicación del archivo de destino a exportar no existe.", Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             return false;
@@ -205,7 +205,7 @@ public partial class FormExportGpsFile : Form
             ? $"Se exportarán todos los puntos del sistema (cantidad: {_dbContext.Punto.Count():N0}).\n\n"
             : $"Se exportarán sólo los puntos del sistema que tienen datos asociados (cantidad: {_dbContext.PuntoDato.Count():N0}).\n\n";
 
-        if (TextBoxFile.Text.IsNullOrEmpty())
+        if (string.IsNullOrWhiteSpace(TextBoxFile.Text))
         {
             summary += $"El dispositivo de destino es: {ListViewDevices.SelectedItems[0].Text} - unidad {ListViewDevices.SelectedItems[0].SubItems[1].Text}";
         }
@@ -223,7 +223,7 @@ public partial class FormExportGpsFile : Form
 
     private void ExportGpxFile()
     {
-        var destinationIsDevice = TextBoxFile.Text.IsNullOrEmpty();
+        var destinationIsDevice = string.IsNullOrWhiteSpace(TextBoxFile.Text);
         var fileFullPath = destinationIsDevice
             ? Path.Combine(ListViewDevices.SelectedItems[0].Tag.ToString(), DefaultFileNameExport)
             : TextBoxFile.Text.Trim();
@@ -279,7 +279,7 @@ public partial class FormExportGpsFile : Form
         {
             try
             {
-                using var mediaDevice = _mediaDevices[ListViewDevices.SelectedItems[0].Index];
+                var mediaDevice = _mediaDevices[ListViewDevices.SelectedItems[0].Index];
                 mediaDevice.Connect();
                 if (mediaDevice.FileExists(fileFullPath) && MessageBox.Show(string.Format(CultureInfo.CurrentCulture, Properties.Resources.StringFileDestinationConfirmOverwrite, Environment.NewLine), Program.Info.Title, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
                 {
@@ -295,7 +295,7 @@ public partial class FormExportGpsFile : Form
                 return false;
             }
         }
-        else if (Path.Exists(fileFullPath) && MessageBox.Show(Properties.Resources.StringFileDestinationConfirmOverwrite, Program.Info.Title, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
+        else if (Path.Exists(fileFullPath) && MessageBox.Show(string.Format(CultureInfo.CurrentCulture, Properties.Resources.StringFileDestinationConfirmOverwrite, Environment.NewLine), Program.Info.Title, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
         {
             return false;
         }
@@ -367,7 +367,7 @@ public partial class FormExportGpsFile : Form
     {
         try
         {
-            using var mediaDevice = _mediaDevices[ListViewDevices.SelectedItems[0].Index];
+            var mediaDevice = _mediaDevices[ListViewDevices.SelectedItems[0].Index];
             mediaDevice.Connect();
             if (mediaDevice.FileExists(fileFullPath))
             {

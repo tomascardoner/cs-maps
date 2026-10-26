@@ -107,6 +107,7 @@ public partial class FormUsersGroupsPermissions : Form
             catch (Exception ex)
             {
                 Error.ProcessException(ex, "Error al establecer el Permiso.");
+                RevertNodeCheck(e.Node);
             }
         }
         else
@@ -124,8 +125,16 @@ public partial class FormUsersGroupsPermissions : Form
             catch (Exception ex)
             {
                 Error.ProcessException(ex, "Error al quitar el Permiso.");
+                RevertNodeCheck(e.Node);
             }
         }
+    }
+
+    private void RevertNodeCheck(TreeNode node)
+    {
+        // Discard the failed change so later saves don't retry it, and restore the node to its previous state
+        _context.ChangeTracker.Clear();
+        node.Checked = !node.Checked;
     }
 
     #endregion

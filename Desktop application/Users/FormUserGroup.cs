@@ -120,7 +120,7 @@ public partial class FormUserGroup : Form
         Values.ToControl(TextBoxId, _usuarioGrupo.IdUsuarioGrupo, true, EntidadFemenina ? Properties.Resources.StringNewFemale : Properties.Resources.StringNewMale);
         Values.ToControl(TextBoxFechaHoraCreacion, _usuarioGrupo.FechaHoraCreacion, Values.DateTimeFormats.ShortDateTime);
         TextBoxUsuarioCreacion.Text = Users.GetDescription(_context, _usuarioGrupo.IdUsuarioCreacion);
-        Values.ToControl(TextBoxUsuarioUltimaModificacion, _usuarioGrupo.FechaHoraUltimaModificacion, Values.DateTimeFormats.ShortDateTime);
+        Values.ToControl(TextBoxFechaHoraUltimaModificacion, _usuarioGrupo.FechaHoraUltimaModificacion, Values.DateTimeFormats.ShortDateTime);
         TextBoxUsuarioUltimaModificacion.Text = Users.GetDescription(_context, _usuarioGrupo.IdUsuarioUltimaModificacion);
     }
 
@@ -149,7 +149,7 @@ public partial class FormUserGroup : Form
 
     private void Editar_Click(object sender, EventArgs e)
     {
-        if (Permissions.Verify(Permissions.Actions.UserEdit))
+        if (Permissions.Verify(Permissions.Actions.UserGroupEdit))
         {
             _isEditMode = true;
             ChangeEditMode();

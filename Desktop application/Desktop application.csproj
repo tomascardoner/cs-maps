@@ -26,18 +26,6 @@
     <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <IsPublishable>False</IsPublishable>
-    <Deterministic>False</Deterministic>
-    <DebugType>full</DebugType>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <IsPublishable>False</IsPublishable>
-    <Deterministic>False</Deterministic>
-    <DebugType>full</DebugType>
-  </PropertyGroup>
-
   <ItemGroup>
     <Content Include="Resources\Application\IconApplication.ico" />
   </ItemGroup>
@@ -45,30 +33,49 @@
   <ItemGroup>
     <PackageReference Include="Geo" Version="3.0.1" />
     <PackageReference Include="MediaDevices" Version="2.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.12" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="7.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.14" />
     <PackageReference Include="SharpKml.Core" Version="6.1.0" />
-    <PackageReference Include="Syncfusion.Shared.Base" Version="34.2.9" />
-    <PackageReference Include="Workleap.DotNet.CodingStandards" Version="2.0.7">
+    <PackageReference Include="Syncfusion.Shared.Base" Version="35.1.41" />
+    <PackageReference Include="Workleap.DotNet.CodingStandards" Version="2.0.9">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <Reference Include="CardonerSistemas.Framework.Base">
-      <HintPath>..\..\cs-framework.net\CardonerSistemas.Framework.Base\bin\Debug\net9.0-windows7.0\CardonerSistemas.Framework.Base.dll</HintPath>
+      <HintPath>..\..\cs-framework.net\CardonerSistemas.Framework.Base\bin\Debug\net10.0-windows10.0.17763.0\CardonerSistemas.Framework.Base.dll</HintPath>
     </Reference>
     <Reference Include="CardonerSistemas.Framework.Controls">
-      <HintPath>..\..\cs-framework.net\CardonerSistemas.Framework.Controls\bin\Debug\net9.0-windows7.0\CardonerSistemas.Framework.Controls.dll</HintPath>
+      <HintPath>..\..\cs-framework.net\CardonerSistemas.Framework.Controls\bin\Debug\net10.0-windows10.0.17763.0\CardonerSistemas.Framework.Controls.dll</HintPath>
     </Reference>
     <Reference Include="CardonerSistemas.Framework.Controls.Syncfusion">
-      <HintPath>..\..\cs-framework.net\CardonerSistemas.Framework.Controls.Syncfusion\bin\Debug\net9.0-windows7.0\CardonerSistemas.Framework.Controls.Syncfusion.dll</HintPath>
+      <HintPath>..\..\cs-framework.net\CardonerSistemas.Framework.Controls.Syncfusion\bin\Debug\net10.0-windows10.0.17763.0\CardonerSistemas.Framework.Controls.Syncfusion.dll</HintPath>
     </Reference>
     <Reference Include="CardonerSistemas.Framework.Cryptography">
-      <HintPath>..\..\cs-framework.net\CardonerSistemas.Framework.Cryptography\bin\Debug\net9.0-windows7.0\CardonerSistemas.Framework.Cryptography.dll</HintPath>
+      <HintPath>..\..\cs-framework.net\CardonerSistemas.Framework.Cryptography\bin\Debug\net10.0-windows10.0.17763.0\CardonerSistemas.Framework.Cryptography.dll</HintPath>
     </Reference>
     <Reference Include="CardonerSistemas.Framework.Database.EFCore">
-      <HintPath>..\..\cs-framework.net\CardonerSistemas.Framework.Database.EFCore\bin\Debug\net9.0-windows7.0\CardonerSistemas.Framework.Database.EFCore.dll</HintPath>
+      <HintPath>..\..\cs-framework.net\CardonerSistemas.Framework.Database.EFCore\bin\Debug\net10.0-windows10.0.17763.0\CardonerSistemas.Framework.Database.EFCore.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Reference Include="CardonerSistemas.Framework.Base">
+      <HintPath>..\..\cs-framework.net\CardonerSistemas.Framework.Base\bin\Release\net10.0-windows10.0.17763.0\CardonerSistemas.Framework.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="CardonerSistemas.Framework.Controls">
+      <HintPath>..\..\cs-framework.net\CardonerSistemas.Framework.Controls\bin\Release\net10.0-windows10.0.17763.0\CardonerSistemas.Framework.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="CardonerSistemas.Framework.Controls.Syncfusion">
+      <HintPath>..\..\cs-framework.net\CardonerSistemas.Framework.Controls.Syncfusion\bin\Release\net10.0-windows10.0.17763.0\CardonerSistemas.Framework.Controls.Syncfusion.dll</HintPath>
+    </Reference>
+    <Reference Include="CardonerSistemas.Framework.Cryptography">
+      <HintPath>..\..\cs-framework.net\CardonerSistemas.Framework.Cryptography\bin\Release\net10.0-windows10.0.17763.0\CardonerSistemas.Framework.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="CardonerSistemas.Framework.Database.EFCore">
+      <HintPath>..\..\cs-framework.net\CardonerSistemas.Framework.Database.EFCore\bin\Release\net10.0-windows10.0.17763.0\CardonerSistemas.Framework.Database.EFCore.dll</HintPath>
     </Reference>
   </ItemGroup>
 

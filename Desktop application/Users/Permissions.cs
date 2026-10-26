@@ -152,15 +152,16 @@ internal static class Permissions
         catch (Exception ex)
         {
             Error.ProcessException(ex, "Error al mostrar los permisos en el árbol.");
-            return;
         }
-
-        if (arbol.Nodes.Count > 0)
+        finally
         {
-            arbol.TopNode = arbol.Nodes[0];
-        }
+            if (arbol.Nodes.Count > 0)
+            {
+                arbol.TopNode = arbol.Nodes[0];
+            }
 
-        arbol.ResumeLayout();
+            arbol.ResumeLayout();
+        }
     }
 
     internal static void ShowEstablishedPermissions(Models.CSMapsContext context, TreeView arbol, byte idUserGroup)

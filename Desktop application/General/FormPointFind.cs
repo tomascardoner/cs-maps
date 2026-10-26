@@ -1,4 +1,5 @@
-﻿using CardonerSistemas.Framework.Base;
+﻿using System.Globalization;
+using CardonerSistemas.Framework.Base;
 using CSMaps.Main;
 
 namespace CSMaps.General;
@@ -44,11 +45,9 @@ public partial class FormPointFind : Form
             return;
         }
 
-#pragma warning disable CA1310 // Specify StringComparison for correctness
         var puntosFiltrados = ComboBoxTipoBusqueda.SelectedIndex == 0
-            ? [.. _puntos.Where(p => p.Nombre.ReplaceDiacritics().StartsWith(TextBoxNombre.Text.Trim().ReplaceDiacritics()))]
-            : (List<Models.Punto>)[.. _puntos.Where(p => p.Nombre.ReplaceDiacritics().Contains(TextBoxNombre.Text.Trim().ReplaceDiacritics()))];
-#pragma warning restore CA1310 // Specify StringComparison for correctness
+            ? [.. _puntos.Where(p => p.Nombre.ReplaceDiacritics().StartsWith(TextBoxNombre.Text.Trim().ReplaceDiacritics(), StringComparison.CurrentCultureIgnoreCase))]
+            : (List<Models.Punto>)[.. _puntos.Where(p => p.Nombre.ReplaceDiacritics().Contains(TextBoxNombre.Text.Trim().ReplaceDiacritics(), StringComparison.CurrentCultureIgnoreCase))];
 
         if (puntosFiltrados.Count == 0)
         {
@@ -64,7 +63,7 @@ public partial class FormPointFind : Form
     {
         if (DataGridViewMain.CurrentRow == null)
         {
-            MessageBox.Show(string.Format(Properties.Resources.StringActionNoneMale, "punto", Properties.Resources.StringActionSelect), Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(string.Format(CultureInfo.CurrentCulture, Properties.Resources.StringActionNoneMale, "punto", Properties.Resources.StringActionSelect), Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
             return;
         }
 

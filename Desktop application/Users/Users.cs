@@ -12,7 +12,10 @@ internal static class Users
 
     internal static void LogIn()
     {
-        Permissions.Load();
+        if (!Permissions.Load())
+        {
+            Program.Permisos = [];
+        }
 
         // Leo los parámetros del usuario desde la base de datos
         UsersParameters.LoadFromDatabase();

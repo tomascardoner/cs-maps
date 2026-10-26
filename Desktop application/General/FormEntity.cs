@@ -149,7 +149,7 @@ public partial class FormEntity : Form
         {
             this.Cursor = Cursors.WaitCursor;
             _entidad.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
-            _entidad.FechaHoraUltimaModificacion = DateTime.UtcNow;
+            _entidad.FechaHoraUltimaModificacion = DateTime.UtcNow.ToLocalTime();
             try
             {
                 _dbContext.SaveChanges();
@@ -201,9 +201,9 @@ public partial class FormEntity : Form
     private void InitializeNewObjectData()
     {
         _entidad.IdUsuarioCreacion = Program.Usuario.IdUsuario;
-        _entidad.FechaHoraCreacion = DateTime.UtcNow;
+        _entidad.FechaHoraCreacion = DateTime.UtcNow.ToLocalTime();
         _entidad.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
-        _entidad.FechaHoraUltimaModificacion = DateTime.UtcNow;
+        _entidad.FechaHoraUltimaModificacion = DateTime.UtcNow.ToLocalTime();
     }
 
     private bool CompleteNewObjectData()

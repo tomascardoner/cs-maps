@@ -374,6 +374,9 @@
   <data name="StringImportGoogleEarthFileOpenDialogTitle" xml:space="preserve">
     <value>Seleccione el archivo de Google Earth para importar</value>
   </data>
+  <data name="StringImportGpsFileOpenDialogTitle" xml:space="preserve">
+    <value>Seleccione el archivo de GPS para importar</value>
+  </data>
   <data name="StringImportUnknownFileInvalidContent" xml:space="preserve">
     <value>El contenido del archivo no es el esperado.</value>
   </data>

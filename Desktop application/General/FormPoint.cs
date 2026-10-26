@@ -156,7 +156,8 @@ public partial class FormPoint : Form
         if (_dbContext.ChangeTracker.HasChanges())
         {
             this.Cursor = Cursors.WaitCursor;
-            _punto.FechaHoraUltimaModificacion = DateTime.UtcNow;
+            _punto.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
+            _punto.FechaHoraUltimaModificacion = DateTime.UtcNow.ToLocalTime();
             try
             {
                 await _dbContext.SaveChangesAsync();
@@ -208,9 +209,9 @@ public partial class FormPoint : Form
     private void InitializeNewObjectData()
     {
         _punto.IdUsuarioCreacion = Program.Usuario.IdUsuario;
-        _punto.FechaHoraCreacion = DateTime.UtcNow;
+        _punto.FechaHoraCreacion = DateTime.UtcNow.ToLocalTime();
         _punto.IdUsuarioUltimaModificacion = Program.Usuario.IdUsuario;
-        _punto.FechaHoraUltimaModificacion = DateTime.UtcNow;
+        _punto.FechaHoraUltimaModificacion = DateTime.UtcNow.ToLocalTime();
     }
 
     private bool CompleteNewObjectData()
@@ -223,7 +224,7 @@ public partial class FormPoint : Form
         try
         {
             using Models.CSMapsContext newIdContext = new();
-            _punto.IdPunto = newIdContext.Punto.Any() ? (short)(newIdContext.Punto.Max(e => e.IdPunto) + 1) : 1;
+            _punto.IdPunto = newIdContext.Punto.Any() ? newIdContext.Punto.Max(e => e.IdPunto) + 1 : 1;
 
             return true;
         }

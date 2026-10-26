@@ -1,4 +1,5 @@
-﻿using CSMaps.Main;
+﻿using System.Globalization;
+using CSMaps.Main;
 
 namespace CSMaps.Common;
 
@@ -56,7 +57,7 @@ internal static class Forms
         {
             if (textBox.Text.Trim().Length < minimumLenght)
             {
-                MessageBox.Show(string.Format(Properties.Resources.StringTextFilterMinimumLenght, minimumLenght), Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(string.Format(CultureInfo.CurrentCulture, Properties.Resources.StringTextFilterMinimumLenght, minimumLenght), Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 textBox.Focus();
             }
             else
@@ -86,9 +87,10 @@ internal static class Forms
     {
         string message;
 
+        // Resource names are StringEntityDataVerification{FieldGender}FieldRequired{EntityGender}
         if (entityIsFemale)
         {
-            if (!fieldIsFemale)
+            if (fieldIsFemale)
             {
                 message = Properties.Resources.StringEntityDataVerificationFemaleFieldRequiredFemale;
             }
@@ -99,7 +101,7 @@ internal static class Forms
         }
         else
         {
-            if (!fieldIsFemale)
+            if (fieldIsFemale)
             {
                 message = Properties.Resources.StringEntityDataVerificationFemaleFieldRequiredMale;
             }
@@ -109,7 +111,7 @@ internal static class Forms
             }
         }
 
-        MessageBox.Show(string.Format(message, entityName, fieldName), Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        MessageBox.Show(string.Format(CultureInfo.CurrentCulture, message, entityName, fieldName), Program.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
     }
 
     #endregion

@@ -1,4 +1,4 @@
-using CSMaps.config;
+Ôªøusing CSMaps.config;
 using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
@@ -7,6 +7,8 @@ namespace CSMaps.Main;
 
 internal static class Program
 {
+    private const string SingleInstanceMutexName = @"Local\CardonerSistemas.CSMaps";
+
 #pragma warning disable S2223 // Non-constant static fields should not be visible
     // Application info
     internal static CardonerSistemas.Framework.Base.Application.Info Info = new(Assembly.GetExecutingAssembly());
@@ -37,28 +39,34 @@ internal static class Program
     {
         Cursor.Current = Cursors.AppStarting;
 
-        Application.EnableVisualStyles();
-        Application.SetCompatibleTextRenderingDefault(false);
-        Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
         ApplicationConfiguration.Initialize();
 
         Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(Constants.SyncfusionLicenseKey);
 
-        // Cargo los archivos de configuraciÛn de la aplicaciÛn
+        // Cargo los archivos de configuraci√≥n de la aplicaci√≥n
         if (!Configuration.LoadFiles())
         {
             TerminateApplication();
             return;
         }
 
-        // Muestro el SplashScreen y cambio el puntero del mouse para indicar que la aplicaciÛn est· iniciando.
+        // Verifico que no haya otra instancia de la aplicaci√≥n en ejecuci√≥n (el mutex se mantiene mientras dure Main)
+        using Mutex singleInstanceMutex = new(true, SingleInstanceMutexName, out var isFirstInstance);
+        if (GeneralConfig.SingleInstanceApplication && !isFirstInstance)
+        {
+            MessageBox.Show("La aplicaci√≥n ya se est√° ejecutando.", Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            TerminateApplication();
+            return;
+        }
+
+        // Muestro el SplashScreen y cambio el puntero del mouse para indicar que la aplicaci√≥n est√° iniciando.
         using FormSplash formSplash = new();
         formSplash.Show();
         formSplash.Cursor = Cursors.AppStarting;
-        formSplash.labelStatus.Text = "Estableciendo conexiÛn a la base de datos...";
+        formSplash.labelStatus.Text = "Estableciendo conexi√≥n a la base de datos...";
         Application.DoEvents();
 
-        // Obtengo el connection string para la conexiÛn a la base de datos
+        // Obtengo el connection string para la conexi√≥n a la base de datos
         CardonerSistemas.Framework.Database.EFCore.ConnectionStringBuilder connectionStringBuilder = new(DatabaseConfig);
         if (!connectionStringBuilder.DatasourceSelected)
         {
@@ -85,22 +93,22 @@ internal static class Program
             return;
         }
 
-        formSplash.labelStatus.Text = "Estableciendo conexiÛn a la base de datos...OK";
+        formSplash.labelStatus.Text = "Estableciendo conexi√≥n a la base de datos...OK";
         Application.DoEvents();
 
-        // Verifico que la Base de Datos corresponda a esta AplicaciÛn a travÈs del GUID guardado en los Par·metros
+        // Verifico que la Base de Datos corresponda a esta Aplicaci√≥n a trav√©s del GUID guardado en los Par√°metros
         if (Parameters.GetText(Parameters.ParametersId.ApplicationDatabaseGuid) != Constants.ApplicationDatabaseGuid)
         {
-            MessageBox.Show("La base de datos especificada en la configuraciÛn del sistema no pertenece a esta aplicaciÛn.", Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            MessageBox.Show("La base de datos especificada en la configuraci√≥n del sistema no pertenece a esta aplicaci√≥n.", Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             formSplash.Close();
             TerminateApplication();
             return;
         }
 
-        // Obtengo el nombre de la compaÒÌa licenciada y lo muestro
+        // Obtengo el nombre de la compa√±√≠a licenciada y lo muestro
         if (!CardonerSistemas.Framework.Cryptography.StringCipher.Decrypt(Parameters.GetText(Parameters.ParametersId.LicensedCompany), Constants.ApplicationLicensePassword, out LicensedCompany))
         {
-            MessageBox.Show("La informaciÛn de la licencia es incorrecta.", Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            MessageBox.Show("La informaci√≥n de la licencia es incorrecta.", Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             formSplash.Close();
             TerminateApplication();
             return;
@@ -110,7 +118,7 @@ internal static class Program
         formSplash.labelLicensedTo.Visible = true;
         Application.DoEvents();
 
-        // Tomo el tiempo de inicio para controlar los segundos mÌnimos que se debe mostrar el Splash Screen
+        // Tomo el tiempo de inicio para controlar los segundos m√≠nimos que se debe mostrar el Splash Screen
         var stopwatch = Stopwatch.StartNew();
 
         FormMdi = new() { Enabled = false };
@@ -120,12 +128,13 @@ internal static class Program
         formSplash.Focus();
         Application.DoEvents();
 
-        // Espero el tiempo mÌnimo para mostrar el Splash Screen y despuÈs lo cierro
+        // Espero el tiempo m√≠nimo para mostrar el Splash Screen y despu√©s lo cierro
         if (!CardonerSistemas.Framework.Base.Instance.IsRunningUnderIde())
         {
             while (stopwatch.Elapsed.TotalSeconds < AppearanceConfig.MinimumSplashScreenDisplaySeconds)
             {
                 Application.DoEvents();
+                Thread.Sleep(50);
             }
         }
 
@@ -133,7 +142,7 @@ internal static class Program
 
         if (CardonerSistemas.Framework.Base.Instance.IsRunningUnderIde())
         {
-            // Como se est· ejecutando dentro del IDE de Visual Studio, en lugar de pedir Usuario y contraseÒa, asumo que es el Administrador
+            // Como se est√° ejecutando dentro del IDE de Visual Studio, en lugar de pedir Usuario y contrase√±a, asumo que es el Administrador
             using Models.CSMapsContext context = new();
             try
             {
